@@ -46,7 +46,6 @@
 		F358E31B185A859900872304 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F358E319185A859900872304 /* Icon.png */; };
 		F358E31C185A859900872304 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F358E31A185A859900872304 /* Icon@2x.png */; };
 		F3E8F340185554FD00B1520F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E8F33F185554FD00B1520F /* DetailViewController.m */; };
-		F3E8F3421855731100B1520F /* left.JPG in Resources */ = {isa = PBXBuildFile; fileRef = F3E8F3411855731100B1520F /* left.JPG */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,7 +114,6 @@
 		F358E31A185A859900872304 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "images/Icon@2x.png"; sourceTree = "<group>"; };
 		F3E8F33E185554FD00B1520F /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		F3E8F33F185554FD00B1520F /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		F3E8F3411855731100B1520F /* left.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = left.JPG; path = "../../Retinal Images/fwdsampledrimages/left.JPG"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,7 +274,6 @@
 				F356909618559ECA00DBB4BE /* button_settings.png */,
 				F358E317185A834500872304 /* capture.png */,
 				F356909218559CC700DBB4BE /* button_addpatients.png */,
-				F3E8F3411855731100B1520F /* left.JPG */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -368,7 +365,6 @@
 				F358E315185A82E600872304 /* capture_back.png in Resources */,
 				F358E31C185A859900872304 /* Icon@2x.png in Resources */,
 				F356909318559CC700DBB4BE /* button_addpatients.png in Resources */,
-				F3E8F3421855731100B1520F /* left.JPG in Resources */,
 				6D2D5DCA18318D9F00A58A96 /* Main.storyboard in Resources */,
 				F345FDA91855A2C9003E448E /* title.png in Resources */,
 			);
