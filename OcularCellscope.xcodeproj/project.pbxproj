@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60418F22189B3E780001D490 /* CoreBluetooth.framework */; };
+		60418F28189B3ED60001D490 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 60418F26189B3ED60001D490 /* BLE.m */; };
+		60418F2B189BA83B0001D490 /* ImagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60418F2A189BA83B0001D490 /* ImagesViewController.m */; };
+		60418F2E189BB2ED0001D490 /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60418F2D189BB2ED0001D490 /* ImageCell.m */; };
 		6D2D5DB718318D9F00A58A96 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2D5DB618318D9F00A58A96 /* Foundation.framework */; };
 		6D2D5DB918318D9F00A58A96 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2D5DB818318D9F00A58A96 /* CoreGraphics.framework */; };
 		6D2D5DBB18318D9F00A58A96 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2D5DBA18318D9F00A58A96 /* UIKit.framework */; };
@@ -14,13 +18,35 @@
 		6D2D5DC318318D9F00A58A96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2D5DC218318D9F00A58A96 /* main.m */; };
 		6D2D5DC718318D9F00A58A96 /* CameraAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */; };
 		6D2D5DCA18318D9F00A58A96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D2D5DC818318D9F00A58A96 /* Main.storyboard */; };
-		6D2D5DCD18318D9F00A58A96 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2D5DCC18318D9F00A58A96 /* CameraViewController.m */; };
 		6D2D5DCF18318D9F00A58A96 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D2D5DCE18318D9F00A58A96 /* Images.xcassets */; };
 		6D2D5DD618318D9F00A58A96 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2D5DD518318D9F00A58A96 /* XCTest.framework */; };
 		6D2D5DD718318DA000A58A96 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2D5DB618318D9F00A58A96 /* Foundation.framework */; };
 		6D2D5DD818318DA000A58A96 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2D5DBA18318D9F00A58A96 /* UIKit.framework */; };
 		6D2D5DE018318DA000A58A96 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6D2D5DDE18318DA000A58A96 /* InfoPlist.strings */; };
 		6D2D5DE218318DA000A58A96 /* AV_Camera_AppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2D5DE118318DA000A58A96 /* AV_Camera_AppTests.m */; };
+		6D3260FE184BBD6200E34428 /* PatientsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3260FD184BBD6200E34428 /* PatientsTableViewController.m */; };
+		6D393A281831CAD0004F2EC7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D393A271831CAD0004F2EC7 /* AVFoundation.framework */; };
+		6D393A2A1831D0D2004F2EC7 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D393A291831D0D2004F2EC7 /* AssetsLibrary.framework */; };
+		6DD89D201842629600F3C7FC /* CameraModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */; };
+		6DD89D7D18426AD400F3C7FC /* CoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD89D7C18426AD400F3C7FC /* CoreDataController.m */; };
+		6DD89D7F18426AFF00F3C7FC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD89D7E18426AFF00F3C7FC /* CoreData.framework */; };
+		6DD89D8118426B0700F3C7FC /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD89D8018426B0700F3C7FC /* CoreImage.framework */; };
+		6DD89D841842743700F3C7FC /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD89D831842743700F3C7FC /* CameraViewController.m */; };
+		6DD89D871842773B00F3C7FC /* PatientInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD89D861842773B00F3C7FC /* PatientInfoViewController.m */; };
+		6DD89D8D1842862F00F3C7FC /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */; };
+		F345FDA91855A2C9003E448E /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = F345FDA81855A2C9003E448E /* title.png */; };
+		F345FDAF1855ACDD003E448E /* Patients.m in Sources */ = {isa = PBXBuildFile; fileRef = F345FDAE1855ACDD003E448E /* Patients.m */; };
+		F345FDB21855ACDD003E448E /* Images.m in Sources */ = {isa = PBXBuildFile; fileRef = F345FDB11855ACDD003E448E /* Images.m */; };
+		F356909318559CC700DBB4BE /* button_addpatients.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909218559CC700DBB4BE /* button_addpatients.png */; };
+		F356909718559ECA00DBB4BE /* button_viewpatients.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909518559ECA00DBB4BE /* button_viewpatients.png */; };
+		F356909818559ECA00DBB4BE /* button_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909618559ECA00DBB4BE /* button_settings.png */; };
+		F358E315185A82E600872304 /* capture_back.png in Resources */ = {isa = PBXBuildFile; fileRef = F358E313185A82E600872304 /* capture_back.png */; };
+		F358E316185A82E600872304 /* capture2.png in Resources */ = {isa = PBXBuildFile; fileRef = F358E314185A82E600872304 /* capture2.png */; };
+		F358E318185A834500872304 /* capture.png in Resources */ = {isa = PBXBuildFile; fileRef = F358E317185A834500872304 /* capture.png */; };
+		F358E31B185A859900872304 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F358E319185A859900872304 /* Icon.png */; };
+		F358E31C185A859900872304 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F358E31A185A859900872304 /* Icon@2x.png */; };
+		F3E8F340185554FD00B1520F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E8F33F185554FD00B1520F /* DetailViewController.m */; };
+		F3E8F3421855731100B1520F /* left.JPG in Resources */ = {isa = PBXBuildFile; fileRef = F3E8F3411855731100B1520F /* left.JPG */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +60,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		60418F22189B3E780001D490 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		60418F25189B3ED60001D490 /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
+		60418F26189B3ED60001D490 /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
+		60418F27189B3ED60001D490 /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
+		60418F29189BA83B0001D490 /* ImagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesViewController.h; sourceTree = "<group>"; };
+		60418F2A189BA83B0001D490 /* ImagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesViewController.m; sourceTree = "<group>"; };
+		60418F2C189BB2ED0001D490 /* ImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCell.h; sourceTree = "<group>"; };
+		60418F2D189BB2ED0001D490 /* ImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCell.m; sourceTree = "<group>"; };
 		6D2D5DB318318D9F00A58A96 /* AV Camera App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AV Camera App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D2D5DB618318D9F00A58A96 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6D2D5DB818318D9F00A58A96 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -45,14 +79,43 @@
 		6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraAppDelegate.h; sourceTree = "<group>"; };
 		6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraAppDelegate.m; sourceTree = "<group>"; };
 		6D2D5DC918318D9F00A58A96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6D2D5DCB18318D9F00A58A96 /* CameraViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
-		6D2D5DCC18318D9F00A58A96 /* CameraViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		6D2D5DCE18318D9F00A58A96 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6D2D5DD418318D9F00A58A96 /* AV Camera AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AV Camera AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D2D5DD518318D9F00A58A96 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6D2D5DDD18318DA000A58A96 /* AV Camera AppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AV Camera AppTests-Info.plist"; sourceTree = "<group>"; };
 		6D2D5DDF18318DA000A58A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6D2D5DE118318DA000A58A96 /* AV_Camera_AppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AV_Camera_AppTests.m; sourceTree = "<group>"; };
+		6D3260FC184BBD6200E34428 /* PatientsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientsTableViewController.h; sourceTree = "<group>"; };
+		6D3260FD184BBD6200E34428 /* PatientsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatientsTableViewController.m; sourceTree = "<group>"; };
+		6D393A271831CAD0004F2EC7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		6D393A291831D0D2004F2EC7 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		6DD89D1F1842629600F3C7FC /* CameraModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CameraModel.xcdatamodel; sourceTree = "<group>"; };
+		6DD89D7B18426AD400F3C7FC /* CoreDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataController.h; path = "AV Camera App/CoreDataController.h"; sourceTree = "<group>"; };
+		6DD89D7C18426AD400F3C7FC /* CoreDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataController.m; path = "AV Camera App/CoreDataController.m"; sourceTree = "<group>"; };
+		6DD89D7E18426AFF00F3C7FC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		6DD89D8018426B0700F3C7FC /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		6DD89D821842743700F3C7FC /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
+		6DD89D831842743700F3C7FC /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
+		6DD89D851842773B00F3C7FC /* PatientInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientInfoViewController.h; sourceTree = "<group>"; };
+		6DD89D861842773B00F3C7FC /* PatientInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatientInfoViewController.m; sourceTree = "<group>"; };
+		6DD89D8B1842862F00F3C7FC /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
+		6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
+		F345FDA81855A2C9003E448E /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = title.png; path = images/title.png; sourceTree = "<group>"; };
+		F345FDAD1855ACDD003E448E /* Patients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Patients.h; sourceTree = "<group>"; };
+		F345FDAE1855ACDD003E448E /* Patients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Patients.m; sourceTree = "<group>"; };
+		F345FDB01855ACDD003E448E /* Images.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Images.h; sourceTree = "<group>"; };
+		F345FDB11855ACDD003E448E /* Images.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Images.m; sourceTree = "<group>"; };
+		F356909218559CC700DBB4BE /* button_addpatients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_addpatients.png; path = images/button_addpatients.png; sourceTree = "<group>"; };
+		F356909518559ECA00DBB4BE /* button_viewpatients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_viewpatients.png; path = images/button_viewpatients.png; sourceTree = "<group>"; };
+		F356909618559ECA00DBB4BE /* button_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_settings.png; path = images/button_settings.png; sourceTree = "<group>"; };
+		F358E313185A82E600872304 /* capture_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = capture_back.png; path = images/capture_back.png; sourceTree = "<group>"; };
+		F358E314185A82E600872304 /* capture2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = capture2.png; path = images/capture2.png; sourceTree = "<group>"; };
+		F358E317185A834500872304 /* capture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = capture.png; path = images/capture.png; sourceTree = SOURCE_ROOT; };
+		F358E319185A859900872304 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = images/Icon.png; sourceTree = "<group>"; };
+		F358E31A185A859900872304 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "images/Icon@2x.png"; sourceTree = "<group>"; };
+		F3E8F33E185554FD00B1520F /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		F3E8F33F185554FD00B1520F /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		F3E8F3411855731100B1520F /* left.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = left.JPG; path = "../../Retinal Images/fwdsampledrimages/left.JPG"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +123,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */,
+				6DD89D8118426B0700F3C7FC /* CoreImage.framework in Frameworks */,
+				6DD89D7F18426AFF00F3C7FC /* CoreData.framework in Frameworks */,
+				6D393A2A1831D0D2004F2EC7 /* AssetsLibrary.framework in Frameworks */,
+				6D393A281831CAD0004F2EC7 /* AVFoundation.framework in Frameworks */,
 				6D2D5DB918318D9F00A58A96 /* CoreGraphics.framework in Frameworks */,
 				6D2D5DBB18318D9F00A58A96 /* UIKit.framework in Frameworks */,
 				6D2D5DB718318D9F00A58A96 /* Foundation.framework in Frameworks */,
@@ -79,9 +147,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		60418F24189B3ED50001D490 /* BLE */ = {
+			isa = PBXGroup;
+			children = (
+				60418F25189B3ED60001D490 /* BLE.h */,
+				60418F26189B3ED60001D490 /* BLE.m */,
+				60418F27189B3ED60001D490 /* BLEDefines.h */,
+			);
+			path = BLE;
+			sourceTree = "<group>";
+		};
 		6D2D5DAA18318D9E00A58A96 = {
 			isa = PBXGroup;
 			children = (
+				F356909418559CCA00DBB4BE /* Images */,
+				6DD89D211842666C00F3C7FC /* Core Data */,
 				6D2D5DBC18318D9F00A58A96 /* AV Camera App */,
 				6D2D5DDB18318DA000A58A96 /* AV Camera AppTests */,
 				6D2D5DB518318D9F00A58A96 /* Frameworks */,
@@ -101,6 +181,12 @@
 		6D2D5DB518318D9F00A58A96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				60418F24189B3ED50001D490 /* BLE */,
+				60418F22189B3E780001D490 /* CoreBluetooth.framework */,
+				6DD89D8018426B0700F3C7FC /* CoreImage.framework */,
+				6DD89D7E18426AFF00F3C7FC /* CoreData.framework */,
+				6D393A291831D0D2004F2EC7 /* AssetsLibrary.framework */,
+				6D393A271831CAD0004F2EC7 /* AVFoundation.framework */,
 				6D2D5DB618318D9F00A58A96 /* Foundation.framework */,
 				6D2D5DB818318D9F00A58A96 /* CoreGraphics.framework */,
 				6D2D5DBA18318D9F00A58A96 /* UIKit.framework */,
@@ -112,11 +198,23 @@
 		6D2D5DBC18318D9F00A58A96 /* AV Camera App */ = {
 			isa = PBXGroup;
 			children = (
+				6D2D5DC818318D9F00A58A96 /* Main.storyboard */,
+				60418F2C189BB2ED0001D490 /* ImageCell.h */,
+				60418F2D189BB2ED0001D490 /* ImageCell.m */,
 				6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */,
 				6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */,
-				6D2D5DC818318D9F00A58A96 /* Main.storyboard */,
-				6D2D5DCB18318D9F00A58A96 /* CameraViewController.h */,
-				6D2D5DCC18318D9F00A58A96 /* CameraViewController.m */,
+				6DD89D8B1842862F00F3C7FC /* MainMenuViewController.h */,
+				6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */,
+				6DD89D851842773B00F3C7FC /* PatientInfoViewController.h */,
+				6DD89D861842773B00F3C7FC /* PatientInfoViewController.m */,
+				6DD89D821842743700F3C7FC /* CameraViewController.h */,
+				6DD89D831842743700F3C7FC /* CameraViewController.m */,
+				60418F29189BA83B0001D490 /* ImagesViewController.h */,
+				60418F2A189BA83B0001D490 /* ImagesViewController.m */,
+				6D3260FC184BBD6200E34428 /* PatientsTableViewController.h */,
+				6D3260FD184BBD6200E34428 /* PatientsTableViewController.m */,
+				F3E8F33E185554FD00B1520F /* DetailViewController.h */,
+				F3E8F33F185554FD00B1520F /* DetailViewController.m */,
 				6D2D5DCE18318D9F00A58A96 /* Images.xcassets */,
 				6D2D5DBD18318D9F00A58A96 /* Supporting Files */,
 			);
@@ -150,6 +248,37 @@
 				6D2D5DDE18318DA000A58A96 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6DD89D211842666C00F3C7FC /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */,
+				F345FDB01855ACDD003E448E /* Images.h */,
+				F345FDB11855ACDD003E448E /* Images.m */,
+				F345FDAD1855ACDD003E448E /* Patients.h */,
+				F345FDAE1855ACDD003E448E /* Patients.m */,
+				6DD89D7B18426AD400F3C7FC /* CoreDataController.h */,
+				6DD89D7C18426AD400F3C7FC /* CoreDataController.m */,
+			);
+			name = "Core Data";
+			sourceTree = "<group>";
+		};
+		F356909418559CCA00DBB4BE /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				F358E319185A859900872304 /* Icon.png */,
+				F358E31A185A859900872304 /* Icon@2x.png */,
+				F358E313185A82E600872304 /* capture_back.png */,
+				F358E314185A82E600872304 /* capture2.png */,
+				F345FDA81855A2C9003E448E /* title.png */,
+				F356909518559ECA00DBB4BE /* button_viewpatients.png */,
+				F356909618559ECA00DBB4BE /* button_settings.png */,
+				F358E317185A834500872304 /* capture.png */,
+				F356909218559CC700DBB4BE /* button_addpatients.png */,
+				F3E8F3411855731100B1520F /* left.JPG */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,7 +334,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6D2D5DAE18318D9F00A58A96 /* Build configuration list for PBXProject "AV Camera App" */;
+			buildConfigurationList = 6D2D5DAE18318D9F00A58A96 /* Build configuration list for PBXProject "OcularCellscope" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -230,8 +359,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D2D5DCF18318D9F00A58A96 /* Images.xcassets in Resources */,
+				F358E316185A82E600872304 /* capture2.png in Resources */,
+				F356909718559ECA00DBB4BE /* button_viewpatients.png in Resources */,
+				F356909818559ECA00DBB4BE /* button_settings.png in Resources */,
 				6D2D5DC118318D9F00A58A96 /* InfoPlist.strings in Resources */,
+				F358E318185A834500872304 /* capture.png in Resources */,
+				F358E31B185A859900872304 /* Icon.png in Resources */,
+				F358E315185A82E600872304 /* capture_back.png in Resources */,
+				F358E31C185A859900872304 /* Icon@2x.png in Resources */,
+				F356909318559CC700DBB4BE /* button_addpatients.png in Resources */,
+				F3E8F3421855731100B1520F /* left.JPG in Resources */,
 				6D2D5DCA18318D9F00A58A96 /* Main.storyboard in Resources */,
+				F345FDA91855A2C9003E448E /* title.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,9 +389,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D2D5DCD18318D9F00A58A96 /* CameraViewController.m in Sources */,
+				F345FDB21855ACDD003E448E /* Images.m in Sources */,
 				6D2D5DC318318D9F00A58A96 /* main.m in Sources */,
 				6D2D5DC718318D9F00A58A96 /* CameraAppDelegate.m in Sources */,
+				60418F2E189BB2ED0001D490 /* ImageCell.m in Sources */,
+				60418F28189B3ED60001D490 /* BLE.m in Sources */,
+				6DD89D8D1842862F00F3C7FC /* MainMenuViewController.m in Sources */,
+				F345FDAF1855ACDD003E448E /* Patients.m in Sources */,
+				60418F2B189BA83B0001D490 /* ImagesViewController.m in Sources */,
+				6DD89D201842629600F3C7FC /* CameraModel.xcdatamodeld in Sources */,
+				6D3260FE184BBD6200E34428 /* PatientsTableViewController.m in Sources */,
+				F3E8F340185554FD00B1520F /* DetailViewController.m in Sources */,
+				6DD89D7D18426AD400F3C7FC /* CoreDataController.m in Sources */,
+				6DD89D841842743700F3C7FC /* CameraViewController.m in Sources */,
+				6DD89D871842773B00F3C7FC /* PatientInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,10 +529,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AV Camera App/AV Camera App-Prefix.pch";
 				INFOPLIST_FILE = "AV Camera App/AV Camera App-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -392,10 +547,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AV Camera App/AV Camera App-Prefix.pch";
 				INFOPLIST_FILE = "AV Camera App/AV Camera App-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -445,7 +605,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6D2D5DAE18318D9F00A58A96 /* Build configuration list for PBXProject "AV Camera App" */ = {
+		6D2D5DAE18318D9F00A58A96 /* Build configuration list for PBXProject "OcularCellscope" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6D2D5DE318318DA000A58A96 /* Debug */,
@@ -461,6 +621,7 @@
 				6D2D5DE718318DA000A58A96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6D2D5DE818318DA000A58A96 /* Build configuration list for PBXNativeTarget "AV Camera AppTests" */ = {
 			isa = XCConfigurationList;
@@ -469,8 +630,22 @@
 				6D2D5DEA18318DA000A58A96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6DD89D1F1842629600F3C7FC /* CameraModel.xcdatamodel */,
+			);
+			currentVersion = 6DD89D1F1842629600F3C7FC /* CameraModel.xcdatamodel */;
+			path = CameraModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6D2D5DAB18318D9F00A58A96 /* Project object */;
 }

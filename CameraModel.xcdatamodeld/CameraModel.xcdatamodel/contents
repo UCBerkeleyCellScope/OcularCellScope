@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="12E3200" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Images" representedClassName="Images" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="drName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="eyeLocation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="filepath" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="patient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Patients" inverseName="patientImages" inverseEntity="Patients" syncable="YES"/>
+    </entity>
+    <entity name="Patients" representedClassName="Patients" syncable="YES">
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="patientID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="patientName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="patientImages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Images" inverseName="patient" inverseEntity="Images" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Images" positionX="556" positionY="90" width="128" height="118"/>
+        <element name="Patients" positionX="234" positionY="90" width="128" height="133"/>
+    </elements>
+</model>
