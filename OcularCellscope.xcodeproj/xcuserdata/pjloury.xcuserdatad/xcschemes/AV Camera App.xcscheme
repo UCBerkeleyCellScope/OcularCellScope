@@ -45,7 +45,7 @@
             BlueprintIdentifier = "6D2D5DB218318D9F00A58A96"
             BuildableName = "AV Camera App.app"
             BlueprintName = "AV Camera App"
-            ReferencedContainer = "container:AV Camera App.xcodeproj">
+            ReferencedContainer = "container:OcularCellscope.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "6D2D5DB218318D9F00A58A96"
             BuildableName = "AV Camera App.app"
             BlueprintName = "AV Camera App"
-            ReferencedContainer = "container:AV Camera App.xcodeproj">
+            ReferencedContainer = "container:OcularCellscope.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>

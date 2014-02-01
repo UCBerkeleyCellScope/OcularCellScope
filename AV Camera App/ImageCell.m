@@ -12,6 +12,8 @@
 @property(nonatomic,weak) IBOutlet UIImageView *photoImageView;
 @end
 
+//Will this make a difference?
+
 @implementation ImageCell
 
 - (void) setAsset:(ALAsset *)asset
