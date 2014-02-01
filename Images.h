@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 NAYA LOUMOU. All rights reserved.
 //
 
+//BITCH YOU AIN'T SPECIAL
+
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
