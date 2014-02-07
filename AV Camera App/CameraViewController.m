@@ -8,6 +8,7 @@
 
 #import "CameraViewController.h"
 #import "ImagesViewController.h"
+#import "BNRImageStore.h"
 #import <ImageIO/ImageIO.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Foundation/Foundation.h>
@@ -409,7 +410,7 @@ int location;
 
 - (IBAction)snap {
     
-    AVCaptureConnection *videoConnection = nil;
+    AVCaptureConnection *videoConnection = nil; //connection between capture input and capture output
 	for (AVCaptureConnection *connection in stillOutput.connections)
 	{
 		for (AVCaptureInputPort *port in [connection inputPorts])
@@ -425,9 +426,7 @@ int location;
     
 	NSLog(@"about to request a capture from: %@", stillOutput);
     
-    [self flashOn];
-    
-  
+    [self flashOn]; //let's turn on the flash
     
     [NSTimer scheduledTimerWithTimeInterval:(float)1.0 target:self selector:@selector(flashTimer:) userInfo:nil repeats:NO];
     
@@ -437,8 +436,63 @@ int location;
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
          UIImage *image = [[UIImage alloc] initWithData:imageData];
          // Request to save the image to camera roll
+         
+         //We have both NSData and UIImage objects at our disposal
+         
+         //PReviously Used insertNewObjectForEntityForName
+         
+         
          ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
          
+         
+         CFUUIDRef newUniqueID = CFUUIDCreate(kCFAllocatorDefault);
+         
+         CFStringRef newUniqueIDString = CFUUIDCreateString(kCFAllocatorDefault, newUniqueID);
+         
+         NSString *key = (__bridge NSString *) newUniqueIDString;
+         [item setImageKey:key];
+         
+         [[BNRImageStore sharedStore] setImage:image
+                                        forKey:[item imageKey]];
+         
+         CFRelease(newUniqueIDString);
+         CFRelease(newUniqueID);
+
+         
+         
+         //writeImageToSavedPhotosAlbum NO WE WANT TO SANDBOX IT INSTEAD
+         [library writeImageToSavedPhotosAlbum:image.CGImage orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+             if (error) {
+                 NSLog(@"Error writing image to photo album");
+             }
+             else {
+                 NSString *myString = [assetURL absoluteString];
+                 NSString *myPath = [assetURL path];
+                 NSLog(@"%@", myString);
+                 NSLog(@"%@", myPath);
+                 
+                 Image* newImage = (Image*)[NSEntityDescription insertNewObjectForEntityForName:@"Images" inManagedObjectContext:self.managedObjectContext];
+                 newImage.filepath = assetURL.absoluteString;
+                 if (location==1){
+                     newImage.eyeLocation = @"right"; //TODO: handle multiple fields
+                     NSLog(@"Location is: %u", location);
+                 }
+                 else if (location== 2){
+                     newImage.eyeLocation = @"left"; //TODO: handle multiple fields
+                     NSLog(@"Location is: %u", location);
+                 }
+                 newImage.drName = self.currentImage.drName;
+                 newImage.date = [NSDate date];
+                 newImage.patient = self.currentPatient;
+                 
+                 //newImage.patient = self.currentPatient.patientID;
+                 
+             } //end of else
+         }]; //end of writeImageToSavedPhotosAlbum
+
+         
+         /*
+         //writeImageToSavedPhotosAlbum NO WE WANT TO SANDBOX IT INSTEAD
          [library writeImageToSavedPhotosAlbum:image.CGImage orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
              if (error) {
                  NSLog(@"Error writing image to photo album");
@@ -465,9 +519,11 @@ int location;
                  
                  //newImage.patient = self.currentPatient.patientID;
                  
-             }
-         }];
-     }];
+             } //end of else
+         }]; //end of writeImageToSavedPhotosAlbum
+         */
+         
+     }]; //end of captureStillImage
     
 }
 

@@ -9,14 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Patients;
+@class Patient;
 
-@interface Images : NSManagedObject
+@interface Image : NSManagedObject
 
 @property (nonatomic, retain) NSDate * date;
 @property (nonatomic, retain) NSString * drName;
 @property (nonatomic, retain) NSString * eyeLocation;
 @property (nonatomic, retain) NSString * filepath;
-@property (nonatomic, retain) Patients *patient;
+@property (nonatomic, retain) Patient *patient;
+
+@property (nonatomic, copy) NSString *imageKey;
 
 @end

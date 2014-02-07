@@ -6,16 +6,18 @@
 //  Copyright (c) 2013 NAYA LOUMOU. All rights reserved.
 //
 
-#import "Images.h"
-#import "Patients.h"
+#import "Image.h"
+#import "Patient.h"
 
 
-@implementation Images
+@implementation Image //Note that Images should actually be Image
 
 @dynamic date;
 @dynamic drName;
 @dynamic eyeLocation;
 @dynamic filepath;
 @dynamic patient;
+
+@synthesize imageKey;
 
 @end

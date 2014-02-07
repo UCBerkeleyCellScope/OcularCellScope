@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 NAYA LOUMOU. All rights reserved.
 //
 
-#import "Patients.h"
-#import "Images.h"
+#import "Patient.h"
+#import "Image.h"
 
 
-@implementation Patients
+@implementation Patient
 
 @dynamic patientID;
 @dynamic patientName;

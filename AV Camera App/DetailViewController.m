@@ -40,7 +40,7 @@
     
     
     
-    Images *im = [images anyObject];
+    Image *im = [images anyObject];
     
     if(im.filepath!=NULL){
         

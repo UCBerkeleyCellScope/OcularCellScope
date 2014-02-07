@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		601ABF5618A4E0760051F32A /* BNRImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 601ABF5518A4E0750051F32A /* BNRImageStore.m */; };
 		60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60418F22189B3E780001D490 /* CoreBluetooth.framework */; };
 		60418F28189B3ED60001D490 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 60418F26189B3ED60001D490 /* BLE.m */; };
 		60418F2B189BA83B0001D490 /* ImagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60418F2A189BA83B0001D490 /* ImagesViewController.m */; };
@@ -35,8 +36,8 @@
 		6DD89D871842773B00F3C7FC /* PatientInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD89D861842773B00F3C7FC /* PatientInfoViewController.m */; };
 		6DD89D8D1842862F00F3C7FC /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */; };
 		F345FDA91855A2C9003E448E /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = F345FDA81855A2C9003E448E /* title.png */; };
-		F345FDAF1855ACDD003E448E /* Patients.m in Sources */ = {isa = PBXBuildFile; fileRef = F345FDAE1855ACDD003E448E /* Patients.m */; };
-		F345FDB21855ACDD003E448E /* Images.m in Sources */ = {isa = PBXBuildFile; fileRef = F345FDB11855ACDD003E448E /* Images.m */; };
+		F345FDAF1855ACDD003E448E /* Patient.m in Sources */ = {isa = PBXBuildFile; fileRef = F345FDAE1855ACDD003E448E /* Patient.m */; };
+		F345FDB21855ACDD003E448E /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = F345FDB11855ACDD003E448E /* Image.m */; };
 		F356909318559CC700DBB4BE /* button_addpatients.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909218559CC700DBB4BE /* button_addpatients.png */; };
 		F356909718559ECA00DBB4BE /* button_viewpatients.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909518559ECA00DBB4BE /* button_viewpatients.png */; };
 		F356909818559ECA00DBB4BE /* button_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909618559ECA00DBB4BE /* button_settings.png */; };
@@ -60,6 +61,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		601ABF5418A4E0750051F32A /* BNRImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRImageStore.h; sourceTree = "<group>"; };
+		601ABF5518A4E0750051F32A /* BNRImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRImageStore.m; sourceTree = "<group>"; };
 		60418F22189B3E780001D490 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		60418F25189B3ED60001D490 /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
 		60418F26189B3ED60001D490 /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
@@ -101,10 +104,10 @@
 		6DD89D8B1842862F00F3C7FC /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
 		F345FDA81855A2C9003E448E /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = title.png; path = images/title.png; sourceTree = "<group>"; };
-		F345FDAD1855ACDD003E448E /* Patients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Patients.h; sourceTree = "<group>"; };
-		F345FDAE1855ACDD003E448E /* Patients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Patients.m; sourceTree = "<group>"; };
-		F345FDB01855ACDD003E448E /* Images.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Images.h; sourceTree = "<group>"; };
-		F345FDB11855ACDD003E448E /* Images.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Images.m; sourceTree = "<group>"; };
+		F345FDAD1855ACDD003E448E /* Patient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Patient.h; sourceTree = "<group>"; };
+		F345FDAE1855ACDD003E448E /* Patient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Patient.m; sourceTree = "<group>"; };
+		F345FDB01855ACDD003E448E /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		F345FDB11855ACDD003E448E /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
 		F356909218559CC700DBB4BE /* button_addpatients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_addpatients.png; path = images/button_addpatients.png; sourceTree = "<group>"; };
 		F356909518559ECA00DBB4BE /* button_viewpatients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_viewpatients.png; path = images/button_viewpatients.png; sourceTree = "<group>"; };
 		F356909618559ECA00DBB4BE /* button_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_settings.png; path = images/button_settings.png; sourceTree = "<group>"; };
@@ -203,6 +206,8 @@
 				60418F2D189BB2ED0001D490 /* ImageCell.m */,
 				6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */,
 				6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */,
+				601ABF5418A4E0750051F32A /* BNRImageStore.h */,
+				601ABF5518A4E0750051F32A /* BNRImageStore.m */,
 				6DD89D8B1842862F00F3C7FC /* MainMenuViewController.h */,
 				6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */,
 				6DD89D851842773B00F3C7FC /* PatientInfoViewController.h */,
@@ -254,10 +259,10 @@
 			isa = PBXGroup;
 			children = (
 				6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */,
-				F345FDB01855ACDD003E448E /* Images.h */,
-				F345FDB11855ACDD003E448E /* Images.m */,
-				F345FDAD1855ACDD003E448E /* Patients.h */,
-				F345FDAE1855ACDD003E448E /* Patients.m */,
+				F345FDB01855ACDD003E448E /* Image.h */,
+				F345FDB11855ACDD003E448E /* Image.m */,
+				F345FDAD1855ACDD003E448E /* Patient.h */,
+				F345FDAE1855ACDD003E448E /* Patient.m */,
 				6DD89D7B18426AD400F3C7FC /* CoreDataController.h */,
 				6DD89D7C18426AD400F3C7FC /* CoreDataController.m */,
 			);
@@ -389,13 +394,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F345FDB21855ACDD003E448E /* Images.m in Sources */,
+				F345FDB21855ACDD003E448E /* Image.m in Sources */,
 				6D2D5DC318318D9F00A58A96 /* main.m in Sources */,
 				6D2D5DC718318D9F00A58A96 /* CameraAppDelegate.m in Sources */,
 				60418F2E189BB2ED0001D490 /* ImageCell.m in Sources */,
 				60418F28189B3ED60001D490 /* BLE.m in Sources */,
+				601ABF5618A4E0760051F32A /* BNRImageStore.m in Sources */,
 				6DD89D8D1842862F00F3C7FC /* MainMenuViewController.m in Sources */,
-				F345FDAF1855ACDD003E448E /* Patients.m in Sources */,
+				F345FDAF1855ACDD003E448E /* Patient.m in Sources */,
 				60418F2B189BA83B0001D490 /* ImagesViewController.m in Sources */,
 				6DD89D201842629600F3C7FC /* CameraModel.xcdatamodeld in Sources */,
 				6D3260FE184BBD6200E34428 /* PatientsTableViewController.m in Sources */,

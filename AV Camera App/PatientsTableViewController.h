@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Patients.h"
-#import "Images.h"
+#import "Patient.h"
+#import "Image.h"
 
 
 @interface PatientsTableViewController : UITableViewController
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) Patients* currentPatient;
+@property (strong, nonatomic) Patient* currentPatient;
 
 @property (nonatomic, strong) NSMutableArray *patientsArray;
 

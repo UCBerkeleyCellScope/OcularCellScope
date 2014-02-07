@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
-#import "Patients.h"
-#import "Images.h"
+#import "Patient.h"
+#import "Image.h"
 #import "BLE.h"
 
 @interface CameraViewController : UIViewController<BLEDelegate>
@@ -51,8 +51,8 @@
 
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) Patients* currentPatient;
-@property (strong, nonatomic) Images* currentImage;
+@property (strong, nonatomic) Patient* currentPatient;
+@property (strong, nonatomic) Image* currentImage;
 
 @property (strong, nonatomic) BLE *ble;
 

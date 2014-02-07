@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Images;
+@class Image;
 
-@interface Patients : NSManagedObject
+@interface Patient : NSManagedObject
 
 @property (nonatomic, retain) NSString * patientID;
 @property (nonatomic, retain) NSString * patientName;
@@ -21,10 +21,10 @@
 @property (nonatomic, retain) NSSet *patientImages;
 @end
 
-@interface Patients (CoreDataGeneratedAccessors)
+@interface Patient (CoreDataGeneratedAccessors)
 
-- (void)addPatientImagesObject:(Images *)value;
-- (void)removePatientImagesObject:(Images *)value;
+- (void)addPatientImagesObject:(Image *)value;
+- (void)removePatientImagesObject:(Image *)value;
 - (void)addPatientImages:(NSSet *)values;
 - (void)removePatientImages:(NSSet *)values;
 
