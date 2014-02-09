@@ -7,11 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Patient.h"
 
 @interface ImagesViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 {
-
+    
+    
+    
+    
 }
+@property (strong, nonatomic) NSMutableArray *allImages;
+
+@property (strong, nonatomic) NSMutableArray *allPatients;
+
+@property (weak, nonatomic) IBOutlet UIImageView *cellImage;
+
+@property (strong, nonatomic) Patient* patientToDisplay;
+
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 
 @end

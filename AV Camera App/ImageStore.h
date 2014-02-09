@@ -1,5 +1,5 @@
 //
-//  BNRImageStore.h
+//  ImageStore.h
 //  Homepwner
 //
 //  Created by PJ Loury on 1/5/14.
@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BNRImageStore : NSObject
+@interface ImageStore : NSObject
 
 {
     NSMutableDictionary *dictionary;
     
 }
-+(BNRImageStore *) sharedStore;
++(ImageStore *) sharedStore;
 
 -(void) setImage: (UIImage *) i forKey: (NSString *)s;
 -(UIImage *) imageForKey: (NSString *) s;

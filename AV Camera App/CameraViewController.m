@@ -8,11 +8,11 @@
 
 #import "CameraViewController.h"
 #import "ImagesViewController.h"
-#import "BNRImageStore.h"
+#import "Image.h"
 #import <ImageIO/ImageIO.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Foundation/Foundation.h>
-
+#import "UIImage+Resize.h"
 
 @interface CameraViewController ()
 @end
@@ -20,6 +20,7 @@
 @implementation CameraViewController
 
 @synthesize ble;
+@synthesize managedObjectContext= _managedObjectContext;
 
 //@synthesize bleConnect;
 
@@ -31,6 +32,11 @@
 @synthesize input;
 @synthesize videoPreviewOutput, videoHDOutput, stillOutput;
 @synthesize captureVideoPreviewLayer;
+
+@synthesize currentPatient;
+//There is no use for the CamerViewController to have an Image object!!
+
+
 dispatch_queue_t backgroundQueue;
 
 //@TODO- Hacky
@@ -408,6 +414,11 @@ int location;
     [ble write:data];
 }
 
+
+
+
+//This could be async potentially
+
 - (IBAction)snap {
     
     AVCaptureConnection *videoConnection = nil; //connection between capture input and capture output
@@ -433,96 +444,111 @@ int location;
     
 	[stillOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
      {
+         
+         
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
          UIImage *image = [[UIImage alloc] initWithData:imageData];
+         
+         
+         
+    void (^doneSavingInAssetLibrary)(NSURL*,NSError*) =
+         ^(NSURL* assetURL, NSError* error)
+         {
+             if (error) {
+                 NSLog(@"Error writing video/image to photo album");
+             }
+             else {
+                 NSLog(@"did save video/image");
+                 
+                 
+                 UIImage* thumbnail = [image thumbnailImage: 10.0
+                                          transparentBorder: 1.0
+                                               cornerRadius: 10.0
+                                       interpolationQuality: kCGInterpolationDefault];
+                 
+                 
+                 
+                 Image *newImage = (Image *)[NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext: self.managedObjectContext];
+                 
+                 newImage.filePath = assetURL.absoluteString;
+                 
+                 newImage.thumbnail = UIImagePNGRepresentation(thumbnail);
+                 
+                 if (location==1){
+                     newImage.eyeLocation = @"right"; //TODO: handle multiple fields
+                     NSLog(@"Location is: %u", location);
+                 }
+                 else if (location== 2){
+                     newImage.eyeLocation = @"left"; //TODO: handle multiple fields
+                     NSLog(@"Location is: %u", location);
+                 }
+                 newImage.drName = self.currentImage.drName;
+                 newImage.date = [NSDate date];
+                 newImage.patient = self.currentPatient;
+
+                 
+                 
+             }
+         };
+         
+         
+         
          // Request to save the image to camera roll
-         
          //We have both NSData and UIImage objects at our disposal
-         
          //PReviously Used insertNewObjectForEntityForName
          
          
          ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
          
-         
+         /*
          CFUUIDRef newUniqueID = CFUUIDCreate(kCFAllocatorDefault);
-         
          CFStringRef newUniqueIDString = CFUUIDCreateString(kCFAllocatorDefault, newUniqueID);
-         
          NSString *key = (__bridge NSString *) newUniqueIDString;
-         [item setImageKey:key];
          
-         [[BNRImageStore sharedStore] setImage:image
-                                        forKey:[item imageKey]];
          
+         // imageKeys = [[NSMutableArray alloc] init];
+         //no initialization required?
+         
+         
+         // IF imageKeys CONTAINS oldKey, then delete
+         //ImageStore sharedStore deleteImageForKey: key;
+         //[[currentPatient imageKeys]   addObject: key ];
+         //We no longer have only 1 image per patient, therefore not just 1 key per item.
+         [[ImageStore sharedStore] setImage:image forKey: key ];
+         //For Now we can stick all of the items in to the same ImageStore
+         //But later we should consider adding images to sets and then adding these sets to the store
          CFRelease(newUniqueIDString);
          CFRelease(newUniqueID);
-
-         
-         
-         //writeImageToSavedPhotosAlbum NO WE WANT TO SANDBOX IT INSTEAD
-         [library writeImageToSavedPhotosAlbum:image.CGImage orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
-             if (error) {
-                 NSLog(@"Error writing image to photo album");
-             }
-             else {
-                 NSString *myString = [assetURL absoluteString];
-                 NSString *myPath = [assetURL path];
-                 NSLog(@"%@", myString);
-                 NSLog(@"%@", myPath);
-                 
-                 Image* newImage = (Image*)[NSEntityDescription insertNewObjectForEntityForName:@"Images" inManagedObjectContext:self.managedObjectContext];
-                 newImage.filepath = assetURL.absoluteString;
-                 if (location==1){
-                     newImage.eyeLocation = @"right"; //TODO: handle multiple fields
-                     NSLog(@"Location is: %u", location);
-                 }
-                 else if (location== 2){
-                     newImage.eyeLocation = @"left"; //TODO: handle multiple fields
-                     NSLog(@"Location is: %u", location);
-                 }
-                 newImage.drName = self.currentImage.drName;
-                 newImage.date = [NSDate date];
-                 newImage.patient = self.currentPatient;
-                 
-                 //newImage.patient = self.currentPatient.patientID;
-                 
-             } //end of else
-         }]; //end of writeImageToSavedPhotosAlbum
-
-         
-         /*
-         //writeImageToSavedPhotosAlbum NO WE WANT TO SANDBOX IT INSTEAD
-         [library writeImageToSavedPhotosAlbum:image.CGImage orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
-             if (error) {
-                 NSLog(@"Error writing image to photo album");
-             }
-             else {
-                 NSString *myString = [assetURL absoluteString];
-                 NSString *myPath = [assetURL path];
-                 NSLog(@"%@", myString);
-                 NSLog(@"%@", myPath);
-                 
-                 Images* newImage = (Images*)[NSEntityDescription insertNewObjectForEntityForName:@"Images" inManagedObjectContext:self.managedObjectContext];
-                 newImage.filepath = assetURL.absoluteString;
-                 if (location==1){
-                     newImage.eyeLocation = @"right"; //TODO: handle multiple fields
-                     NSLog(@"Location is: %u", location);
-                 }
-                 else if (location== 2){
-                     newImage.eyeLocation = @"left"; //TODO: handle multiple fields
-                     NSLog(@"Location is: %u", location);
-                 }
-                 newImage.drName = self.currentImage.drName;
-                 newImage.date = [NSDate date];
-                 newImage.patient = self.currentPatient;
-                 
-                 //newImage.patient = self.currentPatient.patientID;
-                 
-             } //end of else
-         }]; //end of writeImageToSavedPhotosAlbum
          */
+
          
+         //writeImageToSavedPhotosAlbum NO WE WANT TO SANDBOX IT INSTEAD
+         [library writeImageToSavedPhotosAlbum:image.CGImage orientation:(ALAssetOrientation)[image imageOrientation] completionBlock: doneSavingInAssetLibrary
+          
+          
+          /*
+          ^(NSURL *assetURL, NSError *error){
+             //This code gets executed after saving
+             if (error) {
+                 NSLog(@"Error writing image to photo album");
+             }
+             else {
+                 NSString *myString = [assetURL absoluteString];
+                 NSString *myPath = [assetURL path];
+                 NSLog(@"%@", myString);
+                 NSLog(@"%@", myPath);
+           
+                 
+                 
+                 //Re-enable next button
+                 
+                 //newImage.patient = self.currentPatient.patientID;
+                 
+             } //end of else
+            */
+           
+         ]; //end of writeImageToSavedPhotosAlbum
+
      }]; //end of captureStillImage
     
 }
@@ -650,17 +676,18 @@ int location;
 }
 
 
-/*
+
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     ImagesViewController* imvc = (ImagesViewController*)[segue destinationViewController];
-//    levc.managedObjectContext = self.managedObjectContext;
-//    levc.currentPatient = self.currentPatient;
-//    levc.currentImage = self.currentImage;
+    imvc.managedObjectContext = self.managedObjectContext;
+    imvc.patientToDisplay = self.currentPatient;
+    
+    
 }
 
 
-*/
+
 
 @end

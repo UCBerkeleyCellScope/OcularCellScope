@@ -427,6 +427,7 @@
                                 </view>
                                 <size key="customSize" width="104" height="104"/>
                                 <connections>
+                                    <outlet property="imageView" destination="cHH-Yj-C55" id="lUx-JN-GJJ"/>
                                     <outlet property="photoImageView" destination="cHH-Yj-C55" id="6eK-6b-nq0"/>
                                 </connections>
                             </collectionViewCell>
@@ -438,6 +439,7 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="fCD-x0-Lq2"/>
                     <connections>
+                        <outlet property="cellImage" destination="cHH-Yj-C55" id="4P4-PH-KdH"/>
                         <outlet property="collectionView" destination="7OH-Rr-Z8T" id="U4m-PS-3Tu"/>
                     </connections>
                 </collectionViewController>

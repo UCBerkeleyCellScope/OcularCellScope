@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Exam" syncable="YES"/>
     <entity name="Image" representedClassName="Image" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="drName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eyeLocation" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="filepath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="filePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
         <relationship name="patient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Patient" inverseName="patientImages" inverseEntity="Patient" syncable="YES"/>
     </entity>
     <entity name="Patient" representedClassName="Patient" syncable="YES">
@@ -14,11 +14,10 @@
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="patientID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="patientName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="patientImages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Image" inverseName="patient" inverseEntity="Image" syncable="YES"/>
+        <relationship name="patientImages" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Image" inverseName="patient" inverseEntity="Image" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Exam" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Image" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Patient" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Image" positionX="0" positionY="0" width="128" height="133"/>
+        <element name="Patient" positionX="-387" positionY="-126" width="128" height="133"/>
     </elements>
 </model>

@@ -1,9 +1,9 @@
 //
-//  Patients.m
-//  AV Camera App
+//  Patient.m
+//  OcularCellscope
 //
-//  Created by Chris Echanique on 12/8/13.
-//  Copyright (c) 2013 NAYA LOUMOU. All rights reserved.
+//  Created by PJ Loury on 2/8/14.
+//  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
 #import "Patient.h"
@@ -12,11 +12,11 @@
 
 @implementation Patient
 
-@dynamic patientID;
-@dynamic patientName;
 @dynamic firstName;
 @dynamic lastName;
 @dynamic notes;
+@dynamic patientID;
+@dynamic patientName;
 @dynamic patientImages;
 
 @end

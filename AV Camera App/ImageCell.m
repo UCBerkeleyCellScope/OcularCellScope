@@ -16,6 +16,10 @@
 
 @implementation ImageCell
 
+@synthesize imageView;
+
+
+/*
 - (void) setAsset:(ALAsset *)asset
 {
     // 2
@@ -23,6 +27,7 @@
     self.photoImageView.image = [UIImage imageWithCGImage:[asset thumbnail]];
 }
 
+ 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -31,6 +36,8 @@
     }
     return self;
 }
+*/
+ 
 
 /*
 // Only override drawRect: if you perform custom drawing.

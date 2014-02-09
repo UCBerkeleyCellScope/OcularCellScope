@@ -1,9 +1,9 @@
 //
-//  Images.h
-//  AV Camera App
+//  Image.h
+//  OcularCellscope
 //
-//  Created by Chris Echanique on 12/8/13.
-//  Copyright (c) 2013 NAYA LOUMOU. All rights reserved.
+//  Created by PJ Loury on 2/8/14.
+//  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -16,9 +16,8 @@
 @property (nonatomic, retain) NSDate * date;
 @property (nonatomic, retain) NSString * drName;
 @property (nonatomic, retain) NSString * eyeLocation;
-@property (nonatomic, retain) NSString * filepath;
+@property (nonatomic, retain) NSString * filePath;
+@property (nonatomic, retain) NSData * thumbnail;
 @property (nonatomic, retain) Patient *patient;
-
-@property (nonatomic, copy) NSString *imageKey;
 
 @end

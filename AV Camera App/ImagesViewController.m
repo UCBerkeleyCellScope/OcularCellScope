@@ -8,6 +8,7 @@
 
 #import "ImagesViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "CoreDataController.h"
 
 #import "ImageCell.h"
 
@@ -19,6 +20,10 @@
 
 @implementation ImagesViewController
 
+@synthesize allImages, allPatients;
+
+//From old example code
+/*
 + (ALAssetsLibrary *)defaultAssetsLibrary
 {
     static dispatch_once_t pred = 0;
@@ -48,6 +53,8 @@ void (^enumerate)(ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop)
     
 };
 
+*/
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,6 +70,19 @@ void (^enumerate)(ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop)
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    self.allPatients = [CoreDataController getObjectsForEntity:@"Image" withSortKey:@"date" andSortAscending:NO
+                                                  andContext: self.managedObjectContext ];
+                      
+                      
+                      
+    //Frankie would do this, because he had a CellScopeContext singleton, that contained a managedObjectContext
+    //andContext:[[CellScopeContext sharedContext] managedObjectContext]];
+    
+    //  Force table refresh
+    [self.collectionView reloadData];
+    
+    
+    /*
     _assets = [@[] mutableCopy];
     __block NSMutableArray *tmpAssets = [@[] mutableCopy];
     // 1
@@ -87,6 +107,8 @@ void (^enumerate)(ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop)
     } failureBlock:^(NSError *error) {
         NSLog(@"Error loading images %@", error);
     }];
+     
+     */
 }
 
 - (void)didReceiveMemoryWarning
@@ -99,15 +121,45 @@ void (^enumerate)(ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop)
 
 - (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.assets.count;
+    //return self.assets.count;
+    
+    //return self.patientToDisplay.imageKeys.count;
+    
+    return self.allImages.count;
+    
 }
+
+
+//numberOfSectionsInCollectionView //THIS IS OPTIONAL, ONLY IF YOU WANT TO USE allPatients
 
 - (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ImageCell *cell = (ImageCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"ImageCell" forIndexPath:indexPath];
     
-    ALAsset *asset = self.assets[indexPath.row];
-    cell.asset = asset;
+    //Retrieves the specific UIImage that we want
+    
+    Image *cellImageObject = (Image*) [ self.allImages objectAtIndex: indexPath.section];
+    
+    
+    //Sets the Image* image field of "ImageCell" object
+    Image *target = (Image*)[self.allImages objectAtIndex:indexPath.item];
+    //Now that the ImageCell "has" an Image object, the ImageCell can be click on in order to view full screen
+    cell.image = target;
+    
+    target.
+    
+    //UIImage*
+    
+    cell.imageView.setImage = ;
+    
+    //From the Old Code
+    //ALAsset *asset = self.assets[indexPath.row];
+    //cell.asset = asset;
+    
+    //cell.image.image = [UIImage imageNamed: @"xcode"];
+    
+    //how does one set the indexPath to retrieve all the images!!!!
+    
     cell.backgroundColor = [UIColor redColor];
     
     return cell;

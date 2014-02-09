@@ -8,9 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "Image.h"
 
-@interface ImageCell : UICollectionViewCell
+@interface ImageCell : UICollectionViewCell //as opposed to UICollectionReusableView
 
-@property(nonatomic, strong) ALAsset *asset;
+//@property(nonatomic, strong) ALAsset *asset;
+
+@property (nonatomic, strong) Image *image;
+
+@property (nonatomic, strong) IBOutlet UIImageView *imageView;
 
 @end

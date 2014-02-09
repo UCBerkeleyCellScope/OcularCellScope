@@ -1,15 +1,15 @@
 //
-//  BNRImageStore.m
+//  ImageStore.m
 //  Homepwner
 //
 //  Created by PJ Loury on 1/5/14.
 //  Copyright (c) 2014 com.bignerdranch. All rights reserved.
 //
 
-#import "BNRImageStore.h"
+#import "ImageStore.h"
 
 
-@implementation BNRImageStore
+@implementation ImageStore
 
 //the accessor and the field have the same name
 
@@ -18,9 +18,9 @@
     return [self sharedStore];
 }
 
-+(BNRImageStore *)sharedStore
++(ImageStore *)sharedStore
 {
-    static BNRImageStore *sharedStore = nil;
+    static ImageStore *sharedStore = nil;
     if (!sharedStore){
         sharedStore = [[super allocWithZone:NULL] init]; //
     }
@@ -41,7 +41,7 @@
                    name: UIApplicationDidReceiveMemoryWarningNotification
                  object:nil];
     
-        //if any object passes BNRImageStore the message that a memory warning occured
+        //if any object passes ImageStore the message that a memory warning occured
         //then the ImageStore should execute clearCache:
         
     }
