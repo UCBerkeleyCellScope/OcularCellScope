@@ -42,11 +42,11 @@
     
     Image *im = [images anyObject];
     
-    if(im.filepath!=NULL){
+    if(im.filePath!=NULL){
         
-        NSLog(@"Filepath: %@",im.filepath);
+        NSLog(@"filePath: %@",im.filePath);
         
-        NSURL *url = [[NSURL alloc] initWithString:im.filepath];
+        NSURL *url = [[NSURL alloc] initWithString:im.filePath];
         
         ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
         

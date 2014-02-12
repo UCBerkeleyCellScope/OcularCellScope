@@ -332,6 +332,38 @@
             </objects>
             <point key="canvasLocation" x="1047" y="-515"/>
         </scene>
+        <!--Light Box View Controller-->
+        <scene sceneID="IRw-Sr-vSr">
+            <objects>
+                <viewController id="EGG-gw-9Yq" customClass="LightBoxViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="59A-KO-7ud">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Jgg-Hw-2l0">
+                                <rect key="frame" x="0.0" y="134" width="320" height="332"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TESTING" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xeF-q1-aCr">
+                                <rect key="frame" x="67" y="74" width="87" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="yMJ-MQ-Vi5"/>
+                    <connections>
+                        <outlet property="singleImage" destination="Jgg-Hw-2l0" id="lpv-hQ-uo5"/>
+                        <outlet property="view" destination="59A-KO-7ud" id="Zvh-VW-pNf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6bp-oI-Cyi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1959" y="-1255"/>
+        </scene>
         <!--Camera View Controller-->
         <scene sceneID="31d-yM-Mmg">
             <objects>
@@ -428,7 +460,7 @@
                                 <size key="customSize" width="104" height="104"/>
                                 <connections>
                                     <outlet property="imageView" destination="cHH-Yj-C55" id="lUx-JN-GJJ"/>
-                                    <outlet property="photoImageView" destination="cHH-Yj-C55" id="6eK-6b-nq0"/>
+                                    <segue destination="EGG-gw-9Yq" kind="push" id="jcB-DR-qIX"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -439,7 +471,6 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="fCD-x0-Lq2"/>
                     <connections>
-                        <outlet property="cellImage" destination="cHH-Yj-C55" id="4P4-PH-KdH"/>
                         <outlet property="collectionView" destination="7OH-Rr-Z8T" id="U4m-PS-3Tu"/>
                     </connections>
                 </collectionViewController>

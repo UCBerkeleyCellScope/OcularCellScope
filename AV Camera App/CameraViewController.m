@@ -97,6 +97,8 @@ int location;
     
     
     location=1;
+    
+    /*
     [self.captureButton setImage:[UIImage imageNamed:@"capture.png"] forState:UIControlStateNormal] ;
     self.captureButton.layer.cornerRadius=100;
     self.captureButton.layer.borderColor=[UIColor blueColor].CGColor;
@@ -107,7 +109,9 @@ int location;
     self.captureButton.tintColor = [UIColor colorWithRed:22 green:160 blue:133 alpha:1];
     //[self didPressRight:(id)self];
     //backgroundQueue = dispatch_queue_create("robbie.cellscope.playsound", NULL);
-    
+    */
+     
+     
     // Setup the AV foundation capture session
     //@TODO-note that the capture session is not being taken down correctly, update from Eyescope3
     self.session = [[AVCaptureSession alloc] init];
@@ -461,7 +465,7 @@ int location;
                  NSLog(@"did save video/image");
                  
                  
-                 UIImage* thumbnail = [image thumbnailImage: 10.0
+                 UIImage* thumbnail = [image thumbnailImage: 160.0
                                           transparentBorder: 1.0
                                                cornerRadius: 10.0
                                        interpolationQuality: kCGInterpolationDefault];
@@ -471,6 +475,11 @@ int location;
                  Image *newImage = (Image *)[NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext: self.managedObjectContext];
                  
                  newImage.filePath = assetURL.absoluteString;
+                 NSLog(@"CameraViewController filePath:");
+                 
+                 NSLog(newImage.filePath.description);
+                 //NSLog(assetURL);
+                 
                  
                  newImage.thumbnail = UIImagePNGRepresentation(thumbnail);
                  
@@ -482,11 +491,21 @@ int location;
                      newImage.eyeLocation = @"left"; //TODO: handle multiple fields
                      NSLog(@"Location is: %u", location);
                  }
-                 newImage.drName = self.currentImage.drName;
+                 
+                 
+                 
+                 
                  newImage.date = [NSDate date];
                  newImage.patient = self.currentPatient;
 
+                 //Note that edScope never calls newImage.patient
+                 //or in their case photo.session
                  
+                 [self.currentPatient addPatientImagesObject:newImage];
+                 
+                 if (![ _managedObjectContext save:&error]) {
+                     NSLog(@"Failed to add new picture with error: %@", [error domain]);
+                 }
                  
              }
          };
@@ -500,28 +519,7 @@ int location;
          
          ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
          
-         /*
-         CFUUIDRef newUniqueID = CFUUIDCreate(kCFAllocatorDefault);
-         CFStringRef newUniqueIDString = CFUUIDCreateString(kCFAllocatorDefault, newUniqueID);
-         NSString *key = (__bridge NSString *) newUniqueIDString;
-         
-         
-         // imageKeys = [[NSMutableArray alloc] init];
-         //no initialization required?
-         
-         
-         // IF imageKeys CONTAINS oldKey, then delete
-         //ImageStore sharedStore deleteImageForKey: key;
-         //[[currentPatient imageKeys]   addObject: key ];
-         //We no longer have only 1 image per patient, therefore not just 1 key per item.
-         [[ImageStore sharedStore] setImage:image forKey: key ];
-         //For Now we can stick all of the items in to the same ImageStore
-         //But later we should consider adding images to sets and then adding these sets to the store
-         CFRelease(newUniqueIDString);
-         CFRelease(newUniqueID);
-         */
-
-         
+        
          //writeImageToSavedPhotosAlbum NO WE WANT TO SANDBOX IT INSTEAD
          [library writeImageToSavedPhotosAlbum:image.CGImage orientation:(ALAssetOrientation)[image imageOrientation] completionBlock: doneSavingInAssetLibrary
           
@@ -569,6 +567,7 @@ int location;
     }
 }
 
+/*
 - (IBAction)handlePinch:(UIPinchGestureRecognizer *) recognizer  {
     
     NSLog(@"in pinch ibaction");
@@ -578,6 +577,8 @@ int location;
     }
     recognizer.scale = 1;
 }
+*/
+
 - (IBAction)handleLongPress:(UILongPressGestureRecognizer *)longPress  {
     if (longPress.state == UIGestureRecognizerStateBegan){
         NSLog(@"in longpress ibaction");
@@ -641,6 +642,7 @@ int location;
     }
 }
 
+/*
 - (IBAction)handlePan:(UIPanGestureRecognizer *)panGesture  {
     NSLog(@"in pan ibaction");
     UIView *piece = [panGesture view];
@@ -653,6 +655,7 @@ int location;
         [panGesture setTranslation:CGPointZero inView:[piece superview]];
     }
 }
+*/
 
 - (void)adjustAnchorPointForGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
@@ -684,7 +687,7 @@ int location;
     imvc.managedObjectContext = self.managedObjectContext;
     imvc.patientToDisplay = self.currentPatient;
     
-    
+        
 }
 
 

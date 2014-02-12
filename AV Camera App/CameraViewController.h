@@ -1,6 +1,6 @@
 //
-//  LeftEyeViewController.h
-//  AV Camera App
+//  CameraViewController.h
+//  OcularCellScope
 //
 //  Created by NAYA LOUMOU on 11/24/13.
 //  Copyright (c) 2013 NAYA LOUMOU. All rights reserved.
@@ -19,14 +19,10 @@
 @property (weak, nonatomic) IBOutlet UIView *preview;
 
 - (IBAction)handleLongPress:(UILongPressGestureRecognizer *) longPress;
-- (IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer; //delete that
-- (IBAction)handlePan:(UIPanGestureRecognizer *)panGesture;
+//- (IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer; //delete that
+//- (IBAction)handlePan:(UIPanGestureRecognizer *)panGesture;
 - (IBAction)didPressCapture:(id)sender;
 - (IBAction)didPressNext:(id)sender;
-
-
-
-
 
 //- (IBAction)didPressRight:(id)sender;
 //- (IBAction)didPressLeft:(id)sender;
@@ -36,7 +32,7 @@
 
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem* nextButton;
-@property (weak, nonatomic) IBOutlet UIButton* captureButton;
+//@property (weak, nonatomic) IBOutlet UIButton* captureButton;
 
 //@property (weak, nonatomic) IBOutlet UIButton* RightEyeButton;
 //@property (weak, nonatomic) IBOutlet UIButton* LeftEyeButton;
@@ -52,7 +48,6 @@
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Patient* currentPatient;
-@property (strong, nonatomic) Image* currentImage;
 
 @property (strong, nonatomic) BLE *ble;
 

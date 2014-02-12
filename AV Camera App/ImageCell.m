@@ -9,7 +9,7 @@
 #import "ImageCell.h"
 
 @interface ImageCell()
-@property(nonatomic,weak) IBOutlet UIImageView *photoImageView;
+
 @end
 
 //Will this make a difference?

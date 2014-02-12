@@ -9,6 +9,7 @@
 #import "ImagesViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "CoreDataController.h"
+#import "LightBoxViewController.h"
 
 #import "ImageCell.h"
 
@@ -20,40 +21,7 @@
 
 @implementation ImagesViewController
 
-@synthesize allImages, allPatients;
-
-//From old example code
-/*
-+ (ALAssetsLibrary *)defaultAssetsLibrary
-{
-    static dispatch_once_t pred = 0;
-    static ALAssetsLibrary *library = nil;
-    dispatch_once(&pred, ^{
-        library = [[ALAssetsLibrary alloc] init];
-    });
-    
-    
-    
-    [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos
-                           usingBlock:enumerate
-                         failureBlock:nil];
-    
-    
-    return library;
-}
-
-void (^enumerate)(ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop)
-{
-    if (group == nil)
-    {
-        // enumerated all albums..
-    }
-    
-    // I hot to check if group is Camera Roll ?
-    
-};
-
-*/
+@synthesize allImages, allPatients, patientToDisplay, managedObjectContext;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -70,10 +38,12 @@ void (^enumerate)(ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop)
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    self.allPatients = [CoreDataController getObjectsForEntity:@"Image" withSortKey:@"date" andSortAscending:NO
+    self.allImages = [CoreDataController getObjectsForEntity:@"Image" withSortKey:@"date" andSortAscending:NO
                                                   andContext: self.managedObjectContext ];
                       
-                      
+    //NSLog(self.allImages.description);
+    NSLog(@"Loaded the Collection View!");
+    
                       
     //Frankie would do this, because he had a CellScopeContext singleton, that contained a managedObjectContext
     //andContext:[[CellScopeContext sharedContext] managedObjectContext]];
@@ -129,8 +99,36 @@ void (^enumerate)(ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop)
     
 }
 
+//numberOfSectionsInCollectionView IS OPTIONAL, ONLY IF YOU WANT TO USE allPatients
 
-//numberOfSectionsInCollectionView //THIS IS OPTIONAL, ONLY IF YOU WANT TO USE allPatients
+-(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+
+    LightBoxViewController *lbvc = [[LightBoxViewController alloc] init];
+
+    NSArray *items =  allImages;
+//These pointers point to the exact same items, so it's all the same object!!
+//Isn't that amazing!
+
+    //LightBoxViewController* lbvc = (LightBoxViewController*)[segue destinationViewController];
+    
+    
+    Image *target2 = [items objectAtIndex:[indexPath row]]; //indexPath is just some UITable thing
+    
+    NSLog(@"WE CLICKED A COLLECTION OBJECT");
+    NSLog(target2.description);
+    
+    lbvc.managedObjectContext = self.managedObjectContext;
+    
+    lbvc.imageObject = target2;
+
+
+    [[self navigationController] pushViewController:lbvc
+                                           animated:YES];
+
+}
+
+
 
 - (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -138,7 +136,10 @@ void (^enumerate)(ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop)
     
     //Retrieves the specific UIImage that we want
     
-    Image *cellImageObject = (Image*) [ self.allImages objectAtIndex: indexPath.section];
+    NSLog(@"The Cells are being created");
+    
+    //Which section tells me which patient it is!!
+    //Image *cellImageObject = (Image*) [ self.allImages objectAtIndex: indexPath.section];
     
     
     //Sets the Image* image field of "ImageCell" object
@@ -146,11 +147,40 @@ void (^enumerate)(ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop)
     //Now that the ImageCell "has" an Image object, the ImageCell can be click on in order to view full screen
     cell.image = target;
     
-    target.
+    NSURL *url = [NSURL URLWithString: target.filePath];
     
-    //UIImage*
+    //NSData *data = [NSData dataWithContentsOfURL:url];
+    //UIImage *img = [[UIImage alloc] initWithData: data];
     
-    cell.imageView.setImage = ;
+   
+/*
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    [library assetForURL: url resultBlock:^(ALAsset *asset)
+     {
+         ALAssetRepresentation* rep = [asset defaultRepresentation];
+         CGImageRef iref = [rep fullResolutionImage];
+         
+         UIImage *image = [UIImage imageWithCGImage:iref];
+         
+         [cell.imageView setImage: image];
+         
+     }
+            failureBlock:^(NSError *error)
+     {
+         // error handling
+         NSLog(@"failure loading video/image from AssetLibrary");
+     }];
+*/
+    
+    NSLog(@"Images ViewController filePath");
+    NSLog(target.filePath.description);
+
+    
+    UIImage* thumbImage = [UIImage imageWithData: cell.image.thumbnail];
+   
+    //[cell.imageView setImage: img];
+    
+    [cell.imageView setImage: thumbImage];
     
     //From the Old Code
     //ALAsset *asset = self.assets[indexPath.row];
@@ -160,7 +190,7 @@ void (^enumerate)(ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop)
     
     //how does one set the indexPath to retrieve all the images!!!!
     
-    cell.backgroundColor = [UIColor redColor];
+    //cell.backgroundColor = [UIColor redColor];
     
     return cell;
 }
@@ -173,6 +203,17 @@ void (^enumerate)(ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop)
 - (CGFloat) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
     return 1;
+}
+
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    //LightBoxViewController* lbvc = (LightBoxViewController*)[segue destinationViewController];
+    
+    //lbvc.managedObjectContext = self.managedObjectContext;
+    //lbvc.singleImage = self.currentPatient;
+    
+    
 }
 
 

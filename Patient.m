@@ -19,4 +19,12 @@
 @dynamic patientName;
 @dynamic patientImages;
 
+- (void)addPatientImagesObject:(Image *)value{
+    
+    NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.patientImages];
+    [tempSet addObject:value];
+    self.patientImages = tempSet;
+}
+
+
 @end

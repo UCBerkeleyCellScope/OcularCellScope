@@ -17,7 +17,7 @@
         <relationship name="patientImages" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Image" inverseName="patient" inverseEntity="Image" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Image" positionX="0" positionY="0" width="128" height="133"/>
-        <element name="Patient" positionX="-387" positionY="-126" width="128" height="133"/>
+        <element name="Image" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Patient" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

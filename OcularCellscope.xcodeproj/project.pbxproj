@@ -12,6 +12,7 @@
 		60418F28189B3ED60001D490 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 60418F26189B3ED60001D490 /* BLE.m */; };
 		60418F2B189BA83B0001D490 /* ImagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60418F2A189BA83B0001D490 /* ImagesViewController.m */; };
 		60418F2E189BB2ED0001D490 /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60418F2D189BB2ED0001D490 /* ImageCell.m */; };
+		60460E7218AB463100AFCCC2 /* LightBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60460E7118AB463100AFCCC2 /* LightBoxViewController.m */; };
 		60E5D28118A723FC0078590E /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E5D27C18A723FC0078590E /* UIImage+Alpha.m */; };
 		60E5D28218A723FC0078590E /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E5D27E18A723FC0078590E /* UIImage+Resize.m */; };
 		60E5D28318A723FC0078590E /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E5D28018A723FC0078590E /* UIImage+RoundedCorner.m */; };
@@ -50,7 +51,6 @@
 		F358E31B185A859900872304 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F358E319185A859900872304 /* Icon.png */; };
 		F358E31C185A859900872304 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F358E31A185A859900872304 /* Icon@2x.png */; };
 		F3E8F340185554FD00B1520F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E8F33F185554FD00B1520F /* DetailViewController.m */; };
-		F3E8F3421855731100B1520F /* left.JPG in Resources */ = {isa = PBXBuildFile; fileRef = F3E8F3411855731100B1520F /* left.JPG */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +74,8 @@
 		60418F2A189BA83B0001D490 /* ImagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesViewController.m; sourceTree = "<group>"; };
 		60418F2C189BB2ED0001D490 /* ImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCell.h; sourceTree = "<group>"; };
 		60418F2D189BB2ED0001D490 /* ImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCell.m; sourceTree = "<group>"; };
+		60460E7018AB463100AFCCC2 /* LightBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightBoxViewController.h; sourceTree = "<group>"; };
+		60460E7118AB463100AFCCC2 /* LightBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightBoxViewController.m; sourceTree = "<group>"; };
 		60E5D27B18A723FC0078590E /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
 		60E5D27C18A723FC0078590E /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
 		60E5D27D18A723FC0078590E /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
@@ -127,7 +129,6 @@
 		F358E31A185A859900872304 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "images/Icon@2x.png"; sourceTree = "<group>"; };
 		F3E8F33E185554FD00B1520F /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		F3E8F33F185554FD00B1520F /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		F3E8F3411855731100B1520F /* left.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = left.JPG; path = "../../Retinal Images/fwdsampledrimages/left.JPG"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +218,8 @@
 				60E5D27F18A723FC0078590E /* UIImage+RoundedCorner.h */,
 				60E5D28018A723FC0078590E /* UIImage+RoundedCorner.m */,
 				6D2D5DC818318D9F00A58A96 /* Main.storyboard */,
+				60460E7018AB463100AFCCC2 /* LightBoxViewController.h */,
+				60460E7118AB463100AFCCC2 /* LightBoxViewController.m */,
 				60418F2C189BB2ED0001D490 /* ImageCell.h */,
 				60418F2D189BB2ED0001D490 /* ImageCell.m */,
 				6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */,
@@ -296,7 +299,6 @@
 				F356909618559ECA00DBB4BE /* button_settings.png */,
 				F358E317185A834500872304 /* capture.png */,
 				F356909218559CC700DBB4BE /* button_addpatients.png */,
-				F3E8F3411855731100B1520F /* left.JPG */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -388,7 +390,6 @@
 				F358E315185A82E600872304 /* capture_back.png in Resources */,
 				F358E31C185A859900872304 /* Icon@2x.png in Resources */,
 				F356909318559CC700DBB4BE /* button_addpatients.png in Resources */,
-				F3E8F3421855731100B1520F /* left.JPG in Resources */,
 				6D2D5DCA18318D9F00A58A96 /* Main.storyboard in Resources */,
 				F345FDA91855A2C9003E448E /* title.png in Resources */,
 			);
@@ -410,6 +411,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D2D5DC318318D9F00A58A96 /* main.m in Sources */,
+				60460E7218AB463100AFCCC2 /* LightBoxViewController.m in Sources */,
 				6D2D5DC718318D9F00A58A96 /* CameraAppDelegate.m in Sources */,
 				60418F2E189BB2ED0001D490 /* ImageCell.m in Sources */,
 				60E5D28918A744840078590E /* Patient.m in Sources */,
