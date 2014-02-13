@@ -9,11 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "Image.h"
 
-@interface LightBoxViewController : UIViewController
+@interface LightBoxViewController : UIViewController <UIScrollViewDelegate>
+
+@property(strong, nonatomic) Image * imageObject;
 
 @property(strong, nonatomic) IBOutlet UIImageView * singleImage;
 
+//@property(strong, nonatomic) IBOutlet LightBoxView * lbv;
+
+@property (strong, nonatomic) IBOutlet UISegmentedControl *whichEye;
+
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
-@property(strong, nonatomic) Image * imageObject;
 @end

@@ -81,6 +81,11 @@
      */
 }
 
+-(void) viewWillAppear:(BOOL)animated{
+    [self.collectionView reloadData];
+
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -103,7 +108,7 @@
 
 -(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-
+/*
     LightBoxViewController *lbvc = [[LightBoxViewController alloc] init];
 
     NSArray *items =  allImages;
@@ -125,7 +130,20 @@
 
     [[self navigationController] pushViewController:lbvc
                                            animated:YES];
+ */
 
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"LightBoxSegue"])
+    {
+        LightBoxViewController* lbvc = (LightBoxViewController*)[segue destinationViewController];
+        ImageCell* selectedPicture = (ImageCell*)sender;
+        lbvc.managedObjectContext = self.managedObjectContext;
+        lbvc.imageObject = selectedPicture.image;
+    }
 }
 
 
@@ -206,15 +224,7 @@
 }
 
 
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    //LightBoxViewController* lbvc = (LightBoxViewController*)[segue destinationViewController];
-    
-    //lbvc.managedObjectContext = self.managedObjectContext;
-    //lbvc.singleImage = self.currentPatient;
-    
-    
-}
+
 
 
 

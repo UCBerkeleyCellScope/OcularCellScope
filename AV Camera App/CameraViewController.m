@@ -521,7 +521,9 @@ int location;
          
         
          //writeImageToSavedPhotosAlbum NO WE WANT TO SANDBOX IT INSTEAD
-         [library writeImageToSavedPhotosAlbum:image.CGImage orientation:(ALAssetOrientation)[image imageOrientation] completionBlock: doneSavingInAssetLibrary
+         [library writeImageToSavedPhotosAlbum:image.CGImage
+                                   orientation:(ALAssetOrientation)[image imageOrientation]
+                               completionBlock: doneSavingInAssetLibrary
           
           
           /*

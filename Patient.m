@@ -8,7 +8,7 @@
 
 #import "Patient.h"
 #import "Image.h"
-
+#import "CoreDataController.h"
 
 @implementation Patient
 
@@ -25,6 +25,8 @@
     [tempSet addObject:value];
     self.patientImages = tempSet;
 }
+
+
 
 
 @end

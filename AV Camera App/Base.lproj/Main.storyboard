@@ -340,27 +340,45 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="pZA-iV-nRs">
+                                <rect key="frame" x="0.0" y="430" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="5e4-xS-f3E"/>
+                                    <barButtonItem systemItem="trash" id="RpL-7P-rtl" userLabel="Bar Button Item - Item">
+                                        <connections>
+                                            <action selector="didPressDelete:" destination="EGG-gw-9Yq" id="mgD-6y-ruQ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Jgg-Hw-2l0">
-                                <rect key="frame" x="0.0" y="134" width="320" height="332"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="366"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TESTING" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xeF-q1-aCr">
-                                <rect key="frame" x="67" y="74" width="87" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="yMJ-MQ-Vi5"/>
+                    <navigationItem key="navigationItem" id="yMJ-MQ-Vi5">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="qwn-98-HkO">
+                            <rect key="frame" x="99" y="8" width="123" height="29"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Left"/>
+                                <segment title="Right"/>
+                            </segments>
+                        </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="xdi-73-6G4" userLabel="Done"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="singleImage" destination="Jgg-Hw-2l0" id="lpv-hQ-uo5"/>
                         <outlet property="view" destination="59A-KO-7ud" id="Zvh-VW-pNf"/>
+                        <outlet property="whichEye" destination="qwn-98-HkO" id="SQb-pw-0ZR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6bp-oI-Cyi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="MC7-cl-sBa"/>
             </objects>
             <point key="canvasLocation" x="1959" y="-1255"/>
         </scene>
@@ -460,7 +478,7 @@
                                 <size key="customSize" width="104" height="104"/>
                                 <connections>
                                     <outlet property="imageView" destination="cHH-Yj-C55" id="lUx-JN-GJJ"/>
-                                    <segue destination="EGG-gw-9Yq" kind="push" id="jcB-DR-qIX"/>
+                                    <segue destination="EGG-gw-9Yq" kind="push" identifier="LightBoxSegue" id="jcB-DR-qIX"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>

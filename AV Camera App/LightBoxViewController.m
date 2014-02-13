@@ -16,7 +16,7 @@
 @end
 
 @implementation LightBoxViewController
-@synthesize imageObject, singleImage, managedObjectContext ;
+@synthesize imageObject, singleImage, whichEye, managedObjectContext;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,12 +33,21 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated{
     
     NSURL *url = [NSURL URLWithString: imageObject.filePath];
     NSData *data = [NSData dataWithContentsOfURL:url];
     UIImage *img = [[UIImage alloc] initWithData: data];
     
+    //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    //UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame: screenRect]
     
+    //LightBoxView *lbv =
+    
+    //[scrollView setMinimumZoomScale:1.0];
+    //[scrollView setMaximumZoomScale:5.0];
     
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     [library assetForURL: url resultBlock:^(ALAsset *asset)
@@ -68,6 +77,44 @@
 
      //[self.singleImage setImage: img];
 }
+- (IBAction)didPressDelete:(id)sender {
+    
+    
+    UIAlertView* alert;
+   
+    alert = [[UIAlertView alloc] initWithTitle:@"Delete Photo" message:@"Are you sure?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+    
+    
+    alert.tag = 1;
+    alert.alertViewStyle = UIAlertViewStyleDefault;
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag==1) //this is our delete alert
+    {
+        if (buttonIndex==1) //YES BUTTON
+            [self deletePhoto];
+    }
+}
+
+
+- (void)deletePhoto
+{
+    NSLog(@"deleting photo");
+    
+    //if this session only has one photo, delete the whole session
+    //if (currentPicture.session.pictures.count==1)
+        //[[[CellScopeContext sharedContext] managedObjectContext] deleteObject:currentPicture.session];
+    //else
+    [managedObjectContext deleteObject:imageObject];
+    
+    [managedObjectContext save:nil];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
