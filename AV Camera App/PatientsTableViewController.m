@@ -11,6 +11,8 @@
 #import "MainMenuViewController.h"
 #import "CoreDataController.h"
 #import "DetailViewController.h"
+#import "ImagesViewController.h"
+#import "PatientInfoViewController.h"
 
 @implementation PatientsTableViewController
 
@@ -41,7 +43,7 @@
     _managedObjectContext = [appDelegate managedObjectContext];
     
     //  Grab the data
-    self.patientsArray = [CoreDataController getObjectsForEntity:@"Patients" withSortKey:@"patientName" andSortAscending:YES andContext:self.managedObjectContext];
+    self.patientsArray = [CoreDataController getObjectsForEntity:@"Patient" withSortKey:@"patientName" andSortAscending:YES andContext:self.managedObjectContext];
     //  Force table refresh
     [self.tableView reloadData];
     
@@ -93,20 +95,25 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.currentPatient = (Patient *)[patientsArray objectAtIndex:indexPath.row];
     
-    [self performSegueWithIdentifier: @"DetailSegue" sender: self];
+    [self performSegueWithIdentifier: @"CollectionSegue" sender: self];
 }
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"DetailSegue"])
-    {
-        DetailViewController* dvc = (DetailViewController*)[segue destinationViewController];
-        
-        dvc.managedObjectContext = self.managedObjectContext;
-        dvc.currentPatient = self.currentPatient;
-        
-    }
+//    if ([[segue identifier] isEqualToString:@"DetailSegue"])
+//    {
+//        DetailViewController* dvc = (DetailViewController*)[segue destinationViewController];
+//        
+//        dvc.managedObjectContext = self.managedObjectContext;
+//        dvc.currentPatient = self.currentPatient;
+//        
+//    }
+    ImagesViewController* imvc = (ImagesViewController*)[segue destinationViewController];
+    imvc.managedObjectContext = self.managedObjectContext;
+    imvc.patientToDisplay = self.currentPatient;
+
+    
 }
  
 // Edit the table view

@@ -414,6 +414,7 @@ int location;
 - (void)flashOn{
     UInt8 buf[3] = {0x01, 0x01, 0x00};
     
+    NSLog(@"Flash On");
     NSData *data = [[NSData alloc] initWithBytes:buf length:3];
     [ble write:data];
 }

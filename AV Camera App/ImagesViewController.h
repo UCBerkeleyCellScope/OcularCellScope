@@ -21,6 +21,7 @@
 @property (strong, nonatomic) NSMutableArray *allPatients;
 
 @property (weak, nonatomic) IBOutlet UIImageView *cellImage;
+//the cell object instead has the image view
 
 @property (strong, nonatomic) Patient* patientToDisplay;
 

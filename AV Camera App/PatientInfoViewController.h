@@ -12,7 +12,7 @@
 #import "Image.h"
 #import "CameraViewController.h"
 
-@interface PatientInfoViewController : UIViewController<UITextFieldDelegate>
+@interface PatientInfoViewController : UIViewController<UITextFieldDelegate, UITableViewDataSource, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITextField *firstnameField;
 @property (strong, nonatomic) IBOutlet UITextField *lastnameField;
 @property (strong, nonatomic) IBOutlet UITextField *patientIDField;

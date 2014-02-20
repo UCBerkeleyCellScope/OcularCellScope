@@ -8,15 +8,18 @@
 
 #import "DetailViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "CoreDataController.h"
 
 @interface DetailViewController ()
+
+@property (strong, nonatomic) NSMutableArray *allImages;
 
 @end
 
 @implementation DetailViewController
 
 @synthesize managedObjectContext = _managedObjectContext;
-@synthesize currentPatient;
+@synthesize currentPatient, allImages;
 @synthesize firstnameField, lastnameField, patientIDField, physicianField, notesField, lefteyeView, righteyeView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -36,11 +39,12 @@
     firstnameField.text = currentPatient.firstName;
     lastnameField.text = currentPatient.lastName;
     patientIDField.text = currentPatient.patientID;
-    NSSet *images = currentPatient.patientImages;
+    //NSSet *images = currentPatient.patientImages;
     
     
-    
-    Image *im = [images anyObject];
+    self.allImages = [CoreDataController getObjectsForEntity:@"Image" withSortKey:@"date" andSortAscending:NO
+                                                  andContext: self.managedObjectContext ];
+    Image *im = [allImages objectAtIndex:0];
     
     if(im.filePath!=NULL){
         
