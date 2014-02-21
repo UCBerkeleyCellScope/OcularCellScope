@@ -46,7 +46,11 @@
 		F358E31B185A859900872304 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F358E319185A859900872304 /* Icon.png */; };
 		F358E31C185A859900872304 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F358E31A185A859900872304 /* Icon@2x.png */; };
 		F3E8F340185554FD00B1520F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E8F33F185554FD00B1520F /* DetailViewController.m */; };
-		F3E8F3421855731100B1520F /* left.JPG in Resources */ = {isa = PBXBuildFile; fileRef = F3E8F3411855731100B1520F /* left.JPG */; };
+		F3FA32C618B5D6BF000FACF4 /* ImageSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */; };
+		F3FA32CB18B5E4B7000FACF4 /* im1.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C718B5E4B7000FACF4 /* im1.png */; };
+		F3FA32CC18B5E4B7000FACF4 /* im2.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C818B5E4B7000FACF4 /* im2.png */; };
+		F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C918B5E4B7000FACF4 /* im3.png */; };
+		F3FA32CE18B5E4B7000FACF4 /* im4.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32CA18B5E4B7000FACF4 /* im4.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,7 +119,12 @@
 		F358E31A185A859900872304 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "images/Icon@2x.png"; sourceTree = "<group>"; };
 		F3E8F33E185554FD00B1520F /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		F3E8F33F185554FD00B1520F /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		F3E8F3411855731100B1520F /* left.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = left.JPG; path = "../../Retinal Images/fwdsampledrimages/left.JPG"; sourceTree = "<group>"; };
+		F3FA32C418B5D6BF000FACF4 /* ImageSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectionViewController.h; sourceTree = "<group>"; };
+		F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectionViewController.m; sourceTree = "<group>"; };
+		F3FA32C718B5E4B7000FACF4 /* im1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im1.png; sourceTree = "<group>"; };
+		F3FA32C818B5E4B7000FACF4 /* im2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im2.png; sourceTree = "<group>"; };
+		F3FA32C918B5E4B7000FACF4 /* im3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im3.png; sourceTree = "<group>"; };
+		F3FA32CA18B5E4B7000FACF4 /* im4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im4.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +208,8 @@
 			isa = PBXGroup;
 			children = (
 				6D2D5DC818318D9F00A58A96 /* Main.storyboard */,
+				F3FA32C418B5D6BF000FACF4 /* ImageSelectionViewController.h */,
+				F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */,
 				60418F2C189BB2ED0001D490 /* ImageCell.h */,
 				60418F2D189BB2ED0001D490 /* ImageCell.m */,
 				6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */,
@@ -267,6 +278,7 @@
 		F356909418559CCA00DBB4BE /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F3FA32BB18B5D607000FACF4 /* test_images */,
 				F358E319185A859900872304 /* Icon.png */,
 				F358E31A185A859900872304 /* Icon@2x.png */,
 				F358E313185A82E600872304 /* capture_back.png */,
@@ -276,9 +288,19 @@
 				F356909618559ECA00DBB4BE /* button_settings.png */,
 				F358E317185A834500872304 /* capture.png */,
 				F356909218559CC700DBB4BE /* button_addpatients.png */,
-				F3E8F3411855731100B1520F /* left.JPG */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		F3FA32BB18B5D607000FACF4 /* test_images */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA32C718B5E4B7000FACF4 /* im1.png */,
+				F3FA32C818B5E4B7000FACF4 /* im2.png */,
+				F3FA32C918B5E4B7000FACF4 /* im3.png */,
+				F3FA32CA18B5E4B7000FACF4 /* im4.png */,
+			);
+			name = test_images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,8 +380,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3FA32CC18B5E4B7000FACF4 /* im2.png in Resources */,
+				F3FA32CB18B5E4B7000FACF4 /* im1.png in Resources */,
 				6D2D5DCF18318D9F00A58A96 /* Images.xcassets in Resources */,
 				F358E316185A82E600872304 /* capture2.png in Resources */,
+				F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */,
 				F356909718559ECA00DBB4BE /* button_viewpatients.png in Resources */,
 				F356909818559ECA00DBB4BE /* button_settings.png in Resources */,
 				6D2D5DC118318D9F00A58A96 /* InfoPlist.strings in Resources */,
@@ -368,8 +393,8 @@
 				F358E315185A82E600872304 /* capture_back.png in Resources */,
 				F358E31C185A859900872304 /* Icon@2x.png in Resources */,
 				F356909318559CC700DBB4BE /* button_addpatients.png in Resources */,
-				F3E8F3421855731100B1520F /* left.JPG in Resources */,
 				6D2D5DCA18318D9F00A58A96 /* Main.storyboard in Resources */,
+				F3FA32CE18B5E4B7000FACF4 /* im4.png in Resources */,
 				F345FDA91855A2C9003E448E /* title.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,6 +419,7 @@
 				6D2D5DC718318D9F00A58A96 /* CameraAppDelegate.m in Sources */,
 				60418F2E189BB2ED0001D490 /* ImageCell.m in Sources */,
 				60418F28189B3ED60001D490 /* BLE.m in Sources */,
+				F3FA32C618B5D6BF000FACF4 /* ImageSelectionViewController.m in Sources */,
 				6DD89D8D1842862F00F3C7FC /* MainMenuViewController.m in Sources */,
 				F345FDAF1855ACDD003E448E /* Patients.m in Sources */,
 				60418F2B189BA83B0001D490 /* ImagesViewController.m in Sources */,
