@@ -335,7 +335,23 @@
             </objects>
             <point key="canvasLocation" x="1047" y="-515"/>
         </scene>
-        <!--View Controller - Item 1-->
+        <!--View Controller - Patient Info-->
+        <scene sceneID="inM-di-qTU">
+            <objects>
+                <viewController id="D6J-XN-Hdd" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9j0-ne-hhJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Patient Info" id="Nsd-L1-Y6U"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LA2-35-o2C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="452" y="686"/>
+        </scene>
+        <!--View Controller - Images-->
         <scene sceneID="i2F-MR-AHQ">
             <objects>
                 <viewController id="AGJ-xP-Dbn" sceneMemberID="viewController">
@@ -356,7 +372,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="6ve-qZ-Svk"/>
+                    <tabBarItem key="tabBarItem" title="Images" id="6ve-qZ-Svk"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wtL-FP-NHW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -410,15 +426,16 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="AGJ-xP-Dbn" kind="relationship" relationship="viewControllers" id="FBb-Dr-OXD"/>
+                        <segue destination="D6J-XN-Hdd" kind="relationship" relationship="viewControllers" id="bDc-6v-MTl"/>
                         <segue destination="Tgg-OM-pb3" kind="relationship" relationship="viewControllers" id="U4t-tE-e5t"/>
+                        <segue destination="AGJ-xP-Dbn" kind="relationship" relationship="viewControllers" id="FBb-Dr-OXD"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aGf-eb-PLe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="243" y="-304"/>
         </scene>
-        <!--View Controller - Item 2-->
+        <!--View Controller - Notes-->
         <scene sceneID="R1s-9w-S6K">
             <objects>
                 <viewController id="Tgg-OM-pb3" sceneMemberID="viewController">
@@ -427,7 +444,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="3dh-5B-roS"/>
+                    <tabBarItem key="tabBarItem" title="Notes" id="3dh-5B-roS"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6fW-su-BEt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
