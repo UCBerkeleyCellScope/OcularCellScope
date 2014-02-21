@@ -46,11 +46,11 @@
 		F358E31B185A859900872304 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F358E319185A859900872304 /* Icon.png */; };
 		F358E31C185A859900872304 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F358E31A185A859900872304 /* Icon@2x.png */; };
 		F3E8F340185554FD00B1520F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E8F33F185554FD00B1520F /* DetailViewController.m */; };
-		F3FA32C018B5D68D000FACF4 /* im1.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32BC18B5D68D000FACF4 /* im1.png */; };
-		F3FA32C118B5D68D000FACF4 /* im2.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32BD18B5D68D000FACF4 /* im2.png */; };
-		F3FA32C218B5D68D000FACF4 /* im3.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32BE18B5D68D000FACF4 /* im3.png */; };
-		F3FA32C318B5D68D000FACF4 /* im4.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32BF18B5D68D000FACF4 /* im4.png */; };
 		F3FA32C618B5D6BF000FACF4 /* ImageSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */; };
+		F3FA32CB18B5E4B7000FACF4 /* im1.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C718B5E4B7000FACF4 /* im1.png */; };
+		F3FA32CC18B5E4B7000FACF4 /* im2.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C818B5E4B7000FACF4 /* im2.png */; };
+		F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C918B5E4B7000FACF4 /* im3.png */; };
+		F3FA32CE18B5E4B7000FACF4 /* im4.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32CA18B5E4B7000FACF4 /* im4.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,12 +119,12 @@
 		F358E31A185A859900872304 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "images/Icon@2x.png"; sourceTree = "<group>"; };
 		F3E8F33E185554FD00B1520F /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		F3E8F33F185554FD00B1520F /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		F3FA32BC18B5D68D000FACF4 /* im1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = im1.png; path = "../../../../Camera Uploads/im1.png"; sourceTree = "<group>"; };
-		F3FA32BD18B5D68D000FACF4 /* im2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = im2.png; path = "../../../../Camera Uploads/im2.png"; sourceTree = "<group>"; };
-		F3FA32BE18B5D68D000FACF4 /* im3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = im3.png; path = "../../../../Camera Uploads/im3.png"; sourceTree = "<group>"; };
-		F3FA32BF18B5D68D000FACF4 /* im4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = im4.png; path = "../../../../Camera Uploads/im4.png"; sourceTree = "<group>"; };
 		F3FA32C418B5D6BF000FACF4 /* ImageSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectionViewController.h; sourceTree = "<group>"; };
 		F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectionViewController.m; sourceTree = "<group>"; };
+		F3FA32C718B5E4B7000FACF4 /* im1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im1.png; sourceTree = "<group>"; };
+		F3FA32C818B5E4B7000FACF4 /* im2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im2.png; sourceTree = "<group>"; };
+		F3FA32C918B5E4B7000FACF4 /* im3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im3.png; sourceTree = "<group>"; };
+		F3FA32CA18B5E4B7000FACF4 /* im4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im4.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,10 +295,10 @@
 		F3FA32BB18B5D607000FACF4 /* test_images */ = {
 			isa = PBXGroup;
 			children = (
-				F3FA32BC18B5D68D000FACF4 /* im1.png */,
-				F3FA32BD18B5D68D000FACF4 /* im2.png */,
-				F3FA32BE18B5D68D000FACF4 /* im3.png */,
-				F3FA32BF18B5D68D000FACF4 /* im4.png */,
+				F3FA32C718B5E4B7000FACF4 /* im1.png */,
+				F3FA32C818B5E4B7000FACF4 /* im2.png */,
+				F3FA32C918B5E4B7000FACF4 /* im3.png */,
+				F3FA32CA18B5E4B7000FACF4 /* im4.png */,
 			);
 			name = test_images;
 			sourceTree = "<group>";
@@ -380,12 +380,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3FA32CC18B5E4B7000FACF4 /* im2.png in Resources */,
+				F3FA32CB18B5E4B7000FACF4 /* im1.png in Resources */,
 				6D2D5DCF18318D9F00A58A96 /* Images.xcassets in Resources */,
 				F358E316185A82E600872304 /* capture2.png in Resources */,
-				F3FA32C218B5D68D000FACF4 /* im3.png in Resources */,
+				F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */,
 				F356909718559ECA00DBB4BE /* button_viewpatients.png in Resources */,
 				F356909818559ECA00DBB4BE /* button_settings.png in Resources */,
-				F3FA32C018B5D68D000FACF4 /* im1.png in Resources */,
 				6D2D5DC118318D9F00A58A96 /* InfoPlist.strings in Resources */,
 				F358E318185A834500872304 /* capture.png in Resources */,
 				F358E31B185A859900872304 /* Icon.png in Resources */,
@@ -393,9 +394,8 @@
 				F358E31C185A859900872304 /* Icon@2x.png in Resources */,
 				F356909318559CC700DBB4BE /* button_addpatients.png in Resources */,
 				6D2D5DCA18318D9F00A58A96 /* Main.storyboard in Resources */,
+				F3FA32CE18B5E4B7000FACF4 /* im4.png in Resources */,
 				F345FDA91855A2C9003E448E /* title.png in Resources */,
-				F3FA32C118B5D68D000FACF4 /* im2.png in Resources */,
-				F3FA32C318B5D68D000FACF4 /* im4.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

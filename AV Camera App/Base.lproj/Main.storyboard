@@ -374,14 +374,21 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" continuous="NO" id="V3s-CM-8Fg">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="V3s-CM-8Fg">
                                 <rect key="frame" x="18" y="455" width="284" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="didMoveSlider:" destination="2qF-pw-3PT" eventType="valueChanged" id="ifB-qC-gGl"/>
+                                    <action selector="didTouchUpFromSlider:" destination="2qF-pw-3PT" eventType="touchUpInside" id="5XA-SK-nD8"/>
+                                    <action selector="didTouchUpFromSlider:" destination="2qF-pw-3PT" eventType="touchUpOutside" id="tO9-24-9zC"/>
+                                </connections>
                             </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ukM-E6-w9V"/>
+                    <navigationItem key="navigationItem" id="7dv-jV-lDW">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="4pS-ZF-x0M"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="NqN-Fh-BWJ" id="hh5-bf-Ule"/>
                         <outlet property="slider" destination="V3s-CM-8Fg" id="DFg-Iu-p2s"/>
