@@ -51,6 +51,7 @@
 		F3FA32CC18B5E4B7000FACF4 /* im2.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C818B5E4B7000FACF4 /* im2.png */; };
 		F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C918B5E4B7000FACF4 /* im3.png */; };
 		F3FA32CE18B5E4B7000FACF4 /* im4.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32CA18B5E4B7000FACF4 /* im4.png */; };
+		F3FA32D118B8205B000FACF4 /* CaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3FA32D018B8205B000FACF4 /* CaptureViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,8 @@
 		F3FA32C818B5E4B7000FACF4 /* im2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im2.png; sourceTree = "<group>"; };
 		F3FA32C918B5E4B7000FACF4 /* im3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im3.png; sourceTree = "<group>"; };
 		F3FA32CA18B5E4B7000FACF4 /* im4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im4.png; sourceTree = "<group>"; };
+		F3FA32CF18B8205B000FACF4 /* CaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureViewController.h; sourceTree = "<group>"; };
+		F3FA32D018B8205B000FACF4 /* CaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +211,8 @@
 			isa = PBXGroup;
 			children = (
 				6D2D5DC818318D9F00A58A96 /* Main.storyboard */,
+				F3FA32CF18B8205B000FACF4 /* CaptureViewController.h */,
+				F3FA32D018B8205B000FACF4 /* CaptureViewController.m */,
 				F3FA32C418B5D6BF000FACF4 /* ImageSelectionViewController.h */,
 				F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */,
 				60418F2C189BB2ED0001D490 /* ImageCell.h */,
@@ -419,6 +424,7 @@
 				6D2D5DC718318D9F00A58A96 /* CameraAppDelegate.m in Sources */,
 				60418F2E189BB2ED0001D490 /* ImageCell.m in Sources */,
 				60418F28189B3ED60001D490 /* BLE.m in Sources */,
+				F3FA32D118B8205B000FACF4 /* CaptureViewController.m in Sources */,
 				F3FA32C618B5D6BF000FACF4 /* ImageSelectionViewController.m in Sources */,
 				6DD89D8D1842862F00F3C7FC /* MainMenuViewController.m in Sources */,
 				F345FDAF1855ACDD003E448E /* Patients.m in Sources */,
