@@ -38,6 +38,19 @@
     [self videoSetup];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    self.navigationController.navigationBar.alpha = 0;
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    //self.navigationController.navigationBar.alpha = 1;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    self.navigationController.navigationBar.alpha = 1;
+}
+
+
 -(void)videoSetup
 {
     session = [[AVCaptureSession alloc] init];
@@ -60,8 +73,6 @@
     [rootLayer insertSublayer:previewLayer atIndex:0];
     
     //previewLayer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
-    
-    
     
     [session startRunning];
 }
