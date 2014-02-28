@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CoreDataController.h"
-#import "Patients.h"
-#import "Images.h"
+#import "Exam.h"
+#import "EyeImage.h"
 #import "CameraViewController.h"
 
 @interface PatientInfoViewController : UIViewController<UITextFieldDelegate>
@@ -22,8 +22,8 @@
 
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) Patients* currentPatient;
-@property (strong, nonatomic) Images* currentImage;
+@property (strong, nonatomic) Exam* currentPatient;
+@property (strong, nonatomic) EyeImage* currentImage;
 
 //- (IBAction)savePatientData:(id)sender;
 

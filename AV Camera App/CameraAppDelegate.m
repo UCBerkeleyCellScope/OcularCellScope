@@ -10,8 +10,8 @@
 #import "PatientInfoViewController.h"
 #import "PatientsTableViewController.h"
 #import "MainMenuViewController.h"
-#import "Patients.h"
-#import "Images.h"
+#import "Exam.h"
+#import "EyeImage.h"
 
 @implementation CameraAppDelegate
 @synthesize managedObjectContext = _managedObjectContext;

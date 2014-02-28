@@ -450,7 +450,7 @@
                                 </state>
                                 <connections>
                                     <action selector="didPressFixation:" destination="AGJ-xP-Dbn" eventType="touchUpInside" id="XqL-hA-HYS"/>
-                                    <segue destination="2xP-zE-AVw" kind="push" id="Uho-md-8SN"/>
+                                    <segue destination="2xP-zE-AVw" kind="push" identifier="captureViewSegue" id="Uho-md-8SN"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9nU-jg-0UU" userLabel="NoFixationButton">
@@ -525,6 +525,7 @@
                                             </segments>
                                             <color key="tintColor" red="0.32941177487373352" green="0.52941179275512695" blue="0.50196081399917603" alpha="1" colorSpace="deviceRGB"/>
                                             <connections>
+                                                <action selector="didSegmentedValueChanged:" destination="AGJ-xP-Dbn" eventType="valueChanged" id="LAN-Qe-GTY"/>
                                                 <action selector="didSelectEye:" destination="AGJ-xP-Dbn" eventType="valueChanged" id="evt-mG-zcj"/>
                                             </connections>
                                         </segmentedControl>
@@ -549,6 +550,7 @@
                         <outlet property="leftFixationButton" destination="vZa-OD-Ki1" id="wnI-Of-Hzj"/>
                         <outlet property="noFixationButton" destination="9nU-jg-0UU" id="DvD-t4-Qvq"/>
                         <outlet property="rightFixationButton" destination="jSg-zQ-raL" id="EmT-Hm-mFN"/>
+                        <outlet property="segmentedControl" destination="g84-lP-nQ8" id="DPU-M4-3X5"/>
                         <outlet property="topFixationButton" destination="9MV-1t-Ecr" id="C0q-wD-KTR"/>
                     </connections>
                 </viewController>

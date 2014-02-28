@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
-#import "Patients.h"
-#import "Images.h"
+#import "Exam.h"
+#import "EyeImage.h"
 
 @interface CameraViewController : UIViewController
 
@@ -33,7 +33,7 @@
 @property (nonatomic, strong) AVCaptureStillImageOutput *stillOutput;
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) Patients* currentPatient;
-@property (strong, nonatomic) Images* currentImage;
+@property (strong, nonatomic) Exam* currentPatient;
+@property (strong, nonatomic) EyeImage* currentImage;
 
 @end

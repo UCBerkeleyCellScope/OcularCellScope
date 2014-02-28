@@ -81,7 +81,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     // Set up the cell...
-    Patients *patient = (Patients *)[patientsArray objectAtIndex:indexPath.row];
+    Exam *patient = (Exam *)[patientsArray objectAtIndex:indexPath.row];
     //[PatientInfo objectAtIndex:indexPath.row];
     
     // Fill in the cell contents
@@ -91,7 +91,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    self.currentPatient = (Patients *)[patientsArray objectAtIndex:indexPath.row];
+    self.currentPatient = (Exam *)[patientsArray objectAtIndex:indexPath.row];
     
     [self performSegueWithIdentifier: @"DetailSegue" sender: self];
 }
@@ -114,7 +114,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        Patients* currentCell = [patientsArray objectAtIndex:indexPath.row];
+        Exam* currentCell = [patientsArray objectAtIndex:indexPath.row];
         [self.managedObjectContext deleteObject:currentCell];
         
         // Commit

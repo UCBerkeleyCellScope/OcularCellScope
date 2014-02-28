@@ -16,8 +16,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *bottomFixationButton;
 @property (weak, nonatomic) IBOutlet UIButton *topFixationButton;
 @property (weak, nonatomic) IBOutlet UIButton *noFixationButton;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
-@property (copy, nonatomic) NSString *currentLight;
+@property (copy, nonatomic) NSString *selectedEye;
+@property (copy, nonatomic) NSString *selectedLight;
 
+@property (nonatomic, assign ) NSInteger oldSegmentedIndex;
+@property (nonatomic, assign ) NSInteger actualSegmentedIndex;
 
 @end
