@@ -11,13 +11,22 @@
 //#define centerLight = @"centerLight";
 //#define leftLight = @"leftLight";
 
-NSString* const centerLight = @"centerLight";
+NSInteger const centerLight = 1;
+NSInteger const topLight = 2;
+NSInteger const bottomLight = 3;
+NSInteger const leftLight = 4;
+NSInteger const rightLight = 5;
+NSInteger const noLight = 6;
+
+/*
+NSInteger* const centerLight = @"centerLight";
 NSString* const topLight = @"topLight";
 NSString* const bottomLight = @"bottomLight";
 NSString* const leftLight = @"leftLight";
 NSString* const rightLight = @"rightLight";
 NSString* const noLight = @"noLight";
-
+*/
+ 
 NSString* const rightEye = @"rightEye";
 NSString* const leftEye = @"leftEye";
 

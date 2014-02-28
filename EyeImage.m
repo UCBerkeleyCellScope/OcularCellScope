@@ -1,5 +1,5 @@
 //
-//  Images.m
+//  EyeImage.m
 //  OcularCellscope
 //
 //  Created by PJ Loury on 2/28/14.
@@ -15,7 +15,7 @@
 @dynamic drName;
 @dynamic eye;
 @dynamic filePath;
-@dynamic thumbnail;
 @dynamic fixationLight;
+@dynamic thumbnail;
 
 @end

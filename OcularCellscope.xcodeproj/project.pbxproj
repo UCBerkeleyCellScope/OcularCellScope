@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		60206BD618C0940500BE536B /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 60206BD518C0940500BE536B /* Exam.m */; };
-		60206BD918C0940500BE536B /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 60206BD818C0940500BE536B /* EyeImage.m */; };
+		60206BDC18C0954000BE536B /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 60206BDB18C0954000BE536B /* EyeImage.m */; };
+		60206BDF18C0954100BE536B /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 60206BDE18C0954000BE536B /* Exam.m */; };
 		60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60418F22189B3E780001D490 /* CoreBluetooth.framework */; };
 		60418F28189B3ED60001D490 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 60418F26189B3ED60001D490 /* BLE.m */; };
 		60418F2B189BA83B0001D490 /* ImagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60418F2A189BA83B0001D490 /* ImagesViewController.m */; };
@@ -68,10 +68,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		60206BD418C0940500BE536B /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
-		60206BD518C0940500BE536B /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
-		60206BD718C0940500BE536B /* EyeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeImage.h; sourceTree = "<group>"; };
-		60206BD818C0940500BE536B /* EyeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeImage.m; sourceTree = "<group>"; };
+		60206BDA18C0954000BE536B /* EyeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeImage.h; sourceTree = "<group>"; };
+		60206BDB18C0954000BE536B /* EyeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeImage.m; sourceTree = "<group>"; };
+		60206BDD18C0954000BE536B /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
+		60206BDE18C0954000BE536B /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
 		60418F22189B3E780001D490 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		60418F25189B3ED60001D490 /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
 		60418F26189B3ED60001D490 /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
@@ -283,10 +283,10 @@
 			isa = PBXGroup;
 			children = (
 				6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */,
-				60206BD718C0940500BE536B /* EyeImage.h */,
-				60206BD818C0940500BE536B /* EyeImage.m */,
-				60206BD418C0940500BE536B /* Exam.h */,
-				60206BD518C0940500BE536B /* Exam.m */,
+				60206BDA18C0954000BE536B /* EyeImage.h */,
+				60206BDD18C0954000BE536B /* Exam.h */,
+				60206BDE18C0954000BE536B /* Exam.m */,
+				60206BDB18C0954000BE536B /* EyeImage.m */,
 				6DD89D7B18426AD400F3C7FC /* CoreDataController.h */,
 				6DD89D7C18426AD400F3C7FC /* CoreDataController.m */,
 			);
@@ -437,8 +437,9 @@
 				6D2D5DC318318D9F00A58A96 /* main.m in Sources */,
 				6D2D5DC718318D9F00A58A96 /* CameraAppDelegate.m in Sources */,
 				60418F2E189BB2ED0001D490 /* ImageCell.m in Sources */,
-				60206BD618C0940500BE536B /* Exam.m in Sources */,
+				60206BDC18C0954000BE536B /* EyeImage.m in Sources */,
 				60418F28189B3ED60001D490 /* BLE.m in Sources */,
+				60206BDF18C0954100BE536B /* Exam.m in Sources */,
 				F3FA32D118B8205B000FACF4 /* CaptureViewController.m in Sources */,
 				F3FA32C618B5D6BF000FACF4 /* ImageSelectionViewController.m in Sources */,
 				6DD89D8D1842862F00F3C7FC /* MainMenuViewController.m in Sources */,
@@ -448,7 +449,6 @@
 				F3E8F340185554FD00B1520F /* DetailViewController.m in Sources */,
 				6DD89D7D18426AD400F3C7FC /* CoreDataController.m in Sources */,
 				6DD89D841842743700F3C7FC /* CameraViewController.h in Sources */,
-				60206BD918C0940500BE536B /* EyeImage.m in Sources */,
 				6DD89D871842773B00F3C7FC /* PatientInfoViewController.m in Sources */,
 				60A0866318C079C500A2667D /* Constants.m in Sources */,
 			);

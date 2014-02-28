@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Constants.h"
+#import "EyeImage.h"
 
 @interface FixationViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *centerFixationButton;
@@ -18,10 +19,22 @@
 @property (weak, nonatomic) IBOutlet UIButton *noFixationButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
-@property (copy, nonatomic) NSString *selectedEye;
+//@property (copy, nonatomic) NSString *selectedEye;
+@property (copy, nonatomic) NSInteger *selectedEye;
 @property (copy, nonatomic) NSString *selectedLight;
 
 @property (nonatomic, assign ) NSInteger oldSegmentedIndex;
 @property (nonatomic, assign ) NSInteger actualSegmentedIndex;
+
+@property (strong, nonatomic) EyeImage * leftEyeImage;
+@property (strong, nonatomic) EyeImage * rightEyeImage;
+@property (strong, nonatomic) EyeImage * topEyeImage;
+@property (strong, nonatomic) EyeImage * bottomEyeImage;
+@property (strong, nonatomic) EyeImage * centerEyeImage;
+@property (strong, nonatomic) EyeImage * noneEyeImage;
+
+
+@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
 
 @end
