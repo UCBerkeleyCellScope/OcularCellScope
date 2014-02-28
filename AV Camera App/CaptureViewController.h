@@ -11,7 +11,7 @@
 @interface CaptureViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
-@property (copy, nonatomic) NSString *whichLight;
+@property (nonatomic) NSInteger *whichLight;
 @property (copy, nonatomic) NSString *whichEye;
 
 

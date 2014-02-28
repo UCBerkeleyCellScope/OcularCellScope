@@ -20,8 +20,8 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
 //@property (copy, nonatomic) NSString *selectedEye;
-@property (copy, nonatomic) NSInteger *selectedEye;
-@property (copy, nonatomic) NSString *selectedLight;
+@property (copy,nonatomic) NSString *selectedEye;
+@property (nonatomic) NSInteger *selectedLight;
 
 @property (nonatomic, assign ) NSInteger oldSegmentedIndex;
 @property (nonatomic, assign ) NSInteger actualSegmentedIndex;
@@ -33,8 +33,12 @@
 @property (strong, nonatomic) EyeImage * centerEyeImage;
 @property (strong, nonatomic) EyeImage * noneEyeImage;
 
-
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
+@property NSMutableArray *fixationButtons;
+
+//@property(nonatomic, readonly, retain) UIImage *currentImage;
+
 
 
 @end
