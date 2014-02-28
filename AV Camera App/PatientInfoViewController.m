@@ -28,7 +28,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"New Eye Exam";
+    self.title = @"New Light Exam";
     CameraAppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
     _managedObjectContext = [appDelegate managedObjectContext];
 	// Do any additional setup after loading the view.

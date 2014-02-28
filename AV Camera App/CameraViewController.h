@@ -1,5 +1,5 @@
 //
-//  LeftEyeViewController.h
+//  LeftLightViewController.h
 //  AV Camera App
 //
 //  Created by NAYA LOUMOU on 11/24/13.

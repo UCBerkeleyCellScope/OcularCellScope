@@ -38,10 +38,12 @@
 - (IBAction)didPressFixation:(id)sender {
     
     
+    
+    
 }
 
 
-- (IBAction)didSelectEye:(id)sender {
+- (IBAction)didSelectLight:(id)sender {
 }
 
 

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constants.h"
 
 @interface FixationViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *centerFixationButton;
@@ -16,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *topFixationButton;
 @property (weak, nonatomic) IBOutlet UIButton *noFixationButton;
 
-@property (copy, nonatomic) NSString *currentEye;
+@property (copy, nonatomic) NSString *currentLight;
 
 
 @end
