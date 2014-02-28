@@ -8,19 +8,21 @@
 
 #import "CaptureViewController.h"
 @import AVFoundation;
+@import AssetsLibrary;
 
 @interface CaptureViewController ()
 @property (strong, nonatomic) AVCaptureSession *session;
 @property (strong, nonatomic) AVCaptureDevice *device;
 @property (strong, nonatomic) AVCaptureDeviceInput *deviceInput;
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer *previewLayer;
+@property (strong, nonatomic) AVCaptureStillImageOutput *stillOutput;
 
 
 @end
 
 @implementation CaptureViewController
 
-@synthesize session, device, deviceInput, previewLayer;
+@synthesize session, device, deviceInput, previewLayer, stillOutput;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,6 +37,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
     [self videoSetup];
 }
 
@@ -58,7 +61,6 @@
     
     device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
-    
     deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:Nil];
     if ( [session canAddInput:deviceInput] )
         [session addInput:deviceInput];
@@ -66,6 +68,11 @@
     previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
     [previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
     
+    stillOutput = [[AVCaptureStillImageOutput alloc] init];
+    NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
+    [stillOutput setOutputSettings:outputSettings];
+    [session addOutput:stillOutput];
+    [session startRunning];
     
     CALayer *rootLayer = [[self view] layer];
     [rootLayer setMasksToBounds:YES];
@@ -75,6 +82,37 @@
     //previewLayer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
     
     [session startRunning];
+}
+
+- (IBAction)didPressCapture:(id)sender {
+    [self snap];
+    NSLog(@"did get image");
+}
+
+- (IBAction)snap {
+    
+    AVCaptureConnection *videoConnection = nil;
+	for (AVCaptureConnection *connection in stillOutput.connections)
+	{
+		for (AVCaptureInputPort *port in [connection inputPorts])
+		{
+			if ([[port mediaType] isEqual:AVMediaTypeVideo] )
+			{
+				videoConnection = connection;
+				break;
+			}
+		}
+		if (videoConnection) { break; }
+	}
+    
+	NSLog(@"about to request a capture from: %@", stillOutput);
+    
+	[stillOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
+     {
+         NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+         UIImage *image = [[UIImage alloc] initWithData:imageData];
+     }];
+    
 }
 
 - (void)didReceiveMemoryWarning
