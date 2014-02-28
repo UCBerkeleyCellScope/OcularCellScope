@@ -72,7 +72,7 @@ int location, focus=0, exposure=0;
     
     // Setup the AV foundation capture session
     
-    //@TODO-note that the capture session is not being taken down correctly, update from Eyescope3
+    //@TODO-note that the capture session is not being taken down correctly, update from Lightscope3
     self.session = [[AVCaptureSession alloc] init];
     self.session.sessionPreset = AVCaptureSessionPresetPhoto;
     self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -126,7 +126,7 @@ int location, focus=0, exposure=0;
         location=2;
         NSLog(@"Location turned to: %u", location);
         UILabel *lblTitle = [[UILabel alloc] init];
-        lblTitle.text = @"Patient's Left Eye";
+        lblTitle.text = @"Patient's Left Light";
         lblTitle.backgroundColor = [UIColor clearColor];
         lblTitle.textColor = [UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:1.0];
         //lblTitle.shadowColor = [UIColor whiteColor];

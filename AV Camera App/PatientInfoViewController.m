@@ -28,7 +28,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"New Eye Exam";
+    self.title = @"New Light Exam";
     CameraAppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
     _managedObjectContext = [appDelegate managedObjectContext];
 	// Do any additional setup after loading the view.
@@ -42,7 +42,7 @@
     //NSLog(@"we made it!");
     if (self.currentPatient==nil){
         // Set up a Patient entry to store in Core Data
-        Patients* newPatient = (Patients*)[NSEntityDescription insertNewObjectForEntityForName:@"Patients" inManagedObjectContext:self.managedObjectContext];
+        Exam* newPatient = (Exam*)[NSEntityDescription insertNewObjectForEntityForName:@"Patients" inManagedObjectContext:self.managedObjectContext];
         newPatient.patientID = @"";
         newPatient.patientName = @"";
         self.currentPatient = newPatient;
@@ -51,7 +51,7 @@
     if (self.currentImage==nil)
     {
         // Set up an Image entry to store in Core Data
-        Images* newImage = (Images*)[NSEntityDescription insertNewObjectForEntityForName:@"Images" inManagedObjectContext:self.managedObjectContext];
+        EyeImage* newImage = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"Images" inManagedObjectContext:self.managedObjectContext];
         newImage.drName = @"";
         self.currentImage = newImage;
     }

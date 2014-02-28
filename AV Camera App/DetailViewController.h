@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Images.h"
-#import "Patients.h"
+#import "EyeImage.h"
+#import "Exam.h"
 
 @interface DetailViewController : UIViewController
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) Patients* currentPatient;
+@property (strong, nonatomic) Exam* currentPatient;
 @property (strong, nonatomic) IBOutlet UITextField *firstnameField;
 @property (strong, nonatomic) IBOutlet UITextField *lastnameField;
 @property (strong, nonatomic) IBOutlet UITextField *patientIDField;

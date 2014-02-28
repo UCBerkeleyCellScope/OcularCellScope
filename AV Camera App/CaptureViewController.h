@@ -13,4 +13,9 @@
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) IBOutlet UILabel *counterLabel;
 
+@property (copy, nonatomic) NSString *whichLight;
+@property (copy, nonatomic) NSString *whichEye;
+
+
+
 @end

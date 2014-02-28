@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		60206BD618C0940500BE536B /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 60206BD518C0940500BE536B /* Exam.m */; };
+		60206BD918C0940500BE536B /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 60206BD818C0940500BE536B /* EyeImage.m */; };
 		60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60418F22189B3E780001D490 /* CoreBluetooth.framework */; };
 		60418F28189B3ED60001D490 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 60418F26189B3ED60001D490 /* BLE.m */; };
 		60418F2B189BA83B0001D490 /* ImagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60418F2A189BA83B0001D490 /* ImagesViewController.m */; };
 		60418F2E189BB2ED0001D490 /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60418F2D189BB2ED0001D490 /* ImageCell.m */; };
+		60A0865F18C069C900A2667D /* FixationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A0865E18C069C900A2667D /* FixationViewController.m */; };
+		60A0866318C079C500A2667D /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A0866218C079C500A2667D /* Constants.m */; };
 		6D2D5DB718318D9F00A58A96 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2D5DB618318D9F00A58A96 /* Foundation.framework */; };
 		6D2D5DB918318D9F00A58A96 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2D5DB818318D9F00A58A96 /* CoreGraphics.framework */; };
 		6D2D5DBB18318D9F00A58A96 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2D5DBA18318D9F00A58A96 /* UIKit.framework */; };
@@ -35,8 +39,6 @@
 		6DD89D871842773B00F3C7FC /* PatientInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD89D861842773B00F3C7FC /* PatientInfoViewController.m */; };
 		6DD89D8D1842862F00F3C7FC /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */; };
 		F345FDA91855A2C9003E448E /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = F345FDA81855A2C9003E448E /* title.png */; };
-		F345FDAF1855ACDD003E448E /* Patients.m in Sources */ = {isa = PBXBuildFile; fileRef = F345FDAE1855ACDD003E448E /* Patients.m */; };
-		F345FDB21855ACDD003E448E /* Images.m in Sources */ = {isa = PBXBuildFile; fileRef = F345FDB11855ACDD003E448E /* Images.m */; };
 		F356909318559CC700DBB4BE /* button_addpatients.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909218559CC700DBB4BE /* button_addpatients.png */; };
 		F356909718559ECA00DBB4BE /* button_viewpatients.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909518559ECA00DBB4BE /* button_viewpatients.png */; };
 		F356909818559ECA00DBB4BE /* button_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909618559ECA00DBB4BE /* button_settings.png */; };
@@ -66,6 +68,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		60206BD418C0940500BE536B /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
+		60206BD518C0940500BE536B /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
+		60206BD718C0940500BE536B /* EyeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeImage.h; sourceTree = "<group>"; };
+		60206BD818C0940500BE536B /* EyeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeImage.m; sourceTree = "<group>"; };
 		60418F22189B3E780001D490 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		60418F25189B3ED60001D490 /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
 		60418F26189B3ED60001D490 /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
@@ -74,6 +80,10 @@
 		60418F2A189BA83B0001D490 /* ImagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesViewController.m; sourceTree = "<group>"; };
 		60418F2C189BB2ED0001D490 /* ImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCell.h; sourceTree = "<group>"; };
 		60418F2D189BB2ED0001D490 /* ImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCell.m; sourceTree = "<group>"; };
+		60A0865D18C069C900A2667D /* FixationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixationViewController.h; sourceTree = "<group>"; };
+		60A0865E18C069C900A2667D /* FixationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixationViewController.m; sourceTree = "<group>"; };
+		60A0866118C079C500A2667D /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		60A0866218C079C500A2667D /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		6D2D5DB318318D9F00A58A96 /* AV Camera App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AV Camera App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D2D5DB618318D9F00A58A96 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6D2D5DB818318D9F00A58A96 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -107,10 +117,6 @@
 		6DD89D8B1842862F00F3C7FC /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
 		F345FDA81855A2C9003E448E /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = title.png; path = images/title.png; sourceTree = "<group>"; };
-		F345FDAD1855ACDD003E448E /* Patients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Patients.h; sourceTree = "<group>"; };
-		F345FDAE1855ACDD003E448E /* Patients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Patients.m; sourceTree = "<group>"; };
-		F345FDB01855ACDD003E448E /* Images.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Images.h; sourceTree = "<group>"; };
-		F345FDB11855ACDD003E448E /* Images.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Images.m; sourceTree = "<group>"; };
 		F356909218559CC700DBB4BE /* button_addpatients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_addpatients.png; path = images/button_addpatients.png; sourceTree = "<group>"; };
 		F356909518559ECA00DBB4BE /* button_viewpatients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_viewpatients.png; path = images/button_viewpatients.png; sourceTree = "<group>"; };
 		F356909618559ECA00DBB4BE /* button_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_settings.png; path = images/button_settings.png; sourceTree = "<group>"; };
@@ -213,7 +219,11 @@
 			isa = PBXGroup;
 			children = (
 				6D2D5DC818318D9F00A58A96 /* Main.storyboard */,
+				60A0865D18C069C900A2667D /* FixationViewController.h */,
+				60A0865E18C069C900A2667D /* FixationViewController.m */,
 				F3FA32CF18B8205B000FACF4 /* CaptureViewController.h */,
+				60A0866118C079C500A2667D /* Constants.h */,
+				60A0866218C079C500A2667D /* Constants.m */,
 				F3FA32D018B8205B000FACF4 /* CaptureViewController.m */,
 				F3FA32C418B5D6BF000FACF4 /* ImageSelectionViewController.h */,
 				F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */,
@@ -273,10 +283,10 @@
 			isa = PBXGroup;
 			children = (
 				6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */,
-				F345FDB01855ACDD003E448E /* Images.h */,
-				F345FDB11855ACDD003E448E /* Images.m */,
-				F345FDAD1855ACDD003E448E /* Patients.h */,
-				F345FDAE1855ACDD003E448E /* Patients.m */,
+				60206BD718C0940500BE536B /* EyeImage.h */,
+				60206BD818C0940500BE536B /* EyeImage.m */,
+				60206BD418C0940500BE536B /* Exam.h */,
+				60206BD518C0940500BE536B /* Exam.m */,
 				6DD89D7B18426AD400F3C7FC /* CoreDataController.h */,
 				6DD89D7C18426AD400F3C7FC /* CoreDataController.m */,
 			);
@@ -423,22 +433,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F345FDB21855ACDD003E448E /* Images.m in Sources */,
+				60A0865F18C069C900A2667D /* FixationViewController.m in Sources */,
 				6D2D5DC318318D9F00A58A96 /* main.m in Sources */,
 				6D2D5DC718318D9F00A58A96 /* CameraAppDelegate.m in Sources */,
 				60418F2E189BB2ED0001D490 /* ImageCell.m in Sources */,
+				60206BD618C0940500BE536B /* Exam.m in Sources */,
 				60418F28189B3ED60001D490 /* BLE.m in Sources */,
 				F3FA32D118B8205B000FACF4 /* CaptureViewController.m in Sources */,
 				F3FA32C618B5D6BF000FACF4 /* ImageSelectionViewController.m in Sources */,
 				6DD89D8D1842862F00F3C7FC /* MainMenuViewController.m in Sources */,
-				F345FDAF1855ACDD003E448E /* Patients.m in Sources */,
 				60418F2B189BA83B0001D490 /* ImagesViewController.m in Sources */,
 				6DD89D201842629600F3C7FC /* CameraModel.xcdatamodeld in Sources */,
 				6D3260FE184BBD6200E34428 /* PatientsTableViewController.m in Sources */,
 				F3E8F340185554FD00B1520F /* DetailViewController.m in Sources */,
 				6DD89D7D18426AD400F3C7FC /* CoreDataController.m in Sources */,
 				6DD89D841842743700F3C7FC /* CameraViewController.h in Sources */,
+				60206BD918C0940500BE536B /* EyeImage.m in Sources */,
 				6DD89D871842773B00F3C7FC /* PatientInfoViewController.m in Sources */,
+				60A0866318C079C500A2667D /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
