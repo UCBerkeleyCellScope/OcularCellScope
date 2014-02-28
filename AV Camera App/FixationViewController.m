@@ -8,6 +8,8 @@
 
 #import "FixationViewController.h"
 #import "CaptureViewController.h"
+#import "CoreDataController.h"
+#import "CameraAppDelegate.h"
 
 @interface FixationViewController ()
 
@@ -15,8 +17,10 @@
 
 @implementation FixationViewController
 
+
 @synthesize selectedEye, selectedLight, oldSegmentedIndex, actualSegmentedIndex;
 
+@synthesize managedObjectContext= _managedObjectContext;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -30,6 +34,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    CameraAppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
+    _managedObjectContext = [appDelegate managedObjectContext];
+
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -37,10 +46,24 @@
     if(self.segmentedControl.selectedSegmentIndex == 0){
         //load the left images
         
-        self.allImages = [CoreDataController getObjectsForEntity:@"Image" withSortKey:@"date" andSortAscending:NO
-                                                      andContext: self.managedObjectContext ];
+        
+        
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        
+        request.entity = [NSEntityDescription entityForName:@"EyeImage" inManagedObjectContext: _managedObjectContext];
+        request.predicate = [NSPredicate predicateWithFormat: @"eye == %@ AND fixationLight == %@", leftEye, centerLight];
+        request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]];
+        request.fetchLimit = 1;
+        
+        NSError *error;
+        
+        NSArray *array = [_managedObjectContext executeFetchRequest:request error:&error];
+        
+        
 
         
+        //request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]];
+        //request.fetchLimit = 1;
         
         
     }

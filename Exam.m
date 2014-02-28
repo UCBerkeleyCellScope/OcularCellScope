@@ -1,5 +1,5 @@
 //
-//  Patients.m
+//  Exam.m
 //  OcularCellscope
 //
 //  Created by PJ Loury on 2/28/14.
@@ -11,6 +11,7 @@
 
 @implementation Exam
 
+@dynamic date;
 @dynamic firstName;
 @dynamic lastName;
 @dynamic notes;

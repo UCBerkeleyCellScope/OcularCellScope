@@ -1,5 +1,5 @@
 //
-//  Patients.h
+//  Exam.h
 //  OcularCellscope
 //
 //  Created by PJ Loury on 2/28/14.
@@ -12,6 +12,7 @@
 
 @interface Exam : NSManagedObject
 
+@property (nonatomic, retain) NSDate * date;
 @property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * lastName;
 @property (nonatomic, retain) NSString * notes;
