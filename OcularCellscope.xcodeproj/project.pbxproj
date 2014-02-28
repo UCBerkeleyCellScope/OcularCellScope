@@ -31,7 +31,7 @@
 		6DD89D7D18426AD400F3C7FC /* CoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD89D7C18426AD400F3C7FC /* CoreDataController.m */; };
 		6DD89D7F18426AFF00F3C7FC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD89D7E18426AFF00F3C7FC /* CoreData.framework */; };
 		6DD89D8118426B0700F3C7FC /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD89D8018426B0700F3C7FC /* CoreImage.framework */; };
-		6DD89D841842743700F3C7FC /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD89D831842743700F3C7FC /* CameraViewController.m */; };
+		6DD89D841842743700F3C7FC /* CameraViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 6DD89D831842743700F3C7FC /* CameraViewController.h */; };
 		6DD89D871842773B00F3C7FC /* PatientInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD89D861842773B00F3C7FC /* PatientInfoViewController.m */; };
 		6DD89D8D1842862F00F3C7FC /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */; };
 		F345FDA91855A2C9003E448E /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = F345FDA81855A2C9003E448E /* title.png */; };
@@ -99,8 +99,8 @@
 		6DD89D7C18426AD400F3C7FC /* CoreDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataController.m; path = "AV Camera App/CoreDataController.m"; sourceTree = "<group>"; };
 		6DD89D7E18426AFF00F3C7FC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6DD89D8018426B0700F3C7FC /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
-		6DD89D821842743700F3C7FC /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
-		6DD89D831842743700F3C7FC /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
+		6DD89D821842743700F3C7FC /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
+		6DD89D831842743700F3C7FC /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		6DD89D851842773B00F3C7FC /* PatientInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientInfoViewController.h; sourceTree = "<group>"; };
 		6DD89D861842773B00F3C7FC /* PatientInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatientInfoViewController.m; sourceTree = "<group>"; };
 		6DD89D8B1842862F00F3C7FC /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
@@ -223,8 +223,8 @@
 				6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */,
 				6DD89D851842773B00F3C7FC /* PatientInfoViewController.h */,
 				6DD89D861842773B00F3C7FC /* PatientInfoViewController.m */,
-				6DD89D821842743700F3C7FC /* CameraViewController.h */,
-				6DD89D831842743700F3C7FC /* CameraViewController.m */,
+				6DD89D821842743700F3C7FC /* CameraViewController.m */,
+				6DD89D831842743700F3C7FC /* CameraViewController.h */,
 				60418F29189BA83B0001D490 /* ImagesViewController.h */,
 				60418F2A189BA83B0001D490 /* ImagesViewController.m */,
 				6D3260FC184BBD6200E34428 /* PatientsTableViewController.h */,
@@ -433,7 +433,7 @@
 				6D3260FE184BBD6200E34428 /* PatientsTableViewController.m in Sources */,
 				F3E8F340185554FD00B1520F /* DetailViewController.m in Sources */,
 				6DD89D7D18426AD400F3C7FC /* CoreDataController.m in Sources */,
-				6DD89D841842743700F3C7FC /* CameraViewController.m in Sources */,
+				6DD89D841842743700F3C7FC /* CameraViewController.h in Sources */,
 				6DD89D871842773B00F3C7FC /* PatientInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

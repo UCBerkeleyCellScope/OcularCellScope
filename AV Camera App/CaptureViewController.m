@@ -45,10 +45,6 @@
     self.navigationController.navigationBar.alpha = 0;
 }
 
--(void)viewDidDisappear:(BOOL)animated{
-    //self.navigationController.navigationBar.alpha = 1;
-}
-
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     self.navigationController.navigationBar.alpha = 1;
 }
@@ -85,14 +81,17 @@
 }
 
 - (IBAction)didPressCapture:(id)sender {
-    [self snap];
+    
+    AVCaptureConnection *videoConnection = [self getVideoConnection];
+    
+    [self takeStillFromConnection:videoConnection];
+    
     NSLog(@"did get image");
 }
 
-- (IBAction)snap {
-    
+-(AVCaptureConnection*)getVideoConnection{
     AVCaptureConnection *videoConnection = nil;
-	for (AVCaptureConnection *connection in stillOutput.connections)
+	for (AVCaptureConnection *connection in self.stillOutput.connections)
 	{
 		for (AVCaptureInputPort *port in [connection inputPorts])
 		{
@@ -104,15 +103,24 @@
 		}
 		if (videoConnection) { break; }
 	}
+    return videoConnection;
+}
+
+- (void)takeStillFromConnection:(AVCaptureConnection*)videoConnection {
+    
     
 	NSLog(@"about to request a capture from: %@", stillOutput);
     
+    [self.activityIndicator startAnimating];
+    
 	[stillOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
      {
+         [self.activityIndicator stopAnimating];
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
          UIImage *image = [[UIImage alloc] initWithData:imageData];
+         
      }];
-    
+
 }
 
 - (void)didReceiveMemoryWarning
