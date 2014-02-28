@@ -7,7 +7,7 @@
 //
 
 #import "CaptureViewController.h"
-#import "Constants.h"
+
 #import "ImageSelectionViewController.h"
 @import AVFoundation;
 @import AssetsLibrary;
