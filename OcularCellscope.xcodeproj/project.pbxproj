@@ -52,6 +52,7 @@
 		F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C918B5E4B7000FACF4 /* im3.png */; };
 		F3FA32CE18B5E4B7000FACF4 /* im4.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32CA18B5E4B7000FACF4 /* im4.png */; };
 		F3FA32D118B8205B000FACF4 /* CaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3FA32D018B8205B000FACF4 /* CaptureViewController.m */; };
+		F3FA32D518C084DC000FACF4 /* CaptureSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32D418C084DC000FACF4 /* CaptureSettings.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +129,7 @@
 		F3FA32CA18B5E4B7000FACF4 /* im4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im4.png; sourceTree = "<group>"; };
 		F3FA32CF18B8205B000FACF4 /* CaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureViewController.h; sourceTree = "<group>"; };
 		F3FA32D018B8205B000FACF4 /* CaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureViewController.m; sourceTree = "<group>"; };
+		F3FA32D418C084DC000FACF4 /* CaptureSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CaptureSettings.plist; path = ../CaptureSettings.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				6D2D5DBE18318D9F00A58A96 /* AV Camera App-Info.plist */,
+				F3FA32D418C084DC000FACF4 /* CaptureSettings.plist */,
 				6D2D5DBF18318D9F00A58A96 /* InfoPlist.strings */,
 				6D2D5DC218318D9F00A58A96 /* main.m */,
 				6D2D5DC418318D9F00A58A96 /* AV Camera App-Prefix.pch */,
@@ -399,6 +402,7 @@
 				F358E31C185A859900872304 /* Icon@2x.png in Resources */,
 				F356909318559CC700DBB4BE /* button_addpatients.png in Resources */,
 				6D2D5DCA18318D9F00A58A96 /* Main.storyboard in Resources */,
+				F3FA32D518C084DC000FACF4 /* CaptureSettings.plist in Resources */,
 				F3FA32CE18B5E4B7000FACF4 /* im4.png in Resources */,
 				F345FDA91855A2C9003E448E /* title.png in Resources */,
 			);

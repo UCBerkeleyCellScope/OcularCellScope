@@ -553,7 +553,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Review Images" id="7dv-jV-lDW">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="lrV-Ll-fmo"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="VdC-99-cYH"/>
                     </navigationItem>
                     <connections>
@@ -644,7 +643,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="2qF-pw-3PT" kind="push" id="VdO-Ng-iEO"/>
+                                    <segue destination="2qF-pw-3PT" kind="push" identifier="ImageSelectionSegue" id="VdO-Ng-iEO"/>
                                 </connections>
                             </button>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="VWc-OV-3Uv">
@@ -668,6 +667,13 @@
                                 <rect key="frame" x="142" y="265" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/5" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PNh-Xg-hYw">
+                                <rect key="frame" x="224" y="91" width="65" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -675,6 +681,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="activityIndicator" destination="Ung-FV-d0Z" id="uXQ-yK-w6F"/>
+                        <outlet property="counterLabel" destination="PNh-Xg-hYw" id="a3Q-IY-KAI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jFr-16-nKh" userLabel="First Responder" sceneMemberID="firstResponder"/>

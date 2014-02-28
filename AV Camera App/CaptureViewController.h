@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface CaptureViewController : UIViewController
+
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) IBOutlet UILabel *counterLabel;
 
 @end

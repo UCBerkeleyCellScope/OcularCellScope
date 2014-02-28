@@ -10,7 +10,6 @@
 
 @interface ImageSelectionViewController ()
 
-@property(strong, nonatomic) NSMutableArray *images;
 @property(assign, nonatomic) int currentImageIndex;
 
 @end
@@ -40,6 +39,8 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    currentImageIndex = 0;
+    /*
     images = [[NSMutableArray alloc] init];
     UIImage *im1 = [UIImage imageNamed:@"im1.png"];
     UIImage *im2 = [UIImage imageNamed:@"im2.png"];
@@ -52,12 +53,13 @@
     [images addObject:im4];
     
     NSLog(@"%@", images);
+    */
     
-    [imageView setImage:im1];//[images objectAtIndex:currentImageIndex]];
     
     if([images count]<1)
         slider.hidden = YES;
     else{
+        [imageView setImage:[images objectAtIndex:currentImageIndex]];
         slider.minimumValue = 0;
         slider.maximumValue = [images count]-1;
     }

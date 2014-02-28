@@ -11,6 +11,7 @@
 @interface ImageSelectionViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UISlider *slider;
+@property(strong, nonatomic) NSMutableArray *images;
 
 - (IBAction)didMoveSlider:(id)sender;
 
