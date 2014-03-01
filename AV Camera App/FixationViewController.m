@@ -84,9 +84,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                 UIImage* thumbImage = [UIImage imageWithData: leftEyeImage.thumbnail];
                 [fixationButtons[i-1] setImage: thumbImage forState:UIControlStateNormal];
                 [fixationButtons[i-1] setSelected: YES];
-
-                
-                
             }
             else{
                 UIImage* thumbImage = [UIImage imageNamed: @"Icon.png"];
