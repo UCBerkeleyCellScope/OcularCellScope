@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface CaptureViewController : UIViewController
+
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) IBOutlet UILabel *counterLabel;
 
 @property (nonatomic) NSInteger *whichLight;
 @property (copy, nonatomic) NSString *whichEye;
