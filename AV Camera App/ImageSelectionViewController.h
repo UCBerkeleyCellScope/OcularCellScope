@@ -15,4 +15,7 @@
 
 - (IBAction)didMoveSlider:(id)sender;
 
+@property (nonatomic) NSInteger *whichLight;
+@property (copy, nonatomic) NSString *whichEye;
+
 @end

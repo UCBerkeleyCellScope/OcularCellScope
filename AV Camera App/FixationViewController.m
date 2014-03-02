@@ -8,6 +8,7 @@
 
 #import "FixationViewController.h"
 #import "CaptureViewController.h"
+#import "ImageSelectionViewController.h"
 #import "CoreDataController.h"
 #import "CameraAppDelegate.h"
 
@@ -103,8 +104,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 - (IBAction)didPressFixation:(id)sender {
     
-  
-    
     switch ([sender tag])
     {
         case 1:
@@ -164,8 +163,15 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         CaptureViewController* cvc = (CaptureViewController*)[segue destinationViewController];
         cvc.whichEye = self.selectedEye;
         cvc.whichLight = self.selectedLight;
-
     }
+    
+    else if ([[segue identifier] isEqualToString:@"imageSelectionSegue"])
+    {
+        ImageSelectionViewController * isvc = (ImageSelectionViewController*)[segue destinationViewController];
+        isvc.whichEye = self.selectedEye;
+        isvc.whichLight = self.selectedLight;
+    }
+
 }
 
 
