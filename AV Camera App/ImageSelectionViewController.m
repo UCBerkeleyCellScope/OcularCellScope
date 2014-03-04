@@ -16,7 +16,7 @@
 
 @implementation ImageSelectionViewController
 
-@synthesize imageView,slider, images, currentImageIndex;
+@synthesize imageView,slider, images, currentImageIndex, whichLight, whichEye;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

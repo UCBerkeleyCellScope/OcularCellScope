@@ -15,6 +15,7 @@
 		60418F2E189BB2ED0001D490 /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60418F2D189BB2ED0001D490 /* ImageCell.m */; };
 		60A0865F18C069C900A2667D /* FixationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A0865E18C069C900A2667D /* FixationViewController.m */; };
 		60A0866318C079C500A2667D /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A0866218C079C500A2667D /* Constants.m */; };
+		60C2A51D18C19F2800021510 /* CellScopeContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2A51C18C19F2800021510 /* CellScopeContext.m */; };
 		6D2D5DB718318D9F00A58A96 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2D5DB618318D9F00A58A96 /* Foundation.framework */; };
 		6D2D5DB918318D9F00A58A96 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2D5DB818318D9F00A58A96 /* CoreGraphics.framework */; };
 		6D2D5DBB18318D9F00A58A96 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2D5DBA18318D9F00A58A96 /* UIKit.framework */; };
@@ -84,6 +85,8 @@
 		60A0865E18C069C900A2667D /* FixationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixationViewController.m; sourceTree = "<group>"; };
 		60A0866118C079C500A2667D /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		60A0866218C079C500A2667D /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		60C2A51B18C19F2800021510 /* CellScopeContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellScopeContext.h; sourceTree = "<group>"; };
+		60C2A51C18C19F2800021510 /* CellScopeContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellScopeContext.m; sourceTree = "<group>"; };
 		6D2D5DB318318D9F00A58A96 /* AV Camera App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AV Camera App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D2D5DB618318D9F00A58A96 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6D2D5DB818318D9F00A58A96 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -92,8 +95,8 @@
 		6D2D5DC018318D9F00A58A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6D2D5DC218318D9F00A58A96 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6D2D5DC418318D9F00A58A96 /* AV Camera App-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AV Camera App-Prefix.pch"; sourceTree = "<group>"; };
-		6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraAppDelegate.h; sourceTree = "<group>"; };
-		6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraAppDelegate.m; sourceTree = "<group>"; };
+		6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CameraAppDelegate.h; path = "AV Camera App/CameraAppDelegate.h"; sourceTree = "<group>"; };
+		6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CameraAppDelegate.m; path = "AV Camera App/CameraAppDelegate.m"; sourceTree = "<group>"; };
 		6D2D5DC918318D9F00A58A96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6D2D5DCE18318D9F00A58A96 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6D2D5DD418318D9F00A58A96 /* AV Camera AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AV Camera AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -180,6 +183,10 @@
 		6D2D5DAA18318D9E00A58A96 = {
 			isa = PBXGroup;
 			children = (
+				6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */,
+				6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */,
+				60C2A51B18C19F2800021510 /* CellScopeContext.h */,
+				60C2A51C18C19F2800021510 /* CellScopeContext.m */,
 				F356909418559CCA00DBB4BE /* Images */,
 				6DD89D211842666C00F3C7FC /* Core Data */,
 				6D2D5DBC18318D9F00A58A96 /* AV Camera App */,
@@ -229,8 +236,6 @@
 				F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */,
 				60418F2C189BB2ED0001D490 /* ImageCell.h */,
 				60418F2D189BB2ED0001D490 /* ImageCell.m */,
-				6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */,
-				6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */,
 				6DD89D8B1842862F00F3C7FC /* MainMenuViewController.h */,
 				6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */,
 				6DD89D851842773B00F3C7FC /* PatientInfoViewController.h */,
@@ -435,6 +440,7 @@
 			files = (
 				60A0865F18C069C900A2667D /* FixationViewController.m in Sources */,
 				6D2D5DC318318D9F00A58A96 /* main.m in Sources */,
+				60C2A51D18C19F2800021510 /* CellScopeContext.m in Sources */,
 				6D2D5DC718318D9F00A58A96 /* CameraAppDelegate.m in Sources */,
 				60418F2E189BB2ED0001D490 /* ImageCell.m in Sources */,
 				60206BDC18C0954000BE536B /* EyeImage.m in Sources */,

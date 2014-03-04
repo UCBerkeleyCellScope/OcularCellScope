@@ -8,6 +8,7 @@
 
 #import "FixationViewController.h"
 #import "CaptureViewController.h"
+#import "ImageSelectionViewController.h"
 #import "CoreDataController.h"
 #import "CameraAppDelegate.h"
 
@@ -84,9 +85,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                 UIImage* thumbImage = [UIImage imageWithData: leftEyeImage.thumbnail];
                 [fixationButtons[i-1] setImage: thumbImage forState:UIControlStateNormal];
                 [fixationButtons[i-1] setSelected: YES];
-
-                
-                
             }
             else{
                 UIImage* thumbImage = [UIImage imageNamed: @"Icon.png"];
@@ -105,8 +103,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 }
 
 - (IBAction)didPressFixation:(id)sender {
-    
-  
     
     switch ([sender tag])
     {
@@ -167,8 +163,15 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         CaptureViewController* cvc = (CaptureViewController*)[segue destinationViewController];
         cvc.whichEye = self.selectedEye;
         cvc.whichLight = self.selectedLight;
-
     }
+    
+    else if ([[segue identifier] isEqualToString:@"imageSelectionSegue"])
+    {
+        ImageSelectionViewController * isvc = (ImageSelectionViewController*)[segue destinationViewController];
+        isvc.whichEye = self.selectedEye;
+        isvc.whichLight = self.selectedLight;
+    }
+
 }
 
 
