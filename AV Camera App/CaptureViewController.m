@@ -113,6 +113,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 // this happens on main thread
                 _counterLabel.text = [NSString stringWithFormat:@"%d/%d",index,_numberOfImages];
+                NSLog(@"Image %d of %d",index,_numberOfImages);
             });
             [NSThread sleepForTimeInterval:_captureDelay];
             [self turnTorchOn:YES];
