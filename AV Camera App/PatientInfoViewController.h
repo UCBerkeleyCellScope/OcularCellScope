@@ -22,7 +22,7 @@
 
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) Exam* currentPatient;
+@property (strong, nonatomic) Exam* currentExam;
 @property (strong, nonatomic) EyeImage* currentImage;
 
 //- (IBAction)savePatientData:(id)sender;

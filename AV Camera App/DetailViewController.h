@@ -13,7 +13,7 @@
 @interface DetailViewController : UIViewController
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) Exam* currentPatient;
+@property (strong, nonatomic) Exam* currentExam;
 @property (strong, nonatomic) IBOutlet UITextField *firstnameField;
 @property (strong, nonatomic) IBOutlet UITextField *lastnameField;
 @property (strong, nonatomic) IBOutlet UITextField *patientIDField;

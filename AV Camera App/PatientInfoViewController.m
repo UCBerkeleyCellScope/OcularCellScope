@@ -13,7 +13,7 @@
 
 
 @synthesize managedObjectContext= _managedObjectContext;
-@synthesize currentPatient, currentImage;
+@synthesize currentExam, currentImage;
 @synthesize firstnameField, lastnameField, patientIDField, physicianField, notesTextView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -40,12 +40,12 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
     //NSLog(@"we made it!");
-    if (self.currentPatient==nil){
+    if (self.currentExam==nil){
         // Set up a Patient entry to store in Core Data
         Exam* newPatient = (Exam*)[NSEntityDescription insertNewObjectForEntityForName:@"Patients" inManagedObjectContext:self.managedObjectContext];
         newPatient.patientID = @"";
         newPatient.patientName = @"";
-        self.currentPatient = newPatient;
+        self.currentExam = newPatient;
     }
     
     if (self.currentImage==nil)
@@ -56,13 +56,13 @@
         self.currentImage = newImage;
     }
     
-    //populate the form with data from currentPatient
+    //populate the form with data from currentExam
     //note that we include this in viewWillAppear rather than viewDidLoad just in case downstream forms edit things
-    firstnameField.text = self.currentPatient.firstName;
-    lastnameField.text = self.currentPatient.lastName;
-    patientIDField.text = self.currentPatient.patientID;
+    firstnameField.text = self.currentExam.firstName;
+    lastnameField.text = self.currentExam.lastName;
+    patientIDField.text = self.currentExam.patientID;
     physicianField.text = self.currentImage.drName;
-    notesTextView.text = self.currentPatient.notes;
+    notesTextView.text = self.currentExam.notes;
     
     //bring up keyboard and set focus on patient name field
     //[firstnameField becomeFirstResponder];
@@ -78,14 +78,14 @@
     else
     {
         //save changes to core data
-        self.currentPatient.firstName = firstnameField.text;
-        self.currentPatient.lastName = lastnameField.text;
-        self.currentPatient.patientID = patientIDField.text;
+        self.currentExam.firstName = firstnameField.text;
+        self.currentExam.lastName = lastnameField.text;
+        self.currentExam.patientID = patientIDField.text;
         self.currentImage.drName = physicianField.text;
-        self.currentPatient.notes = notesTextView.text;
+        self.currentExam.notes = notesTextView.text;
         
         //save relationship
-        self.currentImage.patient = self.currentPatient;
+        self.currentImage.exam = self.currentExam;
         NSLog(@"Info saved");
         
         // Commit to core data
@@ -145,7 +145,7 @@
 {
     CameraViewController* levc = (CameraViewController*)[segue destinationViewController];
     levc.managedObjectContext = self.managedObjectContext;
-    levc.currentPatient = self.currentPatient;
+    levc.currentExam = self.currentExam;
     levc.currentImage = self.currentImage;
 }
 /*

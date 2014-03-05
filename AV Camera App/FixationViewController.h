@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Constants.h"
 #import "EyeImage.h"
 
 @interface FixationViewController : UIViewController
@@ -21,7 +20,7 @@
 
 //@property (copy, nonatomic) NSString *selectedEye;
 @property (copy,nonatomic) NSString *selectedEye;
-@property (nonatomic) NSInteger *selectedLight;
+@property (nonatomic) NSInteger const selectedLight;
 
 @property (nonatomic, assign ) NSInteger oldSegmentedIndex;
 @property (nonatomic, assign ) NSInteger actualSegmentedIndex;
@@ -36,6 +35,8 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property NSMutableArray *fixationButtons;
+
+@property NSMutableArray *eyeImages;
 
 //@property(nonatomic, readonly, retain) UIImage *currentImage;
 

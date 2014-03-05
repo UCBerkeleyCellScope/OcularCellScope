@@ -11,6 +11,8 @@
 #import "ImageSelectionViewController.h"
 #import "CoreDataController.h"
 #import "CameraAppDelegate.h"
+#import "Constants.h"
+
 
 @interface FixationViewController ()
 
@@ -20,10 +22,18 @@
 
 
 @synthesize selectedEye, selectedLight, oldSegmentedIndex, actualSegmentedIndex;
+
+//This is an EyeImage
 @synthesize leftEyeImage;
+
+//These are Buttons
 @synthesize centerFixationButton, topFixationButton,
 bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
+
+//This is an array of buttons
 @synthesize fixationButtons;
+
+@synthesize eyeImages;
 
 @synthesize managedObjectContext= _managedObjectContext;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -46,7 +56,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     fixationButtons = [NSMutableArray arrayWithObjects: centerFixationButton, topFixationButton,
                                        bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton, nil];
 
-    [self loadImages: self.segmentedControl.selectedSegmentIndex];
+    //[self loadImages: self.segmentedControl.selectedSegmentIndex];
     
 }
 
@@ -62,17 +72,34 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 -(void)loadImages:(NSInteger)segmentedIndex{
     
     if(self.segmentedControl.selectedSegmentIndex == 0){
-        selectedEye = leftEye;
+        selectedEye = LEFT_EYE;
     }
     else{
-        selectedEye = rightEye;
+        selectedEye = RIGHT_EYE;
     }
         //load the images
         for (int i = 1; i <= 6; i++)
         {
-            NSFetchRequest *request = [[NSFetchRequest alloc] init];
+            //Attempt 3
+             self.eyeImages = [CoreDataController getObjectsForEntity:@"EyeImage" withSortKey:@"date" andSortAscending:YES andContext:self.managedObjectContext];
             
-            request.entity = [NSEntityDescription entityForName:@"EyeImage" inManagedObjectContext: _managedObjectContext];
+            //Atempt 2
+            /*
+            NSPredicate *p = [NSPredicate predicateWithFormat: @"eye == %@ AND fixationLight == %d", selectedEye, i];
+            
+            NSMutableArray *nsmar = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: p
+                                                                    andSortKey: @"date" andSortAscending: YES
+                                      andContext: _managedObjectContext];
+            */
+            
+            
+            //Attempt 1
+            /*
+            
+            //NSFetchRequest *request = [[NSFetchRequest alloc] init];
+            NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"EyeImage"];
+            
+            //request.entity = [NSEntityDescription entityForName:@"EyeImage" inManagedObjectContext: _managedObjectContext];
             request.predicate = [NSPredicate predicateWithFormat: @"eye == %@ AND fixationLight == %d", selectedEye, i];
             request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]];
             request.fetchLimit = 1;
@@ -80,15 +107,18 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
             
             NSArray *array = [_managedObjectContext executeFetchRequest:request error:&error];
             
-            if(array[0]!=nil){
-                leftEyeImage = array[0];
+            */
+            
+            
+            if([eyeImages count] != 0){
+                leftEyeImage = eyeImages[0];
                 UIImage* thumbImage = [UIImage imageWithData: leftEyeImage.thumbnail];
                 [fixationButtons[i-1] setImage: thumbImage forState:UIControlStateNormal];
                 [fixationButtons[i-1] setSelected: YES];
             }
             else{
                 UIImage* thumbImage = [UIImage imageNamed: @"Icon.png"];
-                [fixationButtons[i-1] setImage: thumbImage];
+                [fixationButtons[i-1] setImage: thumbImage forState: UIControlStateNormal];
                 [fixationButtons[i-1] setSelected: NO];
                 
             }
@@ -104,45 +134,19 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 - (IBAction)didPressFixation:(id)sender {
     
-    switch ([sender tag])
-    {
-        case 1:
-            self.selectedLight = centerLight;
-            break;
     
-        case 2:
-            self.selectedLight = topLight;
-            break;
-
-        case 3:
-            self.selectedLight = bottomLight;
-            break;
-
-        case 4:
-            self.selectedLight = leftLight;
-            break;
-            
-        case 5:
-            self.selectedLight = rightLight;
-            break;
-            
-        case 6:
-            self.selectedLight = noLight;
-            break;
-            
-    }
+    self.selectedLight = [sender tag];
     
-    if( [sender isSelected] == YES){
+    
+    if( [sender isSelected] == NO){
     //there are pictures!
         [self performSegueWithIdentifier:@"captureViewSegue" sender:(id)sender];
     }
     
-    else if([sender isSelected] == NO ){
+    else if([sender isSelected] == YES ){
         [self performSegueWithIdentifier:@"imageSelectionSegue" sender:(id)sender];
         
     }
-    
-    
     
 }
 
@@ -151,7 +155,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     //self.oldSegmentedIndex = self.actualSegmentedIndex;
     //self.actualSegmentedIndex = self.segmentedControl.selectedSegmentIndex;
     
-    [self loadImages: self.segmentedControl.selectedSegmentIndex];
+    //[self loadImages: self.segmentedControl.selectedSegmentIndex];
     
 }
 
@@ -161,15 +165,15 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     if ([[segue identifier] isEqualToString:@"captureViewSegue"])
     {
         CaptureViewController* cvc = (CaptureViewController*)[segue destinationViewController];
-        cvc.whichEye = self.selectedEye;
-        cvc.whichLight = self.selectedLight;
+       cvc.whichEye = self.selectedEye;
+       cvc.whichLight = self.selectedLight;
     }
     
     else if ([[segue identifier] isEqualToString:@"imageSelectionSegue"])
     {
         ImageSelectionViewController * isvc = (ImageSelectionViewController*)[segue destinationViewController];
-        isvc.whichEye = self.selectedEye;
-        isvc.whichLight = self.selectedLight;
+       isvc.whichEye = self.selectedEye;
+       isvc.whichLight = self.selectedLight;
     }
 
 }

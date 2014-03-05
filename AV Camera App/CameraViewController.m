@@ -187,21 +187,21 @@ int location, focus=0, exposure=0;
                  NSLog(@"%@", myString);
                  NSLog(@"%@", myPath);
                  
-                 Images* newImage = (Images*)[NSEntityDescription insertNewObjectForEntityForName:@"Images" inManagedObjectContext:self.managedObjectContext];
-                 newImage.filepath = assetURL.absoluteString;
+                 EyeImage* newImage = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"Images" inManagedObjectContext:self.managedObjectContext];
+                 newImage.filePath = assetURL.absoluteString;
                  if (location==1){
-                     newImage.eyeLocation = @"right"; //TODO: handle multiple fields
+                     newImage.eye = @"right"; //TODO: handle multiple fields
                      NSLog(@"Location is: %u", location);
                  }
                  else if (location== 2){
-                     newImage.eyeLocation = @"left"; //TODO: handle multiple fields
+                     newImage.eye = @"left"; //TODO: handle multiple fields
                      NSLog(@"Location is: %u", location);
                  }
                  newImage.drName = self.currentImage.drName;
                  newImage.date = [NSDate date];
-                 newImage.patient = self.currentPatient;
+                 newImage.exam = self.currentExam;
                  
-                 //newImage.patient = self.currentPatient.patientID;
+                 //newImage.patient = self.currentExam.patientID;
                  self.navigationItem.rightBarButtonItem.enabled = YES;
                  
                  

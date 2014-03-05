@@ -2,11 +2,12 @@
 //  EyeImage.m
 //  OcularCellscope
 //
-//  Created by PJ Loury on 2/28/14.
+//  Created by PJ Loury on 3/3/14.
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
 #import "EyeImage.h"
+#import "Exam.h"
 
 
 @implementation EyeImage
@@ -17,5 +18,6 @@
 @dynamic filePath;
 @dynamic fixationLight;
 @dynamic thumbnail;
+@dynamic exam;
 
 @end

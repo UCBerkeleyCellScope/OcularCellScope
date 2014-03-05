@@ -2,11 +2,12 @@
 //  Exam.m
 //  OcularCellscope
 //
-//  Created by PJ Loury on 2/28/14.
+//  Created by PJ Loury on 3/3/14.
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
 #import "Exam.h"
+#import "EyeImage.h"
 
 
 @implementation Exam
@@ -17,6 +18,6 @@
 @dynamic notes;
 @dynamic patientID;
 @dynamic patientName;
-@dynamic relationship;
+@dynamic eyeImages;
 
 @end

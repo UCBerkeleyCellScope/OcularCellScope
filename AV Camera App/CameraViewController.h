@@ -18,6 +18,8 @@
 
 - (IBAction)didPressCapture:(id)sender;
 - (IBAction)didPressNext:(id)sender;
+
+
 - (IBAction)controlFocus:(id)sender;
 - (IBAction)controlExpo:(id)sender;
 
@@ -33,7 +35,7 @@
 @property (nonatomic, strong) AVCaptureStillImageOutput *stillOutput;
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) Exam* currentPatient;
+@property (strong, nonatomic) Exam* currentExam;
 @property (strong, nonatomic) EyeImage* currentImage;
 
 @end

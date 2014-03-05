@@ -15,7 +15,7 @@
 @implementation PatientsTableViewController
 
 @synthesize managedObjectContext = _managedObjectContext;
-@synthesize currentPatient, patientsArray;
+@synthesize currentExam, patientsArray;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -41,7 +41,7 @@
     _managedObjectContext = [appDelegate managedObjectContext];
     
     //  Grab the data
-    self.patientsArray = [CoreDataController getObjectsForEntity:@"Patients" withSortKey:@"patientName" andSortAscending:YES andContext:self.managedObjectContext];
+    self.patientsArray = [CoreDataController getObjectsForEntity:@"Exam" withSortKey:@"patientName" andSortAscending:YES andContext:self.managedObjectContext];
     //  Force table refresh
     [self.tableView reloadData];
     
@@ -91,7 +91,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    self.currentPatient = (Exam *)[patientsArray objectAtIndex:indexPath.row];
+    self.currentExam = (Exam *)[patientsArray objectAtIndex:indexPath.row];
     
     [self performSegueWithIdentifier: @"DetailSegue" sender: self];
 }
@@ -104,7 +104,7 @@
         DetailViewController* dvc = (DetailViewController*)[segue destinationViewController];
         
         dvc.managedObjectContext = self.managedObjectContext;
-        dvc.currentPatient = self.currentPatient;
+        dvc.currentExam = self.currentExam;
         
     }
 }

@@ -14,7 +14,7 @@
 @interface PatientsTableViewController : UITableViewController
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) Exam* currentPatient;
+@property (strong, nonatomic) Exam* currentExam;
 
 @property (nonatomic, strong) NSMutableArray *patientsArray;
 

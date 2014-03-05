@@ -7,7 +7,7 @@
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="patientID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="patientName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="eyeImage" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EyeImage" inverseName="exam" inverseEntity="EyeImage" syncable="YES"/>
+        <relationship name="eyeImages" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="EyeImage" inverseName="exam" inverseEntity="EyeImage" syncable="YES"/>
     </entity>
     <entity name="EyeImage" representedClassName="EyeImage" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
@@ -16,7 +16,7 @@
         <attribute name="filePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fixationLight" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
-        <relationship name="exam" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Exam" inverseName="eyeImage" inverseEntity="Exam" syncable="YES"/>
+        <relationship name="exam" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Exam" inverseName="eyeImages" inverseEntity="Exam" syncable="YES"/>
     </entity>
     <elements>
         <element name="Exam" positionX="0" positionY="0" width="128" height="148"/>

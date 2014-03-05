@@ -16,7 +16,7 @@
 @implementation DetailViewController
 
 @synthesize managedObjectContext = _managedObjectContext;
-@synthesize currentPatient;
+@synthesize currentExam;
 @synthesize firstnameField, lastnameField, patientIDField, physicianField, notesField, lefteyeView, righteyeView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -33,20 +33,33 @@
     [super viewDidLoad];
     self.title = @"Patient Info";
     
-    firstnameField.text = currentPatient.firstName;
-    lastnameField.text = currentPatient.lastName;
-    patientIDField.text = currentPatient.patientID;
-    NSSet *images = currentPatient.patientImages;
+    firstnameField.text = currentExam.firstName;
+    lastnameField.text = currentExam.lastName;
+    patientIDField.text = currentExam.patientID;
+    
+    NSOrderedSet *images = currentExam.eyeImages;
+    
+    /*
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    request.entity = [NSEntityDescription entityForName:@"EyeImage" inManagedObjectContext: _managedObjectContext];
+    request.predicate = [NSPredicate predicateWithFormat: @"eye == %@ AND fixationLight == %d", selectedEye, i];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]];
+    request.fetchLimit = 1;
+    NSError *error;
+    
+    NSArray *array = [_managedObjectContext executeFetchRequest:request error:&error];
+    */
     
     
     
-    EyeImage *im = [images anyObject];
+    EyeImage *im = [images firstObject];
     
-    if(im.filepath!=NULL){
+    if(im.filePath!=NULL){
         
-        NSLog(@"Filepath: %@",im.filepath);
+        NSLog(@"Filepath: %@",im.filePath);
         
-        NSURL *url = [[NSURL alloc] initWithString:im.filepath];
+        NSURL *url = [[NSURL alloc] initWithString:im.filePath];
         
         ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
         

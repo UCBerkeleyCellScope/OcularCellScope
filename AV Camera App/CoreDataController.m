@@ -17,7 +17,8 @@
 {
 	// Create fetch request
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
-	NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:managedObjectContext];
+	NSEntityDescription *entity = [NSEntityDescription entityForName:entityName
+                                   inManagedObjectContext:managedObjectContext];
 	[request setEntity:entity];
     
 	// If a predicate was specified then use it in the request

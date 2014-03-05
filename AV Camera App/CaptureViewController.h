@@ -13,7 +13,7 @@
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) IBOutlet UILabel *counterLabel;
 
-@property (nonatomic) NSInteger *whichLight;
+@property (nonatomic) NSInteger const whichLight;
 @property (copy, nonatomic) NSString *whichEye;
 
 
