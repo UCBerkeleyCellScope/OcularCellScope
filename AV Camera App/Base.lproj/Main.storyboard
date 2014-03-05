@@ -439,7 +439,7 @@
             <objects>
                 <viewController id="AGJ-xP-Dbn" customClass="FixationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oYI-yh-K84">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="seY-6X-HHY" userLabel="BottomFixationButton">
@@ -545,6 +545,7 @@
                         <color key="tintColor" red="0.32941177487373352" green="0.52941179275512695" blue="0.50196081399917603" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Images" id="6ve-qZ-Svk"/>
+                    <navigationItem key="navigationItem" id="X28-KW-fod"/>
                     <connections>
                         <outlet property="LeftFixationButton" destination="vZa-OD-Ki1" id="ynw-xt-Pii"/>
                         <outlet property="bottomFixationButton" destination="seY-6X-HHY" id="YmG-Hx-rA6"/>
@@ -566,7 +567,7 @@
             <objects>
                 <viewController id="2qF-pw-3PT" userLabel="Image Selection View Controller" customClass="ImageSelectionViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yIH-7h-k7d">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="V3s-CM-8Fg">
@@ -579,14 +580,18 @@
                                 </connections>
                             </slider>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="NqN-Fh-BWJ">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="510"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="574"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Review Images" id="7dv-jV-lDW">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ZS4-ng-3RW"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ZS4-ng-3RW">
+                            <connections>
+                                <segue destination="AGJ-xP-Dbn" kind="push" id="egL-F4-wSL"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="VdC-99-cYH"/>
                     </navigationItem>
                     <connections>
@@ -885,5 +890,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="J3C-Qx-q7Z"/>
+        <segue reference="egL-F4-wSL"/>
     </inferredMetricsTieBreakers>
 </document>

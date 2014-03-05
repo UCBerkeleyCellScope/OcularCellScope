@@ -10,9 +10,12 @@
 #import <AVFoundation/AVFoundation.h>
 #import "Exam.h"
 #import "EyeImage.h"
+#import "BLE.h"
 
 @interface CameraViewController : UIViewController
-
+{
+    
+}
 @property (weak, nonatomic) IBOutlet UIView *preview;
 
 
@@ -37,5 +40,8 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Exam* currentExam;
 @property (strong, nonatomic) EyeImage* currentImage;
+@property (strong, nonatomic) BLE* ble;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem* camButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *bleConnect;
 
 @end

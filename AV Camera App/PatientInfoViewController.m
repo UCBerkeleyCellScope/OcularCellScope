@@ -42,7 +42,7 @@
     //NSLog(@"we made it!");
     if (self.currentExam==nil){
         // Set up a Patient entry to store in Core Data
-        Exam* newPatient = (Exam*)[NSEntityDescription insertNewObjectForEntityForName:@"Patients" inManagedObjectContext:self.managedObjectContext];
+        Exam* newPatient = (Exam*)[NSEntityDescription insertNewObjectForEntityForName:@"Exam" inManagedObjectContext:self.managedObjectContext];
         newPatient.patientID = @"";
         newPatient.patientName = @"";
         self.currentExam = newPatient;
@@ -51,7 +51,7 @@
     if (self.currentImage==nil)
     {
         // Set up an Image entry to store in Core Data
-        EyeImage* newImage = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"Images" inManagedObjectContext:self.managedObjectContext];
+        EyeImage* newImage = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"EyeImage" inManagedObjectContext:self.managedObjectContext];
         newImage.drName = @"";
         self.currentImage = newImage;
     }
