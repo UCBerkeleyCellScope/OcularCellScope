@@ -7,15 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BLE.h"
 
-@interface CaptureViewController : UIViewController
-
+@interface CaptureViewController : UIViewController<BLEDelegate>
+{
+IBOutlet UIBarButtonItem *bleConnect;
+}
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) IBOutlet UILabel *counterLabel;
 
 @property (nonatomic) NSInteger const whichLight;
 @property (copy, nonatomic) NSString *whichEye;
 
-
+@property (strong, nonatomic) BLE *ble;
 
 @end

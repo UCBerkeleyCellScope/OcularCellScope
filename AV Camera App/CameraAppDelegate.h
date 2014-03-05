@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "Exam.h"
+#import "BLE.h"
 
-@interface CameraAppDelegate : UIResponder <UIApplicationDelegate>
+@interface CameraAppDelegate : UIResponder <UIApplicationDelegate, BLEDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
@@ -17,6 +18,9 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (strong,nonatomic) Exam *currentExam;
+
+//@property (strong, nonatomic) BLE *ble;
+
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

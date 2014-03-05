@@ -36,6 +36,7 @@
 @synthesize numberOfImages = _numberOfImages;
 @synthesize captureDelay = _captureDelay;
 @synthesize counterLabel = _counterLabel;
+@synthesize ble;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,13 +52,17 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    ble = [[BLE alloc] init];
+    [ble controlSetup];
+    ble.delegate = self;
+    
     [self videoSetup];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     
     [self setViewControllerElements];
-    self.navigationController.navigationBar.alpha = 0;
+    //self.navigationController.navigationBar.alpha = 0;
     
 }
 
@@ -71,6 +76,118 @@
     _counterLabel.hidden = YES;
     _counterLabel.text = [NSString stringWithFormat:@"1/%d",_numberOfImages];
     _imageArray = [[NSMutableArray alloc] init];
+}
+
+- (IBAction)btnScanForPeripherals:(id)sender
+{
+    if (ble.activePeripheral)
+        if(ble.activePeripheral.state == CBPeripheralStateConnected)
+        {
+            [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
+            [bleConnect setTitle:@"Connect"];
+            return;
+        }
+    
+    if (ble.peripherals)
+        ble.peripherals = nil;
+    
+    [bleConnect setEnabled:false];
+    [ble findBLEPeripherals:2];
+    
+    [NSTimer scheduledTimerWithTimeInterval:(float)2.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
+    
+}
+
+-(void) connectionTimer:(NSTimer *)timer
+{
+    [bleConnect setEnabled:true];
+    [bleConnect setTitle: @"Disconnect"];
+    
+    
+    if (ble.peripherals.count > 0)
+    {
+        
+        [ble connectPeripheral:[ble.peripherals objectAtIndex:0]];
+        NSLog(@"At least attempting connection");
+        
+        
+    }
+    else
+    {
+        [bleConnect setTitle:@"Connect"];
+        NSLog(@"No peripherals found");
+    }
+}
+
+- (void)bleDidDisconnect
+{
+    NSLog(@"->Disconnected");
+    
+}
+
+-(void) bleDidConnect
+{
+    UInt8 buf[] = {0x04, 0x00, 0x00};
+    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
+    [ble write:data];
+    NSLog(@"BLE has succesfully connected");
+}
+
+// When data is comming, this will be called
+-(void) bleDidReceiveData:(unsigned char *)data length:(int)length
+{
+    NSLog(@"Length: %d", length);
+    
+    // parse data, all commands are in 3-byte
+    for (int i = 0; i < length; i+=3)
+    {
+        NSLog(@"0x%02X, 0x%02X, 0x%02X", data[i], data[i+1], data[i+2]);
+        
+        if (data[i] == 0x0A)
+        {
+            /*
+             if (data[i+1] == 0x01)
+             swDigitalIn.on = true;
+             else
+             swDigitalIn.on = false;
+             */
+        }
+        else if (data[i] == 0x0B)
+        {
+            UInt16 Value;
+            
+            Value = data[i+2] | data[i+1] << 8;
+            //lblAnalogIn.text = [NSString stringWithFormat:@"%d", Value];
+        }
+    }
+}
+
+- (void)flashOn:(float) duration{
+    UInt8 buf[3] = {0x01, 0x01, 0x00};
+    
+    NSLog(@"Flash On");
+    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
+    [ble write:data];
+    
+    /*
+    [NSTimer scheduledTimerWithTimeInterval:(float)duration target:self selector:@selector(flashTimer:) userInfo:nil repeats:NO];
+     */
+}
+
+-(void) flashTimer:(NSTimer *)timer
+{
+    UInt8 buf[3] = {0x01, 0x00, 0x00};
+    
+    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
+    [ble write:data];
+}
+
+-(void) flashOff
+{
+    UInt8 buf[3] = {0x01, 0x00, 0x00};
+    
+    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
+    [ble write:data];
 }
 
 -(void)videoSetup
@@ -108,6 +225,8 @@
     _counterLabel.hidden = NO;
     AVCaptureConnection *videoConnection = [self getVideoConnection];
     
+    [self flashOn: 1.0];
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         for(int index = 1; index <= _numberOfImages; ++index){
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -126,6 +245,7 @@
     });
     
     NSLog(@"didPressCapture Completed");
+    [self flashOff];
 }
 
 

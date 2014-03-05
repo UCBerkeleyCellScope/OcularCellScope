@@ -10,6 +10,7 @@
 #import "PatientInfoViewController.h"
 #import "PatientsTableViewController.h"
 #import "MainMenuViewController.h"
+#import "CaptureViewController.h"
 #import "Exam.h"
 #import "EyeImage.h"
 
@@ -18,10 +19,16 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 @synthesize currentExam = _currentExam;
-
+//@synthesize ble;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+//    ble = [[BLE alloc] init];
+//    [ble controlSetup];
+//    ble.delegate = self;
+    
+    
+    
     return YES;
 }
 
