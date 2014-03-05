@@ -15,7 +15,7 @@
 
 - (IBAction)didMoveSlider:(id)sender;
 
-@property (nonatomic) NSInteger const whichLight;
-@property (copy, nonatomic) NSString *whichEye;
+@property (nonatomic) NSInteger const selectedLight;
+@property (copy, nonatomic) NSString *selectedEye;
 
 @end

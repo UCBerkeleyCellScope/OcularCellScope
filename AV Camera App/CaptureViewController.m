@@ -38,6 +38,8 @@
 @synthesize counterLabel = _counterLabel;
 @synthesize ble;
 
+@synthesize selectedLight, selectedEye;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -162,33 +164,43 @@
     }
 }
 
-- (void)flashOn:(float) duration{
-    UInt8 buf[3] = {0x01, 0x01, 0x00};
+- (void)flashOn:(float) duration whichLight: (NSInteger) light{
+    
+    //NSLog(@"NSInteger light %d", light);
+ 
+    
+    NSNumber *n = [[NSNumber alloc] initWithInteger:light];
+    
+    UInt8 tre = [n intValue];
+    NSLog(@"Light Number!!!! %d", tre);
+    
+    UInt8 buf[3] = {tre, 0x01, 0x00};
     
     NSLog(@"Flash On");
     NSData *data = [[NSData alloc] initWithBytes:buf length:3];
     [ble write:data];
     
-    /*
-    [NSTimer scheduledTimerWithTimeInterval:(float)duration target:self selector:@selector(flashTimer:) userInfo:nil repeats:NO];
-     */
+    
+    
+    [NSTimer scheduledTimerWithTimeInterval:(float)duration
+                                     target:self
+                                   selector:@selector(flashTimer:)
+                                   userInfo:n  repeats:NO];
+    
 }
 
--(void) flashTimer:(NSTimer *)timer
-{
-    UInt8 buf[3] = {0x01, 0x00, 0x00};
+-(void) flashTimer: (NSTimer *) theTimer{
+    
+    UInt8 foo = [[theTimer userInfo] intValue];
+    
+    NSLog(@"HI %d",foo);
+    UInt8 buf[3] = {foo, 0x00, 0x00};
+    NSLog(@"Flash off by timer");
     
     NSData *data = [[NSData alloc] initWithBytes:buf length:3];
     [ble write:data];
 }
 
--(void) flashOff
-{
-    UInt8 buf[3] = {0x01, 0x00, 0x00};
-    
-    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
-    [ble write:data];
-}
 
 -(void)videoSetup
 {
@@ -225,7 +237,11 @@
     _counterLabel.hidden = NO;
     AVCaptureConnection *videoConnection = [self getVideoConnection];
     
-    [self flashOn: 1.0];
+    
+    
+    
+    
+    [self flashOn: 0.5 whichLight: [self selectedLight]];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         for(int index = 1; index <= _numberOfImages; ++index){
@@ -245,7 +261,7 @@
     });
     
     NSLog(@"didPressCapture Completed");
-    [self flashOff];
+  
 }
 
 

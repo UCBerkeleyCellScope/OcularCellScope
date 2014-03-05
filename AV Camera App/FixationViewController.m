@@ -165,15 +165,15 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     if ([[segue identifier] isEqualToString:@"captureViewSegue"])
     {
         CaptureViewController* cvc = (CaptureViewController*)[segue destinationViewController];
-       cvc.whichEye = self.selectedEye;
-       cvc.whichLight = self.selectedLight;
+       cvc.selectedEye = self.selectedEye;
+       cvc.selectedLight = self.selectedLight;
     }
     
     else if ([[segue identifier] isEqualToString:@"imageSelectionSegue"])
     {
         ImageSelectionViewController * isvc = (ImageSelectionViewController*)[segue destinationViewController];
-       isvc.whichEye = self.selectedEye;
-       isvc.whichLight = self.selectedLight;
+       isvc.selectedEye = self.selectedEye;
+       isvc.selectedLight = self.selectedLight;
     }
 
 }
