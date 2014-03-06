@@ -29,7 +29,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //self.navigationController.navigationBar.hidden = YES;
+    self.navigationController.navigationBar.hidden = YES;
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    self.navigationController.navigationBar.hidden = NO;
 }
 
 @end

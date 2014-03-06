@@ -31,14 +31,13 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [imageView setImage:[UIImage imageNamed:@"im1.png"]];
-    currentImageIndex = 0;
-    self.navigationController.navigationBar.hidden = NO;
-    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+    //[imageView setImage:[UIImage imageNamed:@"im1.png"]];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    self.navigationController.navigationBar.hidden = NO;
+    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     currentImageIndex = 0;
     /*
     images = [[NSMutableArray alloc] init];
@@ -55,10 +54,12 @@
     NSLog(@"%@", images);
     */
     
+    NSLog(@"There are %lu images", (unsigned long)[images count]);
     
     if([images count]<1)
         slider.hidden = YES;
     else{
+        slider.hidden = NO;
         [imageView setImage:[images objectAtIndex:currentImageIndex]];
         slider.minimumValue = 0;
         slider.maximumValue = [images count]-1;

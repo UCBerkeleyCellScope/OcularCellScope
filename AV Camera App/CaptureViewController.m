@@ -19,7 +19,7 @@
 @property (strong, nonatomic) AVCaptureDeviceInput *deviceInput;
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer *previewLayer;
 @property (strong, nonatomic) AVCaptureStillImageOutput *stillOutput;
-@property (strong, atomic) NSMutableArray *imageArray;
+@property (strong, nonatomic) NSMutableArray *imageArray;
 @property (assign, nonatomic) int numberOfImages;
 @property (assign, nonatomic) int captureDelay;
 
@@ -36,9 +36,9 @@
 @synthesize numberOfImages = _numberOfImages;
 @synthesize captureDelay = _captureDelay;
 @synthesize counterLabel = _counterLabel;
+@synthesize selectedEye = _selectedEye;
+@synthesize selectedLight = _selectedLight;
 @synthesize ble;
-
-@synthesize selectedLight, selectedEye;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,17 +53,19 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
+    /*
     ble = [[BLE alloc] init];
     [ble controlSetup];
     ble.delegate = self;
-    
+    */
+    [self setViewControllerElements];
     [self videoSetup];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    [self setViewControllerElements];
+    //[self setViewControllerElements];
     //self.navigationController.navigationBar.alpha = 0;
     
 }
@@ -164,7 +166,7 @@
     }
 }
 
-- (void)flashOn:(float) duration whichLight: (NSInteger) light{
+- (void)flashOn:(float) duration withLight: (NSInteger) light{
     
     //NSLog(@"NSInteger light %d", light);
  
@@ -234,28 +236,34 @@
 
 - (IBAction)didPressCapture:(id)sender {
     
+    // Reveal counter label to display image count
     _counterLabel.hidden = NO;
     AVCaptureConnection *videoConnection = [self getVideoConnection];
     
     
+    //[self flashOn: 0.5 withLight: [self selectedLight]];
     
-    
-    
-    [self flashOn: 0.5 whichLight: [self selectedLight]];
-    
+    // Capture images on a background thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         for(int index = 1; index <= _numberOfImages; ++index){
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // this happens on main thread
+            /*
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                
                 _counterLabel.text = [NSString stringWithFormat:@"%d/%d",index,_numberOfImages];
                 NSLog(@"Image %d of %d",index,_numberOfImages);
-            });
-            [NSThread sleepForTimeInterval:_captureDelay];
-            [self turnTorchOn:YES];
+                
+            }];
+            */
+            //NSLog(@"Before sleep");
+            [NSThread sleepForTimeInterval:1];//_captureDelay];
+            //NSLog(@"After sleep");
+            //[self turnTorchOn:YES];
             [self takeStillFromConnection:videoConnection];
-            [self turnTorchOn:NO];
-            if(index == _numberOfImages)
+            
+            if(index == _numberOfImages){
                 [_activityIndicator startAnimating];
+                NSLog(@"Activity Indicator has started.");
+            }
             
         }
     });
@@ -288,22 +296,73 @@
     
 	[_stillOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
      {
+         // Turn off flash
+         [self turnTorchOn:NO];
+         
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
          UIImage *image = [[UIImage alloc] initWithData:imageData];
          
+         // Add the capture image to the image array
          [_imageArray addObject:image];
          
          NSLog(@"Saved Image %lu!",[_imageArray count]);
          
+         // Update the counter label
+         _counterLabel.text = [NSString stringWithFormat:@"%lu/%d",(unsigned long)[_imageArray count],_numberOfImages];
+         
+         NSLog(@"Image %lu of %d",(unsigned long)[_imageArray count],_numberOfImages);
+         
+         // Once all images are captured, segue to the Image Selection View
          if([_imageArray count] >= _numberOfImages){
              [_activityIndicator stopAnimating];
              [self performSegueWithIdentifier:@"ImageSelectionSegue" sender:self];
          }
+         
      }];
 
 }
 
+-(void)saveImage:(UIImage*) image{
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    
+    [library writeImageToSavedPhotosAlbum:image.CGImage orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+        if (error) {
+            NSLog(@"Error writing image to photo album");
+        }
+        else {
+            NSString *myString = [assetURL absoluteString];
+            NSString *myPath = [assetURL path];
+            NSLog(@"%@", myString);
+            NSLog(@"%@", myPath);
+            
+            NSLog(@"Added image to asset library");
+            [_imageArray addObject:[assetURL absoluteString]];
+            
+            /*
+            EyeImage* newImage = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"Images" inManagedObjectContext:self.managedObjectContext];
+            newImage.filePath = assetURL.absoluteString;
+            if (location==1){
+                newImage.eye = @"right"; //TODO: handle multiple fields
+                NSLog(@"Location is: %u", location);
+            }
+            else if (location== 2){
+                newImage.eye = @"left"; //TODO: handle multiple fields
+                NSLog(@"Location is: %u", location);
+            }
+            newImage.drName = self.currentImage.drName;
+            newImage.date = [NSDate date];
+            newImage.exam = self.currentExam;
+            
+            //newImage.patient = self.currentExam.patientID;
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+            */
+            
+        }
+    }];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
     self.navigationController.navigationBar.alpha = 1;
     ImageSelectionViewController* isvc = (ImageSelectionViewController*)[segue destinationViewController];
     isvc.images = _imageArray;

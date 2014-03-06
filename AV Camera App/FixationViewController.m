@@ -137,16 +137,26 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     self.selectedLight = [sender tag];
     
+    [self performSegueWithIdentifier:@"CaptureViewSegue" sender:(id)sender];
     
+    /*
     if( [sender isSelected] == NO){
-    //there are pictures!
-        [self performSegueWithIdentifier:@"captureViewSegue" sender:(id)sender];
+        //there are pictures!
+        CaptureViewController *nextViewController = [[CaptureViewController alloc] initWithNibName:nil bundle:nil];
+        
+        [self.navigationController pushViewController:nextViewController animated:YES];
+    
     }
     
     else if([sender isSelected] == YES ){
-        [self performSegueWithIdentifier:@"imageSelectionSegue" sender:(id)sender];
+        
+        ImageSelectionViewController *nextViewController = [[ImageSelectionViewController alloc] initWithNibName:nil bundle:nil];
+        
+        [self.navigationController pushViewController:nextViewController animated:YES];
+        //[self performSegueWithIdentifier:@"imageSelectionSegue" sender:(id)sender];
         
     }
+     */
     
 }
 
@@ -162,14 +172,15 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"captureViewSegue"])
+    if ([[segue identifier] isEqualToString:@"CaptureViewSegue"])
     {
+        NSLog(@"Preparing for CaptureViewSegue");
         CaptureViewController* cvc = (CaptureViewController*)[segue destinationViewController];
-       cvc.selectedEye = self.selectedEye;
-       cvc.selectedLight = self.selectedLight;
+        cvc.selectedEye = self.selectedEye;
+        cvc.selectedLight = self.selectedLight;
     }
     
-    else if ([[segue identifier] isEqualToString:@"imageSelectionSegue"])
+    else if ([[segue identifier] isEqualToString:@"ImageSelectionSegue"])
     {
         ImageSelectionViewController * isvc = (ImageSelectionViewController*)[segue destinationViewController];
        isvc.selectedEye = self.selectedEye;
