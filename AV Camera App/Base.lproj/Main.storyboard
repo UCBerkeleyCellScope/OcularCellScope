@@ -427,7 +427,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.41579909129999998" green="0.66232860329999999" blue="0.62588200189999998" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Patient Info" id="Nsd-L1-Y6U"/>
+                    <tabBarItem key="tabBarItem" title="Patient Info" image="patient_icon_small.png" id="Nsd-L1-Y6U"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LA2-35-o2C" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -544,7 +544,7 @@
                         <color key="backgroundColor" red="0.41579909129999998" green="0.66232860329999999" blue="0.62588200189999998" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.32941177487373352" green="0.52941179275512695" blue="0.50196081399917603" alpha="1" colorSpace="deviceRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Images" id="6ve-qZ-Svk"/>
+                    <tabBarItem key="tabBarItem" title="Images" image="eye_icon_small.png" id="6ve-qZ-Svk"/>
                     <navigationItem key="navigationItem" id="X28-KW-fod"/>
                     <connections>
                         <outlet property="LeftFixationButton" destination="vZa-OD-Ki1" id="ynw-xt-Pii"/>
@@ -585,9 +585,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Review Images" id="7dv-jV-lDW">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ZS4-ng-3RW"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="VdC-99-cYH"/>
+                    <navigationItem key="navigationItem" id="7dv-jV-lDW">
+                        <barButtonItem key="leftBarButtonItem" image="x_button.png" id="ZS4-ng-3RW"/>
+                        <barButtonItem key="rightBarButtonItem" image="check_button.png" id="VdC-99-cYH"/>
                     </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="NqN-Fh-BWJ" id="hh5-bf-Ule"/>
@@ -657,7 +657,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.41579909129999998" green="0.66232860329999999" blue="0.62588200189999998" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Notes" id="3dh-5B-roS"/>
+                    <tabBarItem key="tabBarItem" title="Notes" image="notes_icon_small.png" id="3dh-5B-roS"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6fW-su-BEt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -671,10 +671,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="GaI-4L-5ii">
-                                <rect key="frame" x="125" y="392" width="70" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GaI-4L-5ii">
+                                <rect key="frame" x="130" y="443" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Capture">
+                                <state key="normal" image="capture_button.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -685,22 +685,15 @@
                                 <rect key="frame" x="142" y="265" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/5" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PNh-Xg-hYw">
-                                <rect key="frame" x="224" y="91" width="65" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 01" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PNh-Xg-hYw">
+                                <rect key="frame" x="240" y="91" width="49" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="21"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ptw-UV-x2l">
-                                <rect key="frame" x="139" y="210" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="WpP-KK-DCF"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -855,7 +848,13 @@
         <image name="button_addpatients.png" width="509" height="112"/>
         <image name="button_settings.png" width="509" height="112"/>
         <image name="button_viewpatients.png" width="509" height="112"/>
+        <image name="capture_button.png" width="287" height="288"/>
+        <image name="check_button.png" width="27" height="20"/>
+        <image name="eye_icon_small.png" width="30" height="30"/>
+        <image name="notes_icon_small.png" width="30" height="30"/>
+        <image name="patient_icon_small.png" width="30" height="30"/>
         <image name="title.png" width="635" height="440"/>
+        <image name="x_button.png" width="22" height="22"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

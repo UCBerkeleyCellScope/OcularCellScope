@@ -43,6 +43,14 @@
 		6D393A2A1831D0D2004F2EC7 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D393A291831D0D2004F2EC7 /* AssetsLibrary.framework */; };
 		6DD89D7F18426AFF00F3C7FC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD89D7E18426AFF00F3C7FC /* CoreData.framework */; };
 		6DD89D8118426B0700F3C7FC /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD89D8018426B0700F3C7FC /* CoreImage.framework */; };
+		F325700C18CAA04600FEA80E /* capture_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F325700B18CAA04600FEA80E /* capture_button.png */; };
+		F325700F18CAA80000FEA80E /* check_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F325700D18CAA80000FEA80E /* check_button.png */; };
+		F325701218CAA87200FEA80E /* x_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F325701118CAA87200FEA80E /* x_button.png */; };
+		F325702018CC0CD100FEA80E /* patient_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F325701F18CC0CD100FEA80E /* patient_icon.png */; };
+		F325702218CC0CD500FEA80E /* notes_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F325702118CC0CD500FEA80E /* notes_icon.png */; };
+		F325702518CC0D3300FEA80E /* patient_icon_small.png in Resources */ = {isa = PBXBuildFile; fileRef = F325702318CC0D3300FEA80E /* patient_icon_small.png */; };
+		F325702618CC0D3300FEA80E /* notes_icon_small.png in Resources */ = {isa = PBXBuildFile; fileRef = F325702418CC0D3300FEA80E /* notes_icon_small.png */; };
+		F325702818CC0E4100FEA80E /* eye_icon_small.png in Resources */ = {isa = PBXBuildFile; fileRef = F325702718CC0E4100FEA80E /* eye_icon_small.png */; };
 		F345FDA91855A2C9003E448E /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = F345FDA81855A2C9003E448E /* title.png */; };
 		F356909318559CC700DBB4BE /* button_addpatients.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909218559CC700DBB4BE /* button_addpatients.png */; };
 		F356909718559ECA00DBB4BE /* button_viewpatients.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909518559ECA00DBB4BE /* button_viewpatients.png */; };
@@ -121,6 +129,14 @@
 		6DD89D861842773B00F3C7FC /* PatientInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatientInfoViewController.m; sourceTree = "<group>"; };
 		6DD89D8B1842862F00F3C7FC /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
+		F325700B18CAA04600FEA80E /* capture_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = capture_button.png; sourceTree = "<group>"; };
+		F325700D18CAA80000FEA80E /* check_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check_button.png; sourceTree = "<group>"; };
+		F325701118CAA87200FEA80E /* x_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = x_button.png; sourceTree = "<group>"; };
+		F325701F18CC0CD100FEA80E /* patient_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient_icon.png; sourceTree = "<group>"; };
+		F325702118CC0CD500FEA80E /* notes_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notes_icon.png; sourceTree = "<group>"; };
+		F325702318CC0D3300FEA80E /* patient_icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient_icon_small.png; sourceTree = "<group>"; };
+		F325702418CC0D3300FEA80E /* notes_icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notes_icon_small.png; sourceTree = "<group>"; };
+		F325702718CC0E4100FEA80E /* eye_icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eye_icon_small.png; sourceTree = "<group>"; };
 		F345FDA81855A2C9003E448E /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = title.png; path = images/title.png; sourceTree = "<group>"; };
 		F356909218559CC700DBB4BE /* button_addpatients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_addpatients.png; path = images/button_addpatients.png; sourceTree = "<group>"; };
 		F356909518559ECA00DBB4BE /* button_viewpatients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_viewpatients.png; path = images/button_viewpatients.png; sourceTree = "<group>"; };
@@ -304,6 +320,14 @@
 		F356909418559CCA00DBB4BE /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F325702718CC0E4100FEA80E /* eye_icon_small.png */,
+				F325702118CC0CD500FEA80E /* notes_icon.png */,
+				F325702318CC0D3300FEA80E /* patient_icon_small.png */,
+				F325702418CC0D3300FEA80E /* notes_icon_small.png */,
+				F325701F18CC0CD100FEA80E /* patient_icon.png */,
+				F325701118CAA87200FEA80E /* x_button.png */,
+				F325700D18CAA80000FEA80E /* check_button.png */,
+				F325700B18CAA04600FEA80E /* capture_button.png */,
 				F3FA32BB18B5D607000FACF4 /* test_images */,
 				F358E319185A859900872304 /* Icon.png */,
 				F358E31A185A859900872304 /* Icon@2x.png */,
@@ -406,18 +430,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F325701218CAA87200FEA80E /* x_button.png in Resources */,
+				F325702018CC0CD100FEA80E /* patient_icon.png in Resources */,
+				F325702218CC0CD500FEA80E /* notes_icon.png in Resources */,
+				F325702518CC0D3300FEA80E /* patient_icon_small.png in Resources */,
 				60B2E8FA18C6EEB300973C7E /* Main.storyboard in Resources */,
 				60B2E8F918C6EE7E00973C7E /* CameraModel.xcdatamodeld in Resources */,
 				F3FA32CC18B5E4B7000FACF4 /* im2.png in Resources */,
 				F3FA32CB18B5E4B7000FACF4 /* im1.png in Resources */,
+				F325702818CC0E4100FEA80E /* eye_icon_small.png in Resources */,
 				60B2E8FC18C717B100973C7E /* img.jpeg in Resources */,
 				6D2D5DCF18318D9F00A58A96 /* Images.xcassets in Resources */,
 				F358E316185A82E600872304 /* capture2.png in Resources */,
 				F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */,
+				F325700C18CAA04600FEA80E /* capture_button.png in Resources */,
 				F356909718559ECA00DBB4BE /* button_viewpatients.png in Resources */,
 				F356909818559ECA00DBB4BE /* button_settings.png in Resources */,
 				6D2D5DC118318D9F00A58A96 /* InfoPlist.strings in Resources */,
 				F358E318185A834500872304 /* capture.png in Resources */,
+				F325700F18CAA80000FEA80E /* check_button.png in Resources */,
+				F325702618CC0D3300FEA80E /* notes_icon_small.png in Resources */,
 				F358E31B185A859900872304 /* Icon.png in Resources */,
 				F358E315185A82E600872304 /* capture_back.png in Resources */,
 				F358E31C185A859900872304 /* Icon@2x.png in Resources */,

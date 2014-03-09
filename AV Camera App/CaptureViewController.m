@@ -78,7 +78,7 @@
     _captureDelay = [[dict objectForKey:@"captureDelay"] intValue];
     
     _counterLabel.hidden = YES;
-    _counterLabel.text = [NSString stringWithFormat:@"1/%d",_numberOfImages];
+    _counterLabel.text = nil;//@"";//[NSString stringWithFormat:@"",_numberOfImages];
     _imageArray = [[NSMutableArray alloc] init];
 }
 
@@ -308,7 +308,10 @@
          NSLog(@"Saved Image %lu!",[_imageArray count]);
          
          // Update the counter label
-         _counterLabel.text = [NSString stringWithFormat:@"%lu/%d",(unsigned long)[_imageArray count],_numberOfImages];
+         if([_imageArray count]<10)
+             _counterLabel.text = [NSString stringWithFormat:@"0%lu",(unsigned long)[_imageArray count],_numberOfImages];
+         else
+             _counterLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)[_imageArray count],_numberOfImages];
          
          NSLog(@"Image %lu of %d",(unsigned long)[_imageArray count],_numberOfImages);
          
