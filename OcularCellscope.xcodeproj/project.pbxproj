@@ -51,6 +51,10 @@
 		F325702518CC0D3300FEA80E /* patient_icon_small.png in Resources */ = {isa = PBXBuildFile; fileRef = F325702318CC0D3300FEA80E /* patient_icon_small.png */; };
 		F325702618CC0D3300FEA80E /* notes_icon_small.png in Resources */ = {isa = PBXBuildFile; fileRef = F325702418CC0D3300FEA80E /* notes_icon_small.png */; };
 		F325702818CC0E4100FEA80E /* eye_icon_small.png in Resources */ = {isa = PBXBuildFile; fileRef = F325702718CC0E4100FEA80E /* eye_icon_small.png */; };
+		F325703018D1A9AE00FEA80E /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = F325702B18D1A9AE00FEA80E /* UIImage+Alpha.m */; };
+		F325703118D1A9AE00FEA80E /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = F325702D18D1A9AE00FEA80E /* UIImage+Resize.m */; };
+		F325703218D1A9AE00FEA80E /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = F325702F18D1A9AE00FEA80E /* UIImage+RoundedCorner.m */; };
+		F325703418D1AF1F00FEA80E /* default-configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = F325703318D1AF1F00FEA80E /* default-configuration.plist */; };
 		F345FDA91855A2C9003E448E /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = F345FDA81855A2C9003E448E /* title.png */; };
 		F356909318559CC700DBB4BE /* button_addpatients.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909218559CC700DBB4BE /* button_addpatients.png */; };
 		F356909718559ECA00DBB4BE /* button_viewpatients.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909518559ECA00DBB4BE /* button_viewpatients.png */; };
@@ -64,7 +68,6 @@
 		F3FA32CC18B5E4B7000FACF4 /* im2.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C818B5E4B7000FACF4 /* im2.png */; };
 		F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C918B5E4B7000FACF4 /* im3.png */; };
 		F3FA32CE18B5E4B7000FACF4 /* im4.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32CA18B5E4B7000FACF4 /* im4.png */; };
-		F3FA32D518C084DC000FACF4 /* CaptureSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32D418C084DC000FACF4 /* CaptureSettings.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +140,13 @@
 		F325702318CC0D3300FEA80E /* patient_icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient_icon_small.png; sourceTree = "<group>"; };
 		F325702418CC0D3300FEA80E /* notes_icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notes_icon_small.png; sourceTree = "<group>"; };
 		F325702718CC0E4100FEA80E /* eye_icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eye_icon_small.png; sourceTree = "<group>"; };
+		F325702A18D1A9AE00FEA80E /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
+		F325702B18D1A9AE00FEA80E /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
+		F325702C18D1A9AE00FEA80E /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		F325702D18D1A9AE00FEA80E /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		F325702E18D1A9AE00FEA80E /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
+		F325702F18D1A9AE00FEA80E /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
+		F325703318D1AF1F00FEA80E /* default-configuration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "default-configuration.plist"; path = "../default-configuration.plist"; sourceTree = "<group>"; };
 		F345FDA81855A2C9003E448E /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = title.png; path = images/title.png; sourceTree = "<group>"; };
 		F356909218559CC700DBB4BE /* button_addpatients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_addpatients.png; path = images/button_addpatients.png; sourceTree = "<group>"; };
 		F356909518559ECA00DBB4BE /* button_viewpatients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_viewpatients.png; path = images/button_viewpatients.png; sourceTree = "<group>"; };
@@ -156,7 +166,6 @@
 		F3FA32CA18B5E4B7000FACF4 /* im4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im4.png; sourceTree = "<group>"; };
 		F3FA32CF18B8205B000FACF4 /* CaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureViewController.h; sourceTree = "<group>"; };
 		F3FA32D018B8205B000FACF4 /* CaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureViewController.m; sourceTree = "<group>"; };
-		F3FA32D418C084DC000FACF4 /* CaptureSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CaptureSettings.plist; path = ../CaptureSettings.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,8 +285,14 @@
 		6D2D5DBD18318D9F00A58A96 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F325702A18D1A9AE00FEA80E /* UIImage+Alpha.h */,
+				F325702B18D1A9AE00FEA80E /* UIImage+Alpha.m */,
+				F325702C18D1A9AE00FEA80E /* UIImage+Resize.h */,
+				F325702D18D1A9AE00FEA80E /* UIImage+Resize.m */,
+				F325702E18D1A9AE00FEA80E /* UIImage+RoundedCorner.h */,
+				F325702F18D1A9AE00FEA80E /* UIImage+RoundedCorner.m */,
+				F325703318D1AF1F00FEA80E /* default-configuration.plist */,
 				6D2D5DBE18318D9F00A58A96 /* AV Camera App-Info.plist */,
-				F3FA32D418C084DC000FACF4 /* CaptureSettings.plist */,
 				6D2D5DBF18318D9F00A58A96 /* InfoPlist.strings */,
 				6D2D5DC218318D9F00A58A96 /* main.m */,
 				6D2D5DC418318D9F00A58A96 /* AV Camera App-Prefix.pch */,
@@ -445,6 +460,7 @@
 				F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */,
 				F325700C18CAA04600FEA80E /* capture_button.png in Resources */,
 				F356909718559ECA00DBB4BE /* button_viewpatients.png in Resources */,
+				F325703418D1AF1F00FEA80E /* default-configuration.plist in Resources */,
 				F356909818559ECA00DBB4BE /* button_settings.png in Resources */,
 				6D2D5DC118318D9F00A58A96 /* InfoPlist.strings in Resources */,
 				F358E318185A834500872304 /* capture.png in Resources */,
@@ -454,7 +470,6 @@
 				F358E315185A82E600872304 /* capture_back.png in Resources */,
 				F358E31C185A859900872304 /* Icon@2x.png in Resources */,
 				F356909318559CC700DBB4BE /* button_addpatients.png in Resources */,
-				F3FA32D518C084DC000FACF4 /* CaptureSettings.plist in Resources */,
 				F3FA32CE18B5E4B7000FACF4 /* im4.png in Resources */,
 				F345FDA91855A2C9003E448E /* title.png in Resources */,
 			);
@@ -484,15 +499,18 @@
 				60D8C7C318C69BB1007D26A7 /* CaptureViewController.m in Sources */,
 				60D8C7C418C69BB1007D26A7 /* ImageSelectionViewController.m in Sources */,
 				60D8C7C518C69BB1007D26A7 /* ImageCell.m in Sources */,
+				F325703118D1A9AE00FEA80E /* UIImage+Resize.m in Sources */,
 				60D8C7C618C69BB1007D26A7 /* MainMenuViewController.m in Sources */,
 				60D8C7C718C69BB1007D26A7 /* PatientInfoViewController.m in Sources */,
 				60D8C7C818C69BB1007D26A7 /* CameraViewController.m in Sources */,
 				60D8C7C918C69BB1007D26A7 /* ImagesViewController.m in Sources */,
 				60D8C7CA18C69BB1007D26A7 /* PatientsTableViewController.m in Sources */,
 				60D8C7CB18C69BB1007D26A7 /* DetailViewController.m in Sources */,
+				F325703218D1A9AE00FEA80E /* UIImage+RoundedCorner.m in Sources */,
 				60D8C7CC18C69BB1007D26A7 /* main.m in Sources */,
 				60D8C7CE18C69BB2007D26A7 /* BLE.m in Sources */,
 				60D8C7D218C6BF87007D26A7 /* Constants.m in Sources */,
+				F325703018D1A9AE00FEA80E /* UIImage+Alpha.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

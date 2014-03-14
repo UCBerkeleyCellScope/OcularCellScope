@@ -12,6 +12,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UISlider *slider;
 @property(strong, nonatomic) NSMutableArray *images;
+@property(strong, nonatomic) NSMutableArray *thumbnails;
 
 - (IBAction)didMoveSlider:(id)sender;
 

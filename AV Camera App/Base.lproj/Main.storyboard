@@ -432,7 +432,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LA2-35-o2C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1152" y="-1494"/>
+            <point key="canvasLocation" x="1152" y="-1566"/>
         </scene>
         <!--Fixation View Controller - Images-->
         <scene sceneID="i2F-MR-AHQ">
@@ -510,30 +510,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <navigationBar contentMode="scaleToFill" id="X5B-0w-rSV">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem id="gbE-r9-O84">
-                                        <nil key="title"/>
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="gUe-uY-OhD"/>
-                                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="g84-lP-nQ8">
-                                            <rect key="frame" x="96" y="8" width="128" height="29"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <segments>
-                                                <segment title="Left"/>
-                                                <segment title="Right"/>
-                                            </segments>
-                                            <color key="tintColor" red="0.32941177487373352" green="0.52941179275512695" blue="0.50196081399917603" alpha="1" colorSpace="deviceRGB"/>
-                                            <connections>
-                                                <action selector="didSegmentedValueChanged:" destination="AGJ-xP-Dbn" eventType="valueChanged" id="LAN-Qe-GTY"/>
-                                                <action selector="didSelectEye:" destination="AGJ-xP-Dbn" eventType="valueChanged" id="evt-mG-zcj"/>
-                                            </connections>
-                                        </segmentedControl>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="xWv-Ax-uVf"/>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Fixation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0AB-vL-re2">
                                 <rect key="frame" x="24" y="410" width="88" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -545,7 +521,24 @@
                         <color key="tintColor" red="0.32941177487373352" green="0.52941179275512695" blue="0.50196081399917603" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Images" image="eye_icon_small.png" id="6ve-qZ-Svk"/>
-                    <navigationItem key="navigationItem" id="X28-KW-fod"/>
+                    <navigationItem key="navigationItem" id="X28-KW-fod">
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="gUe-uY-OhD"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="g84-lP-nQ8">
+                            <rect key="frame" x="96" y="8" width="128" height="29"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Left"/>
+                                <segment title="Right"/>
+                            </segments>
+                            <color key="tintColor" red="0.32941177487373352" green="0.52941179275512695" blue="0.50196081399917603" alpha="1" colorSpace="deviceRGB"/>
+                            <connections>
+                                <action selector="didSegmentedValueChanged:" destination="AGJ-xP-Dbn" eventType="valueChanged" id="LAN-Qe-GTY"/>
+                                <action selector="didSelectEye:" destination="AGJ-xP-Dbn" eventType="valueChanged" id="evt-mG-zcj"/>
+                            </connections>
+                        </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="xWv-Ax-uVf"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="LeftFixationButton" destination="vZa-OD-Ki1" id="ynw-xt-Pii"/>
                         <outlet property="bottomFixationButton" destination="seY-6X-HHY" id="YmG-Hx-rA6"/>
@@ -559,7 +552,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wtL-FP-NHW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1146" y="-276"/>
+            <point key="canvasLocation" x="1152" y="-258"/>
         </scene>
         <!--Image Selection View Controller-->
         <scene sceneID="eMj-Vl-UuO">
@@ -582,6 +575,33 @@
                                     <action selector="didTouchUpFromSlider:" destination="2qF-pw-3PT" eventType="touchUpOutside" id="tO9-24-9zC"/>
                                 </connections>
                             </slider>
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="h8E-7K-aAq">
+                                <rect key="frame" x="20" y="377" width="280" height="50"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FNZ-Pr-hJ1">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="k4Z-zy-G91">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Qu9-lM-GwV">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -657,11 +677,11 @@
                         </subviews>
                         <color key="backgroundColor" red="0.41579909129999998" green="0.66232860329999999" blue="0.62588200189999998" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Notes" image="notes_icon_small.png" id="3dh-5B-roS"/>
+                    <tabBarItem key="tabBarItem" title="Notes" image="capture.png" id="3dh-5B-roS"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6fW-su-BEt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1152" y="-928"/>
+            <point key="canvasLocation" x="1152" y="-912"/>
         </scene>
         <!--Capture View Controller-->
         <scene sceneID="YUO-a0-IZN">
@@ -848,10 +868,10 @@
         <image name="button_addpatients.png" width="509" height="112"/>
         <image name="button_settings.png" width="509" height="112"/>
         <image name="button_viewpatients.png" width="509" height="112"/>
+        <image name="capture.png" width="26" height="20"/>
         <image name="capture_button.png" width="287" height="288"/>
         <image name="check_button.png" width="27" height="20"/>
         <image name="eye_icon_small.png" width="30" height="30"/>
-        <image name="notes_icon_small.png" width="30" height="30"/>
         <image name="patient_icon_small.png" width="30" height="30"/>
         <image name="title.png" width="635" height="440"/>
         <image name="x_button.png" width="22" height="22"/>

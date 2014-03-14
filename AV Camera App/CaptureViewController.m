@@ -9,8 +9,10 @@
 #import "CaptureViewController.h"
 
 #import "ImageSelectionViewController.h"
+#import "UIImage+Resize.h"
 @import AVFoundation;
 @import AssetsLibrary;
+@import UIKit;
 
 @interface CaptureViewController ()
 
@@ -20,6 +22,7 @@
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer *previewLayer;
 @property (strong, nonatomic) AVCaptureStillImageOutput *stillOutput;
 @property (strong, nonatomic) NSMutableArray *imageArray;
+@property (strong, nonatomic) NSMutableArray *thumbnailArray;
 @property (assign, nonatomic) int numberOfImages;
 @property (assign, nonatomic) int captureDelay;
 
@@ -33,6 +36,7 @@
 @synthesize previewLayer = _previewLayer;
 @synthesize stillOutput = _stillOutput;
 @synthesize imageArray = _imageArray;
+@synthesize thumbnailArray = _thumbnailArray;
 @synthesize numberOfImages = _numberOfImages;
 @synthesize captureDelay = _captureDelay;
 @synthesize counterLabel = _counterLabel;
@@ -71,15 +75,18 @@
 }
 
 -(void)setViewControllerElements{
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"CaptureSettings" ofType:@"plist"];
-    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-    _numberOfImages = [[dict objectForKey:@"numberOfImages"] intValue];
-    _captureDelay = [[dict objectForKey:@"captureDelay"] intValue];
-    
+    NSUserDefaults* prefs = [NSUserDefaults standardUserDefaults];
+    //NSString *path = [[NSBundle mainBundle] pathForResource:@"CaptureSettings" ofType:@"plist"];
+    //NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
+    _numberOfImages = [prefs integerForKey:@"numberOfImages"];
+    NSLog(@"Number of Images: %d", _numberOfImages);
+    //[[dict objectForKey:@"numberOfImages"] intValue];
+    _captureDelay = [prefs floatForKey:@"captureDelay"];//[[dict objectForKey:@"captureDelay"] intValue];
+    NSLog(@"Capture Delay: %d", _captureDelay);
     _counterLabel.hidden = YES;
     _counterLabel.text = nil;//@"";//[NSString stringWithFormat:@"",_numberOfImages];
     _imageArray = [[NSMutableArray alloc] init];
+    _thumbnailArray = [[NSMutableArray alloc] init];
 }
 
 - (IBAction)btnScanForPeripherals:(id)sender
@@ -305,6 +312,14 @@
          // Add the capture image to the image array
          [_imageArray addObject:image];
          
+         float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
+         CGSize smallSize = [image size];
+         smallSize.height = smallSize.height/scaleFactor;
+         smallSize.width = smallSize.width/scaleFactor;
+         UIImage* thumbnail = [image resizedImage:smallSize interpolationQuality:kCGInterpolationDefault];
+         
+         [_thumbnailArray addObject:thumbnail];
+         
          NSLog(@"Saved Image %lu!",[_imageArray count]);
          
          // Update the counter label
@@ -369,6 +384,7 @@
     self.navigationController.navigationBar.alpha = 1;
     ImageSelectionViewController* isvc = (ImageSelectionViewController*)[segue destinationViewController];
     isvc.images = _imageArray;
+    isvc.thumbnails = _thumbnailArray;
 }
 
 - (void) turnTorchOn: (bool) on {

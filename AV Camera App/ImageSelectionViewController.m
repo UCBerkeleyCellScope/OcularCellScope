@@ -16,7 +16,7 @@
 
 @implementation ImageSelectionViewController
 
-@synthesize imageView,slider, images, currentImageIndex, selectedLight, selectedEye;
+@synthesize imageView,slider, images, currentImageIndex, selectedLight, selectedEye, thumbnails;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -55,6 +55,7 @@
     */
     
     NSLog(@"There are %lu images", (unsigned long)[images count]);
+    NSLog(@"There are %lu thumbnails", (unsigned long)[thumbnails count]);
     
     if([images count]<1)
         slider.hidden = YES;
@@ -64,7 +65,6 @@
         slider.minimumValue = 0;
         slider.maximumValue = [images count]-1;
     }
-    
     
 }
 
@@ -78,7 +78,7 @@
     int newImageIndex = (int) (slider.value + .5);
     
     if(newImageIndex!=currentImageIndex){
-        [imageView setImage:[images objectAtIndex:newImageIndex]];
+        [imageView setImage:[thumbnails objectAtIndex:newImageIndex]];
         currentImageIndex = newImageIndex;
     }
     
@@ -86,7 +86,7 @@
 
 -(IBAction)didTouchUpFromSlider:(id)sender{
     slider.value = currentImageIndex;
-    
+    [imageView setImage:[images objectAtIndex:currentImageIndex]];
 }
 
 

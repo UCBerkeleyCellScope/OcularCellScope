@@ -27,7 +27,9 @@
 //    [ble controlSetup];
 //    ble.delegate = self;
     
-    
+    NSString* defaultPrefsFile = [[NSBundle mainBundle] pathForResource:@"default-configuration" ofType:@"plist"];
+    NSDictionary* defaultPreferences = [NSDictionary dictionaryWithContentsOfFile:defaultPrefsFile];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPreferences];
     
     return YES;
 }
