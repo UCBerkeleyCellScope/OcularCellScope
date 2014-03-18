@@ -10,6 +10,10 @@
 
 #import "ImageSelectionViewController.h"
 #import "UIImage+Resize.h"
+#import "CameraAppDelegate.h"
+#import "CoreDataController.h"
+#import "EyeImage.h"
+
 @import AVFoundation;
 @import AssetsLibrary;
 @import UIKit;
@@ -25,6 +29,11 @@
 @property (strong, nonatomic) NSMutableArray *thumbnailArray;
 @property (assign, nonatomic) int numberOfImages;
 @property (assign, nonatomic) int captureDelay;
+
+@property (strong, nonatomic) NSString *file;
+@property (nonatomic) BOOL connected;
+
+@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end
 
@@ -43,6 +52,11 @@
 @synthesize selectedEye = _selectedEye;
 @synthesize selectedLight = _selectedLight;
 @synthesize ble;
+@synthesize managedObjectContext = _managedObjectContext;
+@synthesize file, connected;
+@synthesize currentExam = _currentExam;
+
+@synthesize eyeImages = _eyeImages;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -64,6 +78,10 @@
     */
     [self setViewControllerElements];
     [self videoSetup];
+    
+    CameraAppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
+    _managedObjectContext = [appDelegate managedObjectContext];
+
     
 }
 
@@ -87,6 +105,7 @@
     _counterLabel.text = nil;//@"";//[NSString stringWithFormat:@"",_numberOfImages];
     _imageArray = [[NSMutableArray alloc] init];
     _thumbnailArray = [[NSMutableArray alloc] init];
+    _eyeImages = [[NSMutableArray alloc] init];
 }
 
 - (IBAction)btnScanForPeripherals:(id)sender
@@ -264,7 +283,6 @@
             //NSLog(@"Before sleep");
             [NSThread sleepForTimeInterval:1];//_captureDelay];
             //NSLog(@"After sleep");
-            //[self turnTorchOn:YES];
             [self takeStillFromConnection:videoConnection];
             
             if(index == _numberOfImages){
@@ -297,6 +315,7 @@
     return videoConnection;
 }
 
+/*
 - (void)takeStillFromConnection:(AVCaptureConnection*)videoConnection{
     
 	NSLog(@"Saving Image...");
@@ -339,6 +358,68 @@
      }];
 
 }
+*/
+
+
+// PJ LOURYS TAKE ON IT
+- (void)takeStillFromConnection:(AVCaptureConnection*)videoConnection{
+    
+	NSLog(@"Saving Image...");
+    
+	[_stillOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
+     {
+         
+         NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+         UIImage *image = [[UIImage alloc] initWithData:imageData];
+         
+         // Add the capture image to the image array
+         //[_imageArray addObject:image];
+         
+         float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
+         CGSize smallSize = [image size];
+         smallSize.height = smallSize.height/scaleFactor;
+         smallSize.width = smallSize.width/scaleFactor;
+         UIImage* thumbnail = [image resizedImage:smallSize interpolationQuality:kCGInterpolationDefault];
+         
+         [_thumbnailArray addObject:thumbnail];
+         
+         NSLog(@"Saved Image %lu!",[_imageArray count]);
+         
+         
+         EyeImage* ei = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"EyeImage" inManagedObjectContext:self.managedObjectContext];
+         
+         ei.date = [NSDate date];
+         //newImage.drName = self.currentImage.drName;
+         ei.eye = _selectedEye;
+         [self saveImage:image];
+         ei.filePath = file;
+         NSNumber *myNum = [NSNumber numberWithInteger:_selectedLight];
+         ei.fixationLight = myNum;
+         ei.thumbnail = UIImagePNGRepresentation(thumbnail);
+         ei.exam = _currentExam;
+         
+         [_eyeImages addObject: ei];
+         
+         
+         // Update the counter label
+         if([_thumbnailArray count]<10)
+             _counterLabel.text = [NSString stringWithFormat:@"0%lu",(unsigned long)[_thumbnailArray count],_numberOfImages];
+         else
+             _counterLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)[_thumbnailArray count],_numberOfImages];
+         
+         NSLog(@"Image %lu of %d",(unsigned long)[_thumbnailArray count],_numberOfImages);
+         
+         // Once all images are captured, segue to the Image Selection View
+         if([_thumbnailArray count] >= _numberOfImages){
+             [_activityIndicator stopAnimating];
+             [self performSegueWithIdentifier:@"ImageSelectionSegue" sender:self];
+         }
+         
+     }];
+    
+}
+
+
 
 -(void)saveImage:(UIImage*) image{
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
@@ -354,29 +435,12 @@
             NSLog(@"%@", myPath);
             
             NSLog(@"Added image to asset library");
-            [_imageArray addObject:[assetURL absoluteString]];
+            //[_imageArray addObject:[assetURL absoluteString]];
             
-            /*
-            EyeImage* newImage = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"Images" inManagedObjectContext:self.managedObjectContext];
-            newImage.filePath = assetURL.absoluteString;
-            if (location==1){
-                newImage.eye = @"right"; //TODO: handle multiple fields
-                NSLog(@"Location is: %u", location);
-            }
-            else if (location== 2){
-                newImage.eye = @"left"; //TODO: handle multiple fields
-                NSLog(@"Location is: %u", location);
-            }
-            newImage.drName = self.currentImage.drName;
-            newImage.date = [NSDate date];
-            newImage.exam = self.currentExam;
-            
-            //newImage.patient = self.currentExam.patientID;
-            self.navigationItem.rightBarButtonItem.enabled = YES;
-            */
+            file = [assetURL absoluteString];
             
         }
-    }];
+    }]; // end of completion block
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -385,6 +449,8 @@
     ImageSelectionViewController* isvc = (ImageSelectionViewController*)[segue destinationViewController];
     isvc.images = _imageArray;
     isvc.thumbnails = _thumbnailArray;
+    isvc.eyeImages = _eyeImages;
+    
 }
 
 - (void) turnTorchOn: (bool) on {

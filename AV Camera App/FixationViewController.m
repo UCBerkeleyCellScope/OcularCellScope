@@ -21,7 +21,7 @@
 @implementation FixationViewController
 
 
-@synthesize selectedEye, selectedLight, oldSegmentedIndex, actualSegmentedIndex;
+@synthesize selectedEye, segmentedControl, selectedLight, oldSegmentedIndex, actualSegmentedIndex;
 
 //This is an EyeImage
 @synthesize leftEyeImage;
@@ -65,6 +65,16 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     [super viewWillAppear:(BOOL) animated];
     
     //ONLY RELOAD IF ITS CHANGED
+    
+    if (self.selectedEye){
+        if ([self.selectedEye isEqualToString: LEFT_EYE]) [segmentedControl setSelectedSegmentIndex: 0];
+        else if([self.selectedEye isEqualToString: LEFT_EYE]) [segmentedControl setSelectedSegmentIndex: 1];
+    }
+    else{
+        [segmentedControl setSelectedSegmentIndex: 0];
+
+    }
+    
     [self loadImages: self.segmentedControl.selectedSegmentIndex];
     
 }
@@ -81,16 +91,17 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         for (int i = 1; i <= 6; i++)
         {
             //Attempt 3
-             self.eyeImages = [CoreDataController getObjectsForEntity:@"EyeImage" withSortKey:@"date" andSortAscending:YES andContext:self.managedObjectContext];
-            
-            //Atempt 2
             /*
+             self.eyeImages = [CoreDataController getObjectsForEntity:@"EyeImage" withSortKey:@"date" andSortAscending:YES andContext:self.managedObjectContext];
+            */
+            
             NSPredicate *p = [NSPredicate predicateWithFormat: @"eye == %@ AND fixationLight == %d", selectedEye, i];
             
-            NSMutableArray *nsmar = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: p
-                                                                    andSortKey: @"date" andSortAscending: YES
-                                      andContext: _managedObjectContext];
-            */
+            NSArray *temp = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: p
+                                                            andSortKey: @"date" andSortAscending: YES
+                                                            andContext: _managedObjectContext];
+            
+            self.eyeImages = [NSMutableArray arrayWithArray:temp];
             
             
             //Attempt 1
@@ -165,7 +176,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     //self.oldSegmentedIndex = self.actualSegmentedIndex;
     //self.actualSegmentedIndex = self.segmentedControl.selectedSegmentIndex;
     
-    //[self loadImages: self.segmentedControl.selectedSegmentIndex];
+    [self loadImages: self.segmentedControl.selectedSegmentIndex];
     
 }
 

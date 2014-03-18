@@ -7,6 +7,8 @@
 //
 
 #import "ImageSelectionViewController.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import "FixationViewController.h"
 
 @interface ImageSelectionViewController ()
 
@@ -16,7 +18,7 @@
 
 @implementation ImageSelectionViewController
 
-@synthesize imageView,slider, images, currentImageIndex, selectedLight, selectedEye, thumbnails;
+@synthesize imageView,slider, currentImageIndex, selectedLight, selectedEye, images, thumbnails, eyeImages, currentEyeImage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -57,14 +59,45 @@
     NSLog(@"There are %lu images", (unsigned long)[images count]);
     NSLog(@"There are %lu thumbnails", (unsigned long)[thumbnails count]);
     
-    if([images count]<1)
+    if([eyeImages count]<1){
         slider.hidden = YES;
+        NSLog(@"LESS THAN 1");
+    }
     else{
         slider.hidden = NO;
-        [imageView setImage:[images objectAtIndex:currentImageIndex]];
+        //[imageView setImage:[images objectAtIndex:currentImageIndex]];
+        
+        
+        [self load:0];
+
+         
         slider.minimumValue = 0;
-        slider.maximumValue = [images count]-1;
+        slider.maximumValue = [thumbnails count]-1;
     }
+    
+}
+
+-(void) load: (int) cii{
+    NSLog(@"IN THE LOAD");
+    currentEyeImage = [eyeImages objectAtIndex:cii];
+    
+    NSURL *aURL = [NSURL URLWithString: currentEyeImage.filePath];
+    
+    NSLog(@"displaying image at: %@",currentEyeImage.filePath);
+    
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    [library assetForURL:aURL resultBlock:^(ALAsset *asset)
+     {
+         ALAssetRepresentation* rep = [asset defaultRepresentation];
+         CGImageRef iref = [rep fullResolutionImage];
+         
+         [imageView setImage:[UIImage imageWithCGImage:iref]];
+     }
+            failureBlock:^(NSError *error)
+     {
+         // error handling
+         NSLog(@"failure loading video/image from AssetLibrary");
+     }];
     
 }
 
@@ -86,8 +119,18 @@
 
 -(IBAction)didTouchUpFromSlider:(id)sender{
     slider.value = currentImageIndex;
-    [imageView setImage:[images objectAtIndex:currentImageIndex]];
+    //[imageView setImage:[images objectAtIndex:currentImageIndex]];
+    [self load:currentImageIndex];
+    
 }
 
 
+
+
+- (IBAction)didPressSaveButton:(id)sender {
+    
+    FixationViewController *fvc = [self.navigationController.viewControllers objectAtIndex:1];
+    //fvc.selectedEye = selectedEye;
+    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
+}
 @end

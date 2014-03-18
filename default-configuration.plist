@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>numberOfImages</key>
-	<integer>10</integer>
+	<integer>4</integer>
 	<key>captureDelay</key>
 	<real>0.5</real>
 	<key>ThumbnailSize</key>

@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "BLE.h"
 
+#import "Exam.h"
+
 @interface CaptureViewController : UIViewController<BLEDelegate>
 {
 IBOutlet UIBarButtonItem *bleConnect;
@@ -20,5 +22,9 @@ IBOutlet UIBarButtonItem *bleConnect;
 @property (copy, nonatomic) NSString *selectedEye;
 
 @property (strong, nonatomic) BLE *ble;
+
+@property (strong, nonatomic) Exam *currentExam;
+
+@property(strong, nonatomic) NSMutableArray *eyeImages;
 
 @end

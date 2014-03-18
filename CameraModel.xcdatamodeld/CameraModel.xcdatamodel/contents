@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Exam" representedClassName="Exam" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
@@ -14,12 +14,12 @@
         <attribute name="drName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eye" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="filePath" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="fixationLight" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fixationLight" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
         <relationship name="exam" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Exam" inverseName="eyeImages" inverseEntity="Exam" syncable="YES"/>
     </entity>
     <elements>
         <element name="Exam" positionX="0" positionY="0" width="128" height="148"/>
-        <element name="EyeImage" positionX="250" positionY="-9" width="128" height="148"/>
+        <element name="EyeImage" positionX="250" positionY="-9" width="128" height="150"/>
     </elements>
 </model>

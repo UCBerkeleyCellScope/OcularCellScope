@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60418F22189B3E780001D490 /* CoreBluetooth.framework */; };
+		60533D1F18D8454C00FF336E /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 60533D1E18D8454C00FF336E /* EyeImage.m */; };
+		60533D2218D8454D00FF336E /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 60533D2118D8454D00FF336E /* Exam.m */; };
 		60B2E8F918C6EE7E00973C7E /* CameraModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */; };
 		60B2E8FA18C6EEB300973C7E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D2D5DC818318D9F00A58A96 /* Main.storyboard */; };
 		60B2E8FC18C717B100973C7E /* img.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 60B2E8FB18C717B100973C7E /* img.jpeg */; };
 		60D8C7BC18C69BB1007D26A7 /* CameraAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */; };
 		60D8C7BD18C69BB1007D26A7 /* CellScopeContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2A51C18C19F2800021510 /* CellScopeContext.m */; };
-		60D8C7BE18C69BB1007D26A7 /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078ED4718C54F5200205B4B /* Exam.m */; };
-		60D8C7BF18C69BB1007D26A7 /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078ED4418C54F5100205B4B /* EyeImage.m */; };
 		60D8C7C018C69BB1007D26A7 /* CoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD89D7C18426AD400F3C7FC /* CoreDataController.m */; };
 		60D8C7C118C69BB1007D26A7 /* FixationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A0865E18C069C900A2667D /* FixationViewController.m */; };
 		60D8C7C318C69BB1007D26A7 /* CaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3FA32D018B8205B000FACF4 /* CaptureViewController.m */; };
@@ -89,10 +89,10 @@
 		60418F2A189BA83B0001D490 /* ImagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesViewController.m; sourceTree = "<group>"; };
 		60418F2C189BB2ED0001D490 /* ImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCell.h; sourceTree = "<group>"; };
 		60418F2D189BB2ED0001D490 /* ImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCell.m; sourceTree = "<group>"; };
-		6078ED4318C54F5100205B4B /* EyeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeImage.h; sourceTree = "<group>"; };
-		6078ED4418C54F5100205B4B /* EyeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeImage.m; sourceTree = "<group>"; };
-		6078ED4618C54F5200205B4B /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
-		6078ED4718C54F5200205B4B /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
+		60533D1D18D8454C00FF336E /* EyeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeImage.h; sourceTree = "<group>"; };
+		60533D1E18D8454C00FF336E /* EyeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeImage.m; sourceTree = "<group>"; };
+		60533D2018D8454D00FF336E /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
+		60533D2118D8454D00FF336E /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
 		60A0865D18C069C900A2667D /* FixationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixationViewController.h; sourceTree = "<group>"; };
 		60A0865E18C069C900A2667D /* FixationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixationViewController.m; sourceTree = "<group>"; };
 		60B2E8FB18C717B100973C7E /* img.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = img.jpeg; sourceTree = "<group>"; };
@@ -321,11 +321,11 @@
 		6DD89D211842666C00F3C7FC /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				6078ED4618C54F5200205B4B /* Exam.h */,
-				6078ED4718C54F5200205B4B /* Exam.m */,
-				6078ED4318C54F5100205B4B /* EyeImage.h */,
-				6078ED4418C54F5100205B4B /* EyeImage.m */,
 				6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */,
+				60533D1D18D8454C00FF336E /* EyeImage.h */,
+				60533D1E18D8454C00FF336E /* EyeImage.m */,
+				60533D2018D8454D00FF336E /* Exam.h */,
+				60533D2118D8454D00FF336E /* Exam.m */,
 				6DD89D7B18426AD400F3C7FC /* CoreDataController.h */,
 				6DD89D7C18426AD400F3C7FC /* CoreDataController.m */,
 			);
@@ -492,8 +492,6 @@
 			files = (
 				60D8C7BC18C69BB1007D26A7 /* CameraAppDelegate.m in Sources */,
 				60D8C7BD18C69BB1007D26A7 /* CellScopeContext.m in Sources */,
-				60D8C7BE18C69BB1007D26A7 /* Exam.m in Sources */,
-				60D8C7BF18C69BB1007D26A7 /* EyeImage.m in Sources */,
 				60D8C7C018C69BB1007D26A7 /* CoreDataController.m in Sources */,
 				60D8C7C118C69BB1007D26A7 /* FixationViewController.m in Sources */,
 				60D8C7C318C69BB1007D26A7 /* CaptureViewController.m in Sources */,
@@ -504,6 +502,7 @@
 				60D8C7C718C69BB1007D26A7 /* PatientInfoViewController.m in Sources */,
 				60D8C7C818C69BB1007D26A7 /* CameraViewController.m in Sources */,
 				60D8C7C918C69BB1007D26A7 /* ImagesViewController.m in Sources */,
+				60533D2218D8454D00FF336E /* Exam.m in Sources */,
 				60D8C7CA18C69BB1007D26A7 /* PatientsTableViewController.m in Sources */,
 				60D8C7CB18C69BB1007D26A7 /* DetailViewController.m in Sources */,
 				F325703218D1A9AE00FEA80E /* UIImage+RoundedCorner.m in Sources */,
@@ -511,6 +510,7 @@
 				60D8C7CE18C69BB2007D26A7 /* BLE.m in Sources */,
 				60D8C7D218C6BF87007D26A7 /* Constants.m in Sources */,
 				F325703018D1A9AE00FEA80E /* UIImage+Alpha.m in Sources */,
+				60533D1F18D8454C00FF336E /* EyeImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
