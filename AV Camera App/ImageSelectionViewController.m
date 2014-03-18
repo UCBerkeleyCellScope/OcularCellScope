@@ -7,6 +7,8 @@
 //
 
 #import "ImageSelectionViewController.h"
+#import "EImage.h"
+#import "FixationViewController.h"
 
 @interface ImageSelectionViewController ()
 
@@ -16,7 +18,8 @@
 
 @implementation ImageSelectionViewController
 
-@synthesize imageView,slider, images, currentImageIndex, selectedLight, selectedEye, thumbnails;
+@synthesize imageView,slider, images, currentImageIndex, selectedLight, selectedEye, thumbnails, imageViewButton, selectedIcon;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,30 +33,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    //[imageView setImage:[UIImage imageNamed:@"im1.png"]];
+    
+    self.navigationController.navigationBar.hidden = NO;
+    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+    currentImageIndex = 0;
+    selectedIcon.layer.shadowOffset = CGSizeMake(0, 1);
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    self.navigationController.navigationBar.hidden = NO;
-    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
-    currentImageIndex = 0;
-    /*
-    images = [[NSMutableArray alloc] init];
-    UIImage *im1 = [UIImage imageNamed:@"im1.png"];
-    UIImage *im2 = [UIImage imageNamed:@"im2.png"];
-    UIImage *im3 = [UIImage imageNamed:@"im3.png"];
-    UIImage *im4 = [UIImage imageNamed:@"im4.png"];
-    
-    [images addObject:im1];
-    [images addObject:im2];
-    [images addObject:im3];
-    [images addObject:im4];
-    
-    NSLog(@"%@", images);
-    */
-    
+    //[selectedIcon setImage:[UIImage imageNamed:@"x_button.png"]];
     NSLog(@"There are %lu images", (unsigned long)[images count]);
     NSLog(@"There are %lu thumbnails", (unsigned long)[thumbnails count]);
     
@@ -61,9 +50,10 @@
         slider.hidden = YES;
     else{
         slider.hidden = NO;
-        [imageView setImage:[images objectAtIndex:currentImageIndex]];
         slider.minimumValue = 0;
         slider.maximumValue = [images count]-1;
+        
+        [self updateViewWithImage:[images objectAtIndex:currentImageIndex] useThumbnail:NO];
     }
     
 }
@@ -78,16 +68,121 @@
     int newImageIndex = (int) (slider.value + .5);
     
     if(newImageIndex!=currentImageIndex){
-        [imageView setImage:[thumbnails objectAtIndex:newImageIndex]];
         currentImageIndex = newImageIndex;
+        
+        [self updateViewWithImage:[images objectAtIndex:currentImageIndex] useThumbnail:YES];
+        
+        //[imageView setImage:[thumbnails objectAtIndex:newImageIndex]];
+        
+        /*
+        NSNumber* currentIndex = [NSNumber numberWithInt:currentImageIndex];
+        
+        BOOL isCurrentlySelected =[selectedImageIndices containsObject:currentIndex];
+        
+        if(isCurrentlySelected){
+            // Deselect image
+            [self changeImageIconToSelected:YES];
+        }
+        else{
+            // Select image
+            [self changeImageIconToSelected:NO];
+        }
+         */
     }
     
 }
 
 -(IBAction)didTouchUpFromSlider:(id)sender{
-    slider.value = currentImageIndex;
-    [imageView setImage:[images objectAtIndex:currentImageIndex]];
+    //slider.value = currentImageIndex;
+    //[imageView setImage:[images objectAtIndex:currentImageIndex]];
+    
+    [self updateViewWithImage:[images objectAtIndex:currentImageIndex] useThumbnail:NO];
 }
 
+-(IBAction)didSelectImage:(id)sender{
+    NSLog(@"Image %d touched", currentImageIndex);
+    
+    EImage* currentImage = [images objectAtIndex:currentImageIndex];
+    [currentImage toggleSelected];
+    [self changeImageIconToSelected:[currentImage isSelected]];
+    
+    /*
+    NSNumber* currentIndex = [NSNumber numberWithInt:currentImageIndex];
+    
+    BOOL isCurrentlySelected = [selectedImageIndices containsObject:currentIndex];
+    
+    if(isCurrentlySelected){
+        // Deselect image
+        NSLog(@"Image %d deselected", currentImageIndex);
+        [self changeImageIconToSelected:YES];
+        [selectedImageIndices removeObject:currentIndex];
+    }
+    else{
+        // Select image
+        NSLog(@"Image %d selected", currentImageIndex);
+        [self changeImageIconToSelected:NO];
+        [selectedImageIndices addObject:currentIndex];
+    }
+        */
+    
+}
 
+-(IBAction)didPressCancel:(id)sender{
+    NSArray* viewControllers = self.navigationController.viewControllers;
+    UIViewController* fixationVC = [viewControllers objectAtIndex:[viewControllers count]-3];
+    [self.navigationController popToViewController:fixationVC animated:YES];
+}
+-(IBAction)didPressSave:(id)sender{
+    if([EImage containsSelectedImageInArray:images]){
+        //save
+        
+        NSArray* viewControllers = self.navigationController.viewControllers;
+        UIViewController* fixationVC = [viewControllers objectAtIndex:[viewControllers count]-3];
+        [self.navigationController popToViewController:fixationVC animated:YES];
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Images Selected"
+                                                        message:@"You must select at least one image before saving."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"CaptureViewSegue"])
+    {
+        NSLog(@"Preparing for CaptureViewSegue");
+        FixationViewController* fvc = (FixationViewController*)[segue destinationViewController];
+        fvc.imageArray = [EImage selectedImagesFromArray:images];
+    }
+    
+    else if ([[segue identifier] isEqualToString:@"ImageSelectionSegue"])
+    {
+        ImageSelectionViewController * isvc = (ImageSelectionViewController*)[segue destinationViewController];
+        isvc.selectedEye = self.selectedEye;
+        isvc.selectedLight = self.selectedLight;
+    }
+    
+}
+
+-(void)updateViewWithImage:(EImage*) image useThumbnail:(bool) useThumbnail{
+    if(useThumbnail)
+        [imageView setImage:image.thumbnail];
+    else
+        [imageView setImage:image];
+    
+    [self changeImageIconToSelected:[image isSelected]];
+}
+
+-(void)changeImageIconToSelected:(BOOL) isSelected{
+    if(isSelected){
+        [selectedIcon setImage:[UIImage imageNamed:@"selected_icon.png"]];
+    }
+    else{
+        [selectedIcon setImage:[UIImage imageNamed:@"unselected_icon.png"]];
+    }
+}
 @end

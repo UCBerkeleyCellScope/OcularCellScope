@@ -12,6 +12,7 @@
 #import "CoreDataController.h"
 #import "CameraAppDelegate.h"
 #import "Constants.h"
+#import "EImage.h"
 
 
 @interface FixationViewController ()
@@ -21,7 +22,7 @@
 @implementation FixationViewController
 
 
-@synthesize selectedEye, selectedLight, oldSegmentedIndex, actualSegmentedIndex;
+@synthesize selectedEye, selectedLight, oldSegmentedIndex, actualSegmentedIndex, imageArray;
 
 //This is an EyeImage
 @synthesize leftEyeImage;
@@ -109,8 +110,15 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
             
             */
             
-            
-            if([eyeImages count] != 0){
+            if([imageArray count]>0){
+                NSLog(@"testing transition from image selection");
+                EImage *image = [imageArray objectAtIndex:0];
+                if(image.eye == selectedEye && image.fixationLight == i){
+                    [fixationButtons[i-1] setImage: image.thumbnail forState:UIControlStateNormal];
+                    [fixationButtons[i-1] setSelected: YES];
+                }
+            }
+            else if([eyeImages count] != 0){
                 leftEyeImage = eyeImages[0];
                 UIImage* thumbImage = [UIImage imageWithData: leftEyeImage.thumbnail];
                 [fixationButtons[i-1] setImage: thumbImage forState:UIControlStateNormal];

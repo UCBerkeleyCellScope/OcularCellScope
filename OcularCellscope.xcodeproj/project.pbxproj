@@ -55,6 +55,9 @@
 		F325703118D1A9AE00FEA80E /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = F325702D18D1A9AE00FEA80E /* UIImage+Resize.m */; };
 		F325703218D1A9AE00FEA80E /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = F325702F18D1A9AE00FEA80E /* UIImage+RoundedCorner.m */; };
 		F325703418D1AF1F00FEA80E /* default-configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = F325703318D1AF1F00FEA80E /* default-configuration.plist */; };
+		F325703D18D366FE00FEA80E /* EImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F325703C18D366FE00FEA80E /* EImage.m */; };
+		F325704418D3911200FEA80E /* selected_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F325704218D3911200FEA80E /* selected_icon.png */; };
+		F325704518D3911200FEA80E /* unselected_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F325704318D3911200FEA80E /* unselected_icon.png */; };
 		F345FDA91855A2C9003E448E /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = F345FDA81855A2C9003E448E /* title.png */; };
 		F356909318559CC700DBB4BE /* button_addpatients.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909218559CC700DBB4BE /* button_addpatients.png */; };
 		F356909718559ECA00DBB4BE /* button_viewpatients.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909518559ECA00DBB4BE /* button_viewpatients.png */; };
@@ -147,6 +150,10 @@
 		F325702E18D1A9AE00FEA80E /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
 		F325702F18D1A9AE00FEA80E /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		F325703318D1AF1F00FEA80E /* default-configuration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "default-configuration.plist"; path = "../default-configuration.plist"; sourceTree = "<group>"; };
+		F325703B18D366FE00FEA80E /* EImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EImage.h; sourceTree = "<group>"; };
+		F325703C18D366FE00FEA80E /* EImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EImage.m; sourceTree = "<group>"; };
+		F325704218D3911200FEA80E /* selected_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected_icon.png; sourceTree = "<group>"; };
+		F325704318D3911200FEA80E /* unselected_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselected_icon.png; sourceTree = "<group>"; };
 		F345FDA81855A2C9003E448E /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = title.png; path = images/title.png; sourceTree = "<group>"; };
 		F356909218559CC700DBB4BE /* button_addpatients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_addpatients.png; path = images/button_addpatients.png; sourceTree = "<group>"; };
 		F356909518559ECA00DBB4BE /* button_viewpatients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_viewpatients.png; path = images/button_viewpatients.png; sourceTree = "<group>"; };
@@ -210,7 +217,8 @@
 		6D2D5DAA18318D9E00A58A96 = {
 			isa = PBXGroup;
 			children = (
-				60B2E8FB18C717B100973C7E /* img.jpeg */,
+				F325703B18D366FE00FEA80E /* EImage.h */,
+				F325703C18D366FE00FEA80E /* EImage.m */,
 				60D8C7D018C6BF87007D26A7 /* Constants.h */,
 				60D8C7D118C6BF87007D26A7 /* Constants.m */,
 				6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */,
@@ -335,6 +343,9 @@
 		F356909418559CCA00DBB4BE /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F325704218D3911200FEA80E /* selected_icon.png */,
+				F325704318D3911200FEA80E /* unselected_icon.png */,
+				60B2E8FB18C717B100973C7E /* img.jpeg */,
 				F325702718CC0E4100FEA80E /* eye_icon_small.png */,
 				F325702118CC0CD500FEA80E /* notes_icon.png */,
 				F325702318CC0D3300FEA80E /* patient_icon_small.png */,
@@ -456,6 +467,7 @@
 				F325702818CC0E4100FEA80E /* eye_icon_small.png in Resources */,
 				60B2E8FC18C717B100973C7E /* img.jpeg in Resources */,
 				6D2D5DCF18318D9F00A58A96 /* Images.xcassets in Resources */,
+				F325704518D3911200FEA80E /* unselected_icon.png in Resources */,
 				F358E316185A82E600872304 /* capture2.png in Resources */,
 				F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */,
 				F325700C18CAA04600FEA80E /* capture_button.png in Resources */,
@@ -470,6 +482,7 @@
 				F358E315185A82E600872304 /* capture_back.png in Resources */,
 				F358E31C185A859900872304 /* Icon@2x.png in Resources */,
 				F356909318559CC700DBB4BE /* button_addpatients.png in Resources */,
+				F325704418D3911200FEA80E /* selected_icon.png in Resources */,
 				F3FA32CE18B5E4B7000FACF4 /* im4.png in Resources */,
 				F345FDA91855A2C9003E448E /* title.png in Resources */,
 			);
@@ -501,6 +514,7 @@
 				60D8C7C518C69BB1007D26A7 /* ImageCell.m in Sources */,
 				F325703118D1A9AE00FEA80E /* UIImage+Resize.m in Sources */,
 				60D8C7C618C69BB1007D26A7 /* MainMenuViewController.m in Sources */,
+				F325703D18D366FE00FEA80E /* EImage.m in Sources */,
 				60D8C7C718C69BB1007D26A7 /* PatientInfoViewController.m in Sources */,
 				60D8C7C818C69BB1007D26A7 /* CameraViewController.m in Sources */,
 				60D8C7C918C69BB1007D26A7 /* ImagesViewController.m in Sources */,
