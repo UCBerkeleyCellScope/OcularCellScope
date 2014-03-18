@@ -2,7 +2,7 @@
 //  EyeImage.h
 //  OcularCellscope
 //
-//  Created by PJ Loury on 3/3/14.
+//  Created by PJ Loury on 3/18/14.
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
@@ -17,7 +17,7 @@
 @property (nonatomic, retain) NSString * drName;
 @property (nonatomic, retain) NSString * eye;
 @property (nonatomic, retain) NSString * filePath;
-@property (nonatomic, retain) NSString * fixationLight;
+@property (nonatomic, retain) NSNumber * fixationLight;
 @property (nonatomic, retain) NSData * thumbnail;
 @property (nonatomic, retain) Exam *exam;
 
