@@ -22,6 +22,9 @@
 @property (copy,nonatomic) NSString *selectedEye;
 @property (nonatomic) NSInteger const selectedLight;
 
+//Delete this later
+@property (strong, nonatomic) NSArray* imageArray;
+
 @property (nonatomic, assign ) NSInteger oldSegmentedIndex;
 @property (nonatomic, assign ) NSInteger actualSegmentedIndex;
 

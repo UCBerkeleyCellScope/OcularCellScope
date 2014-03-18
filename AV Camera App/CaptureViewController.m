@@ -58,6 +58,8 @@
 
 @synthesize eyeImages = _eyeImages;
 
+int attempts = 0;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -71,11 +73,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    /*
+    
     ble = [[BLE alloc] init];
     [ble controlSetup];
     ble.delegate = self;
-    */
+    
     [self setViewControllerElements];
     [self videoSetup];
     
@@ -85,10 +87,12 @@
     
 }
 
--(void)viewWillAppear:(BOOL)animated{
+-(void)viewDidAppear:(BOOL)animated{
     
     //[self setViewControllerElements];
     //self.navigationController.navigationBar.alpha = 0;
+    
+    [self btnScanForPeripherals];
     
 }
 
@@ -108,20 +112,20 @@
     _eyeImages = [[NSMutableArray alloc] init];
 }
 
-- (IBAction)btnScanForPeripherals:(id)sender
+- (void)btnScanForPeripherals
 {
     if (ble.activePeripheral)
         if(ble.activePeripheral.state == CBPeripheralStateConnected)
         {
             [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
-            [bleConnect setTitle:@"Connect"];
+            //[bleConnect setTitle:@"Connect"];
             return;
         }
     
     if (ble.peripherals)
         ble.peripherals = nil;
     
-    [bleConnect setEnabled:false];
+    //[bleConnect setEnabled:false];
     [ble findBLEPeripherals:2];
     
     [NSTimer scheduledTimerWithTimeInterval:(float)2.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
@@ -130,9 +134,8 @@
 
 -(void) connectionTimer:(NSTimer *)timer
 {
-    [bleConnect setEnabled:true];
-    [bleConnect setTitle: @"Disconnect"];
-    
+    //[bleConnect setEnabled:true];
+    //[bleConnect setTitle: @"Disconnect"];
     
     if (ble.peripherals.count > 0)
     {
@@ -142,16 +145,19 @@
         
         
     }
-    else
+    else if(attempts < 3)
     {
-        [bleConnect setTitle:@"Connect"];
-        NSLog(@"No peripherals found");
+        //[bleConnect setTitle:@"Connect"];
+        NSLog(@"No peripherals found, initiaiting attemp number %d", attempts);
+        [self btnScanForPeripherals];
+        attempts++;
     }
 }
 
 - (void)bleDidDisconnect
 {
     NSLog(@"->Disconnected");
+    [self btnScanForPeripherals];
     
 }
 
@@ -192,23 +198,21 @@
     }
 }
 
-- (void)flashOn:(float) duration withLight: (NSInteger) light{
+- (void)flashOn:(float) duration {
     
     //NSLog(@"NSInteger light %d", light);
  
     
-    NSNumber *n = [[NSNumber alloc] initWithInteger:light];
+    NSNumber *n = [[NSNumber alloc] initWithInteger: 9];
     
     UInt8 tre = [n intValue];
-    NSLog(@"Light Number!!!! %d", tre);
+    NSLog(@"Big Flash");
     
     UInt8 buf[3] = {tre, 0x01, 0x00};
     
     NSLog(@"Flash On");
     NSData *data = [[NSData alloc] initWithBytes:buf length:3];
     [ble write:data];
-    
-    
     
     [NSTimer scheduledTimerWithTimeInterval:(float)duration
                                      target:self
@@ -227,6 +231,22 @@
     
     NSData *data = [[NSData alloc] initWithBytes:buf length:3];
     [ble write:data];
+}
+
+-(void) turnFixationLightON: (NSInteger) light{
+    
+    NSNumber *n = [[NSNumber alloc] initWithInteger:light];
+    
+    UInt8 tre = [n intValue];
+    NSLog(@"Fixation Light Number!!!! %d", tre);
+    
+    UInt8 buf[3] = {tre, 0x01, 0x00};
+    
+    NSLog(@"Flash On");
+    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
+    [ble write:data];
+    
+    
 }
 
 
@@ -267,7 +287,7 @@
     AVCaptureConnection *videoConnection = [self getVideoConnection];
     
     
-    //[self flashOn: 0.5 withLight: [self selectedLight]];
+    
     
     // Capture images on a background thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
@@ -326,26 +346,32 @@
          [self turnTorchOn:NO];
          
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
-         UIImage *image = [[UIImage alloc] initWithData:imageData];
+         EImage *image = [[EImage alloc] initWithData:imageData];
+         image.eye = self.selectedEye;
+         image.fixationLight = self.selectedLight;
+         image.date = [NSDate date];
+         image.selected = NO;
          
-         // Add the capture image to the image array
-         [_imageArray addObject:image];
          
          float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
          CGSize smallSize = [image size];
          smallSize.height = smallSize.height/scaleFactor;
          smallSize.width = smallSize.width/scaleFactor;
-         UIImage* thumbnail = [image resizedImage:smallSize interpolationQuality:kCGInterpolationDefault];
+         image.thumbnail = [image resizedImage:smallSize interpolationQuality:kCGInterpolationDefault];
          
-         [_thumbnailArray addObject:thumbnail];
+         // Add the capture image to the image array
+         
+         [_imageArray addObject:image];
+         
+         //[_thumbnailArray addObject:thumbnail];
          
          NSLog(@"Saved Image %lu!",[_imageArray count]);
          
          // Update the counter label
          if([_imageArray count]<10)
-             _counterLabel.text = [NSString stringWithFormat:@"0%lu",(unsigned long)[_imageArray count],_numberOfImages];
+             _counterLabel.text = [NSString stringWithFormat:@"0%lu",(unsigned long)[_imageArray count]];
          else
-             _counterLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)[_imageArray count],_numberOfImages];
+             _counterLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)[_imageArray count]];
          
          NSLog(@"Image %lu of %d",(unsigned long)[_imageArray count],_numberOfImages);
          
