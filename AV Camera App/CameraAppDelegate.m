@@ -7,17 +7,14 @@
 //
 
 #import "CameraAppDelegate.h"
-#import "PatientInfoViewController.h"
-#import "PatientsTableViewController.h"
-#import "MainMenuViewController.h"
-#import "CaptureViewController.h"
-#import "Exam.h"
-#import "EyeImage.h"
+#import "CellScopeContext.h"
+
 
 @implementation CameraAppDelegate
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+
 @synthesize currentExam = _currentExam;
 //@synthesize ble;
 
@@ -30,6 +27,8 @@
     NSString* defaultPrefsFile = [[NSBundle mainBundle] pathForResource:@"default-configuration" ofType:@"plist"];
     NSDictionary* defaultPreferences = [NSDictionary dictionaryWithContentsOfFile:defaultPrefsFile];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPreferences];
+    
+    [[CellScopeContext sharedContext] setManagedObjectContext:self.managedObjectContext];
     
     return YES;
 }

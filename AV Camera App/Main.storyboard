@@ -575,19 +575,30 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="29k-8r-hIP">
                                 <rect key="frame" x="0.0" y="64" width="320" height="371"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
                                 <state key="normal" title=" ">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="didSelectImage:" destination="2qF-pw-3PT" eventType="touchUpInside" id="izi-hZ-DZ8"/>
-                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unselected_icon.png" id="Xir-83-iE5">
                                 <rect key="frame" x="266" y="432" width="34" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YB0-we-XWf" userLabel="SelectionButton">
+                                <rect key="frame" x="266" y="432" width="34" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didSelectImage:" destination="2qF-pw-3PT" eventType="touchUpInside" id="dI4-MH-hGP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="eMP-qn-2U7" appends="YES" id="Maw-NK-Jgc"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="7dv-jV-lDW">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="ZS4-ng-3RW">
@@ -609,9 +620,15 @@
                         <outlet property="imageView" destination="NqN-Fh-BWJ" id="iQa-xE-VLS"/>
                         <outlet property="selectedIcon" destination="Xir-83-iE5" id="jAT-8T-Zh5"/>
                         <outlet property="slider" destination="V3s-CM-8Fg" id="DFg-Iu-p2s"/>
+                        <outlet property="swipeRightRecognizer" destination="eMP-qn-2U7" id="GBD-4x-aQ2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Dp-ra-vEL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="eMP-qn-2U7">
+                    <connections>
+                        <action selector="didSwipeRight:" destination="2qF-pw-3PT" id="RaA-S0-NDP"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2261" y="114"/>
         </scene>
@@ -688,7 +705,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GaI-4L-5ii">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GaI-4L-5ii" userLabel="Capture Button">
                                 <rect key="frame" x="130" y="443" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="capture_button.png">
@@ -716,6 +733,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="activityIndicator" destination="Ung-FV-d0Z" id="uXQ-yK-w6F"/>
+                        <outlet property="captureButton" destination="GaI-4L-5ii" id="wmc-5v-rsZ"/>
                         <outlet property="counterLabel" destination="PNh-Xg-hYw" id="a3Q-IY-KAI"/>
                         <segue destination="2qF-pw-3PT" kind="push" identifier="ImageSelectionSegue" id="G5L-Ah-1hf"/>
                     </connections>
@@ -879,6 +897,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="yZ8-bd-Ndx"/>
+        <segue reference="G5L-Ah-1hf"/>
     </inferredMetricsTieBreakers>
 </document>

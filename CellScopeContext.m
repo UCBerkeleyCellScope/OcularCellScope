@@ -9,9 +9,10 @@
 
 #import "CellScopeContext.h"
 
+
 @implementation CellScopeContext
 
-@synthesize flickrUsername,flickrUserID,studentName,groupName;
+@synthesize currentExam,selectedEye,selectedLight,ble;
 
 + (id)sharedContext {
     static CellScopeContext *newContext = nil;
@@ -24,10 +25,12 @@
 
 - (id)init {
     if (self = [super init]) {
-        flickrUserID = @"";
-        flickrUsername = @"Not Logged In";
-        studentName = @"";
-        groupName = @"";
+        selectedEye = @"";
+        selectedLight = 0;
+
+        ble = [[BLE alloc] init];
+        [ble controlSetup];
+        
         
     }
     return self;

@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
+#import "CellScopeContext.h"
 #import "ImageSelectionViewController.h"
 #import "EImage.h"
 #import "FixationViewController.h"
@@ -15,16 +16,13 @@
 @interface ImageSelectionViewController ()
 
 @property(assign, nonatomic) int currentImageIndex;
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) NSString *file;
 
 @end
 
 @implementation ImageSelectionViewController
 
-@synthesize imageView,slider, images, currentImageIndex, selectedLight, selectedEye, thumbnails, imageViewButton, selectedIcon, file;
-@synthesize managedObjectContext = _managedObjectContext;
-@synthesize eyeImages = _eyeImages;
+@synthesize imageView,slider, images, currentImageIndex, selectedLight, selectedEye, imageViewButton, selectedIcon;
+
 
 /*
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -41,9 +39,6 @@
 {
     [super viewDidLoad];
     
-    CameraAppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
-    _managedObjectContext = [appDelegate managedObjectContext];
-
     NSLog(@" %@, %d", selectedEye, selectedLight);
     
     self.navigationController.navigationBar.hidden = NO;
@@ -56,8 +51,7 @@
 {
     //[selectedIcon setImage:[UIImage imageNamed:@"x_button.png"]];
     NSLog(@"There are %lu images", (unsigned long)[images count]);
-    NSLog(@"There are %lu images", (unsigned long)[_eyeImages count]);
-    NSLog(@"There are %lu thumbnails", (unsigned long)[thumbnails count]);
+    //NSLog(@"There are %lu images", (unsigned long)[_eyeImages count]);
     
     if([images count]<1){
         slider.hidden = YES;
@@ -73,31 +67,6 @@
     
 }
 
-/*
--(void) load: (int) cii{
-    NSLog(@"IN THE LOAD");
-    currentEyeImage = [eyeImages objectAtIndex:cii];
-    
-    NSURL *aURL = [NSURL URLWithString: currentEyeImage.filePath];
-    
-    NSLog(@"displaying image at: %@",currentEyeImage.filePath);
-    
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    [library assetForURL:aURL resultBlock:^(ALAsset *asset)
-     {
-         ALAssetRepresentation* rep = [asset defaultRepresentation];
-         CGImageRef iref = [rep fullResolutionImage];
-         
-         [imageView setImage:[UIImage imageWithCGImage:iref]];
-     }
-            failureBlock:^(NSError *error)
-     {
-         // error handling
-         NSLog(@"failure loading video/image from AssetLibrary");
-     }];
-    
-}
- */
 
 - (void)didReceiveMemoryWarning
 {
@@ -133,6 +102,18 @@
     
 }
 
+
+- (IBAction)didSwipeRight:(id)sender {
+    
+    NSLog(@"The User Swiped Right!");    
+    if(slider.value>0.5){
+        [slider setValue:(slider.value-1) animated:YES];
+        currentImageIndex--;
+    }
+    [self updateViewWithImage:[images objectAtIndex:currentImageIndex] useThumbnail:NO];
+    
+}
+
 -(IBAction)didTouchUpFromSlider:(id)sender{
     //slider.value = currentImageIndex;
     //[imageView setImage:[images objectAtIndex:currentImageIndex]];
@@ -147,25 +128,6 @@
     EImage* currentImage = [images objectAtIndex:currentImageIndex];
     [currentImage toggleSelected];
     [self changeImageIconToSelected:[currentImage isSelected]];
-    
-    /*
-    NSNumber* currentIndex = [NSNumber numberWithInt:currentImageIndex];
-    
-    BOOL isCurrentlySelected = [selectedImageIndices containsObject:currentIndex];
-    
-    if(isCurrentlySelected){
-        // Deselect image
-        NSLog(@"Image %d deselected", currentImageIndex);
-        [self changeImageIconToSelected:YES];
-        [selectedImageIndices removeObject:currentIndex];
-    }
-    else{
-        // Select image
-        NSLog(@"Image %d selected", currentImageIndex);
-        [self changeImageIconToSelected:NO];
-        [selectedImageIndices addObject:currentIndex];
-    }
-        */
     
 }
 
@@ -183,7 +145,7 @@
         
         NSMutableArray* eImagesToSave = [EImage selectedImagesFromArray:images];
         for( EImage* ei in eImagesToSave){
-            EyeImage* coreDataObject = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"EyeImage" inManagedObjectContext:self.managedObjectContext];
+            EyeImage* coreDataObject = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"EyeImage" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
             coreDataObject.date = ei.date;
             coreDataObject.eye = ei.eye;
             [self saveImageToCameraRoll:ei coreData: coreDataObject];
@@ -194,9 +156,7 @@
         }
         
         NSArray* viewControllers = self.navigationController.viewControllers;
-        UIViewController* fvc = [viewControllers objectAtIndex:[viewControllers count]-3];
-        //fvc.imageArray = [EImage selectedImagesFromArray:images];
-        
+        UIViewController* fvc = [viewControllers objectAtIndex: 1];
         [self.navigationController popToViewController:fvc animated:YES];
     }
     else{
@@ -208,6 +168,7 @@
         [alert show];
     }
 }
+
 
 -(void)saveImageToCameraRoll:(UIImage*) image coreData: (EyeImage*) cd{
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
@@ -229,31 +190,12 @@
             
         }
     }]; // end of completion block
+    //Consider an NSNotification that you may now Segue
+    
 }
-
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    //isEqualToString identifiers won't work
-    
-    if ([[segue identifier] isEqualToString:@"CaptureViewSegue"])
-    {
-       /*
-        NSLog(@"Preparing for CaptureViewSegue");
-        FixationViewController* fvc = (FixationViewController*)[segue destinationViewController];
-        fvc.imageArray = [EImage selectedImagesFromArray:images];
-        */
-    }
-    
-    else if ([[segue identifier] isEqualToString:@"ImageSelectionSegue"])
-    {
-        /*
-        ImageSelectionViewController * isvc = (ImageSelectionViewController*)[segue destinationViewController];
-        isvc.selectedEye = self.selectedEye;
-        isvc.selectedLight = self.selectedLight;
-         */
-    }
     
 }
 
@@ -274,4 +216,30 @@
         [selectedIcon setImage:[UIImage imageNamed:@"unselected_icon.png"]];
     }
 }
+
+/*
+ -(void) load: (int) cii{
+ NSLog(@"IN THE LOAD");
+ currentEyeImage = [eyeImages objectAtIndex:cii];
+ 
+ NSURL *aURL = [NSURL URLWithString: currentEyeImage.filePath];
+ 
+ NSLog(@"displaying image at: %@",currentEyeImage.filePath);
+ 
+ ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+ [library assetForURL:aURL resultBlock:^(ALAsset *asset)
+ {
+ ALAssetRepresentation* rep = [asset defaultRepresentation];
+ CGImageRef iref = [rep fullResolutionImage];
+ 
+ [imageView setImage:[UIImage imageWithCGImage:iref]];
+ }
+ failureBlock:^(NSError *error)
+ {
+ // error handling
+ NSLog(@"failure loading video/image from AssetLibrary");
+ }];
+ 
+ }
+ */
 @end

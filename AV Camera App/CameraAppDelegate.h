@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Exam.h"
 #import "BLE.h"
+#import "PatientInfoViewController.h"
+#import "PatientsTableViewController.h"
+#import "MainMenuViewController.h"
+#import "CaptureViewController.h"
+#import "EyeImage.h"
 
 @interface CameraAppDelegate : UIResponder <UIApplicationDelegate, BLEDelegate>
 

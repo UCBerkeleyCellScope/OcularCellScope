@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
+#import "CellScopeContext.h"
+
 #import "FixationViewController.h"
 #import "CaptureViewController.h"
 #import "ImageSelectionViewController.h"
@@ -20,7 +22,7 @@
 @implementation FixationViewController
 
 
-@synthesize selectedEye, selectedLight, segmentedControl, oldSegmentedIndex, actualSegmentedIndex, imageArray;
+@synthesize selectedEye, selectedLight, segmentedControl,imageArray;
 
 //This is an EyeImage
 @synthesize currentEyeImage;
@@ -29,15 +31,13 @@
 @synthesize centerFixationButton, topFixationButton,
 bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
-@synthesize currentEImage, uim;
-
+@synthesize currentEImage, uim, passedImages;
 
 //This is an array of buttons
 @synthesize fixationButtons;
 
 @synthesize eyeImages;
 
-@synthesize managedObjectContext= _managedObjectContext;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -50,22 +50,23 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+
     
-    CameraAppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
-    _managedObjectContext = [appDelegate managedObjectContext];
+    //CameraAppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
+    //_managedObjectContext = [appDelegate managedObjectContext];
 
     fixationButtons = [NSMutableArray arrayWithObjects: centerFixationButton, topFixationButton,
                                        bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton, nil];
-
-    //[self loadImages: self.segmentedControl.selectedSegmentIndex];
+    
+    passedImages = [[NSMutableArray alloc]init];
+    
     
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:(BOOL) animated];
-    
+        
     NSLog(@"Seg Back, even from ImageSelection");
     
     if (self.selectedEye){
@@ -102,13 +103,12 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
             
             
             NSArray *temp = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: p
-                                                                                         andSortKey: @"date" andSortAscending: YES
-                             
-                                                            andContext: _managedObjectContext];
+                                                            andSortKey: @"date" andSortAscending: YES
+                                                            andContext:   [[CellScopeContext sharedContext] managedObjectContext]];
             
             self.eyeImages = [NSMutableArray arrayWithArray:temp];
             
-            NSLog(@"For Fixation Light %d, %d images were Retrieved!", i, [eyeImages count]);
+            //NSLog(@"For Fixation Light %d, %lu images were Retrieved!", i, (unsigned long)[eyeImages count]);
             
             //Attempt 1
             /*
@@ -160,29 +160,19 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     self.selectedLight = [sender tag];
     
     
-    
-    
     if( [sender isSelected] == NO){
         //there are pictures!
-        //CaptureViewController *nextViewController = [[CaptureViewController alloc] init];
-        //[self.navigationController pushViewController:nextViewController animated:YES];
         [self performSegueWithIdentifier:@"CaptureViewSegue" sender:(id)sender];
-    
     }
     
     else if([sender isSelected] == YES ){
-                //[self.navigationController pushViewController:nextViewController animated:YES];
-        
         [self performSegueWithIdentifier:@"ImageReviewSegue" sender:(id)sender];
-        
     }
     
 }
 
 
 - (IBAction)didSegmentedValueChanged:(id)sender {
-    //self.oldSegmentedIndex = self.actualSegmentedIndex;
-    //self.actualSegmentedIndex = self.segmentedControl.selectedSegmentIndex;
     
     [self loadImages: self.segmentedControl.selectedSegmentIndex];
     
@@ -211,12 +201,12 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         
         NSArray *temp = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: p
                                                         andSortKey: @"date" andSortAscending: YES
-                                                        andContext: _managedObjectContext];
+                                                        andContext: [[CellScopeContext sharedContext] managedObjectContext]];
         
         self.eyeImages = [NSMutableArray arrayWithArray:temp];
         
         NSLog(@"%lu",(unsigned long)[eyeImages count]);
-        NSMutableArray* images = [[NSMutableArray alloc] init];
+        
         
         for( EyeImage* i in eyeImages){
             if(i){
@@ -232,16 +222,14 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                 
                 NSURL *aURL = [NSURL URLWithString: i.filePath];
                 
-                NSLog(@"displaying image at: %@",i.filePath);
+                //NSLog(@"displaying image at: %@",i.filePath);
                 
                 ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
                 [library assetForURL:aURL resultBlock:^(ALAsset *asset)
                  {
                      ALAssetRepresentation* rep = [asset defaultRepresentation];
                      CGImageRef iref = [rep fullResolutionImage];
-                     
-                     UIImage *uim = [UIImage imageWithCGImage:iref];
-                     
+                     uim = [UIImage imageWithCGImage:iref];
                  }
                         failureBlock:^(NSError *error)
                  {
@@ -249,36 +237,23 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                      NSLog(@"failure loading video/image from AssetLibrary");
                  }];
 
-                /*
-                currentEImage.date = i.date;
-                currentEImage.eye = i.eye;
-                currentEImage.fixationLight = i.fixationLight;
-                */
+
                 NSLog(@"What's the Fixation %@", i.fixationLight);
                 
-                
-                
-                //NSData* d = [NSData dataWithContentsOfFile: i.filePath];
-                
-                NSData *d = UIImagePNGRepresentation(uim);
-                NSLog(d);
+                UIImage *th = [UIImage imageWithData: i.thumbnail];
                              
-                EImage *image = [[EImage alloc] initWithData: d
+                EImage *image = [[EImage alloc] initWithUIImage: th
                                                         date: i.date
                                                          eye: i.eye
-                                               fixationLight: i.fixationLight];
-                NSLog(@"does it make it here");
-                NSLog(image);
+                                               fixationLight: i.fixationLight
+                                                      thumbnail: th];
                 
-                
-                
-                [images addObject: currentEImage];
-                NSLog(@"OR it make it here");
+                [passedImages addObject: image];
+        
             }
-         //NSLog(@"%lu",(unsigned long)[images count]);
         }
         
-        isvc.images = images;
+        isvc.images = passedImages;
     }
 
 }

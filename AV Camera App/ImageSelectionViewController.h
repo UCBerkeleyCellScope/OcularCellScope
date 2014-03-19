@@ -13,10 +13,11 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UISlider *slider;
 @property (strong, nonatomic) NSMutableArray *images; //THIS IS THE EIMAGEOBJECT
-@property (strong, nonatomic) NSMutableArray *thumbnails;
 @property (strong, nonatomic) NSMutableSet *selectedImageIndices;
 @property (strong, nonatomic) IBOutlet UIButton *imageViewButton;
 @property (strong, nonatomic) IBOutlet UIImageView *selectedIcon;
+
+@property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *swipeRightRecognizer;
 
 
 -(IBAction)didMoveSlider:(id)sender;
@@ -25,10 +26,10 @@
 -(IBAction)didPressCancel:(id)sender;
 - (IBAction)didPressSave:(id)sender;
 
+- (IBAction)didSwipeRight:(id)sender;
+
 
 @property (nonatomic) int selectedLight;
 @property (copy, nonatomic) NSString *selectedEye;
-@property (strong, nonatomic) NSMutableArray *eyeImages; //THIS IS FOR REVIEW MODE
-
 
 @end

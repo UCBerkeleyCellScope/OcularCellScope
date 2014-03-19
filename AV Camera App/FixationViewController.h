@@ -32,16 +32,15 @@
 
 @property (strong, nonatomic) EyeImage * currentEyeImage;
 
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-
 @property NSMutableArray *fixationButtons;
 
 @property NSMutableArray *eyeImages;
 
+@property (strong, nonatomic) NSMutableArray *passedImages;
+
 @property (strong, nonatomic) EImage* currentEImage;
 
 @property(nonatomic, readonly, retain) UIImage *uim;
-
 
 
 @end

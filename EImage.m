@@ -17,29 +17,33 @@
 @synthesize thumbnail = _thumbnail;
 @synthesize selected = _selected;
 
-/*
+
 - (id) initWithUIImage: (UIImage*) image
-                  date:
                   date:(NSDate*) date
                    eye:(NSString*) eye
-         fixationLight: fixationLight
+         fixationLight: (int) fixationLight
              thumbnail:(UIImage*) thumbnail{
     
-    self = image;
+    self = [super initWithCGImage: [image CGImage]];
     
     if(self){
+        _date = date;
+        _eye = eye;
+        _fixationLight = fixationLight;
+        _thumbnail = thumbnail;
+        _selected = NO;
         
     }
         
     return self;
     
 }
-*/
+
 
 - (id)initWithData:(NSData*)imageData
               date:(NSDate*) date
                eye:(NSString*) eye
-     fixationLight: fixationLight{
+     fixationLight: (int) fixationLight{
     self = [super initWithData:imageData];
     
     if (self) {

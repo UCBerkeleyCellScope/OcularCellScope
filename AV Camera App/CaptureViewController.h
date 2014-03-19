@@ -12,10 +12,9 @@
 #import "Exam.h"
 
 @interface CaptureViewController : UIViewController<BLEDelegate>
-{
-IBOutlet UIBarButtonItem *bleConnect;
-}
+
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIButton *captureButton;
 @property (strong, nonatomic) IBOutlet UILabel *counterLabel;
 @property (nonatomic) int selectedLight;
 @property (copy, nonatomic) NSString *selectedEye;
@@ -23,7 +22,5 @@ IBOutlet UIBarButtonItem *bleConnect;
 @property (strong, nonatomic) BLE *ble;
 
 @property (strong, nonatomic) Exam *currentExam;
-
-@property(strong, nonatomic) NSMutableArray *eyeImages;
 
 @end

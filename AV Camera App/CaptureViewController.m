@@ -7,10 +7,14 @@
 //
 
 #import "CaptureViewController.h"
-#import "CameraAppDelegate.h"
+#import "CellScopeContext.h"
 #import "ImageSelectionViewController.h"
 #import "UIImage+Resize.h"
 #import "EImage.h"
+
+#define flashNumber 9
+#define farRedLight 10
+
 @import AVFoundation;
 @import AssetsLibrary;
 @import UIKit;
@@ -23,14 +27,11 @@
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer *previewLayer;
 @property (strong, nonatomic) AVCaptureStillImageOutput *stillOutput;
 @property (strong, nonatomic) NSMutableArray *imageArray;
-@property (strong, nonatomic) NSMutableArray *thumbnailArray;
+
 @property (assign, nonatomic) int numberOfImages;
 @property (assign, nonatomic) int captureDelay;
 
-@property (strong, nonatomic) NSString *file;
 @property (nonatomic) BOOL connected;
-
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end
 
@@ -42,18 +43,20 @@
 @synthesize previewLayer = _previewLayer;
 @synthesize stillOutput = _stillOutput;
 @synthesize imageArray = _imageArray;
-@synthesize thumbnailArray = _thumbnailArray;
+
 @synthesize numberOfImages = _numberOfImages;
 @synthesize captureDelay = _captureDelay;
 @synthesize counterLabel = _counterLabel;
 @synthesize selectedEye = _selectedEye;
 @synthesize selectedLight = _selectedLight;
-@synthesize ble;
-@synthesize managedObjectContext = _managedObjectContext;
-@synthesize file, connected;
+@synthesize connected;
 @synthesize currentExam = _currentExam;
+@synthesize captureButton;
+
+@synthesize ble;
 
 int attempts = 0;
+BOOL capturing = NO;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -69,25 +72,21 @@ int attempts = 0;
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    ble = [[BLE alloc] init];
-    [ble controlSetup];
+    ble = [[CellScopeContext sharedContext] ble];
+    
     ble.delegate = self;
+    
+    
     
     [self setViewControllerElements];
     [self videoSetup];
-    
-    CameraAppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
-    _managedObjectContext = [appDelegate managedObjectContext];
-
     
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     
-    //[self setViewControllerElements];
-    //self.navigationController.navigationBar.alpha = 0;
-    
-    [self btnScanForPeripherals];
+    if(connected == NO)
+        [self btnScanForPeripherals];
     
 }
 
@@ -103,8 +102,9 @@ int attempts = 0;
     _counterLabel.hidden = YES;
     _counterLabel.text = nil;//@"";//[NSString stringWithFormat:@"",_numberOfImages];
     _imageArray = [[NSMutableArray alloc] init];
-    _thumbnailArray = [[NSMutableArray alloc] init];
-    _eyeImages = [[NSMutableArray alloc] init];
+    
+    [captureButton setEnabled:NO];
+    
 }
 
 - (void)btnScanForPeripherals
@@ -134,18 +134,19 @@ int attempts = 0;
     
     if (ble.peripherals.count > 0)
     {
-        
         [ble connectPeripheral:[ble.peripherals objectAtIndex:0]];
         NSLog(@"At least attempting connection");
         
-        
     }
-    else if(attempts < 3)
+    else if(attempts < 2 && capturing == NO)
     {
         //[bleConnect setTitle:@"Connect"];
-        NSLog(@"No peripherals found, initiaiting attemp number %d", attempts);
+        NSLog(@"No peripherals found, initiaiting attempt number %d", attempts);
         [self btnScanForPeripherals];
         attempts++;
+    }
+    else{
+    [captureButton setEnabled:YES];
     }
 }
 
@@ -153,6 +154,7 @@ int attempts = 0;
 {
     NSLog(@"->Disconnected");
     [self btnScanForPeripherals];
+    connected = NO;
     
 }
 
@@ -162,6 +164,12 @@ int attempts = 0;
     NSData *data = [[NSData alloc] initWithBytes:buf length:3];
     [ble write:data];
     NSLog(@"BLE has succesfully connected");
+    [captureButton setEnabled:YES];
+    connected = YES;
+    
+    [self toggleAuxilaryLight:self.selectedLight toggleON:YES];
+    [self toggleAuxilaryLight: farRedLight toggleON:YES];
+
 }
 
 // When data is comming, this will be called
@@ -186,7 +194,6 @@ int attempts = 0;
         else if (data[i] == 0x0B)
         {
             UInt16 Value;
-            
             Value = data[i+2] | data[i+1] << 8;
             //lblAnalogIn.text = [NSString stringWithFormat:@"%d", Value];
         }
@@ -195,17 +202,13 @@ int attempts = 0;
 
 - (void)flashOn:(float) duration {
     
-    //NSLog(@"NSInteger light %d", light);
- 
+    NSNumber *n = [[NSNumber alloc] initWithInteger: flashNumber ];
     
-    NSNumber *n = [[NSNumber alloc] initWithInteger: 9];
-    
-    UInt8 tre = [n intValue];
+    UInt8 hex = [n intValue];
     NSLog(@"Big Flash");
     
-    UInt8 buf[3] = {tre, 0x01, 0x00};
+    UInt8 buf[3] = {hex, 0x01, 0x00};
     
-    NSLog(@"Flash On");
     NSData *data = [[NSData alloc] initWithBytes:buf length:3];
     [ble write:data];
     
@@ -213,34 +216,42 @@ int attempts = 0;
                                      target:self
                                    selector:@selector(flashTimer:)
                                    userInfo:n  repeats:NO];
-    
 }
 
 -(void) flashTimer: (NSTimer *) theTimer{
     
-    UInt8 foo = [[theTimer userInfo] intValue];
+    UInt8 passedHex = [[theTimer userInfo] intValue];
     
-    NSLog(@"HI %d",foo);
-    UInt8 buf[3] = {foo, 0x00, 0x00};
-    NSLog(@"Flash off by timer");
+    NSLog(@"Hex Value to Turn Off Flash %d",passedHex);
+    UInt8 buf[3] = {passedHex, 0x00, 0x00};
+    NSLog(@"Flash Turned Off by timer");
     
     NSData *data = [[NSData alloc] initWithBytes:buf length:3];
     [ble write:data];
 }
 
--(void) turnFixationLightON: (NSInteger) light{
+-(void) toggleAuxilaryLight: (NSInteger) light toggleON: (BOOL) switchON {
     
     NSNumber *n = [[NSNumber alloc] initWithInteger:light];
     
-    UInt8 tre = [n intValue];
-    NSLog(@"Fixation Light Number!!!! %d", tre);
+    UInt8 hex = [n intValue];
+    NSLog(@"Turn  switchOn %d, Fixation Light %d", switchON, hex);
     
-    UInt8 buf[3] = {tre, 0x01, 0x00};
+    UInt8 sw;
+    if(switchON == YES){
+        sw = 0x01;
+    }
+    else{
+        sw = 0x00;
+    }
     
-    NSLog(@"Flash On");
+    UInt8 buf[3] = {hex, sw, 0x00};
+    
+    int i = 0;
+    NSLog(@"0x%02X, 0x%02X, 0x%02X", buf[i], buf[i+1], buf[i+2]);
+    
     NSData *data = [[NSData alloc] initWithBytes:buf length:3];
     [ble write:data];
-    
     
 }
 
@@ -277,12 +288,18 @@ int attempts = 0;
 
 - (IBAction)didPressCapture:(id)sender {
     
+    [captureButton setEnabled:NO];
+    
+    capturing = YES;
+    
     // Reveal counter label to display image count
+    
+    self.navigationController.navigationItem.hidesBackButton = YES;
+
+    //self.navigationController.navigationItem.backBarButtonItem.enabled = NO;
+    
     _counterLabel.hidden = NO;
     AVCaptureConnection *videoConnection = [self getVideoConnection];
-    
-    
-    
     
     // Capture images on a background thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
@@ -298,10 +315,11 @@ int attempts = 0;
             //NSLog(@"Before sleep");
             [NSThread sleepForTimeInterval:1];//_captureDelay];
             //NSLog(@"After sleep");
-            //[self turnTorchOn:YES];
             
-            //[self flashOn: 0.1 withLight: [self selectedLight]];
+            [self toggleAuxilaryLight:self.selectedLight toggleON:NO];
+            [self toggleAuxilaryLight:farRedLight toggleON:NO];
             
+            [self flashOn: 0.1];
             [self takeStillFromConnection:videoConnection];
             
             if(index == _numberOfImages){
@@ -361,8 +379,6 @@ int attempts = 0;
          
          [_imageArray addObject:image];
          
-         //[_thumbnailArray addObject:thumbnail];
-         
          NSLog(@"Saved Image %lu!",[_imageArray count]);
          
          // Update the counter label
@@ -389,7 +405,7 @@ int attempts = 0;
     self.navigationController.navigationBar.alpha = 1;
     ImageSelectionViewController* isvc = (ImageSelectionViewController*)[segue destinationViewController];
     isvc.images = _imageArray;
-    //isvc.thumbnails = _thumbnailArray;
+
 }
 
 - (void) turnTorchOn: (bool) on {
