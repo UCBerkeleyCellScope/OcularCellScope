@@ -8,6 +8,7 @@
 
 #import "EyeImage.h"
 #import "Exam.h"
+#import "EImage.h"
 
 
 @implementation EyeImage
@@ -19,5 +20,6 @@
 @dynamic fixationLight;
 @dynamic thumbnail;
 @dynamic exam;
+
 
 @end

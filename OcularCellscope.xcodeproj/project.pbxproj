@@ -10,8 +10,8 @@
 		60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60418F22189B3E780001D490 /* CoreBluetooth.framework */; };
 		60533D1F18D8454C00FF336E /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 60533D1E18D8454C00FF336E /* EyeImage.m */; };
 		60533D2218D8454D00FF336E /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 60533D2118D8454D00FF336E /* Exam.m */; };
+		60AECE6718D8CD1A00C4EA15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60AECE6618D8CD1A00C4EA15 /* Main.storyboard */; };
 		60B2E8F918C6EE7E00973C7E /* CameraModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */; };
-		60B2E8FA18C6EEB300973C7E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D2D5DC818318D9F00A58A96 /* Main.storyboard */; };
 		60B2E8FC18C717B100973C7E /* img.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 60B2E8FB18C717B100973C7E /* img.jpeg */; };
 		60D8C7BC18C69BB1007D26A7 /* CameraAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */; };
 		60D8C7BD18C69BB1007D26A7 /* CellScopeContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2A51C18C19F2800021510 /* CellScopeContext.m */; };
@@ -98,6 +98,7 @@
 		60533D2118D8454D00FF336E /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
 		60A0865D18C069C900A2667D /* FixationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixationViewController.h; sourceTree = "<group>"; };
 		60A0865E18C069C900A2667D /* FixationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixationViewController.m; sourceTree = "<group>"; };
+		60AECE6618D8CD1A00C4EA15 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		60B2E8FB18C717B100973C7E /* img.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = img.jpeg; sourceTree = "<group>"; };
 		60C2A51B18C19F2800021510 /* CellScopeContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellScopeContext.h; sourceTree = "<group>"; };
 		60C2A51C18C19F2800021510 /* CellScopeContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellScopeContext.m; sourceTree = "<group>"; };
@@ -113,7 +114,6 @@
 		6D2D5DC418318D9F00A58A96 /* AV Camera App-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AV Camera App-Prefix.pch"; sourceTree = "<group>"; };
 		6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CameraAppDelegate.h; path = "AV Camera App/CameraAppDelegate.h"; sourceTree = "<group>"; };
 		6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CameraAppDelegate.m; path = "AV Camera App/CameraAppDelegate.m"; sourceTree = "<group>"; };
-		6D2D5DC918318D9F00A58A96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6D2D5DCE18318D9F00A58A96 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6D2D5DD418318D9F00A58A96 /* AV Camera AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AV Camera AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D2D5DD518318D9F00A58A96 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -263,9 +263,9 @@
 		6D2D5DBC18318D9F00A58A96 /* AV Camera App */ = {
 			isa = PBXGroup;
 			children = (
-				6D2D5DC818318D9F00A58A96 /* Main.storyboard */,
 				60A0865D18C069C900A2667D /* FixationViewController.h */,
 				60A0865E18C069C900A2667D /* FixationViewController.m */,
+				60AECE6618D8CD1A00C4EA15 /* Main.storyboard */,
 				F3FA32CF18B8205B000FACF4 /* CaptureViewController.h */,
 				F3FA32D018B8205B000FACF4 /* CaptureViewController.m */,
 				F3FA32C418B5D6BF000FACF4 /* ImageSelectionViewController.h */,
@@ -460,7 +460,6 @@
 				F325702018CC0CD100FEA80E /* patient_icon.png in Resources */,
 				F325702218CC0CD500FEA80E /* notes_icon.png in Resources */,
 				F325702518CC0D3300FEA80E /* patient_icon_small.png in Resources */,
-				60B2E8FA18C6EEB300973C7E /* Main.storyboard in Resources */,
 				60B2E8F918C6EE7E00973C7E /* CameraModel.xcdatamodeld in Resources */,
 				F3FA32CC18B5E4B7000FACF4 /* im2.png in Resources */,
 				F3FA32CB18B5E4B7000FACF4 /* im1.png in Resources */,
@@ -481,6 +480,7 @@
 				F358E31B185A859900872304 /* Icon.png in Resources */,
 				F358E315185A82E600872304 /* capture_back.png in Resources */,
 				F358E31C185A859900872304 /* Icon@2x.png in Resources */,
+				60AECE6718D8CD1A00C4EA15 /* Main.storyboard in Resources */,
 				F356909318559CC700DBB4BE /* button_addpatients.png in Resources */,
 				F325704418D3911200FEA80E /* selected_icon.png in Resources */,
 				F3FA32CE18B5E4B7000FACF4 /* im4.png in Resources */,
@@ -553,14 +553,6 @@
 				6D2D5DC018318D9F00A58A96 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		6D2D5DC818318D9F00A58A96 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6D2D5DC918318D9F00A58A96 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		6D2D5DDE18318DA000A58A96 /* InfoPlist.strings */ = {

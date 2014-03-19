@@ -11,9 +11,7 @@
 #import "ImageSelectionViewController.h"
 #import "CoreDataController.h"
 #import "CameraAppDelegate.h"
-#import "Constants.h"
-#import "EImage.h"
-
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface FixationViewController ()
 
@@ -22,14 +20,17 @@
 @implementation FixationViewController
 
 
-@synthesize selectedEye, segmentedControl, selectedLight, oldSegmentedIndex, actualSegmentedIndex;
+@synthesize selectedEye, selectedLight, segmentedControl, oldSegmentedIndex, actualSegmentedIndex, imageArray;
 
 //This is an EyeImage
-@synthesize leftEyeImage;
+@synthesize currentEyeImage;
 
 //These are Buttons
 @synthesize centerFixationButton, topFixationButton,
 bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
+
+@synthesize currentEImage, uim;
+
 
 //This is an array of buttons
 @synthesize fixationButtons;
@@ -65,7 +66,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     [super viewWillAppear:(BOOL) animated];
     
-    //ONLY RELOAD IF ITS CHANGED
+    NSLog(@"Seg Back, even from ImageSelection");
     
     if (self.selectedEye){
         if ([self.selectedEye isEqualToString: LEFT_EYE]) [segmentedControl setSelectedSegmentIndex: 0];
@@ -96,18 +97,21 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
              self.eyeImages = [CoreDataController getObjectsForEntity:@"EyeImage" withSortKey:@"date" andSortAscending:YES andContext:self.managedObjectContext];
             */
             
+            
             NSPredicate *p = [NSPredicate predicateWithFormat: @"eye == %@ AND fixationLight == %d", selectedEye, i];
             
+            
             NSArray *temp = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: p
-                                                            andSortKey: @"date" andSortAscending: YES
+                                                                                         andSortKey: @"date" andSortAscending: YES
+                             
                                                             andContext: _managedObjectContext];
             
             self.eyeImages = [NSMutableArray arrayWithArray:temp];
             
+            NSLog(@"For Fixation Light %d, %d images were Retrieved!", i, [eyeImages count]);
             
             //Attempt 1
             /*
-            
             //NSFetchRequest *request = [[NSFetchRequest alloc] init];
             NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"EyeImage"];
             
@@ -116,9 +120,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
             request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]];
             request.fetchLimit = 1;
             NSError *error;
-            
             NSArray *array = [_managedObjectContext executeFetchRequest:request error:&error];
-            
             */
             
             if([imageArray count]>0){
@@ -129,9 +131,10 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                     [fixationButtons[i-1] setSelected: YES];
                 }
             }
-            else if([eyeImages count] != 0){
-                leftEyeImage = eyeImages[0];
-                UIImage* thumbImage = [UIImage imageWithData: leftEyeImage.thumbnail];
+            
+            if([eyeImages count] != 0){
+                currentEyeImage = eyeImages[0];
+                UIImage* thumbImage = [UIImage imageWithData: currentEyeImage.thumbnail];
                 [fixationButtons[i-1] setImage: thumbImage forState:UIControlStateNormal];
                 [fixationButtons[i-1] setSelected: YES];
             }
@@ -156,26 +159,23 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     self.selectedLight = [sender tag];
     
-    [self performSegueWithIdentifier:@"CaptureViewSegue" sender:(id)sender];
     
-    /*
+    
+    
     if( [sender isSelected] == NO){
         //there are pictures!
-        CaptureViewController *nextViewController = [[CaptureViewController alloc] initWithNibName:nil bundle:nil];
-        
-        [self.navigationController pushViewController:nextViewController animated:YES];
+        //CaptureViewController *nextViewController = [[CaptureViewController alloc] init];
+        //[self.navigationController pushViewController:nextViewController animated:YES];
+        [self performSegueWithIdentifier:@"CaptureViewSegue" sender:(id)sender];
     
     }
     
     else if([sender isSelected] == YES ){
+                //[self.navigationController pushViewController:nextViewController animated:YES];
         
-        ImageSelectionViewController *nextViewController = [[ImageSelectionViewController alloc] initWithNibName:nil bundle:nil];
-        
-        [self.navigationController pushViewController:nextViewController animated:YES];
-        //[self performSegueWithIdentifier:@"imageSelectionSegue" sender:(id)sender];
+        [self performSegueWithIdentifier:@"ImageReviewSegue" sender:(id)sender];
         
     }
-     */
     
 }
 
@@ -199,11 +199,86 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         cvc.selectedLight = self.selectedLight;
     }
     
-    else if ([[segue identifier] isEqualToString:@"ImageSelectionSegue"])
+    else if ([[segue identifier] isEqualToString:@"ImageReviewSegue"])
     {
-        ImageSelectionViewController * isvc = (ImageSelectionViewController*)[segue destinationViewController];
+        NSLog(@"Segue to ImageReview");
+       ImageSelectionViewController * isvc = (ImageSelectionViewController*)[segue destinationViewController];
        isvc.selectedEye = self.selectedEye;
        isvc.selectedLight = self.selectedLight;
+        
+        NSPredicate *p = [NSPredicate predicateWithFormat: @"eye == %@ AND fixationLight == %d", self.selectedEye, self.selectedLight];
+        
+        
+        NSArray *temp = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: p
+                                                        andSortKey: @"date" andSortAscending: YES
+                                                        andContext: _managedObjectContext];
+        
+        self.eyeImages = [NSMutableArray arrayWithArray:temp];
+        
+        NSLog(@"%lu",(unsigned long)[eyeImages count]);
+        NSMutableArray* images = [[NSMutableArray alloc] init];
+        
+        for( EyeImage* i in eyeImages){
+            if(i){
+                NSLog(@"%@",[i filePath]);
+                NSLog(@"%@",[i date]);
+                NSLog(@"%@",[i eye]);
+                NSLog(@"%ld",(long)[i fixationLight]);
+
+                //UIImage *im = [UIImage imageWithContentsOfFile: i.filePath];
+                
+                //Let's get an image!
+                
+                
+                NSURL *aURL = [NSURL URLWithString: i.filePath];
+                
+                NSLog(@"displaying image at: %@",i.filePath);
+                
+                ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+                [library assetForURL:aURL resultBlock:^(ALAsset *asset)
+                 {
+                     ALAssetRepresentation* rep = [asset defaultRepresentation];
+                     CGImageRef iref = [rep fullResolutionImage];
+                     
+                     UIImage *uim = [UIImage imageWithCGImage:iref];
+                     
+                 }
+                        failureBlock:^(NSError *error)
+                 {
+                     // error handling
+                     NSLog(@"failure loading video/image from AssetLibrary");
+                 }];
+
+                /*
+                currentEImage.date = i.date;
+                currentEImage.eye = i.eye;
+                currentEImage.fixationLight = i.fixationLight;
+                */
+                NSLog(@"What's the Fixation %@", i.fixationLight);
+                
+                
+                
+                //NSData* d = [NSData dataWithContentsOfFile: i.filePath];
+                
+                NSData *d = UIImagePNGRepresentation(uim);
+                NSLog(d);
+                             
+                EImage *image = [[EImage alloc] initWithData: d
+                                                        date: i.date
+                                                         eye: i.eye
+                                               fixationLight: i.fixationLight];
+                NSLog(@"does it make it here");
+                NSLog(image);
+                
+                
+                
+                [images addObject: currentEImage];
+                NSLog(@"OR it make it here");
+            }
+         //NSLog(@"%lu",(unsigned long)[images count]);
+        }
+        
+        isvc.images = images;
     }
 
 }

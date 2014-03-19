@@ -442,20 +442,8 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" id="g84-lP-nQ8">
-                                <rect key="frame" x="132" y="366" width="128" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Left"/>
-                                    <segment title="Right"/>
-                                </segments>
-                                <color key="tintColor" red="0.32941177487373352" green="0.52941179275512695" blue="0.50196081399917603" alpha="1" colorSpace="deviceRGB"/>
-                                <connections>
-                                    <action selector="didSegmentedValueChanged:" destination="AGJ-xP-Dbn" eventType="valueChanged" id="LAN-Qe-GTY"/>
-                                </connections>
-                            </segmentedControl>
                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="seY-6X-HHY" userLabel="BottomFixationButton">
-                                <rect key="frame" x="132" y="276" width="57" height="57"/>
+                                <rect key="frame" x="132" y="255" width="57" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Icon.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -465,7 +453,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9nU-jg-0UU" userLabel="NoFixationButton">
-                                <rect key="frame" x="40" y="366" width="57" height="57"/>
+                                <rect key="frame" x="40" y="345" width="57" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Icon.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -475,7 +463,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dfr-G7-7Q1" userLabel="CenterFixationButton">
-                                <rect key="frame" x="132" y="182" width="57" height="57"/>
+                                <rect key="frame" x="132" y="161" width="57" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Icon.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -485,7 +473,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jSg-zQ-raL" userLabel="RightFixationButton">
-                                <rect key="frame" x="224" y="182" width="57" height="57"/>
+                                <rect key="frame" x="224" y="161" width="57" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Icon.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -496,7 +484,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vZa-OD-Ki1" userLabel="LeftFixationButton">
-                                <rect key="frame" x="40" y="182" width="57" height="57"/>
+                                <rect key="frame" x="40" y="161" width="57" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Icon.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -506,7 +494,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9MV-1t-Ecr" userLabel="TopFixationButton">
-                                <rect key="frame" x="132" y="83" width="57" height="57"/>
+                                <rect key="frame" x="132" y="62" width="57" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Icon.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -515,11 +503,38 @@
                                     <action selector="didPressFixation:" destination="AGJ-xP-Dbn" eventType="touchUpInside" id="m14-95-xfi"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Fixation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0AB-vL-re2">
+                                <rect key="frame" x="24" y="410" width="88" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="g84-lP-nQ8">
+                                <rect key="frame" x="153" y="374" width="128" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Left"/>
+                                    <segment title="Right"/>
+                                </segments>
+                                <color key="tintColor" red="0.32941177487373352" green="0.52941179275512695" blue="0.50196081399917603" alpha="1" colorSpace="deviceRGB"/>
+                                <connections>
+                                    <action selector="didSegmentedValueChanged:" destination="AGJ-xP-Dbn" eventType="valueChanged" id="LAN-Qe-GTY"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="0.41579909129999998" green="0.66232860329999999" blue="0.62588200189999998" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.32941177487373352" green="0.52941179275512695" blue="0.50196081399917603" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Images" image="eye_icon_small.png" id="6ve-qZ-Svk"/>
+                    <navigationItem key="navigationItem" id="X28-KW-fod">
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="gUe-uY-OhD">
+                            <color key="tintColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="xWv-Ax-uVf">
+                            <color key="tintColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="LeftFixationButton" destination="vZa-OD-Ki1" id="ynw-xt-Pii"/>
                         <outlet property="bottomFixationButton" destination="seY-6X-HHY" id="YmG-Hx-rA6"/>
@@ -529,11 +544,12 @@
                         <outlet property="rightFixationButton" destination="jSg-zQ-raL" id="EmT-Hm-mFN"/>
                         <outlet property="segmentedControl" destination="g84-lP-nQ8" id="DPU-M4-3X5"/>
                         <outlet property="topFixationButton" destination="9MV-1t-Ecr" id="C0q-wD-KTR"/>
+                        <segue destination="2qF-pw-3PT" kind="push" identifier="ImageReviewSegue" id="yZ8-bd-Ndx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wtL-FP-NHW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1152" y="-256"/>
+            <point key="canvasLocation" x="1152" y="-258"/>
         </scene>
         <!--Image Selection View Controller-->
         <scene sceneID="eMj-Vl-UuO">
@@ -574,25 +590,30 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="7dv-jV-lDW">
-                        <barButtonItem key="leftBarButtonItem" image="x_button.png" id="ZS4-ng-3RW"/>
-                        <barButtonItem key="rightBarButtonItem" image="check_button.png" id="VdC-99-cYH">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="ZS4-ng-3RW">
+                            <color key="tintColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="didPressSaveButton:" destination="2qF-pw-3PT" id="TVJ-LH-q8J"/>
+                                <action selector="didPressCancel:" destination="2qF-pw-3PT" id="QUp-Np-Kb2"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="VdC-99-cYH">
+                            <color key="tintColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="didPressSave:" destination="2qF-pw-3PT" id="1GM-BI-VU1"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="discardButton" destination="ZS4-ng-3RW" id="e99-Ic-XQB"/>
-                        <outlet property="imageView" destination="NqN-Fh-BWJ" id="hh5-bf-Ule"/>
-                        <outlet property="saveButton" destination="VdC-99-cYH" id="Chf-bc-M2t"/>
+                        <outlet property="imageView" destination="NqN-Fh-BWJ" id="iQa-xE-VLS"/>
+                        <outlet property="selectedIcon" destination="Xir-83-iE5" id="jAT-8T-Zh5"/>
                         <outlet property="slider" destination="V3s-CM-8Fg" id="DFg-Iu-p2s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Dp-ra-vEL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2209" y="-918"/>
+            <point key="canvasLocation" x="2261" y="114"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="HBV-wj-Q0L">
@@ -857,4 +878,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="yZ8-bd-Ndx"/>
+    </inferredMetricsTieBreakers>
 </document>

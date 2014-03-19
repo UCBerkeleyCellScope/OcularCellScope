@@ -12,20 +12,23 @@
 @interface ImageSelectionViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UISlider *slider;
-@property(strong, nonatomic) NSMutableArray *images;
-@property(strong, nonatomic) NSMutableArray *thumbnails;
-@property(strong, nonatomic) NSMutableArray *eyeImages;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *discardButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
+@property (strong, nonatomic) NSMutableArray *images; //THIS IS THE EIMAGEOBJECT
+@property (strong, nonatomic) NSMutableArray *thumbnails;
+@property (strong, nonatomic) NSMutableSet *selectedImageIndices;
+@property (strong, nonatomic) IBOutlet UIButton *imageViewButton;
+@property (strong, nonatomic) IBOutlet UIImageView *selectedIcon;
 
 
-@property(strong, nonatomic) EyeImage * currentEyeImage;
+-(IBAction)didMoveSlider:(id)sender;
+-(IBAction)didTouchUpFromSlider:(id)sender;
+-(IBAction)didSelectImage:(id)sender;
+-(IBAction)didPressCancel:(id)sender;
+- (IBAction)didPressSave:(id)sender;
 
-- (IBAction)didMoveSlider:(id)sender;
-- (IBAction)didPressSaveButton:(id)sender;
 
-
-@property (nonatomic) NSInteger const selectedLight;
+@property (nonatomic) int selectedLight;
 @property (copy, nonatomic) NSString *selectedEye;
+@property (strong, nonatomic) NSMutableArray *eyeImages; //THIS IS FOR REVIEW MODE
+
 
 @end

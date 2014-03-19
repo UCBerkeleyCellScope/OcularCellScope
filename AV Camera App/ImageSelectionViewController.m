@@ -7,19 +7,26 @@
 //
 
 #import "ImageSelectionViewController.h"
-#import <AssetsLibrary/AssetsLibrary.h>
+#import "EImage.h"
 #import "FixationViewController.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import "CameraAppDelegate.h"
 
 @interface ImageSelectionViewController ()
 
 @property(assign, nonatomic) int currentImageIndex;
+@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) NSString *file;
 
 @end
 
 @implementation ImageSelectionViewController
 
-@synthesize imageView,slider, currentImageIndex, selectedLight, selectedEye, images, thumbnails, eyeImages, currentEyeImage;
+@synthesize imageView,slider, images, currentImageIndex, selectedLight, selectedEye, thumbnails, imageViewButton, selectedIcon, file;
+@synthesize managedObjectContext = _managedObjectContext;
+@synthesize eyeImages = _eyeImages;
 
+/*
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -28,10 +35,16 @@
     }
     return self;
 }
+*/
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    CameraAppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
+    _managedObjectContext = [appDelegate managedObjectContext];
+
+    NSLog(@" %@, %d", selectedEye, selectedLight);
     
     self.navigationController.navigationBar.hidden = NO;
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
@@ -43,26 +56,24 @@
 {
     //[selectedIcon setImage:[UIImage imageNamed:@"x_button.png"]];
     NSLog(@"There are %lu images", (unsigned long)[images count]);
+    NSLog(@"There are %lu images", (unsigned long)[_eyeImages count]);
     NSLog(@"There are %lu thumbnails", (unsigned long)[thumbnails count]);
     
-    if([eyeImages count]<1){
+    if([images count]<1){
         slider.hidden = YES;
         NSLog(@"LESS THAN 1");
     }
     else{
         slider.hidden = NO;
-        //[imageView setImage:[images objectAtIndex:currentImageIndex]];
-        
-        
-        [self load:0];
-
-         
         slider.minimumValue = 0;
-        slider.maximumValue = [thumbnails count]-1;
+        slider.maximumValue = [images count]-1;
+        
+        [self updateViewWithImage:[images objectAtIndex:currentImageIndex] useThumbnail:NO];
     }
     
 }
 
+/*
 -(void) load: (int) cii{
     NSLog(@"IN THE LOAD");
     currentEyeImage = [eyeImages objectAtIndex:cii];
@@ -86,6 +97,7 @@
      }];
     
 }
+ */
 
 - (void)didReceiveMemoryWarning
 {
@@ -122,10 +134,11 @@
 }
 
 -(IBAction)didTouchUpFromSlider:(id)sender{
-    slider.value = currentImageIndex;
+    //slider.value = currentImageIndex;
     //[imageView setImage:[images objectAtIndex:currentImageIndex]];
-    [self load:currentImageIndex];
+    //[self load:currentImageIndex];
     
+    [self updateViewWithImage:[images objectAtIndex:currentImageIndex] useThumbnail:NO];
 }
 
 -(IBAction)didSelectImage:(id)sender{
@@ -156,12 +169,109 @@
     
 }
 
-
-
-- (IBAction)didPressSaveButton:(id)sender {
+-(IBAction)didPressCancel:(id)sender{
+    NSArray* viewControllers = self.navigationController.viewControllers;
+    UIViewController* fixationVC = [viewControllers objectAtIndex: 1 ];
+    //The Fixation ViewController will be either index 1 out of 0-2 or 1 out of 0-3.
     
-    FixationViewController *fvc = [self.navigationController.viewControllers objectAtIndex:1];
-    //fvc.selectedEye = selectedEye;
-    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
+    [self.navigationController popToViewController:fixationVC animated:YES];
+}
+
+-(IBAction)didPressSave:(id)sender{
+    if([EImage containsSelectedImageInArray:images]){
+        //save
+        
+        NSMutableArray* eImagesToSave = [EImage selectedImagesFromArray:images];
+        for( EImage* ei in eImagesToSave){
+            EyeImage* coreDataObject = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"EyeImage" inManagedObjectContext:self.managedObjectContext];
+            coreDataObject.date = ei.date;
+            coreDataObject.eye = ei.eye;
+            [self saveImageToCameraRoll:ei coreData: coreDataObject];
+            coreDataObject.thumbnail = UIImagePNGRepresentation(ei.thumbnail);
+            
+            NSNumber *myNum = [NSNumber numberWithInteger:ei.fixationLight];
+            coreDataObject.fixationLight = myNum;
+        }
+        
+        NSArray* viewControllers = self.navigationController.viewControllers;
+        UIViewController* fvc = [viewControllers objectAtIndex:[viewControllers count]-3];
+        //fvc.imageArray = [EImage selectedImagesFromArray:images];
+        
+        [self.navigationController popToViewController:fvc animated:YES];
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Images Selected"
+                                                        message:@"You must select at least one image before saving."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+-(void)saveImageToCameraRoll:(UIImage*) image coreData: (EyeImage*) cd{
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    
+    [library writeImageToSavedPhotosAlbum:image.CGImage orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+        if (error) {
+            NSLog(@"Error writing image to photo album");
+        }
+        else {
+            NSString *myString = [assetURL absoluteString];
+            NSString *myPath = [assetURL path];
+            NSLog(@"Super important! This is the file path!");
+            NSLog(@"%@", myString);
+            NSLog(@"%@", myPath);
+            
+            NSLog(@"Added image to asset library");
+            
+            cd.filePath = [assetURL absoluteString];
+            
+        }
+    }]; // end of completion block
+}
+
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    //isEqualToString identifiers won't work
+    
+    if ([[segue identifier] isEqualToString:@"CaptureViewSegue"])
+    {
+       /*
+        NSLog(@"Preparing for CaptureViewSegue");
+        FixationViewController* fvc = (FixationViewController*)[segue destinationViewController];
+        fvc.imageArray = [EImage selectedImagesFromArray:images];
+        */
+    }
+    
+    else if ([[segue identifier] isEqualToString:@"ImageSelectionSegue"])
+    {
+        /*
+        ImageSelectionViewController * isvc = (ImageSelectionViewController*)[segue destinationViewController];
+        isvc.selectedEye = self.selectedEye;
+        isvc.selectedLight = self.selectedLight;
+         */
+    }
+    
+}
+
+-(void)updateViewWithImage:(EImage*) image useThumbnail:(bool) useThumbnail{
+    if(useThumbnail)
+        [imageView setImage:image.thumbnail];
+    else
+        [imageView setImage:image];
+    
+    [self changeImageIconToSelected:[image isSelected]];
+}
+
+-(void)changeImageIconToSelected:(BOOL) isSelected{
+    if(isSelected){
+        [selectedIcon setImage:[UIImage imageNamed:@"selected_icon.png"]];
+    }
+    else{
+        [selectedIcon setImage:[UIImage imageNamed:@"unselected_icon.png"]];
+    }
 }
 @end

@@ -23,10 +23,13 @@
 @property (nonatomic, strong) NSDate * date;
 @property (nonatomic, strong) NSString * eye;
 @property (nonatomic, strong) NSString * filePath;
-@property (nonatomic, assign) NSInteger * fixationLight;
+@property (nonatomic, assign) int fixationLight;
 @property (nonatomic, strong) UIImage * thumbnail;
 @property (assign, nonatomic, getter = isSelected) BOOL selected;
 
+-(id) initWithData:(NSData *)data date:(NSDate*) date
+               eye:(NSString*) eye
+     fixationLight:(int) fixationLight;
 +(BOOL) containsSelectedImageInArray:(NSMutableArray*) imageArray;
 +(NSMutableArray*) selectedImagesFromArray:(NSMutableArray*) imageArray;
 -(void) toggleSelected;
