@@ -9,11 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "Exam.h"
 #import "EyeImage.h"
-
+#import "ExamInfoViewController.h"
 
 @interface PatientsTableViewController : UITableViewController
 
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Exam* currentExam;
 
 @property (nonatomic, strong) NSMutableArray *patientsArray;

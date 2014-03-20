@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		603C44FD18DAE72F00402AE1 /* ExamInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C44FC18DAE72F00402AE1 /* ExamInfoViewController.m */; };
 		60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60418F22189B3E780001D490 /* CoreBluetooth.framework */; };
 		60533D1F18D8454C00FF336E /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 60533D1E18D8454C00FF336E /* EyeImage.m */; };
 		60533D2218D8454D00FF336E /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 60533D2118D8454D00FF336E /* Exam.m */; };
@@ -84,6 +85,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		603C44FB18DAE72F00402AE1 /* ExamInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExamInfoViewController.h; sourceTree = "<group>"; };
+		603C44FC18DAE72F00402AE1 /* ExamInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExamInfoViewController.m; sourceTree = "<group>"; };
 		60418F22189B3E780001D490 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		60418F25189B3ED60001D490 /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
 		60418F26189B3ED60001D490 /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
@@ -217,6 +220,8 @@
 		6D2D5DAA18318D9E00A58A96 = {
 			isa = PBXGroup;
 			children = (
+				603C44FB18DAE72F00402AE1 /* ExamInfoViewController.h */,
+				603C44FC18DAE72F00402AE1 /* ExamInfoViewController.m */,
 				F325703B18D366FE00FEA80E /* EImage.h */,
 				F325703C18D366FE00FEA80E /* EImage.m */,
 				60D8C7D018C6BF87007D26A7 /* Constants.h */,
@@ -522,6 +527,7 @@
 				F325703218D1A9AE00FEA80E /* UIImage+RoundedCorner.m in Sources */,
 				60D8C7CC18C69BB1007D26A7 /* main.m in Sources */,
 				60D8C7CE18C69BB2007D26A7 /* BLE.m in Sources */,
+				603C44FD18DAE72F00402AE1 /* ExamInfoViewController.m in Sources */,
 				60D8C7D218C6BF87007D26A7 /* Constants.m in Sources */,
 				F325703018D1A9AE00FEA80E /* UIImage+Alpha.m in Sources */,
 				60533D1F18D8454C00FF336E /* EyeImage.m in Sources */,

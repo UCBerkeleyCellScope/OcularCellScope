@@ -9,10 +9,9 @@
 
 #import "CellScopeContext.h"
 
-
 @implementation CellScopeContext
 
-@synthesize currentExam,selectedEye,selectedLight,ble;
+@synthesize selectedEye,selectedLight,ble;
 
 + (id)sharedContext {
     static CellScopeContext *newContext = nil;
@@ -27,7 +26,7 @@
     if (self = [super init]) {
         selectedEye = @"";
         selectedLight = 0;
-
+        
         ble = [[BLE alloc] init];
         [ble controlSetup];
         

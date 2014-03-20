@@ -338,10 +338,10 @@
             </objects>
             <point key="canvasLocation" x="1087" y="-2479"/>
         </scene>
-        <!--View Controller - Patient Info-->
+        <!--Exam Info View Controller - Patient Info-->
         <scene sceneID="inM-di-qTU">
             <objects>
-                <viewController id="D6J-XN-Hdd" sceneMemberID="viewController">
+                <viewController id="D6J-XN-Hdd" customClass="ExamInfoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9j0-ne-hhJ">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -429,6 +429,12 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Patient Info" image="patient_icon_small.png" id="Nsd-L1-Y6U"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="firstnameField" destination="fWK-1u-QYN" id="gfJ-iA-An9"/>
+                        <outlet property="lastnameField" destination="mqQ-lo-bCr" id="f9W-Ap-KNb"/>
+                        <outlet property="patientIDField" destination="FWL-4i-pnR" id="Ctw-A3-aGi"/>
+                        <outlet property="physicianField" destination="f6n-lD-QcE" id="fSH-wk-puK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LA2-35-o2C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -897,6 +903,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="G5L-Ah-1hf"/>
+        <segue reference="yZ8-bd-Ndx"/>
     </inferredMetricsTieBreakers>
 </document>

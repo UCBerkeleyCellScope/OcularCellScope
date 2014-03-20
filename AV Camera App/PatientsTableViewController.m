@@ -7,14 +7,14 @@
 //
 
 #import "PatientsTableViewController.h"
-#import "CameraAppDelegate.h"
 #import "MainMenuViewController.h"
 #import "CoreDataController.h"
 #import "DetailViewController.h"
 
+#import "CellScopeContext.h"
+
 @implementation PatientsTableViewController
 
-@synthesize managedObjectContext = _managedObjectContext;
 @synthesize currentExam, patientsArray;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -37,15 +37,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    CameraAppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
-    _managedObjectContext = [appDelegate managedObjectContext];
     
     //  Grab the data
-    self.patientsArray = [CoreDataController getObjectsForEntity:@"Exam" withSortKey:@"patientName" andSortAscending:YES andContext:self.managedObjectContext];
+    self.patientsArray = [CoreDataController getObjectsForEntity:@"Exam" withSortKey:@"patientName" andSortAscending:YES andContext:[[CellScopeContext sharedContext] managedObjectContext]];
     //  Force table refresh
     [self.tableView reloadData];
     
-    NSLog(@"We have %u patients in our database", [patientsArray count]);
+    NSLog(@"We have %lu patients in our database", (unsigned long)[self.patientsArray count]);
     
 }
 
@@ -81,12 +79,12 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     // Set up the cell...
-    Exam *patient = (Exam *)[patientsArray objectAtIndex:indexPath.row];
+    Exam *exam = (Exam *)[patientsArray objectAtIndex:indexPath.row];
     //[PatientInfo objectAtIndex:indexPath.row];
     
     // Fill in the cell contents
-    cell.textLabel.text = [NSString stringWithFormat:@"%@, %@", patient.lastName, patient.firstName];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", patient.patientID];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@, %@", exam.lastName, exam.firstName];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", exam.patientID];
     return cell;
 }
 
@@ -101,10 +99,8 @@
 {
     if ([[segue identifier] isEqualToString:@"DetailSegue"])
     {
-        DetailViewController* dvc = (DetailViewController*)[segue destinationViewController];
-        
-        dvc.managedObjectContext = self.managedObjectContext;
-        dvc.currentExam = self.currentExam;
+        ExamInfoViewController* eivc = (ExamInfoViewController*)[segue destinationViewController];
+        eivc.currentExam = self.currentExam;
         
     }
 }
@@ -115,10 +111,10 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         Exam* currentCell = [patientsArray objectAtIndex:indexPath.row];
-        [self.managedObjectContext deleteObject:currentCell];
+        [[[CellScopeContext sharedContext] managedObjectContext] deleteObject:currentCell];
         
         // Commit
-        [self.managedObjectContext save:nil];
+        [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
         
         //remove from the in-memory array
         [self.patientsArray removeObjectAtIndex:indexPath.row];
