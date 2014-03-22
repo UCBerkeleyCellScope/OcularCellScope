@@ -11,7 +11,7 @@
 
 @implementation CellScopeContext
 
-@synthesize selectedEye,selectedLight,ble;
+@synthesize selectedEye,selectedLight,ble, currentExam;
 
 + (id)sharedContext {
     static CellScopeContext *newContext = nil;
@@ -29,6 +29,7 @@
         
         ble = [[BLE alloc] init];
         [ble controlSetup];
+        
         
         
     }

@@ -16,5 +16,6 @@
 @property (strong, nonatomic) Exam* currentExam;
 
 @property (nonatomic, strong) NSMutableArray *patientsArray;
+- (IBAction)didPressAddExam:(id)sender;
 
 @end

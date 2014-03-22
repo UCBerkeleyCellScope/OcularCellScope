@@ -32,6 +32,10 @@
 @property (assign, nonatomic) int captureDelay;
 
 @property (nonatomic) BOOL connected;
+@property (nonatomic) BOOL debugMode;
+@property (nonatomic, strong) UIActivityIndicatorView *aiv;
+
+@property (nonatomic, strong) NSUserDefaults *prefs;
 
 @end
 
@@ -50,8 +54,12 @@
 @synthesize selectedEye = _selectedEye;
 @synthesize selectedLight = _selectedLight;
 @synthesize connected;
+@synthesize debugMode = _debugMode;
 @synthesize currentExam = _currentExam;
 @synthesize captureButton;
+@synthesize activityIndicator;
+@synthesize aiv = _aiv;
+@synthesize prefs = _prefs;
 
 @synthesize ble;
 
@@ -75,41 +83,52 @@ BOOL capturing = NO;
     ble = [[CellScopeContext sharedContext] ble];
     
     ble.delegate = self;
-    
-    
-    
     [self setViewControllerElements];
     [self videoSetup];
     
+
+    
 }
 
--(void)viewDidAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated{
     
-    if(connected == NO)
+    _prefs = [NSUserDefaults standardUserDefaults];
+    _debugMode = [_prefs boolForKey:@"debugMode" ];
+    _aiv = [activityIndicator initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
+    
+    NSLog(@"Debug Mode is: %d",_debugMode);
+    
+    if(connected == NO && _debugMode == NO){
+        [_aiv startAnimating];
+        [captureButton setEnabled:NO];
         [self btnScanForPeripherals];
+    }
+    else{
+        [_aiv stopAnimating];
+
+    }
     
 }
 
 -(void)setViewControllerElements{
-    NSUserDefaults* prefs = [NSUserDefaults standardUserDefaults];
     //NSString *path = [[NSBundle mainBundle] pathForResource:@"CaptureSettings" ofType:@"plist"];
     //NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-    _numberOfImages = [prefs integerForKey:@"numberOfImages"];
+    _numberOfImages = [_prefs integerForKey:@"numberOfImages"];
+    _numberOfImages = 4;
     NSLog(@"Number of Images: %d", _numberOfImages);
     //[[dict objectForKey:@"numberOfImages"] intValue];
-    _captureDelay = [prefs floatForKey:@"captureDelay"];//[[dict objectForKey:@"captureDelay"] intValue];
+    
+    _captureDelay = [_prefs floatForKey:@"captureDelay"];//[[dict objectForKey:@"captureDelay"] intValue];
     NSLog(@"Capture Delay: %d", _captureDelay);
     _counterLabel.hidden = YES;
     _counterLabel.text = nil;//@"";//[NSString stringWithFormat:@"",_numberOfImages];
-    _imageArray = [[NSMutableArray alloc] init];
-    
-    [captureButton setEnabled:NO];
-    
+    _imageArray = [[NSMutableArray alloc] init];    
 }
 
 - (void)btnScanForPeripherals
 {
-    if (ble.activePeripheral)
+    
+        if (ble.activePeripheral)
         if(ble.activePeripheral.state == CBPeripheralStateConnected)
         {
             [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
@@ -146,7 +165,9 @@ BOOL capturing = NO;
         attempts++;
     }
     else{
-    [captureButton setEnabled:YES];
+        NSLog(@"Why didn't we exit??");
+        [_aiv stopAnimating];
+        [captureButton setEnabled:YES];
     }
 }
 
@@ -160,11 +181,13 @@ BOOL capturing = NO;
 
 -(void) bleDidConnect
 {
+    [_aiv stopAnimating];
+    [captureButton setEnabled:YES];
     UInt8 buf[] = {0x04, 0x00, 0x00};
     NSData *data = [[NSData alloc] initWithBytes:buf length:3];
     [ble write:data];
     NSLog(@"BLE has succesfully connected");
-    [captureButton setEnabled:YES];
+
     connected = YES;
     
     [self toggleAuxilaryLight:self.selectedLight toggleON:YES];
@@ -286,54 +309,6 @@ BOOL capturing = NO;
     [_session startRunning];
 }
 
-- (IBAction)didPressCapture:(id)sender {
-    
-    [captureButton setEnabled:NO];
-    
-    capturing = YES;
-    
-    // Reveal counter label to display image count
-    
-    self.navigationController.navigationItem.hidesBackButton = YES;
-
-    //self.navigationController.navigationItem.backBarButtonItem.enabled = NO;
-    
-    _counterLabel.hidden = NO;
-    AVCaptureConnection *videoConnection = [self getVideoConnection];
-    
-    // Capture images on a background thread
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        for(int index = 1; index <= _numberOfImages; ++index){
-            /*
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                
-                _counterLabel.text = [NSString stringWithFormat:@"%d/%d",index,_numberOfImages];
-                NSLog(@"Image %d of %d",index,_numberOfImages);
-                
-            }];
-            */
-            //NSLog(@"Before sleep");
-            [NSThread sleepForTimeInterval:1];//_captureDelay];
-            //NSLog(@"After sleep");
-            
-            [self toggleAuxilaryLight:self.selectedLight toggleON:NO];
-            [self toggleAuxilaryLight:farRedLight toggleON:NO];
-            
-            [self flashOn: 0.1];
-            [self takeStillFromConnection:videoConnection];
-            
-            if(index == _numberOfImages){
-                [_activityIndicator startAnimating];
-                NSLog(@"Activity Indicator has started.");
-            }
-            
-        }
-    });
-    
-    NSLog(@"didPressCapture Completed");
-  
-}
-
 
 -(AVCaptureConnection*)getVideoConnection{
     AVCaptureConnection *videoConnection = nil;
@@ -391,7 +366,7 @@ BOOL capturing = NO;
          
          // Once all images are captured, segue to the Image Selection View
          if([_imageArray count] >= _numberOfImages){
-             [_activityIndicator stopAnimating];
+
              [self performSegueWithIdentifier:@"ImageSelectionSegue" sender:self];
          }
          
@@ -437,4 +412,47 @@ BOOL capturing = NO;
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)didPressCapture:(id)sender {
+    [captureButton setEnabled:NO];
+    
+    capturing = YES;
+    
+    // Reveal counter label to display image count
+    
+    //self.tabBarController.navigationItem.hidesBackButton = YES;
+    
+    //self.navigationController.navigationItem.backBarButtonItem.enabled = NO;
+    
+    _counterLabel.hidden = NO;
+    AVCaptureConnection *videoConnection = [self getVideoConnection];
+    
+    // Capture images on a background thread
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        for(int index = 1; index <= _numberOfImages; ++index){
+            
+            NSLog(@"Why no execute");
+            /*
+             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+             
+             _counterLabel.text = [NSString stringWithFormat:@"%d/%d",index,_numberOfImages];
+             NSLog(@"Image %d of %d",index,_numberOfImages);
+             
+             }];
+             */
+            //NSLog(@"Before sleep");
+            [NSThread sleepForTimeInterval:1];//_captureDelay];
+            //NSLog(@"After sleep");
+            
+            [self toggleAuxilaryLight:self.selectedLight toggleON:NO];
+            [self toggleAuxilaryLight:farRedLight toggleON:NO];
+            
+            [self flashOn: 0.1];
+            [self takeStillFromConnection:videoConnection];
+            
+            }
+    });
+    
+    NSLog(@"didPressCapture Completed");
+    [captureButton setEnabled:YES];
+}
 @end

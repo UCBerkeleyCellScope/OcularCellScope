@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "EyeImage.h"
 #import "EImage.h"
+#import "CameraAppDelegate.h"
 
 @interface FixationViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *centerFixationButton;
@@ -17,8 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *bottomFixationButton;
 @property (weak, nonatomic) IBOutlet UIButton *topFixationButton;
 @property (weak, nonatomic) IBOutlet UIButton *noFixationButton;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
-
 
 //@property (copy, nonatomic) NSString *selectedEye;
 @property (copy,nonatomic) NSString *selectedEye;

@@ -31,6 +31,13 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
     
+    
+    self.patientsArray = [CoreDataController getObjectsForEntity:@"Exam" withSortKey:@"patientName" andSortAscending:YES andContext:[[CellScopeContext sharedContext] managedObjectContext]];
+    //  Force table refresh
+    [self.tableView reloadData];
+    
+    NSLog(@"We have %lu patients in our database", (unsigned long)[self.patientsArray count]);
+    
 }
 
 
@@ -39,11 +46,7 @@
     [super viewDidLoad];
     
     //  Grab the data
-    self.patientsArray = [CoreDataController getObjectsForEntity:@"Exam" withSortKey:@"patientName" andSortAscending:YES andContext:[[CellScopeContext sharedContext] managedObjectContext]];
-    //  Force table refresh
-    [self.tableView reloadData];
     
-    NSLog(@"We have %lu patients in our database", (unsigned long)[self.patientsArray count]);
     
 }
 
@@ -89,18 +92,20 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    self.currentExam = (Exam *)[patientsArray objectAtIndex:indexPath.row];
+    //self.currentExam = ;
     
-    [self performSegueWithIdentifier: @"DetailSegue" sender: self];
+    [[CellScopeContext sharedContext] setCurrentExam: (Exam *)[patientsArray objectAtIndex:indexPath.row]];
+    
+    [self performSegueWithIdentifier: @"ExamInfoSegue" sender: self];
 }
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"DetailSegue"])
+    if ([[segue identifier] isEqualToString:@"ExamInfoSegue"])
     {
-        ExamInfoViewController* eivc = (ExamInfoViewController*)[segue destinationViewController];
-        eivc.currentExam = self.currentExam;
+        //ExamInfoViewController* eivc = (ExamInfoViewController*)[segue destinationViewController];
+        //eivc.currentExam = self.currentExam;
         
     }
 }
@@ -121,5 +126,13 @@
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
+}
+- (IBAction)didPressAddExam:(id)sender {
+    
+    self.currentExam = nil;
+    [self performSegueWithIdentifier: @"AddExamSegue" sender: self];
+
+
+    
 }
 @end

@@ -30,8 +30,11 @@
 - (void)removeEyeImagesAtIndexes:(NSIndexSet *)indexes;
 - (void)replaceObjectInEyeImagesAtIndex:(NSUInteger)idx withObject:(EyeImage *)value;
 - (void)replaceEyeImagesAtIndexes:(NSIndexSet *)indexes withEyeImages:(NSArray *)values;
+
 - (void)addEyeImagesObject:(EyeImage *)value;
 - (void)removeEyeImagesObject:(EyeImage *)value;
+
 - (void)addEyeImages:(NSOrderedSet *)values;
 - (void)removeEyeImages:(NSOrderedSet *)values;
+
 @end

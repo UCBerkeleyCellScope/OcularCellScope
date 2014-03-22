@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Exam.h"
 #import "CellScopeContext.h"
+#import "BSKeyboardControls.h"
 
-@interface ExamInfoViewController : UIViewController<UITextFieldDelegate>
+@interface ExamInfoViewController : UIViewController<UITextFieldDelegate, UITextViewDelegate, BSKeyboardControlsDelegate>
 @property (strong, nonatomic) IBOutlet UITextField *firstnameField;
 @property (strong, nonatomic) IBOutlet UITextField *lastnameField;
 @property (strong, nonatomic) IBOutlet UITextField *patientIDField;

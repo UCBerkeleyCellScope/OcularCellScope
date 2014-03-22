@@ -28,6 +28,8 @@
     NSDictionary* defaultPreferences = [NSDictionary dictionaryWithContentsOfFile:defaultPrefsFile];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPreferences];
     
+    
+    
     [[CellScopeContext sharedContext] setManagedObjectContext:self.managedObjectContext];
     
     return YES;

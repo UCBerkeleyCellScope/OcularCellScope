@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "EyeImage.h"
+#import "Exam.h"
 
 @interface ImageSelectionViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
@@ -29,7 +30,5 @@
 - (IBAction)didSwipeRight:(id)sender;
 
 
-@property (nonatomic) int selectedLight;
-@property (copy, nonatomic) NSString *selectedEye;
 
 @end

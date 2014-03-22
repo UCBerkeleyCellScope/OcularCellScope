@@ -22,5 +22,6 @@
 @property (strong, nonatomic) BLE *ble;
 
 @property (strong, nonatomic) Exam *currentExam;
+- (IBAction)didPressCapture:(id)sender;
 
 @end

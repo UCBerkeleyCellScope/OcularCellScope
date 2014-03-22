@@ -17,12 +17,14 @@
 
 @interface FixationViewController ()
 
+@property(strong, nonatomic) UISegmentedControl *sco;
+
 @end
 
 @implementation FixationViewController
 
 
-@synthesize selectedEye, selectedLight, segmentedControl,imageArray;
+@synthesize selectedEye, selectedLight, imageArray, sco;
 
 //This is an EyeImage
 @synthesize currentEyeImage;
@@ -60,6 +62,20 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     passedImages = [[NSMutableArray alloc]init];
     
+    self.tabBarController.title = nil;
+    
+    //UIBarButtonItem *seg = [[UIBarButtonItem alloc] initWithCustomView:sco];
+    
+    NSArray* segmentTitles = [[NSArray alloc ]initWithObjects:@"Left",@"Right", nil];
+    
+    sco = [[UISegmentedControl alloc] initWithItems:segmentTitles];
+    sco.selectedSegmentIndex = 0;
+    
+    self.tabBarController.navigationItem.titleView = sco;
+    
+    [sco addTarget:self
+            action:@selector(didSegmentedValueChanged:) forControlEvents:UIControlEventValueChanged];
+    
     
 }
 
@@ -70,27 +86,36 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     NSLog(@"Seg Back, even from ImageSelection");
     
     if (self.selectedEye){
-        if ([self.selectedEye isEqualToString: LEFT_EYE]) [segmentedControl setSelectedSegmentIndex: 0];
-        else if([self.selectedEye isEqualToString: LEFT_EYE]) [segmentedControl setSelectedSegmentIndex: 1];
+        if ([self.selectedEye isEqualToString: LEFT_EYE]) [sco setSelectedSegmentIndex: 0];
+        else if([self.selectedEye isEqualToString: LEFT_EYE]) [sco setSelectedSegmentIndex: 1];
     }
     else{
-        [segmentedControl setSelectedSegmentIndex: 0];
+        [sco setSelectedSegmentIndex: 0];
 
     }
     
-    [self loadImages: self.segmentedControl.selectedSegmentIndex];
+    [self loadImages: self.sco.selectedSegmentIndex];
     
 }
 
 -(void)loadImages:(NSInteger)segmentedIndex{
     
-    if(self.segmentedControl.selectedSegmentIndex == 0){
+    if(self.sco.selectedSegmentIndex == 0){
         selectedEye = LEFT_EYE;
     }
     else{
         selectedEye = RIGHT_EYE;
     }
-        //load the images
+    
+    
+    /*
+     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"EyeImage" inManagedObjectContext:[[CellScopeContext sharedContext]managedObjectContext]];
+     request.predicate = [NSPredicate predicateWithFormat:@"parent.grandparent == %@", grandParentObject];
+     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"age" ascending:YES]];
+     */
+
+  
+    //load the images
         for (int i = 1; i <= 6; i++)
         {
             //Attempt 3
@@ -99,7 +124,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
             */
             
             
-            NSPredicate *p = [NSPredicate predicateWithFormat: @"eye == %@ AND fixationLight == %d", selectedEye, i];
+            NSPredicate *p = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == %d", [[CellScopeContext sharedContext]currentExam],selectedEye, i];
             
             
             NSArray *temp = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: p
@@ -139,7 +164,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                 [fixationButtons[i-1] setSelected: YES];
             }
             else{
-                UIImage* thumbImage = [UIImage imageNamed: @"img.jpeg"];
+                UIImage* thumbImage = [UIImage imageNamed: @"Icon@2x.png"];
                 [fixationButtons[i-1] setImage: thumbImage forState: UIControlStateNormal];
                 [fixationButtons[i-1] setSelected: NO];
                 
@@ -172,9 +197,9 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 }
 
 
-- (IBAction)didSegmentedValueChanged:(id)sender {
+- (void)didSegmentedValueChanged:(id)sender {
     
-    [self loadImages: self.segmentedControl.selectedSegmentIndex];
+    [self loadImages: self.sco.selectedSegmentIndex];
     
 }
 
@@ -193,8 +218,8 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     {
         NSLog(@"Segue to ImageReview");
        ImageSelectionViewController * isvc = (ImageSelectionViewController*)[segue destinationViewController];
-       isvc.selectedEye = self.selectedEye;
-       isvc.selectedLight = self.selectedLight;
+       //isvc.selectedEye = self.selectedEye;
+       //isvc.selectedLight = self.selectedLight;
         
         NSPredicate *p = [NSPredicate predicateWithFormat: @"eye == %@ AND fixationLight == %d", self.selectedEye, self.selectedLight];
         

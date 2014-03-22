@@ -21,7 +21,10 @@
 
 @implementation ImageSelectionViewController
 
-@synthesize imageView,slider, images, currentImageIndex, selectedLight, selectedEye, imageViewButton, selectedIcon;
+@synthesize imageView,slider, images, currentImageIndex, imageViewButton, selectedIcon;
+
+//ARE WE PASSING SELECTED LIGHT< SELECTED EYE TO THIS VC?
+
 
 
 /*
@@ -38,8 +41,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSLog(@" %@, %d", selectedEye, selectedLight);
     
     self.navigationController.navigationBar.hidden = NO;
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
@@ -133,7 +134,7 @@
 
 -(IBAction)didPressCancel:(id)sender{
     NSArray* viewControllers = self.navigationController.viewControllers;
-    UIViewController* fixationVC = [viewControllers objectAtIndex: 1 ];
+    UIViewController* fixationVC = [viewControllers objectAtIndex: 2 ];
     //The Fixation ViewController will be either index 1 out of 0-2 or 1 out of 0-3.
     
     [self.navigationController popToViewController:fixationVC animated:YES];
@@ -153,10 +154,22 @@
             
             NSNumber *myNum = [NSNumber numberWithInteger:ei.fixationLight];
             coreDataObject.fixationLight = myNum;
+            
+            // NSLog([[[CellScopeContext sharedContext ]currentExam] description]);
+            
+            
+            
+            Exam* e = [[CellScopeContext sharedContext ]currentExam ];
+            
+            NSLog([e description]);
+            
+            [e addEyeImagesObject:coreDataObject];
+             
+            
         }
         
         NSArray* viewControllers = self.navigationController.viewControllers;
-        UIViewController* fvc = [viewControllers objectAtIndex: 1];
+        UIViewController* fvc = [viewControllers objectAtIndex: 2];
         [self.navigationController popToViewController:fvc animated:YES];
     }
     else{

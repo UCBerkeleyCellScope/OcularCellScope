@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		603B077318DCB8F1002179CD /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B076A18DCB8F1002179CD /* BSKeyboardControls.m */; };
+		603B077418DCB8F1002179CD /* BSKeyboardControls.strings in Resources */ = {isa = PBXBuildFile; fileRef = 603B076B18DCB8F1002179CD /* BSKeyboardControls.strings */; };
+		603B077A18DD26E2002179CD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B077918DD26E2002179CD /* SettingsViewController.m */; };
+		603B077D18DD810B002179CD /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B077C18DD810B002179CD /* TabViewController.m */; };
 		603C44FD18DAE72F00402AE1 /* ExamInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C44FC18DAE72F00402AE1 /* ExamInfoViewController.m */; };
 		60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60418F22189B3E780001D490 /* CoreBluetooth.framework */; };
 		60533D1F18D8454C00FF336E /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 60533D1E18D8454C00FF336E /* EyeImage.m */; };
@@ -85,8 +89,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		603C44FB18DAE72F00402AE1 /* ExamInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExamInfoViewController.h; sourceTree = "<group>"; };
-		603C44FC18DAE72F00402AE1 /* ExamInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExamInfoViewController.m; sourceTree = "<group>"; };
+		603B076918DCB8F1002179CD /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
+		603B076A18DCB8F1002179CD /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
+		603B076C18DCB8F1002179CD /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
+		603B076D18DCB8F1002179CD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
+		603B076E18DCB8F1002179CD /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
+		603B076F18DCB8F1002179CD /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
+		603B077018DCB8F1002179CD /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/BSKeyboardControls.strings"; sourceTree = "<group>"; };
+		603B077118DCB8F1002179CD /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
+		603B077218DCB8F1002179CD /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
+		603B077818DD26E2002179CD /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		603B077918DD26E2002179CD /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		603B077B18DD810B002179CD /* TabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController.h; sourceTree = "<group>"; };
+		603B077C18DD810B002179CD /* TabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController.m; sourceTree = "<group>"; };
+		603C44FB18DAE72F00402AE1 /* ExamInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExamInfoViewController.h; path = ../ExamInfoViewController.h; sourceTree = "<group>"; };
+		603C44FC18DAE72F00402AE1 /* ExamInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExamInfoViewController.m; path = ../ExamInfoViewController.m; sourceTree = "<group>"; };
 		60418F22189B3E780001D490 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		60418F25189B3ED60001D490 /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
 		60418F26189B3ED60001D490 /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
@@ -207,6 +224,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		603B076818DCB8F1002179CD /* BSKeyboardControls */ = {
+			isa = PBXGroup;
+			children = (
+				603B076918DCB8F1002179CD /* BSKeyboardControls.h */,
+				603B076A18DCB8F1002179CD /* BSKeyboardControls.m */,
+				603B076B18DCB8F1002179CD /* BSKeyboardControls.strings */,
+			);
+			path = BSKeyboardControls;
+			sourceTree = "<group>";
+		};
 		60418F24189B3ED50001D490 /* BLE */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,8 +247,6 @@
 		6D2D5DAA18318D9E00A58A96 = {
 			isa = PBXGroup;
 			children = (
-				603C44FB18DAE72F00402AE1 /* ExamInfoViewController.h */,
-				603C44FC18DAE72F00402AE1 /* ExamInfoViewController.m */,
 				F325703B18D366FE00FEA80E /* EImage.h */,
 				F325703C18D366FE00FEA80E /* EImage.m */,
 				60D8C7D018C6BF87007D26A7 /* Constants.h */,
@@ -230,6 +255,7 @@
 				6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */,
 				60C2A51B18C19F2800021510 /* CellScopeContext.h */,
 				60C2A51C18C19F2800021510 /* CellScopeContext.m */,
+				603B076818DCB8F1002179CD /* BSKeyboardControls */,
 				F356909418559CCA00DBB4BE /* Images */,
 				6DD89D211842666C00F3C7FC /* Core Data */,
 				6D2D5DBC18318D9F00A58A96 /* AV Camera App */,
@@ -268,25 +294,31 @@
 		6D2D5DBC18318D9F00A58A96 /* AV Camera App */ = {
 			isa = PBXGroup;
 			children = (
+				60AECE6618D8CD1A00C4EA15 /* Main.storyboard */,
+				6DD89D8B1842862F00F3C7FC /* MainMenuViewController.h */,
+				6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */,
+				6D3260FC184BBD6200E34428 /* PatientsTableViewController.h */,
+				6D3260FD184BBD6200E34428 /* PatientsTableViewController.m */,
+				603B077B18DD810B002179CD /* TabViewController.h */,
+				603B077C18DD810B002179CD /* TabViewController.m */,
+				603C44FB18DAE72F00402AE1 /* ExamInfoViewController.h */,
+				603C44FC18DAE72F00402AE1 /* ExamInfoViewController.m */,
 				60A0865D18C069C900A2667D /* FixationViewController.h */,
 				60A0865E18C069C900A2667D /* FixationViewController.m */,
-				60AECE6618D8CD1A00C4EA15 /* Main.storyboard */,
 				F3FA32CF18B8205B000FACF4 /* CaptureViewController.h */,
 				F3FA32D018B8205B000FACF4 /* CaptureViewController.m */,
 				F3FA32C418B5D6BF000FACF4 /* ImageSelectionViewController.h */,
 				F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */,
+				603B077818DD26E2002179CD /* SettingsViewController.h */,
+				603B077918DD26E2002179CD /* SettingsViewController.m */,
 				60418F2C189BB2ED0001D490 /* ImageCell.h */,
 				60418F2D189BB2ED0001D490 /* ImageCell.m */,
-				6DD89D8B1842862F00F3C7FC /* MainMenuViewController.h */,
-				6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */,
 				6DD89D851842773B00F3C7FC /* PatientInfoViewController.h */,
 				6DD89D861842773B00F3C7FC /* PatientInfoViewController.m */,
 				6DD89D821842743700F3C7FC /* CameraViewController.m */,
 				6DD89D831842743700F3C7FC /* CameraViewController.h */,
 				60418F29189BA83B0001D490 /* ImagesViewController.h */,
 				60418F2A189BA83B0001D490 /* ImagesViewController.m */,
-				6D3260FC184BBD6200E34428 /* PatientsTableViewController.h */,
-				6D3260FD184BBD6200E34428 /* PatientsTableViewController.m */,
 				F3E8F33E185554FD00B1520F /* DetailViewController.h */,
 				F3E8F33F185554FD00B1520F /* DetailViewController.m */,
 				6D2D5DCE18318D9F00A58A96 /* Images.xcassets */,
@@ -444,6 +476,12 @@
 			knownRegions = (
 				en,
 				Base,
+				da,
+				es,
+				pt,
+				"ru-RU",
+				ru,
+				sv,
 			);
 			mainGroup = 6D2D5DAA18318D9E00A58A96;
 			productRefGroup = 6D2D5DB418318D9F00A58A96 /* Products */;
@@ -481,6 +519,7 @@
 				6D2D5DC118318D9F00A58A96 /* InfoPlist.strings in Resources */,
 				F358E318185A834500872304 /* capture.png in Resources */,
 				F325700F18CAA80000FEA80E /* check_button.png in Resources */,
+				603B077418DCB8F1002179CD /* BSKeyboardControls.strings in Resources */,
 				F325702618CC0D3300FEA80E /* notes_icon_small.png in Resources */,
 				F358E31B185A859900872304 /* Icon.png in Resources */,
 				F358E315185A82E600872304 /* capture_back.png in Resources */,
@@ -514,6 +553,7 @@
 				60D8C7C118C69BB1007D26A7 /* FixationViewController.m in Sources */,
 				60D8C7C318C69BB1007D26A7 /* CaptureViewController.m in Sources */,
 				60D8C7C418C69BB1007D26A7 /* ImageSelectionViewController.m in Sources */,
+				603B077D18DD810B002179CD /* TabViewController.m in Sources */,
 				60D8C7C518C69BB1007D26A7 /* ImageCell.m in Sources */,
 				F325703118D1A9AE00FEA80E /* UIImage+Resize.m in Sources */,
 				60D8C7C618C69BB1007D26A7 /* MainMenuViewController.m in Sources */,
@@ -525,10 +565,12 @@
 				60D8C7CA18C69BB1007D26A7 /* PatientsTableViewController.m in Sources */,
 				60D8C7CB18C69BB1007D26A7 /* DetailViewController.m in Sources */,
 				F325703218D1A9AE00FEA80E /* UIImage+RoundedCorner.m in Sources */,
+				603B077318DCB8F1002179CD /* BSKeyboardControls.m in Sources */,
 				60D8C7CC18C69BB1007D26A7 /* main.m in Sources */,
 				60D8C7CE18C69BB2007D26A7 /* BLE.m in Sources */,
 				603C44FD18DAE72F00402AE1 /* ExamInfoViewController.m in Sources */,
 				60D8C7D218C6BF87007D26A7 /* Constants.m in Sources */,
+				603B077A18DD26E2002179CD /* SettingsViewController.m in Sources */,
 				F325703018D1A9AE00FEA80E /* UIImage+Alpha.m in Sources */,
 				60533D1F18D8454C00FF336E /* EyeImage.m in Sources */,
 			);
@@ -553,6 +595,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		603B076B18DCB8F1002179CD /* BSKeyboardControls.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				603B076C18DCB8F1002179CD /* da */,
+				603B076D18DCB8F1002179CD /* en */,
+				603B076E18DCB8F1002179CD /* es */,
+				603B076F18DCB8F1002179CD /* pt */,
+				603B077018DCB8F1002179CD /* ru-RU */,
+				603B077118DCB8F1002179CD /* ru */,
+				603B077218DCB8F1002179CD /* sv */,
+			);
+			name = BSKeyboardControls.strings;
+			sourceTree = "<group>";
+		};
 		6D2D5DBF18318D9F00A58A96 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
