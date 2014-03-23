@@ -15,7 +15,7 @@
 
 @implementation ExamInfoViewController
 
-@synthesize firstnameField, lastnameField, patientIDField, physicianField, currentExam;
+@synthesize firstnameField, lastnameField, patientIDField, physicianField;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,6 +28,8 @@
 
 - (void)viewDidLoad
 {
+    
+    [super viewDidLoad];
     NSArray *fields = @[ self.firstnameField, self.lastnameField,
                          self.patientIDField, self.physicianField];
     
@@ -40,66 +42,75 @@
     firstnameField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     lastnameField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     physicianField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
-   
-    
     
     [[UITabBar appearance] setTintColor: [UIColor colorWithR:26 G:188 B:156 A:1]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (self.currentExam == nil){
+    if ([[CellScopeContext sharedContext] currentExam]==nil){
         
-        [super viewDidLoad];
-        
+        NSLog(@"New Exam Object Created");
         self.tabBarController.title = @"New Exam";
         
         Exam* newExam = (Exam*)[NSEntityDescription insertNewObjectForEntityForName:@"Exam" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
-        newExam.patientID = @"";
-        newExam.patientName = @"";
+        newExam.firstName =@"FIRST";
+        newExam.lastName = @"LAST";
+        newExam.patientID = @"11111";
+        newExam.patientName = @"AAA";
         
         [[CellScopeContext sharedContext] setCurrentExam:newExam];
     
     }
     
-    else{
+    else {
         //self.title = @"@% @%", currentExam.firstName, currentExam.lastName;
-        self.tabBarController.title = [NSString stringWithFormat:@"%@ %@", currentExam.lastName, currentExam.firstName];
-        firstnameField.text = self.currentExam.firstName;
-        lastnameField.text = self.currentExam.lastName;
-        patientIDField.text = self.currentExam.patientID;
+        if([[CellScopeContext sharedContext]currentExam].firstName != nil &&
+           [[CellScopeContext sharedContext]currentExam].lastName != nil){
+            self.tabBarController.title = [NSString stringWithFormat:@"%@ %@",
+            [[CellScopeContext sharedContext]currentExam].firstName,
+            [[CellScopeContext sharedContext]currentExam].lastName];
+        }
+        
+        
+        self.firstnameField.text = [[CellScopeContext sharedContext]currentExam].firstName;
+        self.lastnameField.text = [[CellScopeContext sharedContext]currentExam].lastName;
+        self.patientIDField.text = [[CellScopeContext sharedContext]currentExam].patientID;
+
+        
+        
     }
 
+}
+
+- (void)didMoveToParentViewController:(UIViewController *)parent
+{
+    if (![parent isEqual:self.parentViewController]) {
+        NSLog(@"Back pressed");
+        
+    }
 }
 
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    if ([self isMovingFromParentViewController])
-    {
-        //user pressed back, so roll back changes
-        NSLog(@"User Pressed Back");
-        [[[CellScopeContext sharedContext] managedObjectContext] rollback];
-        [[CellScopeContext sharedContext] setCurrentExam:nil ];
-    }
-    else
-    {
-        NSLog(@"Saving Exam Data");
-        //save changes to core data
-        //self.currentExam.firstName = firstnameField.text;
-        //self.currentExam.lastName = lastnameField.text;
-        //self.currentExam.patientID = patientIDField.text;
-        [[CellScopeContext sharedContext]currentExam].firstName = firstnameField.text;
-        [[CellScopeContext sharedContext]currentExam].lastName = lastnameField.text;
-        [[CellScopeContext sharedContext]currentExam].patientID = patientIDField.text;
-        
-        //[self saveContext];
-        
-        // Commit to core data
-        NSError *error;
-        if (![[[CellScopeContext sharedContext] managedObjectContext] save:&error])
-            NSLog(@"Failed to commit to core data: %@", [error domain]);
-    }
+    NSLog(@"Saving Exam Data");
+    //save changes to core data
+    //self.currentExam.firstName = firstnameField.text;
+    //self.currentExam.lastName = lastnameField.text;
+    //self.currentExam.patientID = patientIDField.text;
+    if(![firstnameField.text isEqualToString: @""])
+    [[CellScopeContext sharedContext]currentExam].firstName = firstnameField.text;
+    if(![lastnameField.text isEqualToString: @""])
+    [[CellScopeContext sharedContext]currentExam].lastName = lastnameField.text;
+    if(![patientIDField.text isEqualToString: @""])
+    [[CellScopeContext sharedContext]currentExam].patientID = patientIDField.text;
+    
+    // Commit to core data
+    NSError *error;
+    if (![[[CellScopeContext sharedContext] managedObjectContext] save:&error])
+        NSLog(@"Failed to commit to core data: %@", [error domain]);
+    
 }
 
 - (void)didReceiveMemoryWarning

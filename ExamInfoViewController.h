@@ -17,8 +17,6 @@
 @property (strong, nonatomic) IBOutlet UITextField *patientIDField;
 @property (strong, nonatomic) IBOutlet UITextField *physicianField;
 
-@property (strong, nonatomic) Exam *currentExam;
-
 @end
 
 @interface UIColor (JPExtras)

@@ -62,6 +62,18 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     passedImages = [[NSMutableArray alloc]init];
     
+    
+    
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:(BOOL) animated];
+        
+    NSLog(@"Seg Back, even from ImageSelection");
+    
+    
     self.tabBarController.title = nil;
     
     //UIBarButtonItem *seg = [[UIBarButtonItem alloc] initWithCustomView:sco];
@@ -76,15 +88,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     [sco addTarget:self
             action:@selector(didSegmentedValueChanged:) forControlEvents:UIControlEventValueChanged];
     
-    
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:(BOOL) animated];
-        
-    NSLog(@"Seg Back, even from ImageSelection");
-    
     if (self.selectedEye){
         if ([self.selectedEye isEqualToString: LEFT_EYE]) [sco setSelectedSegmentIndex: 0];
         else if([self.selectedEye isEqualToString: LEFT_EYE]) [sco setSelectedSegmentIndex: 1];
@@ -94,9 +97,18 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
     }
     
+    
+    
+    
     [self loadImages: self.sco.selectedSegmentIndex];
     
 }
+
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    sco = nil;
+}
+
 
 -(void)loadImages:(NSInteger)segmentedIndex{
     

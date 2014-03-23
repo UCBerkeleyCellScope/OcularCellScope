@@ -31,6 +31,8 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
     
+    [[CellScopeContext sharedContext] setCurrentExam:nil ];
+
     
     self.patientsArray = [CoreDataController getObjectsForEntity:@"Exam" withSortKey:@"patientName" andSortAscending:YES andContext:[[CellScopeContext sharedContext] managedObjectContext]];
     //  Force table refresh
@@ -86,7 +88,9 @@
     //[PatientInfo objectAtIndex:indexPath.row];
     
     // Fill in the cell contents
-    cell.textLabel.text = [NSString stringWithFormat:@"%@, %@", exam.lastName, exam.firstName];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@, %@",
+                           
+                           exam.lastName, exam.firstName];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", exam.patientID];
     return cell;
 }
@@ -118,13 +122,16 @@
         Exam* currentCell = [patientsArray objectAtIndex:indexPath.row];
         [[[CellScopeContext sharedContext] managedObjectContext] deleteObject:currentCell];
         
-        // Commit
-        [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
         
         //remove from the in-memory array
         [self.patientsArray removeObjectAtIndex:indexPath.row];
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+     
+        // Commit
+        [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
+
+        
     }
 }
 - (IBAction)didPressAddExam:(id)sender {

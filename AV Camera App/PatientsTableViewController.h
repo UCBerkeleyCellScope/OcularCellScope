@@ -13,9 +13,10 @@
 
 @interface PatientsTableViewController : UITableViewController
 
-@property (strong, nonatomic) Exam* currentExam;
-
 @property (nonatomic, strong) NSMutableArray *patientsArray;
+
+@property (nonatomic, strong) Exam *currentExam;
+
 - (IBAction)didPressAddExam:(id)sender;
 
 @end
