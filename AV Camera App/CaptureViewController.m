@@ -277,15 +277,17 @@ BOOL alreadyLoaded = NO;
                                    userInfo:n  repeats:NO];
     */
     
+    [self toggleAuxilaryLight:flashNumber toggleON:YES];
     
+    /*
     dispatch_async(dispatch_get_main_queue(), ^{
         //timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(tick:) userInfo:nil repeats:YES];
         
-        [self toggleAuxilaryLight:flashNumber toggleON:YES];
+       
 
         
     });
-    
+    */
     
 }
 
@@ -518,12 +520,8 @@ BOOL alreadyLoaded = NO;
     //capturing = YES;
     
     // Reveal counter label to display image count
-    
-    //self.tabBarController.navigationItem.hidesBackButton = YES;
-    
-    //self.navigationController.navigationItem.backBarButtonItem.enabled = NO;
-    
     _counterLabel.hidden = NO;
+    [self.navigationItem setHidesBackButton:YES animated:YES];
     AVCaptureConnection *videoConnection = [self getVideoConnection];
     
     // Capture images on a background thread

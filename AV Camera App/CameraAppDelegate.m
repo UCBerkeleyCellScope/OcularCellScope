@@ -123,6 +123,8 @@ BOOL capturing = NO;
 {
     NSLog(@"Length: %d", length);
     
+    [cvc toggleAuxilaryLight:flashNumber toggleON:NO];
+
     // parse data, all commands are in 3-byte
     for (int i = 0; i < length; i+=3) //incrementing by 3
     {
@@ -146,8 +148,7 @@ BOOL capturing = NO;
     }
     
     //if(data[0]==0xFF && data[1]==0xFF){
-        [cvc toggleAuxilaryLight:flashNumber toggleON:NO];
-    //}
+        //}
 }
 
 
