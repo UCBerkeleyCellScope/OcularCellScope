@@ -11,7 +11,7 @@
 
 @implementation CellScopeContext
 
-@synthesize selectedEye,selectedLight,ble, currentExam;
+@synthesize selectedEye,selectedLight, currentExam, connected, cvc, ble;
 
 + (id)sharedContext {
     static CellScopeContext *newContext = nil;
@@ -27,10 +27,8 @@
         selectedEye = @"";
         selectedLight = 0;
         
-        ble = [[BLE alloc] init];
-        [ble controlSetup];
-        
-        
+        connected = NO;
+        NSLog(@"MADE THE SINGLETON");
         
     }
     return self;

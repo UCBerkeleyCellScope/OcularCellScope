@@ -11,6 +11,11 @@
 
 @interface SettingsViewController : UITableViewController <UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UITextField *captureDelay;
+
+@property (weak, nonatomic) IBOutlet UITextField *flashDuration;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *multiShot;
+
 @property (weak, nonatomic) IBOutlet UISwitch *debugToggle;
 - (IBAction)toggleDidChange:(id)sender;
 

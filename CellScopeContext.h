@@ -10,6 +10,7 @@
 #import "EyeImage.h"
 #import "EImage.h"
 #import "BLE.h"
+#import "CaptureViewController.h"
 
 @interface CellScopeContext : NSObject
 
@@ -21,6 +22,9 @@
 @property (nonatomic, retain) NSString* selectedEye;
 @property (nonatomic, strong) BLE* ble;
 @property (nonatomic, retain) Exam* currentExam;
+@property (nonatomic) BOOL connected;
+
+@property CaptureViewController *cvc;
 
 + (id)sharedContext;
 

@@ -18,10 +18,15 @@
 @property (strong, nonatomic) IBOutlet UILabel *counterLabel;
 @property (nonatomic) int selectedLight;
 @property (copy, nonatomic) NSString *selectedEye;
+@property (weak, nonatomic) IBOutlet UISwitch *swDigitalOut;
 
 @property (strong, nonatomic) BLE *ble;
 
+@property BOOL alreadyLoaded;
+
 @property (strong, nonatomic) Exam *currentExam;
 - (IBAction)didPressCapture:(id)sender;
+
+-(void) toggleAuxilaryLight: (NSInteger) light toggleON: (BOOL) switchON;
 
 @end

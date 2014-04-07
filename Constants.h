@@ -18,6 +18,9 @@
 #define RIGHT_LIGHT 5
 #define NO_LIGHT 6
 
+#define flashNumber 9
+#define farRedLight 10
+
 @interface Constants : NSObject
 
 

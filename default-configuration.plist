@@ -4,15 +4,17 @@
 <dict>
 	<key></key>
 	<string></string>
-	<key>debugMode</key>
-	<false/>
+	<key>ImageScaleFactor</key>
+	<string>10</string>
 	<key>numberOfImages</key>
 	<integer>4</integer>
 	<key>captureDelay</key>
+	<real>1</real>
+	<key>flashDuration</key>
 	<real>0.5</real>
 	<key>ThumbnailSize</key>
 	<integer>160</integer>
-	<key>ImageScaleFactor</key>
-	<string>10</string>
+	<key>debugMode</key>
+	<false/>
 </dict>
 </plist>

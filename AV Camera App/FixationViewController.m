@@ -224,6 +224,8 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         CaptureViewController* cvc = (CaptureViewController*)[segue destinationViewController];
         cvc.selectedEye = self.selectedEye;
         cvc.selectedLight = self.selectedLight;
+        [[CellScopeContext sharedContext] setCvc: cvc];
+        
     }
     
     else if ([[segue identifier] isEqualToString:@"ImageReviewSegue"])

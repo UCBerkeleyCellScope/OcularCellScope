@@ -8,7 +8,8 @@
 
 #import "CameraAppDelegate.h"
 #import "CellScopeContext.h"
-
+#import "CaptureViewController.h"
+#import "Constants.h"
 
 @implementation CameraAppDelegate
 @synthesize managedObjectContext = _managedObjectContext;
@@ -16,24 +17,140 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 @synthesize currentExam = _currentExam;
-//@synthesize ble;
+@synthesize ble;
+@synthesize cvc;
+
+int attempts = 0;
+BOOL capturing = NO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//    ble = [[BLE alloc] init];
-//    [ble controlSetup];
-//    ble.delegate = self;
+    ble = [[BLE alloc] init];
+    [ble controlSetup];
+    ble.delegate = self;
     
     NSString* defaultPrefsFile = [[NSBundle mainBundle] pathForResource:@"default-configuration" ofType:@"plist"];
     NSDictionary* defaultPreferences = [NSDictionary dictionaryWithContentsOfFile:defaultPrefsFile];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPreferences];
     
-    
-    
     [[CellScopeContext sharedContext] setManagedObjectContext:self.managedObjectContext];
+    
+    [[CellScopeContext sharedContext] setBle: ble];
+    
+    [self btnScanForPeripherals];
     
     return YES;
 }
+
+- (void)btnScanForPeripherals
+{
+    
+    if (ble.activePeripheral)
+        if(ble.activePeripheral.state == CBPeripheralStateConnected){
+            [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
+            //[bleConnect setTitle:@"Connect"];
+        }
+    
+    if (ble.peripherals)
+        ble.peripherals = nil;
+    
+    //[bleConnect setEnabled:false];
+    [ble findBLEPeripherals:2];  //WHY IS THIS 2?
+    
+    [NSTimer scheduledTimerWithTimeInterval:(float)2.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
+    
+}
+
+-(void) connectionTimer:(NSTimer *)timer
+{
+    //[bleConnect setEnabled:true];
+    //[bleConnect setTitle: @"Disconnect"];
+    
+    if (ble.peripherals.count > 0)
+    {
+        [ble connectPeripheral:[ble.peripherals objectAtIndex:0]];
+        NSLog(@"At least attempting connection");
+        
+    }
+    else if(attempts < 2 && capturing == NO)
+    {
+        //[bleConnect setTitle:@"Connect"];
+        NSLog(@"No peripherals found, initiaiting attempt number %d", attempts);
+        [self btnScanForPeripherals];
+        attempts++;
+    }
+    else{
+        NSLog(@"Why didn't we exit??");
+        //[_aiv stopAnimating];
+        //[captureButton setEnabled:YES];
+    }
+}
+
+- (void)bleDidDisconnect
+{
+    NSLog(@"->Disconnected");
+    [self btnScanForPeripherals];
+    [[CellScopeContext sharedContext] setConnected: NO];
+    NSLog(@"Connected set back to NO");
+
+}
+
+-(void) bleDidConnect
+{
+//    [_aiv stopAnimating];
+//    [captureButton setEnabled:YES];
+    UInt8 buf[] = {0xFF, 0x00, 0x00}; //IDEA: Could have a corresponding LED blink to
+    //acknowledge reset on Arduino side (but this is done successfully in SimpleControls)
+    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
+    [ble write:data];
+    NSLog(@"BLE has succesfully connected");
+    
+    [[CellScopeContext sharedContext] setConnected: YES];
+    
+    cvc = [[CellScopeContext sharedContext] cvc];
+    
+    //if([cvc alreadyLoaded]== YES){
+        [cvc toggleAuxilaryLight:cvc.selectedLight toggleON:YES];
+        [cvc toggleAuxilaryLight: farRedLight toggleON:YES];
+    //}
+//    swDigitalOut.enabled = true;
+//    swDigitalOut.on = false;
+}
+
+// When data is comming, this will be called
+// Note that this will be multiple unsigned chars
+-(void) bleDidReceiveData:(unsigned char *)data length:(int)length
+{
+    NSLog(@"Length: %d", length);
+    
+    // parse data, all commands are in 3-byte
+    for (int i = 0; i < length; i+=3) //incrementing by 3
+    {
+        NSLog(@"RECEIVED: 0x%02X, 0x%02X, 0x%02X", data[i], data[i+1], data[i+2]);
+        
+        if (data[i] == 0x0A)
+        {
+            /*
+             if (data[i+1] == 0x01)
+             swDigitalIn.on = true;
+             else
+             swDigitalIn.on = false;
+             */
+        }
+        else if (data[i] == 0x0B)
+        {
+            UInt16 Value;
+            Value = data[i+2] | data[i+1] << 8;
+            //lblAnalogIn.text = [NSString stringWithFormat:@"%d", Value];
+        }
+    }
+    
+    //if(data[0]==0xFF && data[1]==0xFF){
+        [cvc toggleAuxilaryLight:flashNumber toggleON:NO];
+    //}
+}
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -45,6 +162,16 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    /*
+    if(  [[CellScopeContext sharedContext] ble].activePeripheral.state == CBPeripheralStateConnected)
+    {
+        [[ [[CellScopeContext sharedContext] ble] CM] cancelPeripheralConnection:[[[CellScopeContext sharedContext] ble] activePeripheral]];
+        
+    }
+     */
+    
+    
     [self saveContext];
 }
 

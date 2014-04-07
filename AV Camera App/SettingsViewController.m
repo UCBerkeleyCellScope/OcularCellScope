@@ -16,7 +16,7 @@
 @implementation SettingsViewController
 @synthesize prefs = _prefs;
 
-@synthesize debugToggle;
+@synthesize debugToggle,captureDelay,flashDuration,multiShot;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -37,11 +37,27 @@
     
     [ debugToggle setOn: [_prefs boolForKey: @"debugMode"] animated: NO];
     
+    //NSString initWith
+    
+    //[captureDelay setText: [_prefs integerForKey: @"captureDelay"]   ];
+   
+    //[flashDuration setText: [_prefs integerForKey: @"captureDelay"]   ];
+    
+    
+    //[ captureDelay setText:[[_prefs integerForKey: @"captureDelay"]stringValue] ];
+    //@"numberOfImages"
+   //@"numberOfImages"
+    
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void) viewDidAppear:(BOOL)animated{
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -71,7 +87,8 @@
 }
 
 - (IBAction)didPressDone:(id)sender {
-   [self.navigationController popToRootViewControllerAnimated:YES];
+
+    [self.navigationController popToRootViewControllerAnimated:YES];
 
 }
 
