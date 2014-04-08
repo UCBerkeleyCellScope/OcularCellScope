@@ -14,6 +14,7 @@
 @interface CaptureViewController : UIViewController<BLEDelegate>
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *aiv;
 @property (weak, nonatomic) IBOutlet UIButton *captureButton;
 @property (strong, nonatomic) IBOutlet UILabel *counterLabel;
 @property (nonatomic) int selectedLight;

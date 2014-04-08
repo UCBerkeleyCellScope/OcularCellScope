@@ -53,17 +53,10 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 {
     [super viewDidLoad];
 
-    
-    //CameraAppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
-    //_managedObjectContext = [appDelegate managedObjectContext];
-
     fixationButtons = [NSMutableArray arrayWithObjects: centerFixationButton, topFixationButton,
                                        bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton, nil];
     
     passedImages = [[NSMutableArray alloc]init];
-    
-    
-    
     
 }
 
@@ -75,8 +68,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     
     self.tabBarController.title = nil;
-    
-    //UIBarButtonItem *seg = [[UIBarButtonItem alloc] initWithCustomView:sco];
     
     NSArray* segmentTitles = [[NSArray alloc ]initWithObjects:@"Left",@"Right", nil];
     
@@ -111,6 +102,8 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 
 -(void)loadImages:(NSInteger)segmentedIndex{
+    
+    UIView* fxv = [[UIView alloc]init];
     
     if(self.sco.selectedSegmentIndex == 0){
         selectedEye = LEFT_EYE;
@@ -196,7 +189,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     self.selectedLight = [sender tag];
     
-    
     if( [sender isSelected] == NO){
         //there are pictures!
         [self performSegueWithIdentifier:@"CaptureViewSegue" sender:(id)sender];
@@ -211,7 +203,17 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 - (void)didSegmentedValueChanged:(id)sender {
     
-    [self loadImages: self.sco.selectedSegmentIndex];
+    /*
+    [UIView transitionFromView: self.fixView
+                        toView: self.fixView
+                      duration:1.0
+                       options: UIViewAnimationOptionTransitionFlipFromRight
+                    completion:^(BOOL finished){                      [self loadImages: self.sco.selectedSegmentIndex];}
+                    ];
+     
+     */
+
+      [self loadImages: self.sco.selectedSegmentIndex];
     
 }
 

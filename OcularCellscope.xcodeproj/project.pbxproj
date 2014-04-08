@@ -367,7 +367,6 @@
 				6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */,
 				6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */,
 				6D2D5DBC18318D9F00A58A96 /* AV Camera App */,
-				603B076818DCB8F1002179CD /* BSKeyboardControls */,
 				F356909418559CCA00DBB4BE /* Images */,
 				6DD89D211842666C00F3C7FC /* Core Data */,
 				6D2D5DDB18318DA000A58A96 /* AV Camera AppTests */,
@@ -388,6 +387,7 @@
 		6D2D5DB518318D9F00A58A96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				603B076818DCB8F1002179CD /* BSKeyboardControls */,
 				60418F24189B3ED50001D490 /* BLE */,
 				60418F22189B3E780001D490 /* CoreBluetooth.framework */,
 				6DD89D8018426B0700F3C7FC /* CoreImage.framework */,

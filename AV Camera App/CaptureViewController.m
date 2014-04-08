@@ -33,7 +33,7 @@
 
 
 @property (nonatomic) BOOL debugMode;
-@property (nonatomic, strong) UIActivityIndicatorView *aiv;
+
 
 @property (nonatomic, strong) NSUserDefaults *prefs;
 
@@ -58,7 +58,7 @@
 @synthesize currentExam = _currentExam;
 @synthesize captureButton;
 @synthesize activityIndicator;
-@synthesize aiv = _aiv;
+@synthesize aiv;
 @synthesize prefs = _prefs;
 
 @synthesize ble;
@@ -121,7 +121,7 @@ BOOL alreadyLoaded = NO;
     NSLog(@"Debug Mode is: %d",_debugMode);
     
     if( [[CellScopeContext sharedContext] connected] == NO){
-        //[_aiv startAnimating];
+        [aiv startAnimating];
         [captureButton setEnabled:NO];
         //[self btnScanForPeripherals];
     }
@@ -459,7 +459,7 @@ BOOL alreadyLoaded = NO;
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    [_aiv stopAnimating];
+    [aiv stopAnimating];
     [self toggleAuxilaryLight: 9 toggleON:NO];
     self.navigationController.navigationBar.alpha = 1;
     ImageSelectionViewController* isvc = (ImageSelectionViewController*)[segue destinationViewController];

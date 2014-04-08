@@ -550,6 +550,7 @@
                         <outlet property="LeftFixationButton" destination="vZa-OD-Ki1" id="ynw-xt-Pii"/>
                         <outlet property="bottomFixationButton" destination="seY-6X-HHY" id="YmG-Hx-rA6"/>
                         <outlet property="centerFixationButton" destination="dfr-G7-7Q1" id="Ecb-bx-joL"/>
+                        <outlet property="fixView" destination="oYI-yh-K84" id="ksh-da-RuD"/>
                         <outlet property="leftFixationButton" destination="vZa-OD-Ki1" id="wnI-Of-Hzj"/>
                         <outlet property="noFixationButton" destination="9nU-jg-0UU" id="DvD-t4-Qvq"/>
                         <outlet property="rightFixationButton" destination="jSg-zQ-raL" id="EmT-Hm-mFN"/>
@@ -971,6 +972,7 @@
                     <navigationItem key="navigationItem" id="WpP-KK-DCF"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="aiv" destination="mNi-SO-J6R" id="NLB-st-Ht3"/>
                         <outlet property="captureButton" destination="GaI-4L-5ii" id="3ye-pt-Z5q"/>
                         <outlet property="counterLabel" destination="PNh-Xg-hYw" id="a3Q-IY-KAI"/>
                         <outlet property="swDigitalOut" destination="pYO-Dc-Jlk" id="FWU-Ec-paZ"/>

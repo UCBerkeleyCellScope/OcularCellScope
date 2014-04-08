@@ -12,6 +12,7 @@
 #import "CameraAppDelegate.h"
 
 @interface FixationViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UIView *fixView;
 @property (weak, nonatomic) IBOutlet UIButton *centerFixationButton;
 @property (weak, nonatomic) IBOutlet UIButton *leftFixationButton;
 @property (weak, nonatomic) IBOutlet UIButton *rightFixationButton;

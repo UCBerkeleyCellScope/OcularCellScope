@@ -15,7 +15,7 @@
 #import "CaptureViewController.h"
 #import "EyeImage.h"
 
-@interface CameraAppDelegate : UIResponder <UIApplicationDelegate, BLEDelegate>
+@interface CameraAppDelegate : UIResponder <UIApplicationDelegate, BLEDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

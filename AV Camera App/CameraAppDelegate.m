@@ -79,8 +79,34 @@ BOOL capturing = NO;
     }
     else{
         NSLog(@"Why didn't we exit??");
-        //[_aiv stopAnimating];
-        //[captureButton setEnabled:YES];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Bluetooth could not connect. Check that the Ocular CellScope is fully charged and switched on."
+                                                            message:nil                                                           delegate:self
+                                                  cancelButtonTitle:@"Try Again"
+                                                  otherButtonTitles:@"Cancel",nil];
+        
+        //[alertView addButtonWithTitle:@"Yes"];
+        //UIButton *tryAgainButton = [alertView.subviews lastObject];
+        //[tryAgainButton setHighlighted:YES];
+        
+        
+        [alertView show];
+
+        
+        
+        }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0){
+        NSLog(@"user pressed Try Again");
+        attempts = 0;
+        [self btnScanForPeripherals];
+    
+    }
+    else {
+        NSLog(@"user pressed Cancel");
+        [cvc.captureButton setEnabled:YES];
+
     }
 }
 
@@ -95,7 +121,9 @@ BOOL capturing = NO;
 
 -(void) bleDidConnect
 {
-//    [_aiv stopAnimating];
+    cvc = [[CellScopeContext sharedContext] cvc];
+
+    [cvc.aiv stopAnimating];
 //    [captureButton setEnabled:YES];
     UInt8 buf[] = {0xFF, 0x00, 0x00}; //IDEA: Could have a corresponding LED blink to
     //acknowledge reset on Arduino side (but this is done successfully in SimpleControls)
@@ -105,7 +133,6 @@ BOOL capturing = NO;
     
     [[CellScopeContext sharedContext] setConnected: YES];
     
-    cvc = [[CellScopeContext sharedContext] cvc];
     
     //if([cvc alreadyLoaded]== YES){
         [cvc toggleAuxilaryLight:cvc.selectedLight toggleON:YES];
