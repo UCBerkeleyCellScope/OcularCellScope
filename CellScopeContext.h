@@ -12,6 +12,12 @@
 #import "BLE.h"
 #import "CaptureViewController.h"
 
+#import "AFNetworking.h"
+
+//static NSString * const BaseURLString = @"http://www.raywenderlich.com/demos/weather_sample/";
+static NSString * const BaseURLString = @"http://ec2-54-186-247-188.us-west-2.compute.amazonaws.com/";
+//This needs to be changed
+
 @interface CellScopeContext : NSObject
 
 //TODO: add managed object context, session, etc.

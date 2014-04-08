@@ -231,9 +231,13 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     else if ([[segue identifier] isEqualToString:@"ImageReviewSegue"])
     {
         NSLog(@"Segue to ImageReview");
-       ImageSelectionViewController * isvc = (ImageSelectionViewController*)[segue destinationViewController];
+        ImageSelectionViewController * isvc = (ImageSelectionViewController*)[segue destinationViewController];
        //isvc.selectedEye = self.selectedEye;
        //isvc.selectedLight = self.selectedLight;
+        
+
+        isvc.navigationItem.leftBarButtonItem =
+        [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStylePlain target: self action:@selector(didPressDelete:)];
         
         NSPredicate *p = [NSPredicate predicateWithFormat: @"eye == %@ AND fixationLight == %d", self.selectedEye, self.selectedLight];
         

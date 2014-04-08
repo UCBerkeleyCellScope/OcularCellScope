@@ -66,6 +66,9 @@
         [self updateViewWithImage:[images objectAtIndex:currentImageIndex] useThumbnail:NO];
     }
     
+    
+
+    
 }
 
 
@@ -140,6 +143,10 @@
     [self.navigationController popToViewController:fixationVC animated:YES];
 }
 
+-(void)didPressDelete:(id)sender{
+    NSLog(@"Delete Fired!");
+}
+
 -(IBAction)didPressSave:(id)sender{
     if([EImage containsSelectedImageInArray:images]){
         //save
@@ -161,7 +168,7 @@
             
             Exam* e = [[CellScopeContext sharedContext ]currentExam ];
             
-            NSLog([e description]);
+           
             
             [e addEyeImagesObject:coreDataObject];
              

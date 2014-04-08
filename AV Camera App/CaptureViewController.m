@@ -120,14 +120,15 @@ BOOL alreadyLoaded = NO;
     
     NSLog(@"Debug Mode is: %d",_debugMode);
     
-    if( [[CellScopeContext sharedContext] connected] == NO && _debugMode == NO){
+    if( [[CellScopeContext sharedContext] connected] == NO){
         //[_aiv startAnimating];
-        //[captureButton setEnabled:NO];
+        [captureButton setEnabled:NO];
         //[self btnScanForPeripherals];
     }
     else{
         //[_aiv stopAnimating];
         
+        [captureButton setEnabled:YES];
         //The Code comes here if there is already a connection! CURRENTLY We are preventing this from being possible
         [self toggleAuxilaryLight:self.selectedLight toggleON:YES];
         [self toggleAuxilaryLight: farRedLight toggleON:YES];
@@ -282,10 +283,7 @@ BOOL alreadyLoaded = NO;
     /*
     dispatch_async(dispatch_get_main_queue(), ^{
         //timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(tick:) userInfo:nil repeats:YES];
-        
-       
-
-        
+     
     });
     */
     
@@ -347,30 +345,21 @@ BOOL alreadyLoaded = NO;
 
 -(IBAction)sendDigitalOut:(id)sender
 {
-    UInt8 buf[3] = {0x01, 0x00, 0x00};
     
     if (swDigitalOut.on){
-        //[self toggleAuxilaryLight: topLightHack toggleON:YES];//self.selectedLight
         [self toggleAuxilaryLight:self.selectedLight toggleON:YES];
-
         [self toggleAuxilaryLight: farRedLight toggleON:YES];
         
-        
         NSLog(@"Sending Digital Out!");
-        buf[1] = 0x01;
+
     }
     else{
-        buf[1] = 0x00;
+
         [self toggleAuxilaryLight:self.selectedLight toggleON:NO];
-        //[self toggleAuxilaryLight:topLightHack toggleON:NO];//self.selectedLight
         [self toggleAuxilaryLight: farRedLight toggleON:NO];
-        
         
     }
     
-    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
-    NSLog(data.description);
-    //[ble write:data];
 }
 
 
@@ -428,16 +417,15 @@ BOOL alreadyLoaded = NO;
     [self flashOn: 0.1];
 	[_stillOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
      {
+         
          // Turn off flash
-         [self turnTorchOn:NO];
+         [self lockFocus:NO];
          
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
          EImage *image = [[EImage alloc] initWithData: imageData
                                                  date: [NSDate date]
                                                   eye: _selectedEye
                                         fixationLight: _selectedLight];
-         
-         
          
          float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
          CGSize smallSize = [image size];
@@ -479,18 +467,32 @@ BOOL alreadyLoaded = NO;
 
 }
 
-- (void) turnTorchOn: (bool) on {
+- (void) lockFocus: (bool) on {
     
     // check if flashlight available
     Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
     if (captureDeviceClass != nil) {
         AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        [device lockForConfiguration:nil];
+        
+        if ([device isFocusModeSupported:AVCaptureFocusModeLocked]) {
+        
+            NSLog(@"changing focus to locked");
+            
+            [device setFocusMode:AVCaptureFocusModeLocked];
+
+        }
+        
+        [device unlockForConfiguration];
+
+        /*
         if ([device hasTorch] && [device hasFlash]){
             
             [device lockForConfiguration:nil];
             if (on) {
                 [device setTorchMode:AVCaptureTorchModeOn];
                 [device setFlashMode:AVCaptureFlashModeOn];
+                
                 //torchIsOn = YES; //define as a variable/property if you need to know status
             } else {
                 [device setTorchMode:AVCaptureTorchModeOff];
@@ -499,6 +501,7 @@ BOOL alreadyLoaded = NO;
             }
             [device unlockForConfiguration];
         }
+         */
     }
 }
 
@@ -509,13 +512,46 @@ BOOL alreadyLoaded = NO;
 }
 
 - (IBAction)didPressCapture:(id)sender {
+    /*
+    NSError *error2;
+    if ([self.device lockForConfiguration:&error2]){
+        //if (focus==1) {
+        //  focus=0;
+        if ([self.device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
+            
+            CGPoint autofocusPoint = CGPointMake(0.5f, 0.5f);
+            
+            [self.device setFocusPointOfInterest:autofocusPoint];
+            
+            [self.device setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
+            NSLog(@"continuous auto focus on");
+        }
+        //change button title to lock
+        //     [sender setTitle:@"Lock Focus" forState:UIControlStateNormal];
+        // }
+        
+     
+//         else if (focus==0){
+//         focus=1;
+//         if ([self.device isFocusModeSupported:AVCaptureFocusModeLocked]) {
+//         [self.device setFocusMode:AVCaptureFocusModeLocked];
+//         NSLog(@"changing focus to locked");
+//         }
+//         //change button title to unlock
+//         [sender setTitle:@"Unlock Focus" forState:UIControlStateNormal];
+//         }
+
+     
+        [self.device unlockForConfiguration];
+    }
+    */
+    
+    swDigitalOut.enabled = false;
     [captureButton setEnabled:NO];
     
     [self toggleAuxilaryLight:self.selectedLight toggleON:NO];
     [self toggleAuxilaryLight:farRedLight toggleON:NO];
 
-    
-    //[_aiv stopAnimating];
     
     //capturing = YES;
     
@@ -547,6 +583,5 @@ BOOL alreadyLoaded = NO;
     });
     
     NSLog(@"didPressCapture Completed");
-    [captureButton setEnabled:YES];
 }
 @end

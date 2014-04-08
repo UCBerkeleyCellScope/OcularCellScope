@@ -29,6 +29,8 @@
 
 - (IBAction)didSwipeRight:(id)sender;
 
+-(void)didPressDelete:(id)sender;
+
 
 
 @end

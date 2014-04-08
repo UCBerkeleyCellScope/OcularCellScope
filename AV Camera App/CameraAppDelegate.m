@@ -48,13 +48,13 @@ BOOL capturing = NO;
     if (ble.activePeripheral)
         if(ble.activePeripheral.state == CBPeripheralStateConnected){
             [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
-            //[bleConnect setTitle:@"Connect"];
+     
         }
     
     if (ble.peripherals)
         ble.peripherals = nil;
     
-    //[bleConnect setEnabled:false];
+
     [ble findBLEPeripherals:2];  //WHY IS THIS 2?
     
     [NSTimer scheduledTimerWithTimeInterval:(float)2.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
@@ -63,8 +63,6 @@ BOOL capturing = NO;
 
 -(void) connectionTimer:(NSTimer *)timer
 {
-    //[bleConnect setEnabled:true];
-    //[bleConnect setTitle: @"Disconnect"];
     
     if (ble.peripherals.count > 0)
     {
@@ -112,6 +110,9 @@ BOOL capturing = NO;
     //if([cvc alreadyLoaded]== YES){
         [cvc toggleAuxilaryLight:cvc.selectedLight toggleON:YES];
         [cvc toggleAuxilaryLight: farRedLight toggleON:YES];
+    
+    [cvc.captureButton setEnabled: YES];
+    
     //}
 //    swDigitalOut.enabled = true;
 //    swDigitalOut.on = false;
