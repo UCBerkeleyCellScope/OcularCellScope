@@ -30,6 +30,7 @@
     self.navigationController.navigationBar.hidden = NO;
     
     [[CellScopeContext sharedContext] setCurrentExam:nil ];
+    [[CellScopeContext sharedContext] setSelectedEye:nil ];
 
     
     self.patientsArray = [CoreDataController getObjectsForEntity:@"Exam" withSortKey:@"patientName" andSortAscending:YES andContext:[[CellScopeContext sharedContext] managedObjectContext]];

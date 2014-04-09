@@ -416,8 +416,10 @@ BOOL alreadyLoaded = NO;
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
          EImage *image = [[EImage alloc] initWithData: imageData
                                                  date: [NSDate date]
-                                                  eye: _selectedEye
+                                                  eye: [[CellScopeContext sharedContext] selectedEye]
                                         fixationLight: _selectedLight];
+         NSLog(@"Capture selected Eye %@",_selectedEye);
+         
          
          float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
          CGSize smallSize = [image size];

@@ -98,8 +98,6 @@
     NSNumber *prefNum4 = [f4 numberFromString:self.multiText];
     [_prefs setObject: prefNum4 forKey:@"numberOfImages"];
     
-    NSLog(@"LEAVING! MultiText=%@",self.multiText);
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -147,9 +145,7 @@
 }
 
 - (void)selectUISegment:(NSString *)segmentString{
-    
-    //NSLog(self.multiText);
-    
+        
     for (int i=0; i< multiShot.numberOfSegments; i++){
         
         if( [self.multiText isEqualToString:[multiShot titleForSegmentAtIndex:i]] ){

@@ -65,27 +65,28 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     NSLog(@"Seg Back, even from ImageSelection");
     
     
+    [self setSelectedEye:  [[CellScopeContext sharedContext]selectedEye] ];
+    
     self.tabBarController.title = nil;
     
     NSArray* segmentTitles = [[NSArray alloc ]initWithObjects:@"Left",@"Right", nil];
     
-    sco = [[UISegmentedControl alloc] initWithItems:segmentTitles];
-    sco.selectedSegmentIndex = 0;
+    self.sco = [[UISegmentedControl alloc] initWithItems:segmentTitles];
+    self.sco.selectedSegmentIndex = 0;
     
-    self.tabBarController.navigationItem.titleView = sco;
+    self.tabBarController.navigationItem.titleView = self.sco;
     
-    [sco addTarget:self
+    [self.sco addTarget:self
             action:@selector(didSegmentedValueChanged:) forControlEvents:UIControlEventValueChanged];
     
     if (self.selectedEye){
-        if ([self.selectedEye isEqualToString: LEFT_EYE]) [sco setSelectedSegmentIndex: 0];
-        else if([self.selectedEye isEqualToString: LEFT_EYE]) [sco setSelectedSegmentIndex: 1];
+        if ([self.selectedEye isEqualToString: LEFT_EYE]) [self.sco setSelectedSegmentIndex: 0];
+        else if([self.selectedEye isEqualToString: RIGHT_EYE]) [self.sco setSelectedSegmentIndex: 1];
     }
     else{
         [sco setSelectedSegmentIndex: 0];
 
     }
-    
     
     [self loadImages: self.sco.selectedSegmentIndex];
     
@@ -93,7 +94,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 - (void)viewWillDisappear:(BOOL)animated{
     
-    sco = nil;
+    self.sco = nil;
     self.tabBarController.navigationItem.titleView = nil;
 
 
@@ -105,10 +106,12 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     UIView* fxv = [[UIView alloc]init];
     
     if(self.sco.selectedSegmentIndex == 0){
-        selectedEye = LEFT_EYE;
+        [[CellScopeContext sharedContext] setSelectedEye: LEFT_EYE];
+        //selectedEye = LEFT_EYE;
     }
     else{
-        selectedEye = RIGHT_EYE;
+        [[CellScopeContext sharedContext] setSelectedEye: RIGHT_EYE];
+        //selectedEye = RIGHT_EYE;
     }
     
     
@@ -128,7 +131,8 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
             */
             
             
-            NSPredicate *p = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == %d", [[CellScopeContext sharedContext]currentExam],selectedEye, i];
+            NSPredicate *p = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == %d", [[CellScopeContext sharedContext]currentExam],
+                              [[CellScopeContext sharedContext] selectedEye], i];
             
             
             NSArray *temp = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: p
@@ -136,6 +140,8 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                                                             andContext:   [[CellScopeContext sharedContext] managedObjectContext]];
             
             self.eyeImages = [NSMutableArray arrayWithArray:temp];
+            
+            NSLog(@"Eye IMages count is %d", [eyeImages count]);
             
             //NSLog(@"For Fixation Light %d, %lu images were Retrieved!", i, (unsigned long)[eyeImages count]);
             
@@ -211,7 +217,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                     ];
      
      */
-
+    
       [self loadImages: self.sco.selectedSegmentIndex];
     
 }
@@ -223,7 +229,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     {
         NSLog(@"Preparing for CaptureViewSegue");
         CaptureViewController* cvc = (CaptureViewController*)[segue destinationViewController];
-        cvc.selectedEye = self.selectedEye;
+        //cvc.selectedEye = self.selectedEye;
         cvc.selectedLight = self.selectedLight;
         [[CellScopeContext sharedContext] setCvc: cvc];
         
