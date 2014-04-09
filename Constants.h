@@ -21,6 +21,11 @@
 #define flashNumber 9
 #define farRedLight 10
 
+//static NSString * const BaseURLString = @"http://www.raywenderlich.com/demos/weather_sample/";
+//static NSString * const BaseURLString = @"http://ec2-54-186-247-188.us-west-2.compute.amazonaws.com/";
+//This needs to be changed
+static NSString * const BaseURLString = @"http://warm-dawn-6399.herokuapp.com/";
+
 @interface Constants : NSObject
 
 

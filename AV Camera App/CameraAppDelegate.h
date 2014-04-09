@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Exam.h"
-#import "BLE.h"
+#import "CellScopeContext.h"
 #import "PatientInfoViewController.h"
 #import "PatientsTableViewController.h"
 #import "MainMenuViewController.h"
 #import "CaptureViewController.h"
-#import "EyeImage.h"
 
 @interface CameraAppDelegate : UIResponder <UIApplicationDelegate, BLEDelegate, UIAlertViewDelegate>
 
@@ -23,10 +21,8 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (strong,nonatomic) Exam *currentExam;
-
 @property (strong, nonatomic) BLE *ble;
 @property (strong, nonatomic) CaptureViewController *cvc;
-
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

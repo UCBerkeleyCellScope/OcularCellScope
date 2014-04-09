@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BLE.h"
+#import "CellScopeContext.h"
 
-#import "Exam.h"
+@import AVFoundation;
+@import AssetsLibrary;
+@import UIKit;
 
 @interface CaptureViewController : UIViewController<BLEDelegate>
 
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *aiv;
 @property (weak, nonatomic) IBOutlet UIButton *captureButton;
 @property (strong, nonatomic) IBOutlet UILabel *counterLabel;
@@ -29,5 +30,6 @@
 - (IBAction)didPressCapture:(id)sender;
 
 -(void) toggleAuxilaryLight: (NSInteger) light toggleON: (BOOL) switchON;
-
+-(AVCaptureConnection*)getVideoConnection;
+- (void)takeStillFromConnection:(AVCaptureConnection*)videoConnection;
 @end

@@ -7,9 +7,8 @@
 //
 
 #import "CameraAppDelegate.h"
-#import "CellScopeContext.h"
-#import "CaptureViewController.h"
-#import "Constants.h"
+
+@import AVFoundation;
 
 @implementation CameraAppDelegate
 @synthesize managedObjectContext = _managedObjectContext;
@@ -39,6 +38,8 @@ BOOL capturing = NO;
     
     [self btnScanForPeripherals];
     
+    //self.cvc = [[CellScopeContext sharedContext] cvc ];
+    
     return YES;
 }
 
@@ -54,7 +55,6 @@ BOOL capturing = NO;
     if (ble.peripherals)
         ble.peripherals = nil;
     
-
     [ble findBLEPeripherals:2];  //WHY IS THIS 2?
     
     [NSTimer scheduledTimerWithTimeInterval:(float)2.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
@@ -84,14 +84,7 @@ BOOL capturing = NO;
                                                   cancelButtonTitle:@"Try Again"
                                                   otherButtonTitles:@"Cancel",nil];
         
-        //[alertView addButtonWithTitle:@"Yes"];
-        //UIButton *tryAgainButton = [alertView.subviews lastObject];
-        //[tryAgainButton setHighlighted:YES];
-        
-        
         [alertView show];
-
-        
         
         }
 }
@@ -104,9 +97,11 @@ BOOL capturing = NO;
     
     }
     else {
+        self.cvc = [[CellScopeContext sharedContext] cvc];
         NSLog(@"user pressed Cancel");
         [cvc.captureButton setEnabled:YES];
-
+        [cvc.swDigitalOut setEnabled:YES];
+        [cvc.aiv stopAnimating];
     }
 }
 
@@ -121,7 +116,7 @@ BOOL capturing = NO;
 
 -(void) bleDidConnect
 {
-    cvc = [[CellScopeContext sharedContext] cvc];
+    self.cvc = [[CellScopeContext sharedContext] cvc];
 
     [cvc.aiv stopAnimating];
 //    [captureButton setEnabled:YES];
@@ -151,7 +146,8 @@ BOOL capturing = NO;
 {
     NSLog(@"Length: %d", length);
     
-    [cvc toggleAuxilaryLight:flashNumber toggleON:NO];
+    
+    //[cvc toggleAuxilaryLight:flashNumber toggleON:NO];
 
     // parse data, all commands are in 3-byte
     for (int i = 0; i < length; i+=3) //incrementing by 3
@@ -175,8 +171,12 @@ BOOL capturing = NO;
         }
     }
     
-    //if(data[0]==0xFF && data[1]==0xFF){
-        //}
+    if(data[0]==0xFF && data[1]==0xFF){
+        self.cvc = [[CellScopeContext sharedContext] cvc ];
+        AVCaptureConnection *videoConnection = [self.cvc getVideoConnection];
+        [self.cvc takeStillFromConnection:videoConnection];
+    }
+    
 }
 
 

@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
-#import "CellScopeContext.h"
+
 #import "ImageSelectionViewController.h"
-#import "EImage.h"
+#import "CameraAppDelegate.h"
 #import "FixationViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "CameraAppDelegate.h"
+
 
 @interface ImageSelectionViewController ()
 
@@ -21,7 +21,7 @@
 
 @implementation ImageSelectionViewController
 
-@synthesize imageView,slider, images, currentImageIndex, imageViewButton, selectedIcon;
+@synthesize imageView,slider, images, currentImageIndex, imageViewButton, selectedIcon, reviewMode;
 
 //ARE WE PASSING SELECTED LIGHT< SELECTED EYE TO THIS VC?
 
@@ -66,8 +66,11 @@
         [self updateViewWithImage:[images objectAtIndex:currentImageIndex] useThumbnail:NO];
     }
     
-    
+    if(reviewMode == YES){
+        self.navigationItem.leftBarButtonItem =
+        [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStylePlain target: self action:@selector(didPressDelete:)];
 
+    }
     
 }
 
@@ -143,7 +146,7 @@
     [self.navigationController popToViewController:fixationVC animated:YES];
 }
 
--(void)didPressDelete:(id)sender{
+-(void)didPressDelete{
     NSLog(@"Delete Fired!");
 }
 

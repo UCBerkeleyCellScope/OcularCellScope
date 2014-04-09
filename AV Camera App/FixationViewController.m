@@ -6,13 +6,11 @@
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
-#import "CellScopeContext.h"
-
+#import "CameraAppDelegate.h"
 #import "FixationViewController.h"
 #import "CaptureViewController.h"
 #import "ImageSelectionViewController.h"
 #import "CoreDataController.h"
-#import "CameraAppDelegate.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 @interface FixationViewController ()
@@ -89,8 +87,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     }
     
     
-    
-    
     [self loadImages: self.sco.selectedSegmentIndex];
     
 }
@@ -98,6 +94,9 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 - (void)viewWillDisappear:(BOOL)animated{
     
     sco = nil;
+    self.tabBarController.navigationItem.titleView = nil;
+
+
 }
 
 
@@ -237,12 +236,9 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
        //isvc.selectedEye = self.selectedEye;
        //isvc.selectedLight = self.selectedLight;
         
-
-        isvc.navigationItem.leftBarButtonItem =
-        [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStylePlain target: self action:@selector(didPressDelete:)];
+        isvc.reviewMode = YES;
         
         NSPredicate *p = [NSPredicate predicateWithFormat: @"eye == %@ AND fixationLight == %d", self.selectedEye, self.selectedLight];
-        
         
         NSArray *temp = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: p
                                                         andSortKey: @"date" andSortAscending: YES

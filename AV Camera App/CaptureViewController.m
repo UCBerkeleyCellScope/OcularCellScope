@@ -7,17 +7,12 @@
 //
 
 #import "CaptureViewController.h"
-#import "CellScopeContext.h"
 #import "ImageSelectionViewController.h"
 #import "UIImage+Resize.h"
-#import "EImage.h"
-#import "Constants.h"
 
 #define topLightHack 2
 
-@import AVFoundation;
-@import AssetsLibrary;
-@import UIKit;
+
 
 @interface CaptureViewController ()
 
@@ -27,14 +22,11 @@
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer *previewLayer;
 @property (strong, nonatomic) AVCaptureStillImageOutput *stillOutput;
 @property (strong, nonatomic) NSMutableArray *imageArray;
-
 @property (assign, nonatomic) int numberOfImages;
-@property (assign, nonatomic) int captureDelay;
-
-
+@property (assign, nonatomic) float bleDelay;
+@property (assign, nonatomic) float captureDelay;
+@property (assign, nonatomic) float flashDuration;
 @property (nonatomic) BOOL debugMode;
-
-
 @property (nonatomic, strong) NSUserDefaults *prefs;
 
 @end
@@ -49,7 +41,6 @@
 @synthesize imageArray = _imageArray;
 
 @synthesize numberOfImages = _numberOfImages;
-@synthesize captureDelay = _captureDelay;
 @synthesize counterLabel = _counterLabel;
 @synthesize selectedEye = _selectedEye;
 @synthesize selectedLight = _selectedLight;
@@ -57,7 +48,6 @@
 @synthesize debugMode = _debugMode;
 @synthesize currentExam = _currentExam;
 @synthesize captureButton;
-@synthesize activityIndicator;
 @synthesize aiv;
 @synthesize prefs = _prefs;
 
@@ -66,6 +56,7 @@
 @synthesize alreadyLoaded;
 @synthesize swDigitalOut;
 
+@synthesize bleDelay, captureDelay, flashDuration;
 
 BOOL alreadyLoaded = NO;
 //BOOL capturing = NO;
@@ -85,8 +76,6 @@ BOOL alreadyLoaded = NO;
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    //A hard reset is necessary every time
-    
       ble = [[CellScopeContext sharedContext] ble];
     
 //    ble = [[BLE alloc] init];
@@ -103,22 +92,26 @@ BOOL alreadyLoaded = NO;
     [self toggleAuxilaryLight:self.selectedLight toggleON:NO];
     [self toggleAuxilaryLight: farRedLight toggleON:NO];
 
+    [self lockFocus:NO];
     /*
     if (ble.activePeripheral)
         if(ble.activePeripheral.state == CBPeripheralStateConnected){
             [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
         }
     */
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     
     _prefs = [NSUserDefaults standardUserDefaults];
     _debugMode = [_prefs boolForKey:@"debugMode" ];
-    //_aiv = [activityIndicator initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
-    
     NSLog(@"Debug Mode is: %d",_debugMode);
+    
+    bleDelay=[_prefs floatForKey: @"bleDelay"];
+    captureDelay=[_prefs floatForKey: @"captureDelay"];
+    flashDuration=[_prefs floatForKey: @"flashDuration"];
+    
+  
     
     if( [[CellScopeContext sharedContext] connected] == NO){
         [aiv startAnimating];
@@ -144,10 +137,7 @@ BOOL alreadyLoaded = NO;
     _numberOfImages = [_prefs integerForKey:@"numberOfImages"];
     _numberOfImages = 4;
     NSLog(@"Number of Images: %d", _numberOfImages);
-    //[[dict objectForKey:@"numberOfImages"] intValue];
     
-    _captureDelay = [_prefs floatForKey:@"captureDelay"];//[[dict objectForKey:@"captureDelay"] intValue];
-    NSLog(@"Capture Delay: %d", _captureDelay);
     _counterLabel.hidden = YES;
     _counterLabel.text = nil;//@"";//[NSString stringWithFormat:@"",_numberOfImages];
     _imageArray = [[NSMutableArray alloc] init];    
@@ -414,12 +404,14 @@ BOOL alreadyLoaded = NO;
 - (void)takeStillFromConnection:(AVCaptureConnection*)videoConnection{
     
 	NSLog(@"Saving Image...");
-    [self flashOn: 0.1];
+
 	[_stillOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
      {
          
          // Turn off flash
          [self lockFocus:NO];
+         [self toggleAuxilaryLight:flashNumber toggleON:NO];
+         
          
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
          EImage *image = [[EImage alloc] initWithData: imageData
@@ -464,6 +456,7 @@ BOOL alreadyLoaded = NO;
     self.navigationController.navigationBar.alpha = 1;
     ImageSelectionViewController* isvc = (ImageSelectionViewController*)[segue destinationViewController];
     isvc.images = _imageArray;
+    isvc.reviewMode = NO;
 
 }
 
@@ -475,12 +468,18 @@ BOOL alreadyLoaded = NO;
         AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
         [device lockForConfiguration:nil];
         
-        if ([device isFocusModeSupported:AVCaptureFocusModeLocked]) {
+        if ([device isFocusModeSupported:AVCaptureFocusModeLocked] && on == YES) {
         
             NSLog(@"changing focus to locked");
             
             [device setFocusMode:AVCaptureFocusModeLocked];
-
+        }
+        
+        else if([device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus] && on == NO){
+            CGPoint autofocusPoint = CGPointMake(0.5f, 0.5f);
+            [self.device setFocusPointOfInterest:autofocusPoint];
+            [self.device setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
+            NSLog(@"continuous auto focus on");
         }
         
         [device unlockForConfiguration];
@@ -540,7 +539,6 @@ BOOL alreadyLoaded = NO;
 //         //change button title to unlock
 //         [sender setTitle:@"Unlock Focus" forState:UIControlStateNormal];
 //         }
-
      
         [self.device unlockForConfiguration];
     }
@@ -558,7 +556,8 @@ BOOL alreadyLoaded = NO;
     // Reveal counter label to display image count
     _counterLabel.hidden = NO;
     [self.navigationItem setHidesBackButton:YES animated:YES];
-    AVCaptureConnection *videoConnection = [self getVideoConnection];
+    
+    //AVCaptureConnection *videoConnection = [self getVideoConnection];
     
     // Capture images on a background thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
@@ -574,10 +573,11 @@ BOOL alreadyLoaded = NO;
              }];
              */
             //NSLog(@"Before sleep");
-            [NSThread sleepForTimeInterval:2];//_captureDelay];
+            [NSThread sleepForTimeInterval:1];//_captureDelay];
             //NSLog(@"After sleep");
             
-            [self takeStillFromConnection:videoConnection];
+            [self flashOn: 0.1];
+            //[self takeStillFromConnection:videoConnection];
             
             }
     });

@@ -19,8 +19,6 @@
 @property (strong, nonatomic) IBOutlet UITextField *physicianField;
 @property (strong, nonatomic) IBOutlet UITextView *notesTextView;
 
-
-
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Exam* currentExam;
 @property (strong, nonatomic) EyeImage* currentImage;

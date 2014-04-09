@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Exam.h"
-#import "EyeImage.h"
-#import "ExamInfoViewController.h"
+#import "CellScopeContext.h"
 
 @interface PatientsTableViewController : UITableViewController
 

@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EyeImage.h"
-#import "EImage.h"
+#import "CellScopeContext.h"
 #import "CameraAppDelegate.h"
 
 @interface FixationViewController : UIViewController
@@ -20,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *topFixationButton;
 @property (weak, nonatomic) IBOutlet UIButton *noFixationButton;
 
-//@property (copy, nonatomic) NSString *selectedEye;
 @property (copy,nonatomic) NSString *selectedEye;
 @property (nonatomic) int selectedLight;
 

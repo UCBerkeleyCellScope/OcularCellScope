@@ -8,7 +8,6 @@
 
 #import "DiagnosisViewController.h"
 
-
 @interface DiagnosisViewController ()
 
 @end
@@ -37,11 +36,20 @@
     
     patientID = [[[CellScopeContext sharedContext] currentExam] patientID];
     
-    NSString *string = [NSString stringWithFormat:@"%@diagnosis?patientID=%@&format=json",
-                        BaseURLString, patientID];
+    //NSString *string = [NSString stringWithFormat:@"%@diagnosis?patientID=%@&format=json",
+    //                    BaseURLString, patientID];
+    NSString *string = [NSString stringWithFormat:@"%@diagnosis?format=json",
+                        BaseURLString];
+
     NSURL *url = [NSURL URLWithString:string];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
+    if([[CellScopeContext sharedContext]currentExam].firstName != nil &&
+       [[CellScopeContext sharedContext]currentExam].lastName != nil){
+        self.tabBarController.title = [NSString stringWithFormat:@"%@ %@",
+                                       [[CellScopeContext sharedContext]currentExam].firstName,
+                                       [[CellScopeContext sharedContext]currentExam].lastName];
+    }
     // 2
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -55,8 +63,6 @@
         [diagnosisTitle setText: self.diagnosis[@"diagnosisTitle"]];
 
         [diagnosisText setText: self.diagnosis[@"diagnosisText"]];
-        
-        
         
         //How will I parse the responseObject
         //[self.tableView reloadData];

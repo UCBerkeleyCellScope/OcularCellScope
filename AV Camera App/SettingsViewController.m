@@ -16,7 +16,7 @@
 @implementation SettingsViewController
 @synthesize prefs = _prefs;
 
-@synthesize debugToggle,captureDelay,flashDuration,multiShot;
+@synthesize flashLightSlider, redLightSlider, flashLightValue, redLightValue, flashLightLabel, redLightLabel, multiText, debugToggle,bleDelay,captureDelay,flashDuration,multiShot;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -33,30 +33,72 @@
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)];
     [self.tableView addGestureRecognizer:gestureRecognizer];
     
+}
+
+-(void) viewWillAppear:(BOOL)animated{
+    
     _prefs = [NSUserDefaults standardUserDefaults];
     
     [ debugToggle setOn: [_prefs boolForKey: @"debugMode"] animated: NO];
     
-    //NSString initWith
+    flashLightValue =  [_prefs integerForKey: @"flashLightValue"];
+    redLightValue =  [_prefs integerForKey: @"redLightValue"];
     
-    //[captureDelay setText: [_prefs integerForKey: @"captureDelay"]   ];
-   
-    //[flashDuration setText: [_prefs integerForKey: @"captureDelay"]   ];
+    flashLightSlider.value = flashLightValue;
+    redLightSlider.value = redLightValue;
+    
+    flashLightLabel.text = [NSString stringWithFormat: @"%d", (int)flashLightValue];
+    redLightLabel.text = [NSString stringWithFormat: @"%d", (int)redLightValue];
+    
+    NSString *bleText =  [ NSString stringWithFormat:@"%f",[_prefs floatForKey: @"bleDelay"]];
+    bleText = [bleText substringToIndex:4];
+    [bleDelay setText: bleText];
+
+    NSString *captureText =  [ NSString stringWithFormat:@"%f",[_prefs floatForKey: @"captureDelay"]];
+    captureText = [captureText substringToIndex:4];
+    [captureDelay setText: captureText];
+    
+    NSString *flashText =  [ NSString stringWithFormat:@"%f",[_prefs floatForKey: @"flashDuration"]];
+    flashText = [flashText substringToIndex:4];
+    [flashDuration setText: flashText];
+    
+    self.multiText =  [ NSString stringWithFormat:@"%ld",[_prefs integerForKey: @"numberOfImages"]];
+    [self selectUISegment: self.multiText];
+
     
     
-    //[ captureDelay setText:[[_prefs integerForKey: @"captureDelay"]stringValue] ];
-    //@"numberOfImages"
-   //@"numberOfImages"
-    
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 -(void) viewDidAppear:(BOOL)animated{
+        }
+
+-(void) viewWillDisappear:(BOOL)animated{
+    
+    
+    [_prefs setInteger: flashLightSlider.value forKey:@"flashLightValue"];
+    [_prefs setInteger: redLightSlider.value forKey:@"redLightValue"];
+    
+    NSNumberFormatter * f1 = [[NSNumberFormatter alloc] init];
+    [f1 setNumberStyle:NSNumberFormatterDecimalStyle];
+    NSNumber *prefNum1 = [f1 numberFromString:bleDelay.text];
+    [_prefs setObject: prefNum1 forKey:@"bleDelay"];
+
+    NSNumberFormatter * f2 = [[NSNumberFormatter alloc] init];
+    [f2 setNumberStyle:NSNumberFormatterDecimalStyle];
+    NSNumber *prefNum2 = [f2 numberFromString:captureDelay.text];
+    [_prefs setObject: prefNum2 forKey:@"captureDelay"];
+
+    NSNumberFormatter * f3 = [[NSNumberFormatter alloc] init];
+    [f3 setNumberStyle:NSNumberFormatterDecimalStyle];
+    NSNumber *prefNum3 = [f3 numberFromString:flashDuration.text];
+    [_prefs setObject: prefNum3 forKey:@"flashDuration"];
+
+    NSNumberFormatter * f4 = [[NSNumberFormatter alloc] init];
+    [f4 setNumberStyle:NSNumberFormatterDecimalStyle];
+    NSNumber *prefNum4 = [f4 numberFromString:self.multiText];
+    [_prefs setObject: prefNum4 forKey:@"numberOfImages"];
+    
+    NSLog(@"LEAVING! MultiText=%@",self.multiText);
     
 }
 
@@ -72,7 +114,6 @@
 }
 
 - (IBAction)toggleDidChange:(id)sender {
-
 
     if(debugToggle.on == YES){
         [_prefs setValue: @YES forKey:@"debugMode" ];
@@ -92,82 +133,31 @@
 
 }
 
-#pragma mark - Table view data source
-
-/*
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-
+- (IBAction)flashSliderDidChange:(id)sender {
+    flashLightLabel.text = [NSString stringWithFormat: @"%d", (int)flashLightSlider.value];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-
+- (IBAction)redSliderDidChange:(id)sender {
+       redLightLabel.text = [NSString stringWithFormat: @"%d", (int)redLightSlider.value];
 }
-*/
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: forIndexPath:indexPath];
+
+- (IBAction)multiShotValueChanged:(id)sender {
+    self.multiText = [multiShot titleForSegmentAtIndex:multiShot.selectedSegmentIndex];
     
-    // Configure the cell...
+}
+
+- (void)selectUISegment:(NSString *)segmentString{
     
-    return cell;
+    //NSLog(self.multiText);
+    
+    for (int i=0; i< multiShot.numberOfSegments; i++){
+        
+        if( [self.multiText isEqualToString:[multiShot titleForSegmentAtIndex:i]] ){
+            [multiShot setSelectedSegmentIndex:i];
+            break;
+        }
+    }
 }
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 
 @end

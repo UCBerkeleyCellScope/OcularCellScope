@@ -11,8 +11,6 @@
 #import "CoreDataController.h"
 #import "DetailViewController.h"
 
-#import "CellScopeContext.h"
-
 @implementation PatientsTableViewController
 
 @synthesize currentExam, patientsArray;

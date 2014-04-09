@@ -2,19 +2,23 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key></key>
-	<string></string>
 	<key>ImageScaleFactor</key>
 	<string>10</string>
+	<key>ThumbnailSize</key>
+	<integer>160</integer>
 	<key>numberOfImages</key>
 	<integer>4</integer>
+	<key>debugMode</key>
+	<false/>
+	<key>flashLightValue</key>
+	<integer>50</integer>
+	<key>redLightValue</key>
+	<integer>50</integer>
+	<key>bleDelay</key>
+	<real>0.1</real>
 	<key>captureDelay</key>
 	<real>1</real>
 	<key>flashDuration</key>
 	<real>0.5</real>
-	<key>ThumbnailSize</key>
-	<integer>160</integer>
-	<key>debugMode</key>
-	<false/>
 </dict>
 </plist>
