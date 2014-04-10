@@ -26,6 +26,8 @@
 
 @property BOOL alreadyLoaded;
 
+
+
 @property (strong, nonatomic) Exam *currentExam;
 - (IBAction)didPressCapture:(id)sender;
 

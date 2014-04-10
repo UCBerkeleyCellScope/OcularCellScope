@@ -23,6 +23,7 @@
 @property (strong,nonatomic) Exam *currentExam;
 @property (strong, nonatomic) BLE *ble;
 @property (strong, nonatomic) CaptureViewController *cvc;
+@property(nonatomic, strong) NSUserDefaults *prefs;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

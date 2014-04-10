@@ -12,8 +12,6 @@
 
 #define topLightHack 2
 
-
-
 @interface CaptureViewController ()
 
 @property (strong, nonatomic) AVCaptureSession *session;
@@ -27,7 +25,11 @@
 @property (assign, nonatomic) float captureDelay;
 @property (assign, nonatomic) float flashDuration;
 @property (nonatomic) BOOL debugMode;
+@property (nonatomic) BOOL timedFlash;
+
 @property (nonatomic, strong) NSUserDefaults *prefs;
+
+@property (nonatomic) NSTimer *timer;
 
 @end
 
@@ -41,11 +43,14 @@
 @synthesize imageArray = _imageArray;
 
 @synthesize numberOfImages = _numberOfImages;
+@synthesize captureDelay = _captureDelay;
 @synthesize counterLabel = _counterLabel;
 @synthesize selectedEye = _selectedEye;
 @synthesize selectedLight = _selectedLight;
 
 @synthesize debugMode = _debugMode;
+@synthesize timedFlash = _timedFlash;
+
 @synthesize currentExam = _currentExam;
 @synthesize captureButton;
 @synthesize aiv;
@@ -56,10 +61,12 @@
 @synthesize alreadyLoaded;
 @synthesize swDigitalOut;
 
-@synthesize bleDelay, captureDelay, flashDuration;
+@synthesize bleDelay, flashDuration, timer;
 
 BOOL alreadyLoaded = NO;
 //BOOL capturing = NO;
+
+BOOL withCallBack = NO;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -105,15 +112,21 @@ BOOL alreadyLoaded = NO;
     
     _prefs = [NSUserDefaults standardUserDefaults];
     _debugMode = [_prefs boolForKey:@"debugMode" ];
+    _captureDelay = [_prefs floatForKey:@"captureDelay" ];
+    _numberOfImages = [_prefs integerForKey:@"numberOfImages"];
+    _timedFlash = [_prefs boolForKey:@"timedFlash"];
+    
     NSLog(@"Debug Mode is: %d",_debugMode);
     
     bleDelay=[_prefs floatForKey: @"bleDelay"];
-    captureDelay=[_prefs floatForKey: @"captureDelay"];
     flashDuration=[_prefs floatForKey: @"flashDuration"];
     
-  
     
-    if( [[CellScopeContext sharedContext] connected] == NO){
+    if(_debugMode == YES){
+        [captureButton setEnabled:YES];
+        alreadyLoaded = YES;
+    }
+    else if ( [[CellScopeContext sharedContext] connected] == NO){
         [aiv startAnimating];
         [captureButton setEnabled:NO];
         //[self btnScanForPeripherals];
@@ -126,7 +139,6 @@ BOOL alreadyLoaded = NO;
         [self toggleAuxilaryLight:self.selectedLight toggleON:YES];
         [self toggleAuxilaryLight: farRedLight toggleON:YES];
         alreadyLoaded = YES;
-
     }
     
 }
@@ -134,8 +146,7 @@ BOOL alreadyLoaded = NO;
 -(void)setViewControllerElements{
     //NSString *path = [[NSBundle mainBundle] pathForResource:@"CaptureSettings" ofType:@"plist"];
     //NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-    _numberOfImages = [_prefs integerForKey:@"numberOfImages"];
-    _numberOfImages = 4;
+    
     NSLog(@"Number of Images: %d", _numberOfImages);
     
     _counterLabel.hidden = YES;
@@ -245,9 +256,44 @@ BOOL alreadyLoaded = NO;
     }
 }
 */
+- (void)timedFlash {
+    //flashDuration;
+    [self toggleAuxilaryLight:flashNumber toggleON:YES];
+   
+    
+   dispatch_async(dispatch_get_main_queue(), ^{
+        //timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(tick:) userInfo:nil repeats:YES];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:flashDuration
+                                         target:self
+                                       selector:@selector(flashTimer:)
+                                       userInfo:nil
+                                        repeats:NO];
+        //[[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    });
+    
+}
+
+-(void) flashTimer: (NSTimer *) timer{
+    [self toggleAuxilaryLight:flashNumber toggleON:NO];
+    NSLog(@"YODEL");
+    /*
+    UInt8 passedHex = [[theTimer userInfo] intValue];
+    
+    NSLog(@"Hex Value to Turn Off Flash %d",passedHex);
+    UInt8 buf[3] = {passedHex, 0x00, 0x00};
+    NSLog(@"Flash Turned Off by timer");
+    
+    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
+    [ble write:data];
+     */
+}
+
+
 - (void)flashOn:(float) duration {
     
-        NSLog(@"Big Flash");
+    
+    withCallBack = YES;
+    NSLog(@"Big Flash");
     /*
     NSNumber *n = [[NSNumber alloc] initWithInteger: flashNumber ];
     
@@ -279,17 +325,7 @@ BOOL alreadyLoaded = NO;
     
 }
 
--(void) flashTimer: (NSTimer *) theTimer{
-    
-    UInt8 passedHex = [[theTimer userInfo] intValue];
-    
-    NSLog(@"Hex Value to Turn Off Flash %d",passedHex);
-    UInt8 buf[3] = {passedHex, 0x00, 0x00};
-    NSLog(@"Flash Turned Off by timer");
-    
-    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
-    [ble write:data];
-}
+
 
 -(void) toggleAuxilaryLight: (NSInteger) light toggleON: (BOOL) switchON {
     
@@ -311,7 +347,15 @@ BOOL alreadyLoaded = NO;
         sw = 0x00;
     }
     
-    UInt8 bufZ[3] = {hex, sw, 0x00};
+    UInt8 callBack;
+    if(withCallBack==YES){
+        callBack = 0x01;
+    }
+    else{
+        callBack = 0x00;
+    }
+    
+    UInt8 bufZ[3] = {hex, sw, callBack};
     
     /*
     UInt8 bufZ[3] = {0x0A, 0x00, 0x00}; //Left Light, Pin4
@@ -409,8 +453,9 @@ BOOL alreadyLoaded = NO;
      {
          
          // Turn off flash
-         [self lockFocus:NO];
-         [self toggleAuxilaryLight:flashNumber toggleON:NO];
+         [self lockFocus:YES];
+         if (_debugMode == NO)
+             [self toggleAuxilaryLight:flashNumber toggleON:NO];
          
          
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
@@ -546,9 +591,12 @@ BOOL alreadyLoaded = NO;
     }
     */
     
+    
     swDigitalOut.enabled = false;
     [captureButton setEnabled:NO];
     
+    [self toggleAuxilaryLight: flashNumber toggleON:NO];
+
     [self toggleAuxilaryLight:self.selectedLight toggleON:NO];
     [self toggleAuxilaryLight:farRedLight toggleON:NO];
 
@@ -559,7 +607,7 @@ BOOL alreadyLoaded = NO;
     _counterLabel.hidden = NO;
     [self.navigationItem setHidesBackButton:YES animated:YES];
     
-    //AVCaptureConnection *videoConnection = [self getVideoConnection];
+    AVCaptureConnection *videoConnection = [self getVideoConnection];
     
     // Capture images on a background thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
@@ -575,13 +623,18 @@ BOOL alreadyLoaded = NO;
              }];
              */
             //NSLog(@"Before sleep");
-            [NSThread sleepForTimeInterval:1];//_captureDelay];
+            [NSThread sleepForTimeInterval:_captureDelay];//_captureDelay];
             //NSLog(@"After sleep");
             
-            [self flashOn: 0.1];
+            if(_timedFlash == NO){
+                [self flashOn: 0.1];
             //[self takeStillFromConnection:videoConnection];
-            
             }
+            else{
+                [self timedFlash];
+                [self takeStillFromConnection:videoConnection];
+            }
+        }
     });
     
     NSLog(@"didPressCapture Completed");

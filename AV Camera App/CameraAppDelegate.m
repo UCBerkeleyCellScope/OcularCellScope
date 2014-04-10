@@ -18,6 +18,8 @@
 @synthesize currentExam = _currentExam;
 @synthesize ble;
 @synthesize cvc;
+@synthesize prefs = _prefs;
+
 
 int attempts = 0;
 BOOL capturing = NO;
@@ -82,7 +84,7 @@ BOOL capturing = NO;
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Bluetooth could not connect. Check that the Ocular CellScope is fully charged and switched on."
                                                             message:nil                                                           delegate:self
                                                   cancelButtonTitle:@"Try Again"
-                                                  otherButtonTitles:@"Cancel",nil];
+                                                  otherButtonTitles:@"Use without BLE",nil];
         
         [alertView show];
         
@@ -97,11 +99,16 @@ BOOL capturing = NO;
     
     }
     else {
+        _prefs = [NSUserDefaults standardUserDefaults];
+        [_prefs setValue: @YES forKey:@"debugMode" ];
+        
+        /*
         self.cvc = [[CellScopeContext sharedContext] cvc];
         NSLog(@"user pressed Cancel");
         [cvc.captureButton setEnabled:YES];
         [cvc.swDigitalOut setEnabled:YES];
         [cvc.aiv stopAnimating];
+         */
     }
 }
 
@@ -132,6 +139,9 @@ BOOL capturing = NO;
     //if([cvc alreadyLoaded]== YES){
         [cvc toggleAuxilaryLight:cvc.selectedLight toggleON:YES];
         [cvc toggleAuxilaryLight: farRedLight toggleON:YES];
+        [cvc toggleAuxilaryLight: flashNumber toggleON:NO];
+
+    
     
     [cvc.captureButton setEnabled: YES];
     

@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *captureDelay;
 @property (weak, nonatomic) IBOutlet UITextField *flashDuration;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *multiShot;
+@property (weak, nonatomic) IBOutlet UISwitch *timedFlashSwitch;
 
 @property (weak, nonatomic) IBOutlet UISwitch *debugToggle;
 - (IBAction)toggleDidChange:(id)sender;
@@ -32,5 +33,6 @@
 - (IBAction)flashSliderDidChange:(id)sender;
 - (IBAction)redSliderDidChange:(id)sender;
 - (IBAction)multiShotValueChanged:(id)sender;
+- (IBAction)timedFlashToggleDidChange:(id)sender;
 
 @end

@@ -16,7 +16,7 @@
 @implementation SettingsViewController
 @synthesize prefs = _prefs;
 
-@synthesize flashLightSlider, redLightSlider, flashLightValue, redLightValue, flashLightLabel, redLightLabel, multiText, debugToggle,bleDelay,captureDelay,flashDuration,multiShot;
+@synthesize flashLightSlider, redLightSlider, flashLightValue, redLightValue, flashLightLabel, redLightLabel, multiText, debugToggle,bleDelay,captureDelay,flashDuration,multiShot, timedFlashSwitch;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -40,6 +40,8 @@
     _prefs = [NSUserDefaults standardUserDefaults];
     
     [ debugToggle setOn: [_prefs boolForKey: @"debugMode"] animated: NO];
+    
+    [ timedFlashSwitch setOn: [_prefs boolForKey: @"timedFlash"] animated: NO];
     
     flashLightValue =  [_prefs integerForKey: @"flashLightValue"];
     redLightValue =  [_prefs integerForKey: @"redLightValue"];
@@ -142,6 +144,18 @@
 - (IBAction)multiShotValueChanged:(id)sender {
     self.multiText = [multiShot titleForSegmentAtIndex:multiShot.selectedSegmentIndex];
     
+}
+
+- (IBAction)timedFlashToggleDidChange:(id)sender {
+    if(timedFlashSwitch.on == YES){
+        [_prefs setValue: @YES forKey:@"timedFlash" ];
+        
+    }
+    else if(timedFlashSwitch.on == NO){
+        [_prefs setValue: @NO forKey:@"timedFlash" ];
+    }
+    
+    NSLog(@"ToggleChange to %d",timedFlashSwitch.on);
 }
 
 - (void)selectUISegment:(NSString *)segmentString{

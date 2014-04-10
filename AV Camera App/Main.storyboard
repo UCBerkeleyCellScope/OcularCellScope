@@ -45,7 +45,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="x8V-KE-hAE" kind="push" id="Op6-sM-KDp"/>
+                                    <segue destination="x8V-KE-hAE" kind="push" id="T2V-DB-lrr"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="title.png" id="DLw-J4-0T7">
@@ -755,6 +755,29 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="c7d-dl-T9U">
+                                        <rect key="frame" x="0.0" y="385" width="320" height="55"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c7d-dl-T9U" id="xjG-kZ-suK">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timed Flash" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="If8-IV-z1p">
+                                                    <rect key="frame" x="20" y="13" width="94" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="8w5-hs-f1E">
+                                                    <rect key="frame" x="246" y="8" width="51" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="timedFlashToggleDidChange:" destination="x8V-KE-hAE" eventType="valueChanged" id="10W-dj-aM9"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -780,6 +803,7 @@
                         <outlet property="multiShot" destination="O9F-MR-w4t" id="ywE-3n-SYE"/>
                         <outlet property="redLightLabel" destination="tbg-E1-CpJ" id="kh5-57-Q4g"/>
                         <outlet property="redLightSlider" destination="Gxf-cK-yKI" id="7Zy-Kj-nkk"/>
+                        <outlet property="timedFlashSwitch" destination="8w5-hs-f1E" id="zrX-ck-mQC"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QxY-Sh-gKC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -980,6 +1004,16 @@
                                     <action selector="sendDigitalOut:" destination="2xP-zE-AVw" eventType="valueChanged" id="1qb-lY-8h4"/>
                                 </connections>
                             </switch>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9qj-6h-W5p">
+                                <rect key="frame" x="24" y="91" width="57" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Settings">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="x8V-KE-hAE" kind="modal" id="PE1-4A-hZv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1152,6 +1186,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="T2V-DB-lrr"/>
         <segue reference="IbK-dq-lak"/>
         <segue reference="G5L-Ah-1hf"/>
     </inferredMetricsTieBreakers>
