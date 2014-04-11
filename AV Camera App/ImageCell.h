@@ -11,6 +11,6 @@
 
 @interface ImageCell : UICollectionViewCell
 
-@property(nonatomic, strong) ALAsset *asset;
+@property (strong, nonatomic) IBOutlet UIImageView *image;
 
 @end

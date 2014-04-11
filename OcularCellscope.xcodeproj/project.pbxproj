@@ -91,6 +91,11 @@
 		F358E318185A834500872304 /* capture.png in Resources */ = {isa = PBXBuildFile; fileRef = F358E317185A834500872304 /* capture.png */; };
 		F358E31B185A859900872304 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F358E319185A859900872304 /* Icon.png */; };
 		F358E31C185A859900872304 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F358E31A185A859900872304 /* Icon@2x.png */; };
+		F38224B418F7BB3F00D861FE /* retina_icon_bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = F38224AF18F7BB3F00D861FE /* retina_icon_bottom.png */; };
+		F38224B518F7BB3F00D861FE /* retina_icon_center.png in Resources */ = {isa = PBXBuildFile; fileRef = F38224B018F7BB3F00D861FE /* retina_icon_center.png */; };
+		F38224B618F7BB3F00D861FE /* retina_icon_left.png in Resources */ = {isa = PBXBuildFile; fileRef = F38224B118F7BB3F00D861FE /* retina_icon_left.png */; };
+		F38224B718F7BB3F00D861FE /* retina_icon_right.png in Resources */ = {isa = PBXBuildFile; fileRef = F38224B218F7BB3F00D861FE /* retina_icon_right.png */; };
+		F38224B818F7BB3F00D861FE /* retina_icon_top.png in Resources */ = {isa = PBXBuildFile; fileRef = F38224B318F7BB3F00D861FE /* retina_icon_top.png */; };
 		F3FA32CB18B5E4B7000FACF4 /* im1.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C718B5E4B7000FACF4 /* im1.png */; };
 		F3FA32CC18B5E4B7000FACF4 /* im2.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C818B5E4B7000FACF4 /* im2.png */; };
 		F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C918B5E4B7000FACF4 /* im3.png */; };
@@ -242,6 +247,11 @@
 		F358E317185A834500872304 /* capture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = capture.png; path = images/capture.png; sourceTree = SOURCE_ROOT; };
 		F358E319185A859900872304 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = images/Icon.png; sourceTree = "<group>"; };
 		F358E31A185A859900872304 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "images/Icon@2x.png"; sourceTree = "<group>"; };
+		F38224AF18F7BB3F00D861FE /* retina_icon_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retina_icon_bottom.png; sourceTree = "<group>"; };
+		F38224B018F7BB3F00D861FE /* retina_icon_center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retina_icon_center.png; sourceTree = "<group>"; };
+		F38224B118F7BB3F00D861FE /* retina_icon_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retina_icon_left.png; sourceTree = "<group>"; };
+		F38224B218F7BB3F00D861FE /* retina_icon_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retina_icon_right.png; sourceTree = "<group>"; };
+		F38224B318F7BB3F00D861FE /* retina_icon_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retina_icon_top.png; sourceTree = "<group>"; };
 		F3E8F33E185554FD00B1520F /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		F3E8F33F185554FD00B1520F /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		F3FA32C418B5D6BF000FACF4 /* ImageSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectionViewController.h; sourceTree = "<group>"; };
@@ -495,6 +505,11 @@
 		F356909418559CCA00DBB4BE /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F38224AF18F7BB3F00D861FE /* retina_icon_bottom.png */,
+				F38224B018F7BB3F00D861FE /* retina_icon_center.png */,
+				F38224B118F7BB3F00D861FE /* retina_icon_left.png */,
+				F38224B218F7BB3F00D861FE /* retina_icon_right.png */,
+				F38224B318F7BB3F00D861FE /* retina_icon_top.png */,
 				F325704218D3911200FEA80E /* selected_icon.png */,
 				F325704318D3911200FEA80E /* unselected_icon.png */,
 				60B2E8FB18C717B100973C7E /* img.jpeg */,
@@ -616,6 +631,7 @@
 			files = (
 				F325701218CAA87200FEA80E /* x_button.png in Resources */,
 				F325702018CC0CD100FEA80E /* patient_icon.png in Resources */,
+				F38224B818F7BB3F00D861FE /* retina_icon_top.png in Resources */,
 				F325702218CC0CD500FEA80E /* notes_icon.png in Resources */,
 				F325702518CC0D3300FEA80E /* patient_icon_small.png in Resources */,
 				60B2E8F918C6EE7E00973C7E /* CameraModel.xcdatamodeld in Resources */,
@@ -623,6 +639,8 @@
 				F3FA32CB18B5E4B7000FACF4 /* im1.png in Resources */,
 				F325702818CC0E4100FEA80E /* eye_icon_small.png in Resources */,
 				60B2E8FC18C717B100973C7E /* img.jpeg in Resources */,
+				F38224B618F7BB3F00D861FE /* retina_icon_left.png in Resources */,
+				F38224B418F7BB3F00D861FE /* retina_icon_bottom.png in Resources */,
 				6D2D5DCF18318D9F00A58A96 /* Images.xcassets in Resources */,
 				F325704518D3911200FEA80E /* unselected_icon.png in Resources */,
 				F358E316185A82E600872304 /* capture2.png in Resources */,
@@ -633,6 +651,7 @@
 				F356909818559ECA00DBB4BE /* button_settings.png in Resources */,
 				6D2D5DC118318D9F00A58A96 /* InfoPlist.strings in Resources */,
 				F358E318185A834500872304 /* capture.png in Resources */,
+				F38224B518F7BB3F00D861FE /* retina_icon_center.png in Resources */,
 				F325700F18CAA80000FEA80E /* check_button.png in Resources */,
 				603B077418DCB8F1002179CD /* BSKeyboardControls.strings in Resources */,
 				F325702618CC0D3300FEA80E /* notes_icon_small.png in Resources */,
@@ -643,6 +662,7 @@
 				F356909318559CC700DBB4BE /* button_addpatients.png in Resources */,
 				F325704418D3911200FEA80E /* selected_icon.png in Resources */,
 				F3FA32CE18B5E4B7000FACF4 /* im4.png in Resources */,
+				F38224B718F7BB3F00D861FE /* retina_icon_right.png in Resources */,
 				F345FDA91855A2C9003E448E /* title.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -107,7 +107,7 @@ void (^enumerate)(ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop)
     ImageCell *cell = (ImageCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"ImageCell" forIndexPath:indexPath];
     
     ALAsset *asset = self.assets[indexPath.row];
-    cell.asset = asset;
+    //cell.asset = asset;
     cell.backgroundColor = [UIColor redColor];
     
     return cell;

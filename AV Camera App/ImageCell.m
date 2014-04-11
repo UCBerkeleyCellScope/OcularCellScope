@@ -9,17 +9,9 @@
 #import "ImageCell.h"
 
 @interface ImageCell()
-@property(nonatomic,weak) IBOutlet UIImageView *photoImageView;
 @end
 
 @implementation ImageCell
-
-- (void) setAsset:(ALAsset *)asset
-{
-    // 2
-    _asset = asset;
-    self.photoImageView.image = [UIImage imageWithCGImage:[asset thumbnail]];
-}
 
 - (id)initWithFrame:(CGRect)frame
 {
