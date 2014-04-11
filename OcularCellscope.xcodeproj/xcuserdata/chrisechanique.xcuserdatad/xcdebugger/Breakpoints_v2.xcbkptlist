@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AV Camera App/ImageSelectionViewController.m"
-            timestampString = "416524642.58846"
+            timestampString = "418894271.682605"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
-            landmarkName = "-didSelectImage:"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "-didSwipeRight:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -63,7 +63,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "26"
             endingLineNumber = "26"
-            landmarkName = "-initWithData:date:eye:fixationLight:"
+            landmarkName = "-initWithUIImage:date:eye:fixationLight:thumbnail:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

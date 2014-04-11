@@ -18,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *selectedIcon;
 @property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *swipeRightRecognizer;
 @property BOOL reviewMode;
+@property (strong, nonatomic) IBOutlet UICollectionView *imageCollectionView;
 
 -(IBAction)didMoveSlider:(id)sender;
 -(IBAction)didTouchUpFromSlider:(id)sender;

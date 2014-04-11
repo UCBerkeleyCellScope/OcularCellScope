@@ -174,8 +174,8 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                 [fixationButtons[i-1] setSelected: YES];
             }
             else{
-                UIImage* thumbImage = [UIImage imageNamed: @"Icon@2x.png"];
-                [fixationButtons[i-1] setImage: thumbImage forState: UIControlStateNormal];
+                //UIImage* thumbImage = [UIImage imageNamed: @"Icon@2x.png"];
+                //[fixationButtons[i-1] setImage: thumbImage forState: UIControlStateNormal];
                 [fixationButtons[i-1] setSelected: NO];
                 
             }

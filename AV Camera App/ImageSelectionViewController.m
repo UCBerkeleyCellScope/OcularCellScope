@@ -11,6 +11,7 @@
 #import "CameraAppDelegate.h"
 #import "FixationViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "ImageCell.h"
 
 
 @interface ImageSelectionViewController ()
@@ -21,7 +22,7 @@
 
 @implementation ImageSelectionViewController
 
-@synthesize imageView,slider, images, currentImageIndex, imageViewButton, selectedIcon, reviewMode;
+@synthesize imageView,slider, images, currentImageIndex, imageViewButton, selectedIcon, reviewMode, imageCollectionView;
 
 //ARE WE PASSING SELECTED LIGHT< SELECTED EYE TO THIS VC?
 
@@ -240,6 +241,28 @@
     }
 }
 
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return  [images count];
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *identifier = @"myCell";
+    
+    ImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    EImage *image = [images objectAtIndex:indexPath.row];
+    cell.image.image =  image.thumbnail;
+    
+    return cell;
+    
+    
+}
 /*
  -(void) load: (int) cii{
  NSLog(@"IN THE LOAD");
