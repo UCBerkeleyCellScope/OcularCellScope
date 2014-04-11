@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController.h"
+#import "CameraAppDelegate.h"
 
 @interface SettingsViewController ()
 @property(nonatomic, strong) NSUserDefaults *prefs;
@@ -23,6 +24,8 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        
+        
     }
     return self;
 }
@@ -30,9 +33,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    /*UINavigationBar *naviBarObj = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 65)];
+    [self.view addSubview:naviBarObj];
+    UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(didPressDone:)];
+    UINavigationItem *navigItem = [[UINavigationItem alloc] initWithTitle:@"Settings"];
+    navigItem.rightBarButtonItem = doneItem;
+    naviBarObj.items = [NSArray arrayWithObjects: navigItem,nil];
+    
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)];
     [self.tableView addGestureRecognizer:gestureRecognizer];
-    
+    */
 }
 
 -(void) viewWillAppear:(BOOL)animated{
@@ -76,6 +86,8 @@
 
 -(void) viewWillDisappear:(BOOL)animated{
     
+    [[[CellScopeContext sharedContext]cvc]toggleAuxilaryLight:flashNumber toggleON:NO
+                                                    ];
     
     [_prefs setInteger: flashLightSlider.value forKey:@"flashLightValue"];
     [_prefs setInteger: redLightSlider.value forKey:@"redLightValue"];
@@ -100,6 +112,8 @@
     NSNumber *prefNum4 = [f4 numberFromString:self.multiText];
     [_prefs setObject: prefNum4 forKey:@"numberOfImages"];
     
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -117,28 +131,44 @@
 
     if(debugToggle.on == YES){
         [_prefs setValue: @YES forKey:@"debugMode" ];
-
+        [[[CellScopeContext sharedContext]cvc]toggleAuxilaryLight:0x0B toggleON:NO
+                                                        ];
+        [[[CellScopeContext sharedContext]cvc]toggleAuxilaryLight:farRedLight toggleON:NO
+                                                        ];
+        [[[CellScopeContext sharedContext]cvc]toggleAuxilaryLight: [[CellScopeContext sharedContext]cvc].selectedLight toggleON:NO
+         ];
+        
+        BLE* ble = [[CellScopeContext sharedContext]ble];
+        
+        if (ble.activePeripheral)
+            if(ble.activePeripheral.state == CBPeripheralStateConnected){
+                [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
+            }
     }
     else if(debugToggle.on == NO){
         [_prefs setValue: @NO forKey:@"debugMode" ];
+        
+        CameraAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        [appDelegate btnScanForPeripherals];
     }
     
     NSLog(@"ToggleChange to %d",debugToggle.on);
     
 }
 
-- (IBAction)didPressDone:(id)sender {
-
-    [self.navigationController popToRootViewControllerAnimated:YES];
-
-}
 
 - (IBAction)flashSliderDidChange:(id)sender {
     flashLightLabel.text = [NSString stringWithFormat: @"%d", (int)flashLightSlider.value];
+    [[[CellScopeContext sharedContext]cvc]toggleAuxilaryLight:0x0B toggleON:YES
+                                                    analogVal:self.flashLightSlider.value];
 }
 
 - (IBAction)redSliderDidChange:(id)sender {
        redLightLabel.text = [NSString stringWithFormat: @"%d", (int)redLightSlider.value];
+    [[[CellScopeContext sharedContext]cvc]toggleAuxilaryLight:farRedLight toggleON:YES
+                                                    analogVal:self.redLightSlider.value];
+    
+    
 }
 
 - (IBAction)multiShotValueChanged:(id)sender {

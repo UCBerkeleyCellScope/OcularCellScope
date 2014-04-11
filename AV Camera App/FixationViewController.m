@@ -60,10 +60,11 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    [super viewWillAppear:(BOOL) animated];
-        
-    NSLog(@"Seg Back, even from ImageSelection");
     
+    [super viewWillAppear:(BOOL) animated];
+    
+    [[[CellScopeContext sharedContext]cvc]  toggleAuxilaryLight:[[CellScopeContext sharedContext]cvc].selectedLight toggleON:NO];
+    [[[CellScopeContext sharedContext]cvc]  toggleAuxilaryLight:farRedLight toggleON:NO];
     
     [self setSelectedEye:  [[CellScopeContext sharedContext]selectedEye] ];
     

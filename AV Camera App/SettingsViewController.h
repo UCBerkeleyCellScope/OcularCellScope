@@ -29,7 +29,6 @@
 
 @property (weak, nonatomic) IBOutlet UISwitch *debugToggle;
 - (IBAction)toggleDidChange:(id)sender;
-- (IBAction)didPressDone:(id)sender;
 - (IBAction)flashSliderDidChange:(id)sender;
 - (IBAction)redSliderDidChange:(id)sender;
 - (IBAction)multiShotValueChanged:(id)sender;

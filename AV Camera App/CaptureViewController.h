@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CellScopeContext.h"
+#import "SettingsViewController.h"
 
 @import AVFoundation;
 @import AssetsLibrary;
@@ -21,8 +22,13 @@
 @property (nonatomic) int selectedLight;
 @property (copy, nonatomic) NSString *selectedEye;
 @property (weak, nonatomic) IBOutlet UISwitch *swDigitalOut;
+@property (weak, nonatomic) IBOutlet UILabel *bleLabel;
 
 @property (strong, nonatomic) BLE *ble;
+
+//@property SettingsViewController *svc;
+
+
 
 @property BOOL alreadyLoaded;
 
@@ -30,8 +36,9 @@
 
 @property (strong, nonatomic) Exam *currentExam;
 - (IBAction)didPressCapture:(id)sender;
-
 -(void) toggleAuxilaryLight: (NSInteger) light toggleON: (BOOL) switchON;
 -(AVCaptureConnection*)getVideoConnection;
-- (void)takeStillFromConnection:(AVCaptureConnection*)videoConnection;
+-(void)takeStillFromConnection:(AVCaptureConnection*)videoConnection;
+-(void) toggleAuxilaryLight: (NSInteger) light toggleON: (BOOL) switchON
+                  analogVal: (int) val;
 @end
