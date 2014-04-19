@@ -141,7 +141,7 @@
 
 -(IBAction)didPressCancel:(id)sender{
     NSArray* viewControllers = self.navigationController.viewControllers;
-    UIViewController* fixationVC = [viewControllers objectAtIndex: 2 ];
+    UIViewController* fixationVC = [viewControllers objectAtIndex: 1 ];
     //The Fixation ViewController will be either index 1 out of 0-2 or 1 out of 0-3.
     
     [self.navigationController popToViewController:fixationVC animated:YES];
@@ -169,9 +169,7 @@
             // NSLog([[[CellScopeContext sharedContext ]currentExam] description]);
             
             
-            
             Exam* e = [[CellScopeContext sharedContext ]currentExam ];
-            
            
             
             [e addEyeImagesObject:coreDataObject];
@@ -180,7 +178,7 @@
         }
         
         NSArray* viewControllers = self.navigationController.viewControllers;
-        UIViewController* fvc = [viewControllers objectAtIndex: 2];
+        UIViewController* fvc = [viewControllers objectAtIndex: 1];
         [self.navigationController popToViewController:fvc animated:YES];
     }
     else{
@@ -241,6 +239,8 @@
     }
 }
 
+
+/*
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return  [images count];
@@ -263,6 +263,9 @@
     
     
 }
+//*/
+
+ 
 /*
  -(void) load: (int) cii{
  NSLog(@"IN THE LOAD");

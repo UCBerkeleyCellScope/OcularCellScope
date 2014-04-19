@@ -20,6 +20,7 @@
 
 #define flashNumber 9
 #define farRedLight 10
+#define flashNoPingBack 11
 
 //static NSString * const BaseURLString = @"http://www.raywenderlich.com/demos/weather_sample/";
 //static NSString * const BaseURLString = @"http://ec2-54-186-247-188.us-west-2.compute.amazonaws.com/";

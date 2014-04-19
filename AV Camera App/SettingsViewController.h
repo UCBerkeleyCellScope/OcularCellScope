@@ -34,4 +34,5 @@
 - (IBAction)multiShotValueChanged:(id)sender;
 - (IBAction)timedFlashToggleDidChange:(id)sender;
 
+
 @end

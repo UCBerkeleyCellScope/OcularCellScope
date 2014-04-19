@@ -34,6 +34,7 @@ BOOL capturing = NO;
     NSDictionary* defaultPreferences = [NSDictionary dictionaryWithContentsOfFile:defaultPrefsFile];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPreferences];
     
+    _prefs = [NSUserDefaults standardUserDefaults];
     debugMode = [_prefs boolForKey:@"debugMode" ];
     
 

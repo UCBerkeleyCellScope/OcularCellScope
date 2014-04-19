@@ -196,11 +196,12 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     self.selectedLight = [sender tag];
     
     if( [sender isSelected] == NO){
-        //there are pictures!
+
         [self performSegueWithIdentifier:@"CaptureViewSegue" sender:(id)sender];
     }
     
     else if([sender isSelected] == YES ){
+        //there are pictures!    
         [self performSegueWithIdentifier:@"ImageReviewSegue" sender:(id)sender];
     }
     
