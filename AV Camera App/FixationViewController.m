@@ -196,7 +196,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     if( [sender isSelected] == NO){
         //there are pictures!
-        [self performSegueWithIdentifier:@"CaptureViewSegue" sender:(id)sender];
+        [self performSegueWithIdentifier:@"CamViewSegue" sender:(id)sender];
     }
     
     else if([sender isSelected] == YES ){
@@ -225,9 +225,9 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"CaptureViewSegue"])
+    if ([[segue identifier] isEqualToString:@"CamViewSegue"])
     {
-        NSLog(@"Preparing for CaptureViewSegue");
+        NSLog(@"Preparing for CamViewSegue");
         CaptureViewController* cvc = (CaptureViewController*)[segue destinationViewController];
         //cvc.selectedEye = self.selectedEye;
         cvc.selectedLight = self.selectedLight;

@@ -185,4 +185,10 @@
     return transform;
 }
 
+-(UIImage *)resizedImageWithScaleFactor:(float)scaleFactor{
+    CGSize smallSize = [self size];
+    smallSize.height = smallSize.height/scaleFactor;
+    smallSize.width = smallSize.width/scaleFactor;
+    return [self resizedImage:smallSize interpolationQuality:kCGInterpolationDefault];
+}
 @end

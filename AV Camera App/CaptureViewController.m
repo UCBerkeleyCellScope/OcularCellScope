@@ -373,7 +373,7 @@ BOOL withCallBack = NO;
     NSData *data = [[NSData alloc] initWithBytes:bufZ length:3];
     
     //NSLog(data.description);
-    [ble write:data];
+    //[ble write:data];
     
 }
 
@@ -488,8 +488,9 @@ BOOL withCallBack = NO;
          
          // Once all images are captured, segue to the Image Selection View
          if([_imageArray count] >= _numberOfImages){
-
+             NSLog(@"About to segue to ImageSelectionView");
              [self performSegueWithIdentifier:@"ImageSelectionSegue" sender:self];
+             
          }
          
      }];
@@ -592,14 +593,15 @@ BOOL withCallBack = NO;
     */
     
     
-    swDigitalOut.enabled = false;
+    //swDigitalOut.enabled = false;
     [captureButton setEnabled:NO];
     
+    /*
     [self toggleAuxilaryLight: flashNumber toggleON:NO];
 
     [self toggleAuxilaryLight:self.selectedLight toggleON:NO];
     [self toggleAuxilaryLight:farRedLight toggleON:NO];
-
+     */
     
     //capturing = YES;
     
@@ -614,14 +616,14 @@ BOOL withCallBack = NO;
         for(int index = 1; index <= _numberOfImages; ++index){
             
             NSLog(@"Spawned a thread.");
-            /*
+            
              [[NSOperationQueue mainQueue] addOperationWithBlock:^{
              
              _counterLabel.text = [NSString stringWithFormat:@"%d/%d",index,_numberOfImages];
              NSLog(@"Image %d of %d",index,_numberOfImages);
              
              }];
-             */
+            
             //NSLog(@"Before sleep");
             [NSThread sleepForTimeInterval:_captureDelay];//_captureDelay];
             //NSLog(@"After sleep");

@@ -15,23 +15,19 @@
 
 @interface CaptureViewController : UIViewController<BLEDelegate>
 
-@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *aiv;
-@property (weak, nonatomic) IBOutlet UIButton *captureButton;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *aiv;
+@property (strong, nonatomic) IBOutlet UIButton *captureButton;
 @property (strong, nonatomic) IBOutlet UILabel *counterLabel;
-@property (nonatomic) int selectedLight;
+@property (assign, nonatomic) int selectedLight;
 @property (copy, nonatomic) NSString *selectedEye;
-@property (weak, nonatomic) IBOutlet UISwitch *swDigitalOut;
-
+@property (strong, nonatomic) IBOutlet UISwitch *swDigitalOut;
 @property (strong, nonatomic) BLE *ble;
-
-@property BOOL alreadyLoaded;
-
-
-
+@property (assign, nonatomic) BOOL alreadyLoaded;
 @property (strong, nonatomic) Exam *currentExam;
-- (IBAction)didPressCapture:(id)sender;
 
+- (IBAction)didPressCapture:(id)sender;
 -(void) toggleAuxilaryLight: (NSInteger) light toggleON: (BOOL) switchON;
 -(AVCaptureConnection*)getVideoConnection;
 - (void)takeStillFromConnection:(AVCaptureConnection*)videoConnection;
+
 @end
