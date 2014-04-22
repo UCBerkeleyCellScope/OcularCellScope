@@ -59,15 +59,14 @@
 @synthesize ble;
 
 @synthesize alreadyLoaded;
-@synthesize swDigitalOut, bleLabel;
+@synthesize swDigitalOut;
 
 @synthesize bleDelay, flashDuration, timer;
 
 BOOL alreadyLoaded = NO;
 //BOOL capturing = NO;
 
-int redLightValue;
-int flashLightValue;
+BOOL withCallBack = NO;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -97,7 +96,9 @@ int flashLightValue;
 
 -(void) viewWillDisappear:(BOOL)animated{
     
-    
+    [self toggleAuxilaryLight:self.selectedLight toggleON:NO];
+    [self toggleAuxilaryLight: farRedLight toggleON:NO];
+
     [self lockFocus:NO];
     /*
     if (ble.activePeripheral)
@@ -113,45 +114,32 @@ int flashLightValue;
     _debugMode = [_prefs boolForKey:@"debugMode" ];
     _captureDelay = [_prefs floatForKey:@"captureDelay" ];
     _numberOfImages = [_prefs integerForKey:@"numberOfImages"];
-   
-    //MAY NOT BE NECESSARY
-    [self.navigationItem setHidesBackButton:NO animated:YES];
-    
+    _timedFlash = [_prefs boolForKey:@"timedFlash"];
     
     NSLog(@"Debug Mode is: %d",_debugMode);
     
     bleDelay=[_prefs floatForKey: @"bleDelay"];
     flashDuration=[_prefs floatForKey: @"flashDuration"];
     
-    redLightValue = [_prefs integerForKey:@"redLightValue"];
-    flashLightValue = [_prefs integerForKey: @"flashLightValue"];
-    
-    [bleLabel setHidden:YES];
     
     if(_debugMode == YES){
         [captureButton setEnabled:YES];
-        [swDigitalOut setEnabled:NO];
         alreadyLoaded = YES;
-        [bleLabel setHidden:NO];
-        [_prefs setBool:YES forKey:@"timedFlash"];
-        
     }
     else if ( [[CellScopeContext sharedContext] connected] == NO){
         [aiv startAnimating];
         [captureButton setEnabled:NO];
         //[self btnScanForPeripherals];
     }
-    else{ //If debug == NO and connected = YES
+    else{
         //[_aiv stopAnimating];
         
         [captureButton setEnabled:YES];
         //The Code comes here if there is already a connection! CURRENTLY We are preventing this from being possible
         [self toggleAuxilaryLight:self.selectedLight toggleON:YES];
-        [self toggleAuxilaryLight: farRedLight toggleON:YES analogVal:redLightValue ];
+        [self toggleAuxilaryLight: farRedLight toggleON:YES];
         alreadyLoaded = YES;
     }
-    
-     _timedFlash = [_prefs boolForKey:@"timedFlash"];
     
 }
 
@@ -166,8 +154,109 @@ int flashLightValue;
     _imageArray = [[NSMutableArray alloc] init];    
 }
 
+/*
+- (void)btnScanForPeripherals
+{
+    
+        if (ble.activePeripheral)
+            if(ble.activePeripheral.state == CBPeripheralStateConnected){
+                [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
+            //[bleConnect setTitle:@"Connect"];
+            }
+    
+    if (ble.peripherals)
+        ble.peripherals = nil;
+    
+    //[bleConnect setEnabled:false];
+    [ble findBLEPeripherals:2];  //WHY IS THIS 2?
+    
+    [NSTimer scheduledTimerWithTimeInterval:(float)2.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
+    
+}
 
-- (void)timerFlash {
+-(void) connectionTimer:(NSTimer *)timer
+{
+    //[bleConnect setEnabled:true];
+    //[bleConnect setTitle: @"Disconnect"];
+    
+    if (ble.peripherals.count > 0)
+    {
+        [ble connectPeripheral:[ble.peripherals objectAtIndex:0]];
+        NSLog(@"At least attempting connection");
+        
+    }
+    else if(attempts < 2 && capturing == NO)
+    {
+        //[bleConnect setTitle:@"Connect"];
+        NSLog(@"No peripherals found, initiaiting attempt number %d", attempts);
+        [self btnScanForPeripherals];
+        attempts++;
+    }
+    else{
+        NSLog(@"Why didn't we exit??");
+        [_aiv stopAnimating];
+        [captureButton setEnabled:YES];
+    }
+}
+
+- (void)bleDidDisconnect
+{
+    NSLog(@"->Disconnected");
+    [self btnScanForPeripherals];
+    [[CellScopeContext sharedContext] setConnected: NO];
+    NSLog(@"Connected set back to NO");
+    swDigitalOut.enabled = false;
+}
+
+-(void) bleDidConnect
+{
+    [_aiv stopAnimating];
+    [captureButton setEnabled:YES];
+    UInt8 buf[] = {0x04, 0x00, 0x00}; //IDEA: Could have a corresponding LED blink to
+    //acknowledge reset on Arduino side (but this is done successfully in SimpleControls)
+    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
+    //[ble write:data];
+    NSLog(@"BLE has succesfully connected");
+
+    [[CellScopeContext sharedContext] setConnected: YES];
+    
+    //[self toggleAuxilaryLight:self.selectedLight toggleON:YES];
+    //[self toggleAuxilaryLight: farRedLight toggleON:YES];
+
+    swDigitalOut.enabled = true;
+    swDigitalOut.on = false;
+}
+
+// When data is comming, this will be called
+// Note that this will be multiple unsigned chars
+-(void) bleDidReceiveData:(unsigned char *)data length:(int)length
+{
+    NSLog(@"Length: %d", length);
+    
+    // parse data, all commands are in 3-byte
+    for (int i = 0; i < length; i+=3) //incrementing by 3
+    {
+        NSLog(@"0x%02X, 0x%02X, 0x%02X", data[i], data[i+1], data[i+2]);
+        
+        if (data[i] == 0x0A)
+        {
+ 
+//             if (data[i+1] == 0x01)
+//             swDigitalIn.on = true;
+//             else
+//             swDigitalIn.on = false;
+ 
+        }
+        else if (data[i] == 0x0B)
+        {
+            UInt16 Value;
+            Value = data[i+2] | data[i+1] << 8;
+            //lblAnalogIn.text = [NSString stringWithFormat:@"%d", Value];
+        }
+    }
+}
+*/
+- (void)timedFlash {
     //flashDuration;
     [self toggleAuxilaryLight:flashNumber toggleON:YES];
    
@@ -186,7 +275,7 @@ int flashLightValue;
 
 -(void) flashTimer: (NSTimer *) timer{
     [self toggleAuxilaryLight:flashNumber toggleON:NO];
-    NSLog(@"Timer! Flash Turning Off");
+    NSLog(@"YODEL");
     /*
     UInt8 passedHex = [[theTimer userInfo] intValue];
     
@@ -202,6 +291,8 @@ int flashLightValue;
 
 - (void)flashOn:(float) duration {
     
+    
+    withCallBack = YES;
     NSLog(@"Big Flash");
     /*
     NSNumber *n = [[NSNumber alloc] initWithInteger: flashNumber ];
@@ -235,84 +326,54 @@ int flashLightValue;
 }
 
 
--(void) toggleAuxilaryLight: (NSInteger) light toggleON: (BOOL) switchON
-                  analogVal: (int) val  {
-
-    NSNumber *n = [[NSNumber alloc] initWithInteger:light];
-    
-    
-    UInt8 hex = [n intValue];
-    NSString* lightName;
-    if (hex == flashNumber){
-        lightName = @"Flash Light";}
-    if (hex == farRedLight){
-        lightName = @"Far Red Light";}
-    if (hex == flashNoPingBack){
-        lightName = @"Flash Light NO PINGBACK";}
-    
-    if (switchON == YES)
-        NSLog(@"Switched Fixation Light %@ ON", lightName);
-    else
-        NSLog(@"Switched Fixation Light %@ OFF", lightName);
-    
-    
-    UInt8 sw;
-    if(switchON == YES){
-        sw = 0x01;
-    }
-    else{
-        sw = 0x00;
-    }
-    
-    UInt8 bufZ[3] = {hex, sw, val};
-    
-    int i = 0;
-    NSLog(@"0x%02X, 0x%02X, 0x%02X", bufZ[i], bufZ[i+1], bufZ[i+2]);
-    
-    NSData *data = [[NSData alloc] initWithBytes:bufZ length:3];
-    
-    [ble write:data];
-    
-}
 
 -(void) toggleAuxilaryLight: (NSInteger) light toggleON: (BOOL) switchON {
     
     NSNumber *n = [[NSNumber alloc] initWithInteger:light];
    
+    
     UInt8 hex = [n intValue];
+    if (switchON == YES)
+        NSLog(@"Switched Fixation Light %d ON", hex);
+    else
+        NSLog(@"Switched Fixation Light %d OFF", hex);
+    
     
     UInt8 sw;
     if(switchON == YES){
         sw = 0x01;
-        NSLog(@"Switched Fixation Light %d ON", hex);
     }
     else{
         sw = 0x00;
-        NSLog(@"Switched Fixation Light %d OFF", hex);
     }
     
-    
-    UInt8 bufZ[3] = {hex, sw, 0xFF}; //By Default the Fixation Lights are Powered at Full Blast
-    
-    
-    if(light==9){
-
-        flashLightValue=[_prefs floatForKey: @"flashLightValue"];
-        bufZ[2] = flashLightValue;
+    UInt8 callBack;
+    if(withCallBack==YES){
+        callBack = 0x01;
+    }
+    else{
+        callBack = 0x00;
     }
     
-    if(light==10){
-        
-        redLightValue=[_prefs floatForKey: @"redLightValue"];
-        bufZ[2] = redLightValue;
+    UInt8 bufZ[3] = {hex, sw, callBack};
+    
+    /*
+    UInt8 bufZ[3] = {0x0A, 0x00, 0x00}; //Left Light, Pin4
+    if(switchON ==YES){
+        bufZ[1] = 0x01; //turn on
     }
-            
+    else{
+        bufZ[1] = 0x00;
+    }
+     */
+     
     int i = 0;
     NSLog(@"0x%02X, 0x%02X, 0x%02X", bufZ[i], bufZ[i+1], bufZ[i+2]);
     
     NSData *data = [[NSData alloc] initWithBytes:bufZ length:3];
     
-    [ble write:data];
+    //NSLog(data.description);
+    //[ble write:data];
     
 }
 
@@ -391,6 +452,11 @@ int flashLightValue;
 	[_stillOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
      {
          
+         // Turn off flash
+         [self lockFocus:YES];
+         if (_debugMode == NO)
+             [self toggleAuxilaryLight:flashNumber toggleON:NO];
+         
          
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
          EImage *image = [[EImage alloc] initWithData: imageData
@@ -399,8 +465,6 @@ int flashLightValue;
                                         fixationLight: _selectedLight];
          NSLog(@"Capture selected Eye %@",_selectedEye);
          
-         if (_debugMode == NO)
-             [self toggleAuxilaryLight:flashNumber toggleON:NO];
          
          float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
          CGSize smallSize = [image size];
@@ -423,12 +487,10 @@ int flashLightValue;
          NSLog(@"Image %lu of %d",(unsigned long)[_imageArray count],_numberOfImages);
          
          // Once all images are captured, segue to the Image Selection View
-         
-         _numberOfImages = 4;
-         if([_imageArray count] == _numberOfImages){
-
+         if([_imageArray count] >= _numberOfImages){
+             NSLog(@"About to segue to ImageSelectionView");
              [self performSegueWithIdentifier:@"ImageSelectionSegue" sender:self];
-             return;
+             
          }
          
      }];
@@ -437,28 +499,13 @@ int flashLightValue;
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    
-    if ([[segue identifier] isEqualToString:@"ImageSelectionSegue"]){
-        [aiv stopAnimating];
-        
-        if(_debugMode == NO){
-            [self toggleAuxilaryLight:self.selectedLight toggleON:NO];
-            [self toggleAuxilaryLight: farRedLight toggleON:NO];
-            [self toggleAuxilaryLight: flashNumber toggleON:NO];
-        }
-        
-        self.navigationController.navigationBar.alpha = 1;
-        ImageSelectionViewController* isvc = (ImageSelectionViewController*)[segue destinationViewController];
-        isvc.images = _imageArray;
-        isvc.reviewMode = NO;
-    }
-    
-    else if ([[segue identifier] isEqualToString:@"SettingsViewSegue"]){
-    
-        //self.svc =  (SettingsViewController*)[segue destinationViewController];
-    }
-    
-    
+    [aiv stopAnimating];
+    [self toggleAuxilaryLight: 9 toggleON:NO];
+    self.navigationController.navigationBar.alpha = 1;
+    ImageSelectionViewController* isvc = (ImageSelectionViewController*)[segue destinationViewController];
+    isvc.images = _imageArray;
+    isvc.reviewMode = NO;
+
 }
 
 - (void) lockFocus: (bool) on {
@@ -512,19 +559,49 @@ int flashLightValue;
 }
 
 - (IBAction)didPressCapture:(id)sender {
+    /*
+    NSError *error2;
+    if ([self.device lockForConfiguration:&error2]){
+        //if (focus==1) {
+        //  focus=0;
+        if ([self.device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
+            
+            CGPoint autofocusPoint = CGPointMake(0.5f, 0.5f);
+            
+            [self.device setFocusPointOfInterest:autofocusPoint];
+            
+            [self.device setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
+            NSLog(@"continuous auto focus on");
+        }
+        //change button title to lock
+        //     [sender setTitle:@"Lock Focus" forState:UIControlStateNormal];
+        // }
+        
+     
+//         else if (focus==0){
+//         focus=1;
+//         if ([self.device isFocusModeSupported:AVCaptureFocusModeLocked]) {
+//         [self.device setFocusMode:AVCaptureFocusModeLocked];
+//         NSLog(@"changing focus to locked");
+//         }
+//         //change button title to unlock
+//         [sender setTitle:@"Unlock Focus" forState:UIControlStateNormal];
+//         }
+     
+        [self.device unlockForConfiguration];
+    }
+    */
     
-    swDigitalOut.enabled = false;
+    
+    //swDigitalOut.enabled = false;
     [captureButton setEnabled:NO];
     
-    
-    if(_debugMode == NO){
-        [self toggleAuxilaryLight: flashNumber toggleON:NO];
-        [self toggleAuxilaryLight:self.selectedLight toggleON:NO];
-        [self toggleAuxilaryLight:farRedLight toggleON:NO];
-    }
+    /*
+    [self toggleAuxilaryLight: flashNumber toggleON:NO];
 
-    // Turn off flash
-    [self lockFocus:YES];
+    [self toggleAuxilaryLight:self.selectedLight toggleON:NO];
+    [self toggleAuxilaryLight:farRedLight toggleON:NO];
+     */
     
     //capturing = YES;
     
@@ -539,28 +616,24 @@ int flashLightValue;
         for(int index = 1; index <= _numberOfImages; ++index){
             
             NSLog(@"Spawned a thread.");
-            /*
+            
              [[NSOperationQueue mainQueue] addOperationWithBlock:^{
              
              _counterLabel.text = [NSString stringWithFormat:@"%d/%d",index,_numberOfImages];
              NSLog(@"Image %d of %d",index,_numberOfImages);
              
              }];
-             */
+            
             //NSLog(@"Before sleep");
             [NSThread sleepForTimeInterval:_captureDelay];//_captureDelay];
             //NSLog(@"After sleep");
             
             if(_timedFlash == NO){
                 [self flashOn: 0.1];
-                //Turn Flash on and wait for pingback
             //[self takeStillFromConnection:videoConnection];
             }
-            else if (_timedFlash == YES && _debugMode == NO){
-                [self timerFlash];
-                [self takeStillFromConnection:videoConnection];
-            }
-            else if (_timedFlash == YES && _debugMode == YES){
+            else{
+                [self timedFlash];
                 [self takeStillFromConnection:videoConnection];
             }
         }

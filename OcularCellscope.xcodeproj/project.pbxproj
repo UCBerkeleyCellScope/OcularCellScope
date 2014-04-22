@@ -96,6 +96,11 @@
 		F38224B618F7BB3F00D861FE /* retina_icon_left.png in Resources */ = {isa = PBXBuildFile; fileRef = F38224B118F7BB3F00D861FE /* retina_icon_left.png */; };
 		F38224B718F7BB3F00D861FE /* retina_icon_right.png in Resources */ = {isa = PBXBuildFile; fileRef = F38224B218F7BB3F00D861FE /* retina_icon_right.png */; };
 		F38224B818F7BB3F00D861FE /* retina_icon_top.png in Resources */ = {isa = PBXBuildFile; fileRef = F38224B318F7BB3F00D861FE /* retina_icon_top.png */; };
+		F385B2FE1900E31E00A3F974 /* CamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B2FD1900E31E00A3F974 /* CamViewController.m */; };
+		F385B3011900E66400A3F974 /* OCSBluetooth.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3001900E66400A3F974 /* OCSBluetooth.m */; };
+		F385B3041900E6E200A3F974 /* Light.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3031900E6E200A3F974 /* Light.m */; };
+		F385B30A1900F85B00A3F974 /* AVCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3091900F85B00A3F974 /* AVCaptureManager.m */; };
+		F3A6034D18FE6A5F006BFFEC /* settings_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F3A6034C18FE6A5F006BFFEC /* settings_icon.png */; };
 		F3FA32CB18B5E4B7000FACF4 /* im1.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C718B5E4B7000FACF4 /* im1.png */; };
 		F3FA32CC18B5E4B7000FACF4 /* im2.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C818B5E4B7000FACF4 /* im2.png */; };
 		F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C918B5E4B7000FACF4 /* im3.png */; };
@@ -252,6 +257,15 @@
 		F38224B118F7BB3F00D861FE /* retina_icon_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retina_icon_left.png; sourceTree = "<group>"; };
 		F38224B218F7BB3F00D861FE /* retina_icon_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retina_icon_right.png; sourceTree = "<group>"; };
 		F38224B318F7BB3F00D861FE /* retina_icon_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retina_icon_top.png; sourceTree = "<group>"; };
+		F385B2FC1900E31E00A3F974 /* CamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CamViewController.h; sourceTree = "<group>"; };
+		F385B2FD1900E31E00A3F974 /* CamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CamViewController.m; sourceTree = "<group>"; };
+		F385B2FF1900E66400A3F974 /* OCSBluetooth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSBluetooth.h; sourceTree = "<group>"; };
+		F385B3001900E66400A3F974 /* OCSBluetooth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSBluetooth.m; sourceTree = "<group>"; };
+		F385B3021900E6E200A3F974 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
+		F385B3031900E6E200A3F974 /* Light.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Light.m; sourceTree = "<group>"; };
+		F385B3081900F85B00A3F974 /* AVCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCaptureManager.h; sourceTree = "<group>"; };
+		F385B3091900F85B00A3F974 /* AVCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCaptureManager.m; sourceTree = "<group>"; };
+		F3A6034C18FE6A5F006BFFEC /* settings_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_icon.png; sourceTree = "<group>"; };
 		F3E8F33E185554FD00B1520F /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		F3E8F33F185554FD00B1520F /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		F3FA32C418B5D6BF000FACF4 /* ImageSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectionViewController.h; sourceTree = "<group>"; };
@@ -370,6 +384,12 @@
 				60C1AE1A18F3507E00902F28 /* UIKit+AFNetworking */,
 				F325703B18D366FE00FEA80E /* EImage.h */,
 				F325703C18D366FE00FEA80E /* EImage.m */,
+				F385B3081900F85B00A3F974 /* AVCaptureManager.h */,
+				F385B3091900F85B00A3F974 /* AVCaptureManager.m */,
+				F385B2FF1900E66400A3F974 /* OCSBluetooth.h */,
+				F385B3001900E66400A3F974 /* OCSBluetooth.m */,
+				F385B3021900E6E200A3F974 /* Light.h */,
+				F385B3031900E6E200A3F974 /* Light.m */,
 				60D8C7D018C6BF87007D26A7 /* Constants.h */,
 				60D8C7D118C6BF87007D26A7 /* Constants.m */,
 				60C2A51B18C19F2800021510 /* CellScopeContext.h */,
@@ -418,6 +438,8 @@
 				60AECE6618D8CD1A00C4EA15 /* Main.storyboard */,
 				60C1AE0018F346E700902F28 /* DiagnosisViewController.h */,
 				60C1AE0118F346E700902F28 /* DiagnosisViewController.m */,
+				F385B2FC1900E31E00A3F974 /* CamViewController.h */,
+				F385B2FD1900E31E00A3F974 /* CamViewController.m */,
 				F3FA32CF18B8205B000FACF4 /* CaptureViewController.h */,
 				F3FA32D018B8205B000FACF4 /* CaptureViewController.m */,
 				6DD89D8B1842862F00F3C7FC /* MainMenuViewController.h */,
@@ -436,16 +458,9 @@
 				603B077918DD26E2002179CD /* SettingsViewController.m */,
 				60418F2C189BB2ED0001D490 /* ImageCell.h */,
 				60418F2D189BB2ED0001D490 /* ImageCell.m */,
-				6DD89D851842773B00F3C7FC /* PatientInfoViewController.h */,
-				6DD89D861842773B00F3C7FC /* PatientInfoViewController.m */,
-				6DD89D831842743700F3C7FC /* CameraViewController.h */,
-				6DD89D821842743700F3C7FC /* CameraViewController.m */,
-				60418F29189BA83B0001D490 /* ImagesViewController.h */,
-				60418F2A189BA83B0001D490 /* ImagesViewController.m */,
 				60C1AE0318F34DD400902F28 /* PatientTableViewCell.h */,
 				60C1AE0418F34DD400902F28 /* PatientTableViewCell.m */,
-				F3E8F33E185554FD00B1520F /* DetailViewController.h */,
-				F3E8F33F185554FD00B1520F /* DetailViewController.m */,
+				F385B2FB1900E20F00A3F974 /* Old View Controllers */,
 				6D2D5DCE18318D9F00A58A96 /* Images.xcassets */,
 				6D2D5DBD18318D9F00A58A96 /* Supporting Files */,
 			);
@@ -507,6 +522,7 @@
 			children = (
 				F38224AF18F7BB3F00D861FE /* retina_icon_bottom.png */,
 				F38224B018F7BB3F00D861FE /* retina_icon_center.png */,
+				F3A6034C18FE6A5F006BFFEC /* settings_icon.png */,
 				F38224B118F7BB3F00D861FE /* retina_icon_left.png */,
 				F38224B218F7BB3F00D861FE /* retina_icon_right.png */,
 				F38224B318F7BB3F00D861FE /* retina_icon_top.png */,
@@ -533,6 +549,21 @@
 				F356909218559CC700DBB4BE /* button_addpatients.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		F385B2FB1900E20F00A3F974 /* Old View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6DD89D851842773B00F3C7FC /* PatientInfoViewController.h */,
+				6DD89D861842773B00F3C7FC /* PatientInfoViewController.m */,
+				6DD89D831842743700F3C7FC /* CameraViewController.h */,
+				6DD89D821842743700F3C7FC /* CameraViewController.m */,
+				60418F29189BA83B0001D490 /* ImagesViewController.h */,
+				60418F2A189BA83B0001D490 /* ImagesViewController.m */,
+				F3E8F33E185554FD00B1520F /* DetailViewController.h */,
+				F3E8F33F185554FD00B1520F /* DetailViewController.m */,
+			);
+			name = "Old View Controllers";
 			sourceTree = "<group>";
 		};
 		F3FA32BB18B5D607000FACF4 /* test_images */ = {
@@ -645,6 +676,7 @@
 				F38224B618F7BB3F00D861FE /* retina_icon_left.png in Resources */,
 				F38224B418F7BB3F00D861FE /* retina_icon_bottom.png in Resources */,
 				6D2D5DCF18318D9F00A58A96 /* Images.xcassets in Resources */,
+				F3A6034D18FE6A5F006BFFEC /* settings_icon.png in Resources */,
 				F325704518D3911200FEA80E /* unselected_icon.png in Resources */,
 				F358E316185A82E600872304 /* capture2.png in Resources */,
 				F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */,
@@ -689,6 +721,7 @@
 				60C1AE0518F34DD400902F28 /* PatientTableViewCell.m in Sources */,
 				60C1AE3C18F3507E00902F28 /* UIWebView+AFNetworking.m in Sources */,
 				60C1AE2D18F3507E00902F28 /* AFHTTPRequestOperationManager.m in Sources */,
+				F385B3011900E66400A3F974 /* OCSBluetooth.m in Sources */,
 				60D8C7BD18C69BB1007D26A7 /* CellScopeContext.m in Sources */,
 				60C1AE3518F3507E00902F28 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				60D8C7C018C69BB1007D26A7 /* CoreDataController.m in Sources */,
@@ -713,6 +746,7 @@
 				60C1AE3A18F3507E00902F28 /* UIProgressView+AFNetworking.m in Sources */,
 				60D8C7C818C69BB1007D26A7 /* CameraViewController.m in Sources */,
 				60D8C7C918C69BB1007D26A7 /* ImagesViewController.m in Sources */,
+				F385B2FE1900E31E00A3F974 /* CamViewController.m in Sources */,
 				60C1AE3718F3507E00902F28 /* UIAlertView+AFNetworking.m in Sources */,
 				60533D2218D8454D00FF336E /* Exam.m in Sources */,
 				60D8C7CA18C69BB1007D26A7 /* PatientsTableViewController.m in Sources */,
@@ -721,10 +755,12 @@
 				F325703218D1A9AE00FEA80E /* UIImage+RoundedCorner.m in Sources */,
 				603B077318DCB8F1002179CD /* BSKeyboardControls.m in Sources */,
 				60D8C7CC18C69BB1007D26A7 /* main.m in Sources */,
+				F385B30A1900F85B00A3F974 /* AVCaptureManager.m in Sources */,
 				60C1AE3118F3507E00902F28 /* AFURLConnectionOperation.m in Sources */,
 				60D8C7CE18C69BB2007D26A7 /* BLE.m in Sources */,
 				603C44FD18DAE72F00402AE1 /* ExamInfoViewController.m in Sources */,
 				60D8C7D218C6BF87007D26A7 /* Constants.m in Sources */,
+				F385B3041900E6E200A3F974 /* Light.m in Sources */,
 				603B077A18DD26E2002179CD /* SettingsViewController.m in Sources */,
 				60C1AE3818F3507E00902F28 /* UIButton+AFNetworking.m in Sources */,
 				F325703018D1A9AE00FEA80E /* UIImage+Alpha.m in Sources */,

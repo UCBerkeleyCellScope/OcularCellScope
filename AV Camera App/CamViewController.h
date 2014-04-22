@@ -1,0 +1,33 @@
+//
+//  CamViewController.h
+//  OcularCellscope
+//
+//  Created by Chris Echanique on 4/17/14.
+//  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "CellScopeContext.h"
+#import "OCSBluetooth.h"
+#import "AVCaptureManager.h"
+@interface CamViewController : UIViewController<ImageCaptureDelegate>
+
+@property (strong, nonatomic) OCSBluetooth *bluetoothSystem;
+@property (strong, nonatomic) AVCaptureManager *captureManager;
+@property (assign, nonatomic) int currentImageCount;
+@property (weak, nonatomic) NSTimer *repeatingTimer;
+@property (strong, nonatomic) NSMutableArray *imageArray;
+@property (strong, nonatomic) IBOutlet UILabel *counterLabel;
+@property (strong, nonatomic) IBOutlet UIButton *captureButton;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *aiv;
+@property (strong, nonatomic) IBOutlet UIButton *settingsButton;
+@property (strong, nonatomic) IBOutlet UIImageView *capturedImageView;
+@property (strong, nonatomic) IBOutlet UIButton *pauseButton;
+
+@property (assign, nonatomic) int selectedLight;
+@property (copy, nonatomic) NSString *selectedEye;
+
+- (IBAction)didPressCapture:(id)sender;
+
+
+@end

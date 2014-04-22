@@ -60,11 +60,10 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    
     [super viewWillAppear:(BOOL) animated];
+        
+    NSLog(@"Seg Back, even from ImageSelection");
     
-    [[[CellScopeContext sharedContext]cvc]  toggleAuxilaryLight:[[CellScopeContext sharedContext]cvc].selectedLight toggleON:NO];
-    [[[CellScopeContext sharedContext]cvc]  toggleAuxilaryLight:farRedLight toggleON:NO];
     
     [self setSelectedEye:  [[CellScopeContext sharedContext]selectedEye] ];
     
@@ -196,12 +195,11 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     self.selectedLight = [sender tag];
     
     if( [sender isSelected] == NO){
-
-        [self performSegueWithIdentifier:@"CaptureViewSegue" sender:(id)sender];
+        //there are pictures!
+        [self performSegueWithIdentifier:@"CamViewSegue" sender:(id)sender];
     }
     
     else if([sender isSelected] == YES ){
-        //there are pictures!    
         [self performSegueWithIdentifier:@"ImageReviewSegue" sender:(id)sender];
     }
     
@@ -227,9 +225,9 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"CaptureViewSegue"])
+    if ([[segue identifier] isEqualToString:@"CamViewSegue"])
     {
-        NSLog(@"Preparing for CaptureViewSegue");
+        NSLog(@"Preparing for CamViewSegue");
         CaptureViewController* cvc = (CaptureViewController*)[segue destinationViewController];
         //cvc.selectedEye = self.selectedEye;
         cvc.selectedLight = self.selectedLight;

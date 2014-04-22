@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "CellScopeContext.h"
-#import "SettingsViewController.h"
 
 @import AVFoundation;
 @import AssetsLibrary;
@@ -16,29 +15,19 @@
 
 @interface CaptureViewController : UIViewController<BLEDelegate>
 
-@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *aiv;
-@property (weak, nonatomic) IBOutlet UIButton *captureButton;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *aiv;
+@property (strong, nonatomic) IBOutlet UIButton *captureButton;
 @property (strong, nonatomic) IBOutlet UILabel *counterLabel;
-@property (nonatomic) int selectedLight;
+@property (assign, nonatomic) int selectedLight;
 @property (copy, nonatomic) NSString *selectedEye;
-@property (weak, nonatomic) IBOutlet UISwitch *swDigitalOut;
-@property (weak, nonatomic) IBOutlet UILabel *bleLabel;
-
+@property (strong, nonatomic) IBOutlet UISwitch *swDigitalOut;
 @property (strong, nonatomic) BLE *ble;
-
-//@property SettingsViewController *svc;
-
-
-
-@property BOOL alreadyLoaded;
-
-
-
+@property (assign, nonatomic) BOOL alreadyLoaded;
 @property (strong, nonatomic) Exam *currentExam;
+
 - (IBAction)didPressCapture:(id)sender;
 -(void) toggleAuxilaryLight: (NSInteger) light toggleON: (BOOL) switchON;
 -(AVCaptureConnection*)getVideoConnection;
--(void)takeStillFromConnection:(AVCaptureConnection*)videoConnection;
--(void) toggleAuxilaryLight: (NSInteger) light toggleON: (BOOL) switchON
-                  analogVal: (int) val;
+- (void)takeStillFromConnection:(AVCaptureConnection*)videoConnection;
+
 @end
