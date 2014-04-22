@@ -58,7 +58,6 @@
         
         // 3
         self.diagnosis = (NSDictionary *)responseObject;
-        self.title = @"JSON Retrieved";
         
         [diagnosisTitle setText: self.diagnosis[@"diagnosisTitle"]];
 

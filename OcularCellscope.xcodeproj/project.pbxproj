@@ -625,6 +625,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "NAYA LOUMOU";
 				TargetAttributes = {
+					6D2D5DB218318D9F00A58A96 = {
+						DevelopmentTeam = 4344E54GZY;
+					};
 					6D2D5DD318318D9F00A58A96 = {
 						TestTargetID = 6D2D5DB218318D9F00A58A96;
 					};
@@ -893,7 +896,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ocular  Cell Scope (D5TKXMUM96)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -915,7 +918,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ocular  Cell Scope (D5TKXMUM96)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -19,7 +19,7 @@
 @synthesize ble;
 @synthesize cvc;
 @synthesize prefs = _prefs;
-
+@synthesize debugMode;
 
 int attempts = 0;
 BOOL capturing = NO;
@@ -34,12 +34,19 @@ BOOL capturing = NO;
     NSDictionary* defaultPreferences = [NSDictionary dictionaryWithContentsOfFile:defaultPrefsFile];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPreferences];
     
+    _prefs = [NSUserDefaults standardUserDefaults];
+    debugMode = [_prefs boolForKey:@"debugMode" ];
+    
+
+    
     [[CellScopeContext sharedContext] setManagedObjectContext:self.managedObjectContext];
     
     [[CellScopeContext sharedContext] setBle: ble];
     
-    [self btnScanForPeripherals];
     
+    if(debugMode == NO){
+        [self btnScanForPeripherals];
+    }
     //self.cvc = [[CellScopeContext sharedContext] cvc ];
     
     return YES;
@@ -115,7 +122,7 @@ BOOL capturing = NO;
 - (void)bleDidDisconnect
 {
     NSLog(@"->Disconnected");
-    [self btnScanForPeripherals];
+    //[self btnScanForPeripherals];
     [[CellScopeContext sharedContext] setConnected: NO];
     NSLog(@"Connected set back to NO");
 

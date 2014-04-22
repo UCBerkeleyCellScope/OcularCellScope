@@ -24,10 +24,12 @@
 @property (strong, nonatomic) BLE *ble;
 @property (strong, nonatomic) CaptureViewController *cvc;
 @property(nonatomic, strong) NSUserDefaults *prefs;
+@property BOOL debugMode;
+
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
-
+- (void)btnScanForPeripherals;
 @end
 
 
