@@ -1,0 +1,235 @@
+//
+//  IlluminationSystem.m
+//  OcularCellscope
+//
+//  Created by Chris Echanique on 4/17/14.
+//  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
+//
+
+#import "BLEManager.h"
+
+
+@implementation BLEManager
+
+@synthesize redLight = _redLight;
+@synthesize whiteLight = _whiteLight;
+@synthesize whitePing = _whitePing;
+@synthesize fixationLights = _fixationLights;
+@synthesize ble;
+@synthesize prefs = _prefs;
+@synthesize debugMode;
+
+@synthesize selectedLight = _selectedLight;
+@synthesize BLECdelegate = _BLECdelegate;
+
+
+int attempts = 0;
+BOOL capturing = NO;
+
+-(id)init{
+    self = [super init];
+    if(self){
+        ble = [[BLE alloc] init];
+        [ble controlSetup];
+        ble.delegate = self;
+     
+        [[CellScopeContext sharedContext] setBle: ble];
+        
+        _prefs = [NSUserDefaults standardUserDefaults];
+
+        int r_i = [_prefs integerForKey:@"redLightValue"];
+        int w_i = [_prefs integerForKey:@"flashLightValue"];
+        
+        self.redLight = [[Light alloc] initWithBLE:self pin:RED_LIGHT intensity: r_i ];
+        self.whiteLight = [[Light alloc] initWithBLE:self pin:WHITE_LIGHT intensity: w_i ];
+        self.whitePing = [[Light alloc] initWithBLE:self pin:WHITE_PING intensity: w_i];
+
+        _prefs = [NSUserDefaults standardUserDefaults];
+        debugMode = [_prefs boolForKey:@"debugMode" ];
+        
+        
+        NSMutableArray *lights = [[NSMutableArray alloc] init];
+        for(int i = 1; i <= 5; ++i){
+            [lights addObject:[[Light alloc] initWithBLE:self pin: i intensity: 255]];
+        }
+        self.fixationLights = lights;
+    }
+    return self;
+}
+
+
+- (void)btnScanForPeripherals
+{
+    
+    if (ble.activePeripheral)
+        if(ble.activePeripheral.state == CBPeripheralStateConnected){
+            [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
+            
+        }
+    
+    if (ble.peripherals)
+        ble.peripherals = nil;
+    
+    [ble findBLEPeripherals:2];  //WHY IS THIS 2?
+    
+    [NSTimer scheduledTimerWithTimeInterval:(float)2.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
+    
+}
+
+- (void) connectionTimer:(NSTimer *)timer
+{
+    
+    if (ble.peripherals.count > 0)
+    {
+        [ble connectPeripheral:[ble.peripherals objectAtIndex:0]];
+        NSLog(@"At least attempting connection");
+        
+    }
+    else if(attempts < 2 && capturing == NO)
+    {
+        //[bleConnect setTitle:@"Connect"];
+        NSLog(@"No peripherals found, initiaiting attempt number %d", attempts);
+        [self btnScanForPeripherals];
+        attempts++;
+    }
+    else{
+        NSLog(@"Why didn't we exit??");
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Bluetooth could not connect. Check that the Ocular CellScope is fully charged and switched on."
+                                                            message:nil                                                           delegate:self
+                                                  cancelButtonTitle:@"Try Again"
+                                                  otherButtonTitles:@"Use without BLE",nil];
+        [alertView show];
+        
+    }
+}
+
+-(void) disconnect{
+    if (ble.activePeripheral)
+        if(ble.activePeripheral.state == CBPeripheralStateConnected){
+            [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
+        }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0){
+        NSLog(@"user pressed Try Again");
+        attempts = 0;
+        [self btnScanForPeripherals];
+    }
+    else {
+        _prefs = [NSUserDefaults standardUserDefaults];
+        [_prefs setValue: @YES forKey:@"debugMode" ];
+        id<BLEConnectionDelegate> strongDelegate = self.BLECdelegate;
+        [strongDelegate didReceiveNoBLEConfirmation];
+    }
+}
+
+- (void)bleDidDisconnect
+{
+    NSLog(@"->Disconnected");
+    //[self btnScanForPeripherals];
+    [[CellScopeContext sharedContext] setConnected: NO];
+    NSLog(@"Connected set back to NO");
+    
+}
+
+-(void) bleDidConnect
+{
+    NSLog(@"BLE has succesfully connected");
+    [self turnOffAllLights];
+    
+    id<BLEConnectionDelegate> strongDelegate = self.BLECdelegate;
+    [strongDelegate didReceiveConnectionConfirmation];
+    
+    [[CellScopeContext sharedContext] setConnected: YES];
+    
+    [self.redLight turnOn];
+    [[self.fixationLights objectAtIndex:
+      [[CellScopeContext sharedContext] selectedLight]] turnOn];
+
+}
+
+
+-(void) bleDidReceiveData:(unsigned char *)data length:(int)length
+{
+    NSLog(@"Length: %d", length);
+    
+    // parse data, all commands are in 3-byte
+    for (int i = 0; i < length; i+=3) //incrementing by 3
+    {
+        NSLog(@"RECEIVED: 0x%02X, 0x%02X, 0x%02X", data[i], data[i+1], data[i+2]);
+        
+        if (data[i] == 0x0A)
+        {
+
+        }
+        else if (data[i] == 0x0B)
+        {
+            UInt16 Value;
+            Value = data[i+2] | data[i+1] << 8;
+        }
+    }
+    
+    if(data[0]==0xFF && data[1]==0xFF){
+        id<BLEConnectionDelegate> strongDelegate = self.BLECdelegate;
+        [strongDelegate didReceiveFlashConfirmation];
+        
+        /*
+        
+        self.cvc = [[CellScopeContext sharedContext] cvc ];
+        AVCaptureConnection *videoConnection = [self.cvc getVideoConnection];
+        [self.cvc takeStillFromConnection:videoConnection];
+         
+         */
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-(void)turnOffAllLights{
+    UInt8 buf[] = {0xFF, 0x00, 0x00};
+    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
+    [ble write:data];
+}
+
+-(void)timedFlash{
+    [self turnOffAllLights];
+    [self.whiteLight turnOn];
+    NSNumber *duration = [[NSUserDefaults standardUserDefaults] objectForKey:@"flashDuration"];
+    [NSTimer scheduledTimerWithTimeInterval:[duration doubleValue] target:self.whiteLight selector:@selector(turnOff) userInfo:nil repeats:NO];
+}
+
+-(void)activatePinForLight:(Light *)light {
+    UInt8 buf[] = {light.pin, 0x01, light.intensity};
+    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
+//    buf[0] = light.pin;
+//    buf[1] = 0x01;
+//    buf[2] = light.intensity;
+    int i = 0;
+    NSLog(@"0x%02X, 0x%02X, 0x%02X", buf[i], buf[i+1], buf[i+2]);
+    [ble write:data];
+}
+
+-(void)deactivatePinForLight:(Light *)light{
+    UInt8 buf[] = {light.pin, 0x00, 0x00};
+    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
+    int i = 0;
+    NSLog(@"0x%02X, 0x%02X, 0x%02X", buf[i], buf[i+1], buf[i+2]);
+    [ble write:data];
+}
+
+@end

@@ -19,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *topFixationButton;
 @property (weak, nonatomic) IBOutlet UIButton *noFixationButton;
 
+@property (strong, nonatomic) BLEManager *bleManager;
+
 @property (copy,nonatomic) NSString *selectedEye;
 @property (nonatomic) int selectedLight;
 

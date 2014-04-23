@@ -7,18 +7,27 @@
 //
 
 #import <Foundation/Foundation.h>
-@class OCSBluetooth;
+#define CENTER_LIGHT 1
+#define TOP_LIGHT 2
+#define BOTTOM_LIGHT 3
+#define LEFT_LIGHT 4
+#define RIGHT_LIGHT 5
+#define RED_LIGHT 9
+#define WHITE_LIGHT 10
+#define WHITE_PING 11
+
+@class BLEManager;
 
 @interface Light : NSObject
 
 @property (assign, nonatomic) BOOL isOn;
 @property (assign, nonatomic) int intensity;
 @property (assign, nonatomic) int pin;
-@property (weak, nonatomic) OCSBluetooth *bluetoothSystem;
+@property (weak, nonatomic) BLEManager *bluetoothSystem;
 
 -(void)toggleLight;
 -(void)turnOff;
 -(void)turnOn;
--(id)initWithBLE:(OCSBluetooth *)bluetooth;
+-(id)initWithBLE:(BLEManager *)bluetooth pin:(int)p intensity:(int)i;
 
 @end

@@ -12,8 +12,9 @@
 #import "PatientsTableViewController.h"
 #import "MainMenuViewController.h"
 #import "CaptureViewController.h"
+#import "BLEManager.h"
 
-@interface CameraAppDelegate : UIResponder <UIApplicationDelegate, BLEDelegate, UIAlertViewDelegate>
+@interface CameraAppDelegate : UIResponder <UIApplicationDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
@@ -29,7 +30,7 @@
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
-- (void)btnScanForPeripherals;
+
 @end
 
 

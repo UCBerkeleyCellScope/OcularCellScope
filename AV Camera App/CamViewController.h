@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "CellScopeContext.h"
-#import "OCSBluetooth.h"
+#import "BLEManager.h"
 #import "AVCaptureManager.h"
-@interface CamViewController : UIViewController<ImageCaptureDelegate>
 
-@property (strong, nonatomic) OCSBluetooth *bluetoothSystem;
+
+@interface CamViewController : UIViewController<ImageCaptureDelegate, BLEConnectionDelegate>
+
+@property (strong, nonatomic) BLEManager *bleManager;
 @property (strong, nonatomic) AVCaptureManager *captureManager;
 @property (assign, nonatomic) int currentImageCount;
 @property (weak, nonatomic) NSTimer *repeatingTimer;
@@ -26,6 +28,8 @@
 
 @property (assign, nonatomic) int selectedLight;
 @property (copy, nonatomic) NSString *selectedEye;
+@property (strong, nonatomic) NSUserDefaults *prefs;
+
 
 - (IBAction)didPressCapture:(id)sender;
 

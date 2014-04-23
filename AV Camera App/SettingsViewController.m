@@ -26,6 +26,8 @@
 
 @synthesize flashLightSlider, redLightSlider, flashLightValue, redLightValue, flashLightLabel, redLightLabel, multiText, debugToggle,bleDelay,captureDelay,flashDuration,multiShot, timedFlashSwitch;
 
+@synthesize bleManager = _bleManager;
+
 BOOL debugMode;
 int flash2=0;
 int red2=0;
@@ -55,6 +57,10 @@ uint64_t        elapsed;
     navigItem.rightBarButtonItem = doneItem;
     naviBarObj.items = [NSArray arrayWithObjects: navigItem,nil];
     */
+    
+    _bleManager = [[CellScopeContext sharedContext]bleManager];
+    
+    
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)];
     [self.tableView addGestureRecognizer:gestureRecognizer];
     
@@ -158,27 +164,15 @@ uint64_t        elapsed;
     if(debugToggle.on == YES){
         debugMode = YES;
         [_prefs setValue: @YES forKey:@"debugMode" ];
-        [[[CellScopeContext sharedContext]cvc]toggleAuxilaryLight:0x0B toggleON:NO
-                                                        ]; //0x0B means with no pingback
-        [[[CellScopeContext sharedContext]cvc]toggleAuxilaryLight:farRedLight toggleON:NO
-                                                        ];
-        [[[CellScopeContext sharedContext]cvc]toggleAuxilaryLight: [[CellScopeContext sharedContext]cvc].selectedLight toggleON:NO
-         ];
         
-        BLE* ble = [[CellScopeContext sharedContext]ble];
-        
-        if (ble.activePeripheral)
-            if(ble.activePeripheral.state == CBPeripheralStateConnected){
-                [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
-            }
+        [_bleManager turnOffAllLights];
+        [_bleManager disconnect];
     }
     else if(debugToggle.on == NO){
         debugMode = NO;
         [_prefs setValue: @NO forKey:@"debugMode" ];
         [timedFlashSwitch setEnabled:YES];
-        
-        CameraAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-        [appDelegate btnScanForPeripherals];
+        [_bleManager btnScanForPeripherals];
     }
     
     NSLog(@"ToggleChange to %d",debugToggle.on);
@@ -189,28 +183,18 @@ uint64_t        elapsed;
 - (IBAction)flashSliderDidChange:(id)sender {
     flashLightLabel.text = [NSString stringWithFormat: @"%d", (int)flashLightSlider.value];
     
-    //int power = (255-self.flashLightSlider.value);
-    
-    //int hi = CACurrentMediaTime();
-    
-    [[[CellScopeContext sharedContext]cvc]toggleAuxilaryLight:flashNoPingBack toggleON:YES
-                                                        analogVal:self.flashLightSlider.value];
- 
-    //self.flashLightSlider.value
+    [[_bleManager whiteLight] setIntensity:flashLightSlider.value];
 }
 
 - (IBAction)redSliderDidChange:(id)sender {
-       redLightLabel.text = [NSString stringWithFormat: @"%d", (int)redLightSlider.value];
-    
-    //int power = (255-self.redLightSlider.value);
-    
+    redLightLabel.text = [NSString stringWithFormat: @"%d", (int)redLightSlider.value];
+
     start = mach_absolute_time();
 
-    
     if(start-end>=1000){
     
-    [[[CellScopeContext sharedContext]cvc]toggleAuxilaryLight:farRedLight toggleON:YES
-                                                    analogVal:self.redLightSlider.value];
+    [[_bleManager redLight] setIntensity:flashLightSlider.value];
+        
        end = start;
     }
     

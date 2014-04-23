@@ -21,14 +21,9 @@
 @synthesize prefs = _prefs;
 @synthesize debugMode;
 
-int attempts = 0;
-BOOL capturing = NO;
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    ble = [[BLE alloc] init];
-    [ble controlSetup];
-    ble.delegate = self;
+
     
     NSString* defaultPrefsFile = [[NSBundle mainBundle] pathForResource:@"default-configuration" ofType:@"plist"];
     NSDictionary* defaultPreferences = [NSDictionary dictionaryWithContentsOfFile:defaultPrefsFile];
@@ -37,164 +32,20 @@ BOOL capturing = NO;
     _prefs = [NSUserDefaults standardUserDefaults];
     debugMode = [_prefs boolForKey:@"debugMode" ];
     
-
+    BLEManager * blem = [[BLEManager alloc]init];
     
     [[CellScopeContext sharedContext] setManagedObjectContext:self.managedObjectContext];
     
-    [[CellScopeContext sharedContext] setBle: ble];
-    
+    [[CellScopeContext sharedContext] setBleManager:blem ];
     
     if(debugMode == NO){
-        [self btnScanForPeripherals];
+        [blem btnScanForPeripherals];
     }
     //self.cvc = [[CellScopeContext sharedContext] cvc ];
     
     return YES;
 }
 
-- (void)btnScanForPeripherals
-{
-    
-    if (ble.activePeripheral)
-        if(ble.activePeripheral.state == CBPeripheralStateConnected){
-            [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
-     
-        }
-    
-    if (ble.peripherals)
-        ble.peripherals = nil;
-    
-    [ble findBLEPeripherals:2];  //WHY IS THIS 2?
-    
-    [NSTimer scheduledTimerWithTimeInterval:(float)2.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
-    
-}
-
--(void) connectionTimer:(NSTimer *)timer
-{
-    
-    if (ble.peripherals.count > 0)
-    {
-        [ble connectPeripheral:[ble.peripherals objectAtIndex:0]];
-        NSLog(@"At least attempting connection");
-        
-    }
-    else if(attempts < 2 && capturing == NO)
-    {
-        //[bleConnect setTitle:@"Connect"];
-        NSLog(@"No peripherals found, initiaiting attempt number %d", attempts);
-        [self btnScanForPeripherals];
-        attempts++;
-    }
-    else{
-        NSLog(@"Why didn't we exit??");
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Bluetooth could not connect. Check that the Ocular CellScope is fully charged and switched on."
-                                                            message:nil                                                           delegate:self
-                                                  cancelButtonTitle:@"Try Again"
-                                                  otherButtonTitles:@"Use without BLE",nil];
-        
-        [alertView show];
-        
-        }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0){
-        NSLog(@"user pressed Try Again");
-        attempts = 0;
-        [self btnScanForPeripherals];
-    
-    }
-    else {
-        _prefs = [NSUserDefaults standardUserDefaults];
-        [_prefs setValue: @YES forKey:@"debugMode" ];
-        
-        /*
-        self.cvc = [[CellScopeContext sharedContext] cvc];
-        NSLog(@"user pressed Cancel");
-        [cvc.captureButton setEnabled:YES];
-        [cvc.swDigitalOut setEnabled:YES];
-        [cvc.aiv stopAnimating];
-         */
-    }
-}
-
-- (void)bleDidDisconnect
-{
-    NSLog(@"->Disconnected");
-    //[self btnScanForPeripherals];
-    [[CellScopeContext sharedContext] setConnected: NO];
-    NSLog(@"Connected set back to NO");
-
-}
-
--(void) bleDidConnect
-{
-    self.cvc = [[CellScopeContext sharedContext] cvc];
-
-    [cvc.aiv stopAnimating];
-//    [captureButton setEnabled:YES];
-    UInt8 buf[] = {0xFF, 0x00, 0x00}; //IDEA: Could have a corresponding LED blink to
-    //acknowledge reset on Arduino side (but this is done successfully in SimpleControls)
-    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
-    [ble write:data];
-    NSLog(@"BLE has succesfully connected");
-    
-    [[CellScopeContext sharedContext] setConnected: YES];
-    
-    
-    //if([cvc alreadyLoaded]== YES){
-        [cvc toggleAuxilaryLight:cvc.selectedLight toggleON:YES];
-        [cvc toggleAuxilaryLight: farRedLight toggleON:YES];
-        [cvc toggleAuxilaryLight: flashNumber toggleON:NO];
-
-    
-    
-    [cvc.captureButton setEnabled: YES];
-    
-    //}
-//    swDigitalOut.enabled = true;
-//    swDigitalOut.on = false;
-}
-
-// When data is comming, this will be called
-// Note that this will be multiple unsigned chars
--(void) bleDidReceiveData:(unsigned char *)data length:(int)length
-{
-    NSLog(@"Length: %d", length);
-    
-    
-    //[cvc toggleAuxilaryLight:flashNumber toggleON:NO];
-
-    // parse data, all commands are in 3-byte
-    for (int i = 0; i < length; i+=3) //incrementing by 3
-    {
-        NSLog(@"RECEIVED: 0x%02X, 0x%02X, 0x%02X", data[i], data[i+1], data[i+2]);
-        
-        if (data[i] == 0x0A)
-        {
-            /*
-             if (data[i+1] == 0x01)
-             swDigitalIn.on = true;
-             else
-             swDigitalIn.on = false;
-             */
-        }
-        else if (data[i] == 0x0B)
-        {
-            UInt16 Value;
-            Value = data[i+2] | data[i+1] << 8;
-            //lblAnalogIn.text = [NSString stringWithFormat:@"%d", Value];
-        }
-    }
-    
-    if(data[0]==0xFF && data[1]==0xFF){
-        self.cvc = [[CellScopeContext sharedContext] cvc ];
-        AVCaptureConnection *videoConnection = [self.cvc getVideoConnection];
-        [self.cvc takeStillFromConnection:videoConnection];
-    }
-    
-}
 
 
 

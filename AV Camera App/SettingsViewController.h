@@ -27,6 +27,9 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *multiShot;
 @property (weak, nonatomic) IBOutlet UISwitch *timedFlashSwitch;
 
+@property(strong, nonatomic) BLEManager *bleManager;
+
+
 @property (weak, nonatomic) IBOutlet UISwitch *debugToggle;
 - (IBAction)toggleDidChange:(id)sender;
 - (IBAction)flashSliderDidChange:(id)sender;

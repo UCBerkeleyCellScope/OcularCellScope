@@ -16,7 +16,7 @@
 
 @implementation CamViewController
 
-@synthesize bluetoothSystem = _bluetoothSystem;
+@synthesize bleManager = _bleManager;
 @synthesize captureManager  = _captureManager;
 @synthesize currentImageCount = _currentImageCount;
 @synthesize repeatingTimer = _repeatingTimer;
@@ -28,6 +28,8 @@
 @synthesize counterLabel = _counterLabel;
 @synthesize selectedLight = _selectedLight;
 @synthesize selectedEye = _selectedEye;
+@synthesize prefs = _prefs;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,14 +43,34 @@
 - (void)loadView
 {
     [super loadView];
-    self.bluetoothSystem = [[CellScopeContext sharedContext] bluetoothSystem];
+    self.bleManager = [[CellScopeContext sharedContext] bleManager];
     self.captureManager = [[AVCaptureManager alloc] init];
     self.captureManager.delegate = self;
     self.currentImageCount = 0;
     
+    if ([[CellScopeContext sharedContext] connected] == NO){
+        [_aiv startAnimating];
+        [_captureButton setEnabled:NO];
+    }
+    
     // Hide label initially
     self.counterLabel.hidden = YES;
     self.imageArray = [[NSMutableArray alloc] init];
+}
+
+-(void) didReceiveConnectionConfirmation{
+    [_aiv stopAnimating];
+    [_captureButton setEnabled:YES];
+}
+
+-(void) didReceiveNoBLEConfirmation{
+    [_aiv stopAnimating];
+    [_captureButton setEnabled:YES];
+}
+
+-(void) didReceiveFlashConfirmation{
+    [self.captureManager takePicture];
+    //Tell the Flash to Stay on for a certain amount of time
 }
 
 - (void)viewDidLoad
@@ -56,10 +78,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.captureManager setupVideoForView:self.view];
-    [self.bluetoothSystem.redLight turnOn];
-    [[self.bluetoothSystem.fixationLights objectAtIndex:self.selectedLight] turnOn];
     
 }
+
+-(void) viewWillAppear:(BOOL)animated{
+    [self.bleManager.redLight turnOn];
+    [[self.bleManager.fixationLights objectAtIndex: self.bleManager.selectedLight] turnOn];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -75,9 +101,16 @@
     NSLog(@"didPressCapture");
     [self.captureManager lockFocus];
     
-    NSNumber *interval = [[NSUserDefaults standardUserDefaults] objectForKey:@"captureDelay"];
+    BOOL tf = [[NSUserDefaults standardUserDefaults] boolForKey:@"timedFlash"];
     
-    self.repeatingTimer = [NSTimer scheduledTimerWithTimeInterval:[interval doubleValue] target:self selector:@selector(captureTimerFired) userInfo:nil repeats:YES];
+    if(tf == YES){
+        NSNumber *interval = [[NSUserDefaults standardUserDefaults] objectForKey:@"captureDelay"];
+        
+        self.repeatingTimer = [NSTimer scheduledTimerWithTimeInterval:[interval doubleValue] target:self selector:@selector(captureTimerFired) userInfo:nil repeats:YES];
+    }
+    else{
+        [self.bleManager.whitePing turnOn];
+    }
 }
 
 -(void)captureTimerFired{
@@ -86,7 +119,7 @@
     if(self.currentImageCount <= totalNumberOfImages){
         [self updateCounterLabelText];
         // Timed flash or ping back
-        [self.bluetoothSystem timedFlash];
+        [self.bleManager timedFlash];
         [self.captureManager takePicture];
     }
     else{
@@ -131,10 +164,16 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    self.navigationController.navigationBar.alpha = 1;
-    ImageSelectionViewController *isvc = (ImageSelectionViewController*)[segue destinationViewController];
-    isvc.images = self.imageArray;
-    isvc.reviewMode = NO;
+    
+    
+    if ([[segue identifier] isEqualToString:@"ImageSelectionSegue"])
+    {
+        
+        self.navigationController.navigationBar.alpha = 1;
+        ImageSelectionViewController *isvc = (ImageSelectionViewController*)[segue destinationViewController];
+        isvc.images = self.imageArray;
+        isvc.reviewMode = NO;
+    }
 }
 
 

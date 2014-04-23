@@ -35,9 +35,6 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="heK-xf-yYg" kind="push" id="Vug-zT-Xyk"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r3H-ye-nle" userLabel="Button - Settings">
                                 <rect key="frame" x="25" y="392" width="269" height="60"/>
@@ -45,9 +42,6 @@
                                 <state key="normal" title="Button" image="button_settings.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="x8V-KE-hAE" kind="push" id="T2V-DB-lrr"/>
-                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="title.png" translatesAutoresizingMaskIntoConstraints="NO" id="DLw-J4-0T7">
                                 <rect key="frame" x="-2" y="0.0" width="325" height="228"/>
@@ -61,9 +55,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JQU-mJ-Kqe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="96" y="-918"/>
+            <point key="canvasLocation" x="-348" y="-54"/>
         </scene>
-        <!--Patients Table View Controller-->
+        <!--Patients Table View Controller - Ocular CellScope-->
         <scene sceneID="VFk-Mi-CrN">
             <objects>
                 <tableViewController id="heK-xf-yYg" customClass="PatientsTableViewController" sceneMemberID="viewController">
@@ -89,7 +83,7 @@
                             <outlet property="delegate" destination="heK-xf-yYg" id="KgT-E0-b8e"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="gbN-Ji-VCU">
+                    <navigationItem key="navigationItem" title="Ocular CellScope" id="gbN-Ji-VCU">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="aYt-zt-T8O">
                             <color key="tintColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -335,7 +329,7 @@
             <objects>
                 <tableViewController id="x8V-KE-hAE" customClass="SettingsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" keyboardDismissMode="onDrag" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="55" sectionHeaderHeight="55" sectionFooterHeight="45" id="duG-Ge-zgJ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -576,7 +570,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QxY-Sh-gKC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="600" y="-184"/>
+            <point key="canvasLocation" x="2928" y="184"/>
         </scene>
         <!--Cam View Controller-->
         <scene sceneID="mlL-v7-0yq">
@@ -625,7 +619,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="x8V-KE-hAE" kind="modal" id="7Kd-7W-z8w"/>
+                                    <segue destination="x8V-KE-hAE" kind="push" id="7Kd-7W-z8w"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bUk-6q-pyd">
@@ -759,7 +753,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2903" y="-110"/>
+            <point key="canvasLocation" x="2919" y="-678"/>
         </scene>
         <!--Tab View Controller-->
         <scene sceneID="HBV-wj-Q0L">
@@ -924,7 +918,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="60B-jJ-UFz" kind="relationship" relationship="rootViewController" id="THE-kG-7HW"/>
+                        <segue destination="heK-xf-yYg" kind="relationship" relationship="rootViewController" id="Pwz-zN-MZh"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wJK-dX-c7Y" userLabel="First Responder" sceneMemberID="firstResponder"/>

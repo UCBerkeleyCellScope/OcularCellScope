@@ -23,6 +23,7 @@
 
 
 @synthesize selectedEye, selectedLight, imageArray, sco;
+@synthesize bleManager = _bleManager;
 
 //This is an EyeImage
 @synthesize currentEyeImage;
@@ -51,8 +52,13 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 {
     [super viewDidLoad];
 
+    
+    
+    
     fixationButtons = [NSMutableArray arrayWithObjects: centerFixationButton, topFixationButton,
                                        bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton, nil];
+    
+    _bleManager = [[CellScopeContext sharedContext] bleManager];
     
     passedImages = [[NSMutableArray alloc]init];
     
@@ -143,20 +149,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
             
             NSLog(@"Eye IMages count is %d", [eyeImages count]);
             
-            //NSLog(@"For Fixation Light %d, %lu images were Retrieved!", i, (unsigned long)[eyeImages count]);
-            
-            //Attempt 1
-            /*
-            //NSFetchRequest *request = [[NSFetchRequest alloc] init];
-            NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"EyeImage"];
-            
-            //request.entity = [NSEntityDescription entityForName:@"EyeImage" inManagedObjectContext: _managedObjectContext];
-            request.predicate = [NSPredicate predicateWithFormat: @"eye == %@ AND fixationLight == %d", selectedEye, i];
-            request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]];
-            request.fetchLimit = 1;
-            NSError *error;
-            NSArray *array = [_managedObjectContext executeFetchRequest:request error:&error];
-            */
+
             
             if([imageArray count]>0){
                 NSLog(@"testing transition from image selection");
@@ -193,6 +186,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     
     self.selectedLight = [sender tag];
+
     
     if( [sender isSelected] == NO){
         //there are pictures!
@@ -227,11 +221,12 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 {
     if ([[segue identifier] isEqualToString:@"CamViewSegue"])
     {
+        [_bleManager setSelectedLight: self.selectedLight];
         NSLog(@"Preparing for CamViewSegue");
-        CaptureViewController* cvc = (CaptureViewController*)[segue destinationViewController];
+        //CaptureViewController* cvc = (CaptureViewController*)[segue destinationViewController];
         //cvc.selectedEye = self.selectedEye;
-        cvc.selectedLight = self.selectedLight;
-        [[CellScopeContext sharedContext] setCvc: cvc];
+        //cvc.selectedLight = self.selectedLight;
+        //[[CellScopeContext sharedContext] setCvc: cvc];
         
     }
     

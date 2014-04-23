@@ -13,8 +13,10 @@
 #import "CaptureViewController.h"
 #import "Constants.h"
 #import "AFNetworking.h"
+#import "BLEManager.h"
 
 @class CaptureViewController;
+@class BLEManager;
 
 @interface CellScopeContext : NSObject
 
@@ -25,6 +27,7 @@
 @property (nonatomic, strong) BLE* ble;
 @property (nonatomic, retain) Exam* currentExam;
 @property (nonatomic) BOOL connected;
+@property(nonatomic,strong) BLEManager* bleManager;
 
 @property CaptureViewController *cvc;
 

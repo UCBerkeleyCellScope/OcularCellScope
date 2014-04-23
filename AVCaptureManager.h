@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 @import AVFoundation;
 
+
+
 @protocol ImageCaptureDelegate
 - (void)didCaptureImageWithData:(NSData *)data;
 @end

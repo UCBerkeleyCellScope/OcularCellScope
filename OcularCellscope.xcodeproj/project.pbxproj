@@ -97,7 +97,7 @@
 		F38224B718F7BB3F00D861FE /* retina_icon_right.png in Resources */ = {isa = PBXBuildFile; fileRef = F38224B218F7BB3F00D861FE /* retina_icon_right.png */; };
 		F38224B818F7BB3F00D861FE /* retina_icon_top.png in Resources */ = {isa = PBXBuildFile; fileRef = F38224B318F7BB3F00D861FE /* retina_icon_top.png */; };
 		F385B2FE1900E31E00A3F974 /* CamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B2FD1900E31E00A3F974 /* CamViewController.m */; };
-		F385B3011900E66400A3F974 /* OCSBluetooth.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3001900E66400A3F974 /* OCSBluetooth.m */; };
+		F385B3011900E66400A3F974 /* BLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3001900E66400A3F974 /* BLEManager.m */; };
 		F385B3041900E6E200A3F974 /* Light.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3031900E6E200A3F974 /* Light.m */; };
 		F385B30A1900F85B00A3F974 /* AVCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3091900F85B00A3F974 /* AVCaptureManager.m */; };
 		F3A6034D18FE6A5F006BFFEC /* settings_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F3A6034C18FE6A5F006BFFEC /* settings_icon.png */; };
@@ -259,8 +259,8 @@
 		F38224B318F7BB3F00D861FE /* retina_icon_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retina_icon_top.png; sourceTree = "<group>"; };
 		F385B2FC1900E31E00A3F974 /* CamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CamViewController.h; sourceTree = "<group>"; };
 		F385B2FD1900E31E00A3F974 /* CamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CamViewController.m; sourceTree = "<group>"; };
-		F385B2FF1900E66400A3F974 /* OCSBluetooth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSBluetooth.h; sourceTree = "<group>"; };
-		F385B3001900E66400A3F974 /* OCSBluetooth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSBluetooth.m; sourceTree = "<group>"; };
+		F385B2FF1900E66400A3F974 /* BLEManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEManager.h; sourceTree = "<group>"; };
+		F385B3001900E66400A3F974 /* BLEManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEManager.m; sourceTree = "<group>"; };
 		F385B3021900E6E200A3F974 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
 		F385B3031900E6E200A3F974 /* Light.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Light.m; sourceTree = "<group>"; };
 		F385B3081900F85B00A3F974 /* AVCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCaptureManager.h; sourceTree = "<group>"; };
@@ -386,8 +386,8 @@
 				F325703C18D366FE00FEA80E /* EImage.m */,
 				F385B3081900F85B00A3F974 /* AVCaptureManager.h */,
 				F385B3091900F85B00A3F974 /* AVCaptureManager.m */,
-				F385B2FF1900E66400A3F974 /* OCSBluetooth.h */,
-				F385B3001900E66400A3F974 /* OCSBluetooth.m */,
+				F385B2FF1900E66400A3F974 /* BLEManager.h */,
+				F385B3001900E66400A3F974 /* BLEManager.m */,
 				F385B3021900E6E200A3F974 /* Light.h */,
 				F385B3031900E6E200A3F974 /* Light.m */,
 				60D8C7D018C6BF87007D26A7 /* Constants.h */,
@@ -721,7 +721,7 @@
 				60C1AE0518F34DD400902F28 /* PatientTableViewCell.m in Sources */,
 				60C1AE3C18F3507E00902F28 /* UIWebView+AFNetworking.m in Sources */,
 				60C1AE2D18F3507E00902F28 /* AFHTTPRequestOperationManager.m in Sources */,
-				F385B3011900E66400A3F974 /* OCSBluetooth.m in Sources */,
+				F385B3011900E66400A3F974 /* BLEManager.m in Sources */,
 				60D8C7BD18C69BB1007D26A7 /* CellScopeContext.m in Sources */,
 				60C1AE3518F3507E00902F28 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				60D8C7C018C69BB1007D26A7 /* CoreDataController.m in Sources */,

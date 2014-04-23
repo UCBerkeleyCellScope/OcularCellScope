@@ -7,27 +7,26 @@
 //
 
 #import "Light.h"
-#import "OCSBluetooth.h"
-#define CENTER_LIGHT 1
-#define TOP_LIGHT 2
-#define BOTTOM_LIGHT 3
-#define LEFT_LIGHT 4
-#define RIGHT_LIGHT 5
-#define RED_LIGHT 9
-#define WHITE_LIGHT 10
+#import "BLEManager.h"
 
 @implementation Light
 
 @synthesize isOn = _isOn;
 @synthesize intensity = _intensity;
 @synthesize bluetoothSystem = _bluetoothSystem;
+@synthesize pin = _pin;
 
--(id)initWithBLE:(OCSBluetooth *)bluetooth{
+-(id)initWithBLE:(BLEManager *)bluetooth pin:(int)p{
     self = [super init];
     if(self){
         self.bluetoothSystem = bluetooth;
+        self.pin = p;
     }
     return self;
+}
+
+-(void) setIntensity: (int) i{
+    [self.bluetoothSystem activatePinForLight:self];
 }
 
 
