@@ -25,6 +25,9 @@
 -(void)setupVideoForView:(UIView*)view{
     self.view = view;
     
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
+    [self.view addGestureRecognizer:gestureRecognizer];
+    
     
     // Create a new photo session
     self.session = [[AVCaptureSession alloc] init];
@@ -145,7 +148,8 @@
     [self setFocusWithPoint:tapPoint];
 }
 
-/*-(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer  fromConnection:(AVCaptureConnection *)connection
+/*
+-(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer  fromConnection:(AVCaptureConnection *)connection
 */
 
 @end
