@@ -19,8 +19,10 @@
 
 -(void)setupVideoForView:(UIView*)view{
     self.view = view;
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped)];
+    
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     [self.view addGestureRecognizer:gestureRecognizer];
+    
     
     // Create a new photo session
     self.session = [[AVCaptureSession alloc] init];
@@ -54,6 +56,7 @@
     self.previewLayer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
     
     [self.session startRunning];
+    [self lockFocus];
 }
 
 -(AVCaptureConnection*)getVideoConnection{
@@ -105,7 +108,7 @@
     }
 }
 
--(void)setFocusWithPoint:(CGPoint) focusPoint{
+-(void)setFocusWithPoint:(CGPoint)focusPoint{
     if ([self.device isFocusModeSupported:AVCaptureFocusModeLocked]) {
         [self.device lockForConfiguration:nil];
         [self.device setFocusPointOfInterest:focusPoint];
@@ -114,8 +117,14 @@
     }
 }
 
+- (IBAction)viewTapped:(id)sender {
+    CGPoint tapPoint = [sender locationInView:self.view];
+    NSLog(@"x = %f, y = %f",tapPoint.x,tapPoint.y);
+    [self setFocusWithPoint:tapPoint];
+}
 
+/*
 -(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer  fromConnection:(AVCaptureConnection *)connection
-
+*/
 
 @end
