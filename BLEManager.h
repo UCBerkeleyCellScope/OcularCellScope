@@ -23,15 +23,14 @@
 @property (strong, nonatomic) Light *whiteLight;
 @property (strong, nonatomic) Light *whitePing;
 @property (strong, nonatomic) NSArray *fixationLights;
-@property (assign, nonatomic) BOOL isConnected;
+
 @property(nonatomic, strong) NSUserDefaults *prefs;
+@property (assign, nonatomic) BOOL isConnected;
 @property (nonatomic) NSInteger selectedLight;
-
-
 @property BOOL debugMode;
 @property (strong, nonatomic) BLE *ble;
-
 @property (weak, nonatomic) id <BLEConnectionDelegate> BLECdelegate;
+
 
 -(void)turnOffAllLights;
 -(void)timedFlash;

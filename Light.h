@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#define CENTER_LIGHT 1
-#define TOP_LIGHT 2
-#define BOTTOM_LIGHT 3
-#define LEFT_LIGHT 4
-#define RIGHT_LIGHT 5
+#define CENTER_LIGHT 0
+#define TOP_LIGHT 1
+#define BOTTOM_LIGHT 2
+#define LEFT_LIGHT 3
+#define RIGHT_LIGHT 4
 #define RED_LIGHT 9
 #define WHITE_LIGHT 10
 #define WHITE_PING 11
@@ -29,5 +29,5 @@
 -(void)turnOff;
 -(void)turnOn;
 -(id)initWithBLE:(BLEManager *)bluetooth pin:(int)p intensity:(int)i;
-
+-(void)changeIntensity:(int)i;
 @end

@@ -29,6 +29,8 @@
 
 @property(strong, nonatomic) BLEManager *bleManager;
 
+- (IBAction)didReleaseFlashSlider:(id)sender;
+- (IBAction)didReleaseRedSlider:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UISwitch *debugToggle;
 - (IBAction)toggleDidChange:(id)sender;

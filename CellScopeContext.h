@@ -22,12 +22,13 @@
 
 //TODO: add managed object context, session, etc.
 @property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
-@property (nonatomic) NSInteger selectedLight;
 @property (nonatomic, retain) NSString* selectedEye;
 @property (nonatomic, strong) BLE* ble;
 @property (nonatomic, retain) Exam* currentExam;
 @property (nonatomic) BOOL connected;
 @property(nonatomic,strong) BLEManager* bleManager;
+@property (nonatomic) BOOL camViewLoaded;
+
 
 @property CaptureViewController *cvc;
 

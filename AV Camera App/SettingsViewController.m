@@ -9,13 +9,6 @@
 #import "SettingsViewController.h"
 #import "CameraAppDelegate.h"
 
-#include <assert.h>
-//#include <CoreServices/CoreServices.h>
-#include <mach/mach.h>
-#include <mach/mach_time.h>
-#include <unistd.h>
-
-
 @interface SettingsViewController ()
 @property(nonatomic, strong) NSUserDefaults *prefs;
 
@@ -25,16 +18,11 @@
 @synthesize prefs = _prefs;
 
 @synthesize flashLightSlider, redLightSlider, flashLightValue, redLightValue, flashLightLabel, redLightLabel, multiText, debugToggle,bleDelay,captureDelay,flashDuration,multiShot, timedFlashSwitch;
-
 @synthesize bleManager = _bleManager;
 
 BOOL debugMode;
-int flash2=0;
-int red2=0;
 
-uint64_t        start;
-uint64_t        end;
-uint64_t        elapsed;
+double fs,fe,rs,re;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -50,16 +38,8 @@ uint64_t        elapsed;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    /*UINavigationBar *naviBarObj = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 65)];
-    [self.view addSubview:naviBarObj];
-    UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(didPressDone:)];
-    UINavigationItem *navigItem = [[UINavigationItem alloc] initWithTitle:@"Settings"];
-    navigItem.rightBarButtonItem = doneItem;
-    naviBarObj.items = [NSArray arrayWithObjects: navigItem,nil];
-    */
     
     _bleManager = [[CellScopeContext sharedContext]bleManager];
-    
     
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)];
     [self.tableView addGestureRecognizer:gestureRecognizer];
@@ -69,6 +49,8 @@ uint64_t        elapsed;
 -(void) viewWillAppear:(BOOL)animated{
     
     _prefs = [NSUserDefaults standardUserDefaults];
+    
+    [[_bleManager whiteLight]toggleLight];
     
     debugMode = [_prefs boolForKey: @"debugMode"] ;
     
@@ -117,10 +99,8 @@ uint64_t        elapsed;
 
 -(void) viewWillDisappear:(BOOL)animated{
     
-    if(debugMode == NO){
-    [[[CellScopeContext sharedContext]cvc]toggleAuxilaryLight:flashNumber toggleON:NO
-                                                    ];
-    }
+    if(debugMode == NO)
+        [_bleManager.whiteLight turnOff];
        
     [_prefs setInteger: flashLightSlider.value forKey:@"flashLightValue"];
     [_prefs setInteger: redLightSlider.value forKey:@"redLightValue"];
@@ -144,7 +124,6 @@ uint64_t        elapsed;
     [f4 setNumberStyle:NSNumberFormatterDecimalStyle];
     NSNumber *prefNum4 = [f4 numberFromString:self.multiText];
     [_prefs setObject: prefNum4 forKey:@"numberOfImages"];
-    
     
 }
 
@@ -174,30 +153,29 @@ uint64_t        elapsed;
         [timedFlashSwitch setEnabled:YES];
         [_bleManager btnScanForPeripherals];
     }
-    
     NSLog(@"ToggleChange to %d",debugToggle.on);
-    
 }
 
 
 - (IBAction)flashSliderDidChange:(id)sender {
     flashLightLabel.text = [NSString stringWithFormat: @"%d", (int)flashLightSlider.value];
-    
-    [[_bleManager whiteLight] setIntensity:flashLightSlider.value];
+    fs = CACurrentMediaTime();
+    if(fs-fe>=.05){
+        [[_bleManager whiteLight] changeIntensity:flashLightSlider.value];
+        fe = fs;
+        //NSLog(@"%f",fe);
+    }
 }
+
 
 - (IBAction)redSliderDidChange:(id)sender {
     redLightLabel.text = [NSString stringWithFormat: @"%d", (int)redLightSlider.value];
-
-    start = mach_absolute_time();
-
-    if(start-end>=1000){
-    
-    [[_bleManager redLight] setIntensity:flashLightSlider.value];
-        
-       end = start;
+    rs = CACurrentMediaTime();
+    if(rs-re>=.05){
+        [[_bleManager redLight] changeIntensity:redLightSlider.value];
+        re = rs;
+        //NSLog(@"%f",re);
     }
-    
 }
 
 - (IBAction)multiShotValueChanged:(id)sender {
@@ -209,8 +187,6 @@ uint64_t        elapsed;
     if(timedFlashSwitch.on == YES){
         [_prefs setValue: @YES forKey:@"timedFlash" ];
         [flashDuration setEnabled:YES];
-        
-        
     }
     else if(timedFlashSwitch.on == NO){
         [_prefs setValue: @NO forKey:@"timedFlash" ];
@@ -219,6 +195,8 @@ uint64_t        elapsed;
     
     NSLog(@"ToggleChange to %d",timedFlashSwitch.on);
 }
+
+
 
 - (void)selectUISegment:(NSString *)segmentString{
         
@@ -230,6 +208,7 @@ uint64_t        elapsed;
         }
     }
 }
+
 
 
 @end

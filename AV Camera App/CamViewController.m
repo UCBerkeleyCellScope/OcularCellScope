@@ -20,16 +20,20 @@
 @synthesize captureManager  = _captureManager;
 @synthesize currentImageCount = _currentImageCount;
 @synthesize repeatingTimer = _repeatingTimer;
+@synthesize waitForBle = _waitForBle;
+
 @synthesize imageArray = _imageArray;
 @synthesize captureButton = _captureButton;
 @synthesize settingsButton = _settingsButton;
 @synthesize capturedImageView = _capturedImageView;
 @synthesize aiv = _aiv;
 @synthesize counterLabel = _counterLabel;
+@synthesize bleDisabledLabel = _bleDisabledLabel;
 @synthesize selectedLight = _selectedLight;
 @synthesize selectedEye = _selectedEye;
 @synthesize prefs = _prefs;
 
+BOOL _debugMode;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,34 +47,35 @@
 - (void)loadView
 {
     [super loadView];
-    self.bleManager = [[CellScopeContext sharedContext] bleManager];
+    _bleManager = [[CellScopeContext sharedContext] bleManager];
     self.captureManager = [[AVCaptureManager alloc] init];
     self.captureManager.delegate = self;
     self.currentImageCount = 0;
     
-    if ([[CellScopeContext sharedContext] connected] == NO){
-        [_aiv startAnimating];
-        [_captureButton setEnabled:NO];
-    }
+    [[_bleManager whiteLight]toggleLight];
     
-    // Hide label initially
+    _debugMode = [_prefs boolForKey:@"debugMode"];
+    [_bleDisabledLabel setHidden:YES];
     self.counterLabel.hidden = YES;
     self.imageArray = [[NSMutableArray alloc] init];
-}
-
--(void) didReceiveConnectionConfirmation{
-    [_aiv stopAnimating];
-    [_captureButton setEnabled:YES];
-}
-
--(void) didReceiveNoBLEConfirmation{
-    [_aiv stopAnimating];
-    [_captureButton setEnabled:YES];
-}
-
--(void) didReceiveFlashConfirmation{
-    [self.captureManager takePicture];
-    //Tell the Flash to Stay on for a certain amount of time
+    
+    if (_bleManager.isConnected == NO && _debugMode == NO){
+        NSLog(@"No connection yet, going to WAIT");
+        [_aiv startAnimating];
+        [_captureButton setEnabled:NO];
+        //JUST WAIT FOR CONNECTION
+    }
+        
+    else if (_debugMode == YES){
+        [_aiv stopAnimating];
+        [_captureButton setEnabled:YES];
+        [_bleDisabledLabel setHidden:NO];
+    }
+    else{
+        NSLog(@"Device is in Standard Mode");
+    }
+    
+    [[CellScopeContext sharedContext] setCamViewLoaded:YES];
 }
 
 - (void)viewDidLoad
@@ -82,16 +87,40 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-    [self.bleManager.redLight turnOn];
-    [[self.bleManager.fixationLights objectAtIndex: self.bleManager.selectedLight] turnOn];
+    NSLog(@"APPEARED");
+    if(_bleManager.isConnected== YES){
+        [self.bleManager.redLight turnOn];
+        [[self.bleManager.fixationLights objectAtIndex: self.bleManager.selectedLight] turnOn];
+    }
 }
-
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+-(void) didReceiveConnectionConfirmation{
+    NSLog(@"The Connection Delegate was told that a Connection did occur");
+    
+    [_aiv stopAnimating];
+    [_captureButton setEnabled:YES];
+    [_bleDisabledLabel setHidden:YES];
+}
+
+-(void) didReceiveNoBLEConfirmation{
+    NSLog(@"The Connection Delegate was told that no BLE could be found");
+    [_aiv stopAnimating];
+    [_captureButton setEnabled:YES];
+}
+
+-(void) didReceiveFlashConfirmation{
+    NSLog(@"The Connection Delegate received a flash confirmation and is taking a picture");
+    [self.captureManager takePicture];
+    //Tell the Flash to Stay on for a certain amount of time
+}
+
 
 -(IBAction)didPressPause:(id)sender{
     [self.repeatingTimer invalidate];
@@ -101,9 +130,9 @@
     NSLog(@"didPressCapture");
     [self.captureManager lockFocus];
     
-    BOOL tf = [[NSUserDefaults standardUserDefaults] boolForKey:@"timedFlash"];
+    BOOL timedFlash = [[NSUserDefaults standardUserDefaults] boolForKey:@"timedFlash"];
     
-    if(tf == YES){
+    if(timedFlash == YES){
         NSNumber *interval = [[NSUserDefaults standardUserDefaults] objectForKey:@"captureDelay"];
         
         self.repeatingTimer = [NSTimer scheduledTimerWithTimeInterval:[interval doubleValue] target:self selector:@selector(captureTimerFired) userInfo:nil repeats:YES];
@@ -120,6 +149,12 @@
         [self updateCounterLabelText];
         // Timed flash or ping back
         [self.bleManager timedFlash];
+        
+        NSNumber *bleDelay = [[NSUserDefaults standardUserDefaults] objectForKey:@"bleDelay"];
+        
+        [NSThread sleepForTimeInterval: [bleDelay doubleValue]];
+        
+        //self.waitForBle = [NSTimer scheduledTimerWithTimeInterval:[bleDelay doubleValue] target:self selector:@selector(readyToTakePicture) userInfo:nil repeats:NO];
         [self.captureManager takePicture];
     }
     else{
@@ -127,6 +162,12 @@
         self.repeatingTimer = nil;
     }
 }
+
+
+-(void) readyToTakePicture{
+                [self.captureManager takePicture];
+}
+
 
 -(void)didCaptureImageWithData:(NSData *)data{
     EImage *image = [[EImage alloc] initWithData:  data

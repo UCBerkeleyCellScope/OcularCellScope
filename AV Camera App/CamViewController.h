@@ -18,8 +18,12 @@
 @property (strong, nonatomic) AVCaptureManager *captureManager;
 @property (assign, nonatomic) int currentImageCount;
 @property (weak, nonatomic) NSTimer *repeatingTimer;
+@property (weak, nonatomic) NSTimer *waitForBle;
+
 @property (strong, nonatomic) NSMutableArray *imageArray;
 @property (strong, nonatomic) IBOutlet UILabel *counterLabel;
+@property (weak, nonatomic) IBOutlet UILabel *bleDisabledLabel;
+
 @property (strong, nonatomic) IBOutlet UIButton *captureButton;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *aiv;
 @property (strong, nonatomic) IBOutlet UIButton *settingsButton;

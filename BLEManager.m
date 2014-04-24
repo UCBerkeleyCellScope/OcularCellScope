@@ -18,7 +18,7 @@
 @synthesize ble;
 @synthesize prefs = _prefs;
 @synthesize debugMode;
-
+@synthesize isConnected = _isConnected;
 @synthesize selectedLight = _selectedLight;
 @synthesize BLECdelegate = _BLECdelegate;
 
@@ -40,19 +40,24 @@ BOOL capturing = NO;
         int r_i = [_prefs integerForKey:@"redLightValue"];
         int w_i = [_prefs integerForKey:@"flashLightValue"];
         
-        self.redLight = [[Light alloc] initWithBLE:self pin:RED_LIGHT intensity: r_i ];
-        self.whiteLight = [[Light alloc] initWithBLE:self pin:WHITE_LIGHT intensity: w_i ];
-        self.whitePing = [[Light alloc] initWithBLE:self pin:WHITE_PING intensity: w_i];
+        if (r_i<10){
+            [_prefs setInteger: 50 forKey:@"redLightValue"];
+            r_i = 50;
+        }
+        
+        _redLight = [[Light alloc] initWithBLE:self pin:RED_LIGHT intensity: r_i ];
+        _whiteLight = [[Light alloc] initWithBLE:self pin:WHITE_LIGHT intensity: w_i ];
+        _whitePing = [[Light alloc] initWithBLE:self pin:WHITE_PING intensity: w_i];
 
         _prefs = [NSUserDefaults standardUserDefaults];
         debugMode = [_prefs boolForKey:@"debugMode" ];
         
         
         NSMutableArray *lights = [[NSMutableArray alloc] init];
-        for(int i = 1; i <= 5; ++i){
+        for(int i = 0; i <= 4; ++i){
             [lights addObject:[[Light alloc] initWithBLE:self pin: i intensity: 255]];
         }
-        self.fixationLights = lights;
+        _fixationLights = lights;
     }
     return self;
 }
@@ -60,11 +65,9 @@ BOOL capturing = NO;
 
 - (void)btnScanForPeripherals
 {
-    
     if (ble.activePeripheral)
         if(ble.activePeripheral.state == CBPeripheralStateConnected){
             [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
-            
         }
     
     if (ble.peripherals)
@@ -87,7 +90,6 @@ BOOL capturing = NO;
     }
     else if(attempts < 2 && capturing == NO)
     {
-        //[bleConnect setTitle:@"Connect"];
         NSLog(@"No peripherals found, initiaiting attempt number %d", attempts);
         [self btnScanForPeripherals];
         attempts++;
@@ -119,8 +121,7 @@ BOOL capturing = NO;
     else {
         _prefs = [NSUserDefaults standardUserDefaults];
         [_prefs setValue: @YES forKey:@"debugMode" ];
-        id<BLEConnectionDelegate> strongDelegate = self.BLECdelegate;
-        [strongDelegate didReceiveNoBLEConfirmation];
+        [_BLECdelegate didReceiveNoBLEConfirmation];
     }
 }
 
@@ -128,7 +129,8 @@ BOOL capturing = NO;
 {
     NSLog(@"->Disconnected");
     //[self btnScanForPeripherals];
-    [[CellScopeContext sharedContext] setConnected: NO];
+    _isConnected = NO;
+    [self btnScanForPeripherals];
     NSLog(@"Connected set back to NO");
     
 }
@@ -138,15 +140,13 @@ BOOL capturing = NO;
     NSLog(@"BLE has succesfully connected");
     [self turnOffAllLights];
     
-    id<BLEConnectionDelegate> strongDelegate = self.BLECdelegate;
-    [strongDelegate didReceiveConnectionConfirmation];
+    _isConnected = YES;
     
-    [[CellScopeContext sharedContext] setConnected: YES];
-    
-    [self.redLight turnOn];
-    [[self.fixationLights objectAtIndex:
-      [[CellScopeContext sharedContext] selectedLight]] turnOn];
-
+    if([[CellScopeContext sharedContext]camViewLoaded]==YES){
+        [self.redLight turnOn];
+        [[self.fixationLights objectAtIndex: _selectedLight] turnOn];
+        [_BLECdelegate didReceiveConnectionConfirmation];
+    }
 }
 
 
@@ -171,36 +171,19 @@ BOOL capturing = NO;
     }
     
     if(data[0]==0xFF && data[1]==0xFF){
-        id<BLEConnectionDelegate> strongDelegate = self.BLECdelegate;
-        [strongDelegate didReceiveFlashConfirmation];
-        
-        /*
-        
-        self.cvc = [[CellScopeContext sharedContext] cvc ];
-        AVCaptureConnection *videoConnection = [self.cvc getVideoConnection];
-        [self.cvc takeStillFromConnection:videoConnection];
-         
-         */
+        //id<BLEConnectionDelegate> strongDelegate = self.BLECdelegate;
+        [_BLECdelegate didReceiveFlashConfirmation];
     }
     
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 -(void)turnOffAllLights{
+    for(Light *l in self.fixationLights){
+        l.isOn = NO;
+    }
+    self.whiteLight.isOn = NO;
+    self.redLight.isOn = NO;
+    
     UInt8 buf[] = {0xFF, 0x00, 0x00};
     NSData *data = [[NSData alloc] initWithBytes:buf length:3];
     [ble write:data];
@@ -216,9 +199,6 @@ BOOL capturing = NO;
 -(void)activatePinForLight:(Light *)light {
     UInt8 buf[] = {light.pin, 0x01, light.intensity};
     NSData *data = [[NSData alloc] initWithBytes:buf length:3];
-//    buf[0] = light.pin;
-//    buf[1] = 0x01;
-//    buf[2] = light.intensity;
     int i = 0;
     NSLog(@"0x%02X, 0x%02X, 0x%02X", buf[i], buf[i+1], buf[i+2]);
     [ble write:data];

@@ -16,16 +16,19 @@
 @synthesize bluetoothSystem = _bluetoothSystem;
 @synthesize pin = _pin;
 
--(id)initWithBLE:(BLEManager *)bluetooth pin:(int)p{
+-(id)initWithBLE:(BLEManager *)bluetooth pin:(int)p intensity:(int)i{
     self = [super init];
     if(self){
         self.bluetoothSystem = bluetooth;
         self.pin = p;
+        self.intensity = i;
+        self.isOn = NO;
     }
     return self;
 }
 
--(void) setIntensity: (int) i{
+-(void) changeIntensity: (int) i{
+    self.intensity = i;
     [self.bluetoothSystem activatePinForLight:self];
 }
 
@@ -35,15 +38,17 @@
 }
 
 -(void) turnOff{
-    if(self.isOn){
+    //if(self.isOn){
         [self.bluetoothSystem deactivatePinForLight:self];
-    }
+        NSLog(@"Let's turn a light ON!");
+    //}
     self.isOn = NO;
 }
 
 -(void) turnOn{
     if(!self.isOn){
         [self.bluetoothSystem activatePinForLight:self];
+        NSLog(@"Let's turn a light ON!");
     }
     self.isOn = YES;
 }

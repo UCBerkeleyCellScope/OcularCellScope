@@ -11,7 +11,7 @@
 
 @implementation CellScopeContext
 
-@synthesize selectedEye,selectedLight, currentExam, connected, cvc, ble, bleManager;
+@synthesize selectedEye, currentExam, connected, cvc, ble, bleManager, camViewLoaded;
 
 + (id)sharedContext {
     static CellScopeContext *newContext = nil;
@@ -25,9 +25,8 @@
 - (id)init {
     if (self = [super init]) {
         selectedEye = @"";
-        selectedLight = 0;
-        
         connected = NO;
+        camViewLoaded = NO;
         NSLog(@"MADE THE SINGLETON");
         
     }

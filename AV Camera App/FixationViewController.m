@@ -8,7 +8,7 @@
 
 #import "CameraAppDelegate.h"
 #import "FixationViewController.h"
-#import "CaptureViewController.h"
+#import "CamViewController.h"
 #import "ImageSelectionViewController.h"
 #import "CoreDataController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
@@ -31,12 +31,10 @@
 //These are Buttons
 @synthesize centerFixationButton, topFixationButton,
 bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
-
-@synthesize currentEImage, uim, passedImages;
-
 //This is an array of buttons
 @synthesize fixationButtons;
 
+@synthesize currentEImage, uim, passedImages;
 @synthesize eyeImages;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -51,9 +49,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    
-    
     
     fixationButtons = [NSMutableArray arrayWithObjects: centerFixationButton, topFixationButton,
                                        bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton, nil];
@@ -70,18 +65,16 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         
     NSLog(@"Seg Back, even from ImageSelection");
     
+    [_bleManager turnOffAllLights];
     
     [self setSelectedEye:  [[CellScopeContext sharedContext]selectedEye] ];
     
     self.tabBarController.title = nil;
     
     NSArray* segmentTitles = [[NSArray alloc ]initWithObjects:@"Left",@"Right", nil];
-    
     self.sco = [[UISegmentedControl alloc] initWithItems:segmentTitles];
     self.sco.selectedSegmentIndex = 0;
-    
     self.tabBarController.navigationItem.titleView = self.sco;
-    
     [self.sco addTarget:self
             action:@selector(didSegmentedValueChanged:) forControlEvents:UIControlEventValueChanged];
     
@@ -91,10 +84,13 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     }
     else{
         [sco setSelectedSegmentIndex: 0];
-
     }
     
     [self loadImages: self.sco.selectedSegmentIndex];
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated{
     
 }
 
@@ -102,8 +98,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     self.sco = nil;
     self.tabBarController.navigationItem.titleView = nil;
-
-
 }
 
 
@@ -184,7 +178,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 - (IBAction)didPressFixation:(id)sender {
     
-    
     self.selectedLight = [sender tag];
 
     
@@ -223,7 +216,10 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     {
         [_bleManager setSelectedLight: self.selectedLight];
         NSLog(@"Preparing for CamViewSegue");
-        //CaptureViewController* cvc = (CaptureViewController*)[segue destinationViewController];
+        CamViewController* cvc = (CamViewController*)[segue destinationViewController];
+        [[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
+        
+        
         //cvc.selectedEye = self.selectedEye;
         //cvc.selectedLight = self.selectedLight;
         //[[CellScopeContext sharedContext] setCvc: cvc];
@@ -249,7 +245,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         
         NSLog(@"%lu",(unsigned long)[eyeImages count]);
         
-        
         for( EyeImage* i in eyeImages){
             if(i){
                 NSLog(@"%@",[i filePath]);
@@ -258,7 +253,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                 NSLog(@"%ld",(long)[i fixationLight]);
 
                 //UIImage *im = [UIImage imageWithContentsOfFile: i.filePath];
-                
                 //Let's get an image!
                 
                 
