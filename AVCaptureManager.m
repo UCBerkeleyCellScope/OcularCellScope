@@ -97,11 +97,11 @@
 }
 
 -(void)lockFocus{
-    if ([self.device isFocusModeSupported:AVCaptureFocusModeLocked]) {
+    if ([self.device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
         CGPoint autofocusPoint = CGPointMake(0.5f, 0.5f);
         [self.device lockForConfiguration:nil];
         [self.device setFocusPointOfInterest:autofocusPoint];
-        [self.device setFocusMode:AVCaptureFocusModeLocked];
+        [self.device setFocusMode:AVCaptureFocusModeAutoFocus];
         [self.device unlockForConfiguration];
     }
 }
@@ -124,11 +124,11 @@
 }
 
 -(void)unlockFocus{
-    if ([self.device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+    if ([self.device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
         CGPoint autofocusPoint = CGPointMake(0.5f, 0.5f);
         [self.device lockForConfiguration:nil];
         [self.device setFocusPointOfInterest:autofocusPoint];
-        [self.device setFocusMode:AVCaptureFocusModeAutoFocus];
+        [self.device setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
         [self.device unlockForConfiguration];
     }
 }
@@ -139,6 +139,7 @@
         [self.device lockForConfiguration:nil];
         NSLog(@"setting focus");
         [self.device setFocusPointOfInterest:focusPoint];
+        [self.device setFocusMode:AVCaptureFocusModeAutoFocus];
         [self.device unlockForConfiguration];
     }
 }
