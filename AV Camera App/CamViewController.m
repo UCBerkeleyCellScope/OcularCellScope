@@ -31,7 +31,6 @@
 @synthesize bleDisabledLabel = _bleDisabledLabel;
 @synthesize selectedLight = _selectedLight;
 @synthesize selectedEye = _selectedEye;
-@synthesize prefs = _prefs;
 @synthesize debugMode;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -61,21 +60,6 @@
     self.counterLabel.hidden = YES;
     self.imageArray = [[NSMutableArray alloc] init];
     
-    if (self.bleManager.isConnected == NO && self.debugMode == NO){
-        NSLog(@"No connection yet, going to WAIT");
-        [self.aiv startAnimating];
-        [self.captureButton setEnabled:NO];
-        //JUST WAIT FOR CONNECTION
-    }
-        
-    else if (self.debugMode == YES){
-        [self.aiv stopAnimating];
-        [self.captureButton setEnabled:YES];
-        [self.bleDisabledLabel setHidden:NO];
-    }
-    else{
-        NSLog(@"Device is in Standard Mode");
-    }
     
     [[CellScopeContext sharedContext] setCamViewLoaded:YES];
     
@@ -89,6 +73,23 @@
         [self.bleManager.redLight turnOn];
         [[self.bleManager.fixationLights objectAtIndex: self.bleManager.selectedLight] turnOn];
     }
+    
+    if (self.bleManager.isConnected == NO && self.debugMode == NO){
+        NSLog(@"No connection yet, going to WAIT");
+        [self.aiv startAnimating];
+        [self.captureButton setEnabled:NO];
+        //JUST WAIT FOR CONNECTION
+    }
+    
+    else if (self.debugMode == YES){
+        [self.aiv stopAnimating];
+        [self.captureButton setEnabled:YES];
+        [self.bleDisabledLabel setHidden:NO];
+    }
+    else{
+        NSLog(@"Device is in Standard Mode");
+    }
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -110,6 +111,7 @@
     NSLog(@"The Connection Delegate was told that no BLE could be found");
     [self.aiv stopAnimating];
     [self.captureButton setEnabled:YES];
+    [self.bleDisabledLabel setHidden:NO];
 }
 
 -(void) didReceiveFlashConfirmation{
