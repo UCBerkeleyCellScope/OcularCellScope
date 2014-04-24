@@ -7,6 +7,7 @@
 //
 
 #import "AVCaptureManager.h"
+#import "NSMutableDictionary+ImageMetadata.h"
 
 @implementation AVCaptureManager
 
@@ -16,11 +17,13 @@
 @synthesize previewLayer = _previewLayer;
 @synthesize stillOutput = _stillOutput;
 @synthesize delegate = _delegate;
+@synthesize isExposureLocked;
+
+@synthesize lastImageMetadata;
+
 
 -(void)setupVideoForView:(UIView*)view{
     self.view = view;
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped)];
-    [self.view addGestureRecognizer:gestureRecognizer];
     
     // Create a new photo session
     self.session = [[AVCaptureSession alloc] init];
@@ -75,9 +78,12 @@
 
 -(void)takePicture{
     
+    
     AVCaptureConnection *videoConnection = [self getVideoConnection];
 	[_stillOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
      {
+         self.lastImageMetadata = [[NSMutableDictionary alloc] initWithImageSampleBuffer:imageSampleBuffer];
+         
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
          
          
@@ -93,6 +99,23 @@
         [self.device setFocusMode:AVCaptureFocusModeLocked];
         [self.device unlockForConfiguration];
     }
+}
+
+- (void)setExposureLock:(BOOL)locked
+{
+    NSError* error;
+    if ([self.device lockForConfiguration:&error])
+    {
+        if (locked)
+            [self.device setExposureMode:AVCaptureExposureModeLocked];
+        else
+            [self.device setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
+        isExposureLocked = locked;
+        [self.device unlockForConfiguration];
+    }
+    else
+        NSLog(@"Error: %@",error);
+    
 }
 
 -(void)unlockFocus{
@@ -115,7 +138,7 @@
 }
 
 
--(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer  fromConnection:(AVCaptureConnection *)connection
-
+/*-(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer  fromConnection:(AVCaptureConnection *)connection
+*/
 
 @end

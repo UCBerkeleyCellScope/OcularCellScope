@@ -19,6 +19,7 @@
 		60B2E8F918C6EE7E00973C7E /* CameraModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */; };
 		60B2E8FC18C717B100973C7E /* img.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 60B2E8FB18C717B100973C7E /* img.jpeg */; };
 		60B4231A19089678005A9ABD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B4231919089678005A9ABD /* MobileCoreServices.framework */; };
+		60B4231F1908D294005A9ABD /* NSMutableDictionary+ImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B4231D1908D294005A9ABD /* NSMutableDictionary+ImageMetadata.m */; };
 		60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0118F346E700902F28 /* DiagnosisViewController.m */; };
 		60C1AE0518F34DD400902F28 /* PatientTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0418F34DD400902F28 /* PatientTableViewCell.m */; };
 		60C1AE2C18F3507E00902F28 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0818F3507E00902F28 /* AFHTTPRequestOperation.m */; };
@@ -151,6 +152,8 @@
 		60AECE6618D8CD1A00C4EA15 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		60B2E8FB18C717B100973C7E /* img.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = img.jpeg; sourceTree = "<group>"; };
 		60B4231919089678005A9ABD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		60B4231D1908D294005A9ABD /* NSMutableDictionary+ImageMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+ImageMetadata.m"; sourceTree = "<group>"; };
+		60B4231E1908D294005A9ABD /* NSMutableDictionary+ImageMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+ImageMetadata.h"; sourceTree = "<group>"; };
 		60C1AE0018F346E700902F28 /* DiagnosisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiagnosisViewController.h; sourceTree = "<group>"; };
 		60C1AE0118F346E700902F28 /* DiagnosisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiagnosisViewController.m; sourceTree = "<group>"; };
 		60C1AE0318F34DD400902F28 /* PatientTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientTableViewCell.h; sourceTree = "<group>"; };
@@ -330,6 +333,15 @@
 			path = BLE;
 			sourceTree = "<group>";
 		};
+		60B4231C1908D27B005A9ABD /* NSMD_MetaData */ = {
+			isa = PBXGroup;
+			children = (
+				60B4231D1908D294005A9ABD /* NSMutableDictionary+ImageMetadata.m */,
+				60B4231E1908D294005A9ABD /* NSMutableDictionary+ImageMetadata.h */,
+			);
+			name = NSMD_MetaData;
+			sourceTree = "<group>";
+		};
 		60C1AE0618F3507E00902F28 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -396,6 +408,7 @@
 				60D8C7D018C6BF87007D26A7 /* Constants.h */,
 				60D8C7D118C6BF87007D26A7 /* Constants.m */,
 				60C2A51B18C19F2800021510 /* CellScopeContext.h */,
+				60B4231C1908D27B005A9ABD /* NSMD_MetaData */,
 				60C2A51C18C19F2800021510 /* CellScopeContext.m */,
 				6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */,
 				6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */,
@@ -446,8 +459,6 @@
 				60C1AE0118F346E700902F28 /* DiagnosisViewController.m */,
 				F385B2FC1900E31E00A3F974 /* CamViewController.h */,
 				F385B2FD1900E31E00A3F974 /* CamViewController.m */,
-				F3FA32CF18B8205B000FACF4 /* CaptureViewController.h */,
-				F3FA32D018B8205B000FACF4 /* CaptureViewController.m */,
 				6D3260FC184BBD6200E34428 /* PatientsTableViewController.h */,
 				6D3260FD184BBD6200E34428 /* PatientsTableViewController.m */,
 				603B077B18DD810B002179CD /* TabViewController.h */,
@@ -556,6 +567,8 @@
 		F385B2FB1900E20F00A3F974 /* Old View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F3FA32CF18B8205B000FACF4 /* CaptureViewController.h */,
+				F3FA32D018B8205B000FACF4 /* CaptureViewController.m */,
 				6DD89D8B1842862F00F3C7FC /* MainMenuViewController.h */,
 				6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */,
 				6DD89D851842773B00F3C7FC /* PatientInfoViewController.h */,
@@ -753,6 +766,7 @@
 				F385B2FE1900E31E00A3F974 /* CamViewController.m in Sources */,
 				60C1AE3718F3507E00902F28 /* UIAlertView+AFNetworking.m in Sources */,
 				60533D2218D8454D00FF336E /* Exam.m in Sources */,
+				60B4231F1908D294005A9ABD /* NSMutableDictionary+ImageMetadata.m in Sources */,
 				60D8C7CA18C69BB1007D26A7 /* PatientsTableViewController.m in Sources */,
 				60D8C7CB18C69BB1007D26A7 /* DetailViewController.m in Sources */,
 				60C1AE2F18F3507E00902F28 /* AFNetworkReachabilityManager.m in Sources */,

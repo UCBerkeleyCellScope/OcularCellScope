@@ -24,11 +24,15 @@
 @property (strong, nonatomic) AVCaptureStillImageOutput *stillOutput;
 @property (weak, nonatomic) UIView *view;
 @property (weak, nonatomic) id <ImageCaptureDelegate> delegate;
+@property (nonatomic) BOOL isExposureLocked;
+
+@property (strong,atomic) NSMutableDictionary* lastImageMetadata;
 
 -(void)setupVideoForView:(UIView*)view;
 -(void)takePicture;
 -(void)lockFocus;
 -(void)unlockFocus;
 -(void)setFocusWithPoint:(CGPoint)focusPoint;
+-(void)setExposureLock:(BOOL)locked;
 
 @end

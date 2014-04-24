@@ -53,6 +53,9 @@
     
     [[self.bleManager whiteLight]toggleLight];
     
+    [self.captureManager setExposureLock:NO];
+    [self.captureManager unlockFocus];
+    
     self.debugMode = [self.prefs boolForKey:@"debugMode"];
     [self.bleDisabledLabel setHidden:YES];
     self.counterLabel.hidden = YES;
@@ -117,6 +120,9 @@
 
 -(IBAction)didPressPause:(id)sender{
     [self.repeatingTimer invalidate];
+    [self.captureManager setExposureLock:NO];
+    [self.captureManager lockFocus];
+    [self.captureButton setEnabled:YES];
 }
 
 - (IBAction)tappedToFocus:(UITapGestureRecognizer *)sender {
@@ -127,6 +133,8 @@
 
 - (IBAction)didPressCapture:(id)sender{
     NSLog(@"didPressCapture");
+    [self.captureButton setEnabled:NO];
+    [self.captureManager setExposureLock:YES];
     [self.captureManager lockFocus];
     
     BOOL timedFlash = [[NSUserDefaults standardUserDefaults] boolForKey:@"timedFlash"];
