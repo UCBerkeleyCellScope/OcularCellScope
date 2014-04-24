@@ -32,7 +32,7 @@
 @synthesize selectedLight = _selectedLight;
 @synthesize selectedEye = _selectedEye;
 @synthesize prefs = _prefs;
-@synthesize debugMode = _debugMode;
+@synthesize debugMode;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,9 +54,9 @@
     [[self.bleManager whiteLight]toggleLight];
     
     [self.captureManager setExposureLock:NO];
-    [self.captureManager unlockFocus];
+    //[self.captureManager unlockFocus];
     
-    self.debugMode = [self.prefs boolForKey:@"debugMode"];
+    self.debugMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"debugMode"];
     [self.bleDisabledLabel setHidden:YES];
     self.counterLabel.hidden = YES;
     self.imageArray = [[NSMutableArray alloc] init];
@@ -84,6 +84,7 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     NSLog(@"APPEARED");
+    [self.navigationItem setHidesBackButton:NO animated:YES];
     if(self.bleManager.isConnected== YES){
         [self.bleManager.redLight turnOn];
         [[self.bleManager.fixationLights objectAtIndex: self.bleManager.selectedLight] turnOn];
@@ -136,6 +137,8 @@
     [self.captureButton setEnabled:NO];
     [self.captureManager setExposureLock:YES];
     [self.captureManager lockFocus];
+    [self.navigationItem setHidesBackButton:YES animated:YES];
+
     
     BOOL timedFlash = [[NSUserDefaults standardUserDefaults] boolForKey:@"timedFlash"];
     

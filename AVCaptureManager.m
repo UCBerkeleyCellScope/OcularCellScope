@@ -61,7 +61,7 @@
     //self.previewLayer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
     
     [self.session startRunning];
-    [self lockFocus];
+    [self unlockFocus];
 }
 
 -(AVCaptureConnection*)getVideoConnection{
@@ -124,20 +124,21 @@
 }
 
 -(void)unlockFocus{
-    if ([self.device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
+    if ([self.device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
         CGPoint autofocusPoint = CGPointMake(0.5f, 0.5f);
         [self.device lockForConfiguration:nil];
         [self.device setFocusPointOfInterest:autofocusPoint];
-        [self.device setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
+        [self.device setFocusMode:AVCaptureFocusModeAutoFocus];
         [self.device unlockForConfiguration];
     }
 }
 
 -(void)setFocusWithPoint:(CGPoint)focusPoint{
-    if ([self.device isFocusModeSupported:AVCaptureFocusModeLocked]) {
+    if([self.device isFocusModeSupported:AVCaptureFocusModeAutoFocus] && [self.device isFocusPointOfInterestSupported]){
+        NSLog(@"trying to set focus");
         [self.device lockForConfiguration:nil];
+        NSLog(@"setting focus");
         [self.device setFocusPointOfInterest:focusPoint];
-        [self.device setFocusMode:AVCaptureFocusModeLocked];
         [self.device unlockForConfiguration];
     }
 }
