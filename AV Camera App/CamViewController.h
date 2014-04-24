@@ -33,7 +33,9 @@
 @property (assign, nonatomic) int selectedLight;
 @property (copy, nonatomic) NSString *selectedEye;
 @property (strong, nonatomic) NSUserDefaults *prefs;
+@property (assign, nonatomic) BOOL debugMode;
 
+- (IBAction)tappedToFocus:(UITapGestureRecognizer *)sender;
 
 - (IBAction)didPressCapture:(id)sender;
 

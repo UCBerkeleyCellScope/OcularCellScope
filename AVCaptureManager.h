@@ -22,11 +22,13 @@
 @property (strong, nonatomic) AVCaptureDeviceInput *deviceInput;
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer *previewLayer;
 @property (strong, nonatomic) AVCaptureStillImageOutput *stillOutput;
+@property (weak, nonatomic) UIView *view;
 @property (weak, nonatomic) id <ImageCaptureDelegate> delegate;
 
 -(void)setupVideoForView:(UIView*)view;
 -(void)takePicture;
 -(void)lockFocus;
 -(void)unlockFocus;
+-(void)setFocusWithPoint:(CGPoint)focusPoint;
 
 @end
