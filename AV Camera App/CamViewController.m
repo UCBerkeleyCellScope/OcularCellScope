@@ -32,8 +32,7 @@
 @synthesize selectedLight = _selectedLight;
 @synthesize selectedEye = _selectedEye;
 @synthesize prefs = _prefs;
-
-BOOL _debugMode;
+@synthesize debugMode = _debugMode;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,51 +43,45 @@ BOOL _debugMode;
     return self;
 }
 
-- (void)loadView
+- (void)viewDidLoad
 {
-    [super loadView];
-    _bleManager = [[CellScopeContext sharedContext] bleManager];
+    [super viewDidLoad];
+    self.bleManager = [[CellScopeContext sharedContext] bleManager];
     self.captureManager = [[AVCaptureManager alloc] init];
     self.captureManager.delegate = self;
     self.currentImageCount = 0;
     
-    [[_bleManager whiteLight]toggleLight];
+    [[self.bleManager whiteLight]toggleLight];
     
-    _debugMode = [_prefs boolForKey:@"debugMode"];
-    [_bleDisabledLabel setHidden:YES];
+    self.debugMode = [self.prefs boolForKey:@"debugMode"];
+    [self.bleDisabledLabel setHidden:YES];
     self.counterLabel.hidden = YES;
     self.imageArray = [[NSMutableArray alloc] init];
     
-    if (_bleManager.isConnected == NO && _debugMode == NO){
+    if (self.bleManager.isConnected == NO && self.debugMode == NO){
         NSLog(@"No connection yet, going to WAIT");
-        [_aiv startAnimating];
-        [_captureButton setEnabled:NO];
+        [self.aiv startAnimating];
+        [self.captureButton setEnabled:NO];
         //JUST WAIT FOR CONNECTION
     }
         
-    else if (_debugMode == YES){
-        [_aiv stopAnimating];
-        [_captureButton setEnabled:YES];
-        [_bleDisabledLabel setHidden:NO];
+    else if (self.debugMode == YES){
+        [self.aiv stopAnimating];
+        [self.captureButton setEnabled:YES];
+        [self.bleDisabledLabel setHidden:NO];
     }
     else{
         NSLog(@"Device is in Standard Mode");
     }
     
     [[CellScopeContext sharedContext] setCamViewLoaded:YES];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self.captureManager setupVideoForView:self.view];
     
+    [self.captureManager setupVideoForView:self.view];
 }
 
 -(void) viewWillAppear:(BOOL)animated{
     NSLog(@"APPEARED");
-    if(_bleManager.isConnected== YES){
+    if(self.bleManager.isConnected== YES){
         [self.bleManager.redLight turnOn];
         [[self.bleManager.fixationLights objectAtIndex: self.bleManager.selectedLight] turnOn];
     }
@@ -104,15 +97,15 @@ BOOL _debugMode;
 -(void) didReceiveConnectionConfirmation{
     NSLog(@"The Connection Delegate was told that a Connection did occur");
     
-    [_aiv stopAnimating];
-    [_captureButton setEnabled:YES];
-    [_bleDisabledLabel setHidden:YES];
+    [self.aiv stopAnimating];
+    [self.captureButton setEnabled:YES];
+    [self.bleDisabledLabel setHidden:YES];
 }
 
 -(void) didReceiveNoBLEConfirmation{
     NSLog(@"The Connection Delegate was told that no BLE could be found");
-    [_aiv stopAnimating];
-    [_captureButton setEnabled:YES];
+    [self.aiv stopAnimating];
+    [self.captureButton setEnabled:YES];
 }
 
 -(void) didReceiveFlashConfirmation{
@@ -124,6 +117,12 @@ BOOL _debugMode;
 
 -(IBAction)didPressPause:(id)sender{
     [self.repeatingTimer invalidate];
+}
+
+- (IBAction)tappedToFocus:(UITapGestureRecognizer *)sender {
+    CGPoint focusPoint = [sender locationInView:self.view];
+    NSLog(@"x = %f  y = %f", focusPoint.x, focusPoint.y);
+    [self.captureManager setFocusWithPoint:focusPoint];
 }
 
 - (IBAction)didPressCapture:(id)sender{
@@ -165,7 +164,7 @@ BOOL _debugMode;
 
 
 -(void) readyToTakePicture{
-                [self.captureManager takePicture];
+    [self.captureManager takePicture];
 }
 
 
@@ -181,7 +180,7 @@ BOOL _debugMode;
     // Add the capture image to the image array
     [self.imageArray addObject:image];
     
-    NSLog(@"Saved Image %lu!",[self.imageArray count]);
+    NSLog(@"Saved Image %lu!",(unsigned long)[self.imageArray count]);
     
     // Once all images are captured, segue to the Image Selection View
     int totalNumberOfImages = [[[NSUserDefaults standardUserDefaults] objectForKey:@"numberOfImages"] intValue];
