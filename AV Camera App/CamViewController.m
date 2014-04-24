@@ -150,9 +150,7 @@ BOOL _debugMode;
         // Timed flash or ping back
         [self.bleManager timedFlash];
         
-        NSNumber *bleDelay = [[NSUserDefaults standardUserDefaults] objectForKey:@"bleDelay"];
-        
-        [NSThread sleepForTimeInterval: [bleDelay doubleValue]];
+        [self.bleManager bleDelay];
         
         //self.waitForBle = [NSTimer scheduledTimerWithTimeInterval:[bleDelay doubleValue] target:self selector:@selector(readyToTakePicture) userInfo:nil repeats:NO];
         [self.captureManager takePicture];
@@ -205,11 +203,8 @@ BOOL _debugMode;
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
-    
     if ([[segue identifier] isEqualToString:@"ImageSelectionSegue"])
     {
-        
         self.navigationController.navigationBar.alpha = 1;
         ImageSelectionViewController *isvc = (ImageSelectionViewController*)[segue destinationViewController];
         isvc.images = self.imageArray;

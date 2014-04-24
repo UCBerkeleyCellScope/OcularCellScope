@@ -17,10 +17,10 @@
 	<key>redLightValue</key>
 	<integer>50</integer>
 	<key>bleDelay</key>
-	<real>0.1</real>
+	<real>0.2</real>
 	<key>captureDelay</key>
 	<real>1</real>
 	<key>flashDuration</key>
-	<real>0.5</real>
+	<real>0</real>
 </dict>
 </plist>

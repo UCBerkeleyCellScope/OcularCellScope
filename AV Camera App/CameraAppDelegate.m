@@ -16,8 +16,6 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 @synthesize currentExam = _currentExam;
-@synthesize ble;
-@synthesize cvc;
 @synthesize prefs = _prefs;
 @synthesize debugMode;
 
@@ -41,7 +39,6 @@
     if(debugMode == NO){
         [blem btnScanForPeripherals];
     }
-    //self.cvc = [[CellScopeContext sharedContext] cvc ];
     
     return YES;
 }

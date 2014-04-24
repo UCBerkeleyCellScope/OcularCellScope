@@ -55,7 +55,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JQU-mJ-Kqe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-348" y="-54"/>
+            <point key="canvasLocation" x="138" y="-242"/>
         </scene>
         <!--Patients Table View Controller - Ocular CellScope-->
         <scene sceneID="VFk-Mi-CrN">
@@ -370,11 +370,11 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.1" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rhu-hc-e33">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.20" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rhu-hc-e33">
                                                     <rect key="frame" x="247" y="7" width="61" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -398,7 +398,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text=".5" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GEn-ce-gxv">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.00" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GEn-ce-gxv">
                                                     <rect key="frame" x="246" y="7" width="61" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -539,6 +539,35 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Roy-60-asq">
+                                        <rect key="frame" x="0.0" y="440" width="320" height="55"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Roy-60-asq" id="MJ1-Oh-91e">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Remote Light" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ir-GL-6pz">
+                                                    <rect key="frame" x="20" y="16" width="103" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="255" translatesAutoresizingMaskIntoConstraints="NO" id="wzD-7h-xjN">
+                                                    <rect key="frame" x="136" y="12" width="134" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="remoteLightSliderDidChange:" destination="x8V-KE-hAE" eventType="valueChanged" id="lwJ-wT-8qn"/>
+                                                    </connections>
+                                                </slider>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="50" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XV2-ix-Fe9">
+                                                    <rect key="frame" x="286" y="16" width="57" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -558,12 +587,14 @@
                         <outlet property="multiShot" destination="O9F-MR-w4t" id="ywE-3n-SYE"/>
                         <outlet property="redLightLabel" destination="tbg-E1-CpJ" id="kh5-57-Q4g"/>
                         <outlet property="redLightSlider" destination="Gxf-cK-yKI" id="7Zy-Kj-nkk"/>
+                        <outlet property="remoteLightLabel" destination="XV2-ix-Fe9" id="FyG-Vv-7RK"/>
+                        <outlet property="remoteLightSlider" destination="wzD-7h-xjN" id="6ee-VK-VTE"/>
                         <outlet property="timedFlashSwitch" destination="8w5-hs-f1E" id="zrX-ck-mQC"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QxY-Sh-gKC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2928" y="184"/>
+            <point key="canvasLocation" x="2736" y="-192"/>
         </scene>
         <!--Cam View Controller-->
         <scene sceneID="mlL-v7-0yq">
@@ -650,7 +681,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yr8-8t-C4g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2285" y="136"/>
+            <point key="canvasLocation" x="2177" y="-192"/>
         </scene>
         <!--Image Selection View Controller-->
         <scene sceneID="eMj-Vl-UuO">
@@ -754,7 +785,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2919" y="-678"/>
+            <point key="canvasLocation" x="2177" y="-870"/>
         </scene>
         <!--Tab View Controller-->
         <scene sceneID="HBV-wj-Q0L">
@@ -883,9 +914,6 @@
                                 <state key="normal" title="Settings">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="x8V-KE-hAE" kind="modal" id="PE1-4A-hZv"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -897,12 +925,11 @@
                         <outlet property="captureButton" destination="GaI-4L-5ii" id="3ye-pt-Z5q"/>
                         <outlet property="counterLabel" destination="PNh-Xg-hYw" id="a3Q-IY-KAI"/>
                         <outlet property="swDigitalOut" destination="pYO-Dc-Jlk" id="FWU-Ec-paZ"/>
-                        <segue destination="2qF-pw-3PT" kind="push" identifier="ImageSelectionSegue" id="G5L-Ah-1hf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jFr-16-nKh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2225" y="-988"/>
+            <point key="canvasLocation" x="2177" y="-1532"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="q5a-Zg-0MC">
@@ -924,7 +951,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wJK-dX-c7Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-430" y="-918"/>
+            <point key="canvasLocation" x="138" y="-918"/>
         </scene>
     </scenes>
     <resources>
@@ -952,7 +979,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="IbK-dq-lak"/>
-        <segue reference="7Kd-7W-z8w"/>
         <segue reference="bxS-mp-ayJ"/>
     </inferredMetricsTieBreakers>
 </document>

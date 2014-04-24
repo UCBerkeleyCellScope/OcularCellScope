@@ -22,6 +22,7 @@
 @property (strong, nonatomic) Light *redLight;
 @property (strong, nonatomic) Light *whiteLight;
 @property (strong, nonatomic) Light *whitePing;
+@property (strong, nonatomic) Light *remoteLight;
 @property (strong, nonatomic) NSArray *fixationLights;
 
 @property(nonatomic, strong) NSUserDefaults *prefs;
@@ -38,5 +39,6 @@
 -(void)deactivatePinForLight:(Light *)light;
 -(void)btnScanForPeripherals;
 -(void) disconnect;
+-(void) bleDelay;
 
 @end

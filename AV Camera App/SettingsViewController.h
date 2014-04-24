@@ -29,9 +29,6 @@
 
 @property(strong, nonatomic) BLEManager *bleManager;
 
-- (IBAction)didReleaseFlashSlider:(id)sender;
-- (IBAction)didReleaseRedSlider:(id)sender;
-
 @property (weak, nonatomic) IBOutlet UISwitch *debugToggle;
 - (IBAction)toggleDidChange:(id)sender;
 - (IBAction)flashSliderDidChange:(id)sender;
@@ -39,5 +36,8 @@
 - (IBAction)multiShotValueChanged:(id)sender;
 - (IBAction)timedFlashToggleDidChange:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UISlider *remoteLightSlider;
+- (IBAction)remoteLightSliderDidChange:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *remoteLightLabel;
 
 @end

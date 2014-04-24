@@ -18,11 +18,13 @@
 @synthesize prefs = _prefs;
 
 @synthesize flashLightSlider, redLightSlider, flashLightValue, redLightValue, flashLightLabel, redLightLabel, multiText, debugToggle,bleDelay,captureDelay,flashDuration,multiShot, timedFlashSwitch;
+@synthesize remoteLightSlider, remoteLightLabel;
+
 @synthesize bleManager = _bleManager;
 
 BOOL debugMode;
 
-double fs,fe,rs,re;
+double fs,fe,rs,re, rems, reme;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -177,6 +179,16 @@ double fs,fe,rs,re;
         //NSLog(@"%f",re);
     }
 }
+
+- (IBAction)remoteLightSliderDidChange:(id)sender {
+    remoteLightLabel.text = [NSString stringWithFormat: @"%d", (int)remoteLightSlider.value];
+    rems = CACurrentMediaTime();
+    if(rems-reme>=.05){
+        [[_bleManager remoteLight] changeIntensity:remoteLightSlider.value];
+        reme = rems;
+    }
+}
+
 
 - (IBAction)multiShotValueChanged:(id)sender {
     self.multiText = [multiShot titleForSegmentAtIndex:multiShot.selectedSegmentIndex];

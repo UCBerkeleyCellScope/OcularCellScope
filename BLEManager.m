@@ -13,6 +13,7 @@
 
 @synthesize redLight = _redLight;
 @synthesize whiteLight = _whiteLight;
+@synthesize remoteLight = _remoteLight;
 @synthesize whitePing = _whitePing;
 @synthesize fixationLights = _fixationLights;
 @synthesize ble;
@@ -21,7 +22,6 @@
 @synthesize isConnected = _isConnected;
 @synthesize selectedLight = _selectedLight;
 @synthesize BLECdelegate = _BLECdelegate;
-
 
 int attempts = 0;
 BOOL capturing = NO;
@@ -48,7 +48,9 @@ BOOL capturing = NO;
         _redLight = [[Light alloc] initWithBLE:self pin:RED_LIGHT intensity: r_i ];
         _whiteLight = [[Light alloc] initWithBLE:self pin:WHITE_LIGHT intensity: w_i ];
         _whitePing = [[Light alloc] initWithBLE:self pin:WHITE_PING intensity: w_i];
-
+        _remoteLight = [[Light alloc] initWithBLE:self pin:REMOTE_LIGHT intensity: 255];
+        
+        
         _prefs = [NSUserDefaults standardUserDefaults];
         debugMode = [_prefs boolForKey:@"debugMode" ];
         
@@ -110,6 +112,11 @@ BOOL capturing = NO;
         if(ble.activePeripheral.state == CBPeripheralStateConnected){
             [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
         }
+}
+
+-(void) bleDelay{
+    NSNumber *bleDelay = [[NSUserDefaults standardUserDefaults] objectForKey:@"bleDelay"];
+    [NSThread sleepForTimeInterval: [bleDelay doubleValue]];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -183,6 +190,7 @@ BOOL capturing = NO;
     }
     self.whiteLight.isOn = NO;
     self.redLight.isOn = NO;
+    self.remoteLight.isOn = NO;
     
     UInt8 buf[] = {0xFF, 0x00, 0x00};
     NSData *data = [[NSData alloc] initWithBytes:buf length:3];

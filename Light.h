@@ -15,6 +15,7 @@
 #define RED_LIGHT 9
 #define WHITE_LIGHT 10
 #define WHITE_PING 11
+#define REMOTE_LIGHT 12
 
 @class BLEManager;
 

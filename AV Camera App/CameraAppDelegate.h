@@ -22,8 +22,6 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (strong,nonatomic) Exam *currentExam;
-@property (strong, nonatomic) BLE *ble;
-@property (strong, nonatomic) CaptureViewController *cvc;
 @property(nonatomic, strong) NSUserDefaults *prefs;
 @property BOOL debugMode;
 
