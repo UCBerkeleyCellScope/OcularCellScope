@@ -53,7 +53,7 @@
     [rootLayer insertSublayer:self.previewLayer atIndex:0];
     
     // Invert the screen for optics
-    self.previewLayer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
+    //self.previewLayer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
     
     [self.session startRunning];
     [self lockFocus];
@@ -119,8 +119,10 @@
 
 - (IBAction)viewTapped:(id)sender {
     CGPoint tapPoint = [sender locationInView:self.view];
-    NSLog(@"x = %f, y = %f",tapPoint.x,tapPoint.y);
-    [self setFocusWithPoint:tapPoint];
+    
+    CGPoint focusPoint = CGPointMake(tapPoint.x/self.view.bounds.size.width, tapPoint.y/self.view.bounds.size.height);
+    NSLog(@"x = %f, y = %f",focusPoint.x,focusPoint.y);
+    [self setFocusWithPoint:focusPoint];
 }
 
 /*

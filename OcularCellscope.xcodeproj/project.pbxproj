@@ -629,9 +629,6 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "NAYA LOUMOU";
 				TargetAttributes = {
-					6D2D5DB218318D9F00A58A96 = {
-						DevelopmentTeam = 4344E54GZY;
-					};
 					6D2D5DD318318D9F00A58A96 = {
 						TestTargetID = 6D2D5DB218318D9F00A58A96;
 					};
