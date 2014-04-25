@@ -3,7 +3,7 @@
 //  OcularCellscope
 //
 //  Created by Chris Echanique on 4/17/14.
-//  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
+//  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -32,7 +32,6 @@
 
 @property (assign, nonatomic) int selectedLight;
 @property (copy, nonatomic) NSString *selectedEye;
-@property (strong, nonatomic) NSUserDefaults *prefs;
 @property (assign, nonatomic) BOOL debugMode;
 
 - (IBAction)tappedToFocus:(UITapGestureRecognizer *)sender;

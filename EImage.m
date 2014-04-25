@@ -3,7 +3,7 @@
 //  OcularCellscope
 //
 //  Created by Chris Echanique on 3/14/14.
-//  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
+//  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
 
 #import "EImage.h"

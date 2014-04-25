@@ -3,7 +3,7 @@
 //  OcularCellscope
 //
 //  Created by Chris Echanique on 4/17/14.
-//  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
+//  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
 
 #import "BLEManager.h"
@@ -50,13 +50,12 @@ BOOL capturing = NO;
         _whitePing = [[Light alloc] initWithBLE:self pin:WHITE_PING intensity: w_i];
         _remoteLight = [[Light alloc] initWithBLE:self pin:REMOTE_LIGHT intensity: 255];
         
-        
         _prefs = [NSUserDefaults standardUserDefaults];
         debugMode = [_prefs boolForKey:@"debugMode" ];
         
         
         NSMutableArray *lights = [[NSMutableArray alloc] init];
-        for(int i = 0; i <= 4; ++i){
+        for(int i = 0; i <= 5; ++i){
             [lights addObject:[[Light alloc] initWithBLE:self pin: i intensity: 255]];
         }
         _fixationLights = lights;
@@ -107,18 +106,6 @@ BOOL capturing = NO;
     }
 }
 
--(void) disconnect{
-    if (ble.activePeripheral)
-        if(ble.activePeripheral.state == CBPeripheralStateConnected){
-            [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
-        }
-}
-
--(void) bleDelay{
-    NSNumber *bleDelay = [[NSUserDefaults standardUserDefaults] objectForKey:@"bleDelay"];
-    [NSThread sleepForTimeInterval: [bleDelay doubleValue]];
-}
-
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0){
         NSLog(@"user pressed Try Again");
@@ -132,12 +119,27 @@ BOOL capturing = NO;
     }
 }
 
+-(void) disconnect{
+    if (ble.activePeripheral)
+        if(ble.activePeripheral.state == CBPeripheralStateConnected){
+            [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
+        }
+}
+
+-(void) bleDelay{
+    NSNumber *bleDelay = [[NSUserDefaults standardUserDefaults] objectForKey:@"bleDelay"];
+    [NSThread sleepForTimeInterval: [bleDelay doubleValue]];
+}
+
+
 - (void)bleDidDisconnect
 {
     NSLog(@"->Disconnected");
     //[self btnScanForPeripherals];
     _isConnected = NO;
-    [self btnScanForPeripherals];
+    if(debugMode==NO){
+        [self btnScanForPeripherals];
+    }
     NSLog(@"Connected set back to NO");
     
 }
@@ -185,6 +187,7 @@ BOOL capturing = NO;
 }
 
 -(void)turnOffAllLights{
+    
     for(Light *l in self.fixationLights){
         l.isOn = NO;
     }
@@ -198,10 +201,12 @@ BOOL capturing = NO;
 }
 
 -(void)timedFlash{
-    [self turnOffAllLights];
-    [self.whiteLight turnOn];
-    NSNumber *duration = [[NSUserDefaults standardUserDefaults] objectForKey:@"flashDuration"];
-    [NSTimer scheduledTimerWithTimeInterval:[duration doubleValue] target:self.whiteLight selector:@selector(turnOff) userInfo:nil repeats:NO];
+    if(debugMode == NO){
+        [self turnOffAllLights];
+        [self.whiteLight turnOn];    
+        NSNumber *duration = [[NSUserDefaults standardUserDefaults] objectForKey:@"flashDuration"];
+        [NSTimer scheduledTimerWithTimeInterval:[duration doubleValue] target:self.whiteLight selector:@selector(turnOff) userInfo:nil repeats:NO];
+    }
 }
 
 -(void)activatePinForLight:(Light *)light {

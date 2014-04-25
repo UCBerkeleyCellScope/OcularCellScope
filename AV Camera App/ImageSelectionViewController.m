@@ -3,7 +3,7 @@
 //  OcularCellscope
 //
 //  Created by Chris Echanique on 2/19/14.
-//  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
+//  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
 
 
@@ -17,15 +17,16 @@
 @interface ImageSelectionViewController ()
 
 @property(assign, nonatomic) int currentImageIndex;
-
+@property UIViewController *fixationVC;
+@property UIAlertView   *deleteAllAlert;
 @end
 
 @implementation ImageSelectionViewController
 
 @synthesize imageView,slider, images, currentImageIndex, imageViewButton, selectedIcon, reviewMode, imageCollectionView;
+@synthesize fixationVC, deleteAllAlert;
 
 //ARE WE PASSING SELECTED LIGHT< SELECTED EYE TO THIS VC?
-
 
 
 /*
@@ -47,6 +48,10 @@
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     currentImageIndex = 0;
     selectedIcon.layer.shadowOffset = CGSizeMake(0, 1);
+    
+    NSArray* viewControllers = self.navigationController.viewControllers;
+    fixationVC = [viewControllers objectAtIndex: 1 ];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -68,13 +73,13 @@
     }
     
     if(reviewMode == YES){
+        self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.leftBarButtonItem =
-        [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStylePlain target: self action:@selector(didPressDelete:)];
+        [[UIBarButtonItem alloc] initWithTitle:@"Delete All" style:UIBarButtonItemStylePlain target: self action:@selector(didPressDeleteAll)];
 
     }
     
 }
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -140,54 +145,77 @@
 }
 
 -(IBAction)didPressCancel:(id)sender{
-    NSArray* viewControllers = self.navigationController.viewControllers;
-    UIViewController* fixationVC = [viewControllers objectAtIndex: 1 ];
+
     //The Fixation ViewController will be either index 1 out of 0-2 or 1 out of 0-3.
-    
     [self.navigationController popToViewController:fixationVC animated:YES];
 }
 
--(void)didPressDelete{
-    NSLog(@"Delete Fired!");
+-(void) didPressDeleteAll{
+    NSLog(@"PRESSED DELETE");
+    deleteAllAlert = [[UIAlertView alloc] initWithTitle:@"Delete All Images?"
+                                                    message:@""
+                                                   delegate:self
+                                          cancelButtonTitle:@"No"
+                                          otherButtonTitles:@"Yes",nil];
+    [deleteAllAlert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView == deleteAllAlert && buttonIndex == 1){
+        NSPredicate *p = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == %d",
+                          [[CellScopeContext sharedContext]currentExam],
+                          [[CellScopeContext sharedContext]selectedEye],
+                          [[CellScopeContext sharedContext]bleManager].selectedLight];
+        
+        [CoreDataController deleteAllObjectsForEntity:@"EyeImage" withPredicate:p andContext:[[CellScopeContext sharedContext]managedObjectContext]];
+        [self.navigationController popToViewController:fixationVC animated:YES];
+    }
 }
 
 -(IBAction)didPressSave:(id)sender{
-    if([EImage containsSelectedImageInArray:images]){
+    //if([EImage containsSelectedImageInArray:images]){
         //save
-        
-        NSMutableArray* eImagesToSave = [EImage selectedImagesFromArray:images];
-        for( EImage* ei in eImagesToSave){
-            EyeImage* coreDataObject = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"EyeImage" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
-            coreDataObject.date = ei.date;
-            coreDataObject.eye = ei.eye;
-            [self saveImageToCameraRoll:ei coreData: coreDataObject];
-            coreDataObject.thumbnail = UIImagePNGRepresentation(ei.thumbnail);
+    
+    
+    // GO THROUGH AND DELETE THE EyeImages MARKED FOR DELETEION
+  
+    if(reviewMode == NO){
+            NSMutableArray* eImagesToSave = [EImage selectedImagesFromArray:images];
+        for( EImage* ei in images){//eImagesToSave){     //HACK TO SAVE ALL
+                EyeImage* coreDataObject = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"EyeImage" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
+                coreDataObject.date = ei.date;
+                coreDataObject.eye = ei.eye;
+                coreDataObject.fixationLight = [[NSNumber alloc ]initWithInteger: [[[CellScopeContext sharedContext]bleManager]selectedLight]];
+                coreDataObject.exam = [[CellScopeContext sharedContext]currentExam];
             
-            NSNumber *myNum = [NSNumber numberWithInteger:ei.fixationLight];
-            coreDataObject.fixationLight = myNum;
             
-            // NSLog([[[CellScopeContext sharedContext ]currentExam] description]);
+                [self saveImageToCameraRoll:ei coreData: coreDataObject];
+                coreDataObject.thumbnail = UIImagePNGRepresentation(ei.thumbnail);
             
+                //NSNumber *myNum = [NSNumber numberWithInteger:ei.fixationLight];
+                //coreDataObject.fixationLight = myNum;
+                
             
-            Exam* e = [[CellScopeContext sharedContext ]currentExam ];
-           
+                Exam* e = [[CellScopeContext sharedContext ]currentExam ];
+                [e addEyeImagesObject:coreDataObject];
+                 
+                
+            //}
             
-            [e addEyeImagesObject:coreDataObject];
-             
-            
+            [self.navigationController popToViewController:fixationVC animated:YES];
         }
-        
-        NSArray* viewControllers = self.navigationController.viewControllers;
-        UIViewController* fvc = [viewControllers objectAtIndex: 1];
-        [self.navigationController popToViewController:fvc animated:YES];
     }
+    
     else{
+        /*
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Images Selected"
                                                         message:@"You must select at least one image before saving."
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
         [alert show];
+        */
+        [self.navigationController popToViewController:fixationVC animated:YES];
     }
 }
 

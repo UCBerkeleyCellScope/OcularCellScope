@@ -3,7 +3,7 @@
 //  OcularCellscope
 //
 //  Created by Chris Echanique on 4/17/14.
-//  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
+//  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -12,6 +12,7 @@
 #define BOTTOM_LIGHT 2
 #define LEFT_LIGHT 3
 #define RIGHT_LIGHT 4
+#define NO_LIGHT 5
 #define RED_LIGHT 9
 #define WHITE_LIGHT 10
 #define WHITE_PING 11

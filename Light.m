@@ -3,7 +3,7 @@
 //  OcularCellscope
 //
 //  Created by Chris Echanique on 4/17/14.
-//  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
+//  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
 
 #import "Light.h"
@@ -46,10 +46,10 @@
 }
 
 -(void) turnOn{
-    if(!self.isOn){
+    //if(!self.isOn){
         [self.bluetoothSystem activatePinForLight:self];
         NSLog(@"Let's turn a light ON!");
-    }
+    //}
     self.isOn = YES;
 }
 
