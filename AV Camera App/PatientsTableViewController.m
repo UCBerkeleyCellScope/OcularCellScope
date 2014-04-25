@@ -112,7 +112,6 @@
         Exam* currentCell = [patientsArray objectAtIndex:indexPath.row];
         [[[CellScopeContext sharedContext] managedObjectContext] deleteObject:currentCell];
         
-        
         //remove from the in-memory array
         [self.patientsArray removeObjectAtIndex:indexPath.row];
         
