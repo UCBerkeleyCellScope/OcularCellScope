@@ -10,17 +10,14 @@
 #import "EyeImage.h"
 #import "EImage.h"
 #import "BLE.h"
-#import "CaptureViewController.h"
 #import "Constants.h"
 #import "AFNetworking.h"
 #import "BLEManager.h"
 
-@class CaptureViewController;
 @class BLEManager;
 
 @interface CellScopeContext : NSObject
 
-//TODO: add managed object context, session, etc.
 @property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, retain) NSString* selectedEye;
 @property (nonatomic, strong) BLE* ble;
@@ -28,9 +25,6 @@
 @property (nonatomic) BOOL connected;
 @property(nonatomic,strong) BLEManager* bleManager;
 @property (nonatomic) BOOL camViewLoaded;
-
-
-@property CaptureViewController *cvc;
 
 + (id)sharedContext;
 

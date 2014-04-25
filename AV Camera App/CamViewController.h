@@ -27,7 +27,11 @@
 @property (strong, nonatomic) IBOutlet UIButton *captureButton;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *aiv;
 @property (strong, nonatomic) IBOutlet UIButton *settingsButton;
-@property (strong, nonatomic) IBOutlet UIImageView *capturedImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *capturedImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *redOffIndicator;
+@property (weak, nonatomic) IBOutlet UIImageView *flashOffIndicator;
+
+
 @property (strong, nonatomic) IBOutlet UIButton *pauseButton;
 
 @property (assign, nonatomic) int selectedLight;

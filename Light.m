@@ -29,7 +29,9 @@
 
 -(void) changeIntensity: (int) i{
     self.intensity = i;
-    [self.bluetoothSystem activatePinForLight:self];
+    if(self.bluetoothSystem.isConnected == YES){
+        [self.bluetoothSystem activatePinForLight:self];
+    }
 }
 
 

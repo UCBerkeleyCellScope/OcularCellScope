@@ -11,7 +11,7 @@
 
 @implementation CellScopeContext
 
-@synthesize selectedEye, currentExam, connected, cvc, ble, bleManager, camViewLoaded;
+@synthesize selectedEye, currentExam, connected, ble, bleManager, camViewLoaded;
 
 + (id)sharedContext {
     static CellScopeContext *newContext = nil;

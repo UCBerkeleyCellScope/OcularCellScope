@@ -137,6 +137,10 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
      request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"age" ascending:YES]];
      */
 
+    NSArray *allImages = [CoreDataController getObjectsForEntity:@"EyeImage" withSortKey:@"date" andSortAscending:YES andContext:[[CellScopeContext sharedContext]managedObjectContext]];
+    NSLog(@"ALL Images count is %d", (int)[allImages count]);
+
+    
   
     //load the images
         for (int i = 0; i <= 5; i++)
@@ -155,9 +159,10 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                                                             andSortKey: @"date" andSortAscending: YES
                                                             andContext:   [[CellScopeContext sharedContext] managedObjectContext]];
             
-            self.eyeImages = [NSMutableArray arrayWithArray:temp];
             
-            NSLog(@"Eye Images count is %d", (int)[eyeImages count]);
+            self.eyeImages = [NSMutableArray arrayWithArray:temp];
+        
+            NSLog(@"Images for Fixation %d : %d", i, (int)[eyeImages count]);
             
             if([imageArray count]>0){
                 NSLog(@"testing transition from image selection");

@@ -20,6 +20,8 @@
 		60B2E8FC18C717B100973C7E /* img.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 60B2E8FB18C717B100973C7E /* img.jpeg */; };
 		60B4231A19089678005A9ABD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B4231919089678005A9ABD /* MobileCoreServices.framework */; };
 		60B4231F1908D294005A9ABD /* NSMutableDictionary+ImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B4231D1908D294005A9ABD /* NSMutableDictionary+ImageMetadata.m */; };
+		60B42325190AE69B005A9ABD /* flashOffWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 60B42324190AE69B005A9ABD /* flashOffWhite.png */; };
+		60B42329190AFFC7005A9ABD /* redDot.png in Resources */ = {isa = PBXBuildFile; fileRef = 60B42328190AFFC7005A9ABD /* redDot.png */; };
 		60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0118F346E700902F28 /* DiagnosisViewController.m */; };
 		60C1AE0518F34DD400902F28 /* PatientTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0418F34DD400902F28 /* PatientTableViewCell.m */; };
 		60C1AE2C18F3507E00902F28 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0818F3507E00902F28 /* AFHTTPRequestOperation.m */; };
@@ -154,6 +156,8 @@
 		60B4231919089678005A9ABD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		60B4231D1908D294005A9ABD /* NSMutableDictionary+ImageMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+ImageMetadata.m"; sourceTree = "<group>"; };
 		60B4231E1908D294005A9ABD /* NSMutableDictionary+ImageMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+ImageMetadata.h"; sourceTree = "<group>"; };
+		60B42324190AE69B005A9ABD /* flashOffWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flashOffWhite.png; sourceTree = "<group>"; };
+		60B42328190AFFC7005A9ABD /* redDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redDot.png; sourceTree = "<group>"; };
 		60C1AE0018F346E700902F28 /* DiagnosisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiagnosisViewController.h; sourceTree = "<group>"; };
 		60C1AE0118F346E700902F28 /* DiagnosisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiagnosisViewController.m; sourceTree = "<group>"; };
 		60C1AE0318F34DD400902F28 /* PatientTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientTableViewCell.h; sourceTree = "<group>"; };
@@ -237,12 +241,12 @@
 		F325702318CC0D3300FEA80E /* patient_icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient_icon_small.png; sourceTree = "<group>"; };
 		F325702418CC0D3300FEA80E /* notes_icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notes_icon_small.png; sourceTree = "<group>"; };
 		F325702718CC0E4100FEA80E /* eye_icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eye_icon_small.png; sourceTree = "<group>"; };
-		F325702A18D1A9AE00FEA80E /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
-		F325702B18D1A9AE00FEA80E /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
-		F325702C18D1A9AE00FEA80E /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
-		F325702D18D1A9AE00FEA80E /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
-		F325702E18D1A9AE00FEA80E /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
-		F325702F18D1A9AE00FEA80E /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
+		F325702A18D1A9AE00FEA80E /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Alpha.h"; path = "AV Camera App/UIImage+Alpha.h"; sourceTree = "<group>"; };
+		F325702B18D1A9AE00FEA80E /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Alpha.m"; path = "AV Camera App/UIImage+Alpha.m"; sourceTree = "<group>"; };
+		F325702C18D1A9AE00FEA80E /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Resize.h"; path = "AV Camera App/UIImage+Resize.h"; sourceTree = "<group>"; };
+		F325702D18D1A9AE00FEA80E /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Resize.m"; path = "AV Camera App/UIImage+Resize.m"; sourceTree = "<group>"; };
+		F325702E18D1A9AE00FEA80E /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+RoundedCorner.h"; path = "AV Camera App/UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
+		F325702F18D1A9AE00FEA80E /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+RoundedCorner.m"; path = "AV Camera App/UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		F325703318D1AF1F00FEA80E /* default-configuration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "default-configuration.plist"; path = "../default-configuration.plist"; sourceTree = "<group>"; };
 		F325703B18D366FE00FEA80E /* EImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EImage.h; sourceTree = "<group>"; };
 		F325703C18D366FE00FEA80E /* EImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EImage.m; sourceTree = "<group>"; };
@@ -342,6 +346,19 @@
 			name = NSMD_MetaData;
 			sourceTree = "<group>";
 		};
+		60B42323190AE512005A9ABD /* UIImage+Resize */ = {
+			isa = PBXGroup;
+			children = (
+				F325702A18D1A9AE00FEA80E /* UIImage+Alpha.h */,
+				F325702B18D1A9AE00FEA80E /* UIImage+Alpha.m */,
+				F325702C18D1A9AE00FEA80E /* UIImage+Resize.h */,
+				F325702D18D1A9AE00FEA80E /* UIImage+Resize.m */,
+				F325702E18D1A9AE00FEA80E /* UIImage+RoundedCorner.h */,
+				F325702F18D1A9AE00FEA80E /* UIImage+RoundedCorner.m */,
+			);
+			name = "UIImage+Resize";
+			sourceTree = "<group>";
+		};
 		60C1AE0618F3507E00902F28 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -396,7 +413,8 @@
 			isa = PBXGroup;
 			children = (
 				60C1AE0618F3507E00902F28 /* AFNetworking */,
-				60C1AE1A18F3507E00902F28 /* UIKit+AFNetworking */,
+				6D2D5DBC18318D9F00A58A96 /* AV Camera App */,
+				6DD89D211842666C00F3C7FC /* Core Data */,
 				F325703B18D366FE00FEA80E /* EImage.h */,
 				F325703C18D366FE00FEA80E /* EImage.m */,
 				F385B3081900F85B00A3F974 /* AVCaptureManager.h */,
@@ -408,13 +426,10 @@
 				60D8C7D018C6BF87007D26A7 /* Constants.h */,
 				60D8C7D118C6BF87007D26A7 /* Constants.m */,
 				60C2A51B18C19F2800021510 /* CellScopeContext.h */,
-				60B4231C1908D27B005A9ABD /* NSMD_MetaData */,
 				60C2A51C18C19F2800021510 /* CellScopeContext.m */,
 				6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */,
 				6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */,
-				6D2D5DBC18318D9F00A58A96 /* AV Camera App */,
 				F356909418559CCA00DBB4BE /* Images */,
-				6DD89D211842666C00F3C7FC /* Core Data */,
 				6D2D5DDB18318DA000A58A96 /* AV Camera AppTests */,
 				6D2D5DB518318D9F00A58A96 /* Frameworks */,
 				6D2D5DB418318D9F00A58A96 /* Products */,
@@ -433,9 +448,12 @@
 		6D2D5DB518318D9F00A58A96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				60B4231919089678005A9ABD /* MobileCoreServices.framework */,
+				60B42323190AE512005A9ABD /* UIImage+Resize */,
+				60B4231C1908D27B005A9ABD /* NSMD_MetaData */,
+				60C1AE1A18F3507E00902F28 /* UIKit+AFNetworking */,
 				603B076818DCB8F1002179CD /* BSKeyboardControls */,
 				60418F24189B3ED50001D490 /* BLE */,
+				60B4231919089678005A9ABD /* MobileCoreServices.framework */,
 				60418F22189B3E780001D490 /* CoreBluetooth.framework */,
 				6DD89D8018426B0700F3C7FC /* CoreImage.framework */,
 				6DD89D7E18426AFF00F3C7FC /* CoreData.framework */,
@@ -474,7 +492,6 @@
 				60C1AE0318F34DD400902F28 /* PatientTableViewCell.h */,
 				60C1AE0418F34DD400902F28 /* PatientTableViewCell.m */,
 				F385B2FB1900E20F00A3F974 /* Old View Controllers */,
-				6D2D5DCE18318D9F00A58A96 /* Images.xcassets */,
 				6D2D5DBD18318D9F00A58A96 /* Supporting Files */,
 			);
 			path = "AV Camera App";
@@ -483,12 +500,7 @@
 		6D2D5DBD18318D9F00A58A96 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F325702A18D1A9AE00FEA80E /* UIImage+Alpha.h */,
-				F325702B18D1A9AE00FEA80E /* UIImage+Alpha.m */,
-				F325702C18D1A9AE00FEA80E /* UIImage+Resize.h */,
-				F325702D18D1A9AE00FEA80E /* UIImage+Resize.m */,
-				F325702E18D1A9AE00FEA80E /* UIImage+RoundedCorner.h */,
-				F325702F18D1A9AE00FEA80E /* UIImage+RoundedCorner.m */,
+				6D2D5DCE18318D9F00A58A96 /* Images.xcassets */,
 				F325703318D1AF1F00FEA80E /* default-configuration.plist */,
 				6D2D5DBE18318D9F00A58A96 /* AV Camera App-Info.plist */,
 				6D2D5DBF18318D9F00A58A96 /* InfoPlist.strings */,
@@ -533,6 +545,8 @@
 		F356909418559CCA00DBB4BE /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				60B42328190AFFC7005A9ABD /* redDot.png */,
+				60B42324190AE69B005A9ABD /* flashOffWhite.png */,
 				F38224AF18F7BB3F00D861FE /* retina_icon_bottom.png */,
 				F38224B018F7BB3F00D861FE /* retina_icon_center.png */,
 				F3A6034C18FE6A5F006BFFEC /* settings_icon.png */,
@@ -678,9 +692,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F325701218CAA87200FEA80E /* x_button.png in Resources */,
+				60B42329190AFFC7005A9ABD /* redDot.png in Resources */,
 				F325702018CC0CD100FEA80E /* patient_icon.png in Resources */,
 				F38224B818F7BB3F00D861FE /* retina_icon_top.png in Resources */,
 				F325702218CC0CD500FEA80E /* notes_icon.png in Resources */,
+				60B42325190AE69B005A9ABD /* flashOffWhite.png in Resources */,
 				F325702518CC0D3300FEA80E /* patient_icon_small.png in Resources */,
 				60B2E8F918C6EE7E00973C7E /* CameraModel.xcdatamodeld in Resources */,
 				F3FA32CC18B5E4B7000FACF4 /* im2.png in Resources */,

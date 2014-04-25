@@ -32,6 +32,9 @@
 @synthesize selectedLight = _selectedLight;
 @synthesize selectedEye = _selectedEye;
 @synthesize debugMode;
+@synthesize redOffIndicator;
+@synthesize flashOffIndicator;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -55,9 +58,6 @@
 
     //[self.captureManager unlockFocus];
     
-    self.debugMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"debugMode"];
-    [self.bleDisabledLabel setHidden:YES];
-    self.counterLabel.hidden = YES;
     self.imageArray = [[NSMutableArray alloc] init];
     
     
@@ -69,6 +69,14 @@
 -(void) viewWillAppear:(BOOL)animated{
     NSLog(@"APPEARED");
     [self.captureManager setExposureLock:NO];
+    
+    [self setupIndicators];
+    
+    self.debugMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"debugMode"];
+    
+    
+    [self.bleDisabledLabel setHidden:YES];
+    self.counterLabel.hidden = YES;
     
     [self.bleDisabledLabel setHidden:YES];
     [self.navigationItem setHidesBackButton:NO animated:YES];
@@ -94,6 +102,23 @@
 
 }
 
+-(void) setupIndicators {
+    int redVal = [[[NSUserDefaults standardUserDefaults] objectForKey:@"redLightValue"]intValue];
+    int flashVal =[[[NSUserDefaults standardUserDefaults] objectForKey:@"flashLightValue"]intValue];
+    
+    if (redVal==0){
+        [redOffIndicator setHidden:NO];
+    }
+    else
+        [redOffIndicator setHidden:YES];
+    if (flashVal==0){
+        [flashOffIndicator setHidden:NO];
+    }
+    else
+        [flashOffIndicator setHidden:YES];
+}
+
+    
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

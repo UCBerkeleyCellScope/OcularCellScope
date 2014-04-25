@@ -10,7 +10,6 @@
 #import "CellScopeContext.h"
 #import "Light.h"
 
-
 @protocol BLEConnectionDelegate
 -(void)didReceiveConnectionConfirmation;
 -(void)didReceiveFlashConfirmation;

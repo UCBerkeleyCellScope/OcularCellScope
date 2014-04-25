@@ -97,10 +97,14 @@ BOOL capturing = NO;
     }
     else{
         NSLog(@"Why didn't we exit??");
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Bluetooth could not connect. Check that the Ocular CellScope is fully charged and switched on."
-                                                            message:nil                                                           delegate:self
+        
+        
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Bluetooth could not connect."
+                                                            message: @"Check that the Ocular CellScope is fully charged and switched on."
+                                                           delegate:self
                                                   cancelButtonTitle:@"Try Again"
-                                                  otherButtonTitles:@"Use without BLE",nil];
+                                                  otherButtonTitles:@"Disable BLE",nil];
         [alertView show];
         
     }
@@ -188,16 +192,18 @@ BOOL capturing = NO;
 
 -(void)turnOffAllLights{
     
-    for(Light *l in self.fixationLights){
-        l.isOn = NO;
+    if(debugMode==NO){
+        for(Light *l in self.fixationLights){
+            l.isOn = NO;
+        }
+        self.whiteLight.isOn = NO;
+        self.redLight.isOn = NO;
+        self.remoteLight.isOn = NO;
+        
+        UInt8 buf[] = {0xFF, 0x00, 0x00};
+        NSData *data = [[NSData alloc] initWithBytes:buf length:3];
+        [ble write:data];
     }
-    self.whiteLight.isOn = NO;
-    self.redLight.isOn = NO;
-    self.remoteLight.isOn = NO;
-    
-    UInt8 buf[] = {0xFF, 0x00, 0x00};
-    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
-    [ble write:data];
 }
 
 -(void)timedFlash{
