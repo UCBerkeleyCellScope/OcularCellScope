@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>timedFlash</key>
-	<false/>
+	<true/>
 	<key>ImageScaleFactor</key>
 	<string>10</string>
 	<key>ThumbnailSize</key>

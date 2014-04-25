@@ -32,7 +32,6 @@
     [[CellScopeContext sharedContext] setCurrentExam:nil ];
     [[CellScopeContext sharedContext] setSelectedEye:nil ];
 
-    
     self.patientsArray = [CoreDataController getObjectsForEntity:@"Exam" withSortKey:@"patientName" andSortAscending:YES andContext:[[CellScopeContext sharedContext] managedObjectContext]];
     //  Force table refresh
     [self.tableView reloadData];
@@ -45,9 +44,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //  Grab the data
-    
     
 }
 
@@ -105,12 +101,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"ExamInfoSegue"])
-    {
-        //ExamInfoViewController* eivc = (ExamInfoViewController*)[segue destinationViewController];
-        //eivc.currentExam = self.currentExam;
-        
-    }
+
 }
  
 // Edit the table view
@@ -129,7 +120,6 @@
      
         // Commit
         [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
-
         
     }
 }

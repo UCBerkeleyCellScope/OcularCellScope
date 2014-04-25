@@ -3,14 +3,17 @@
 //  OcularCellscope
 //
 //  Created by PJ Loury on 3/21/14.
-//  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
+//  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
 
 #import "SettingsViewController.h"
 #import "CameraAppDelegate.h"
 
 @interface SettingsViewController ()
+
 @property(nonatomic, strong) NSUserDefaults *prefs;
+@property(nonatomic, strong)UIAlertView *flashTooLong;
+@property(nonatomic, strong)UIAlertView *bleDelayTooLong;
 
 @end
 
@@ -19,7 +22,7 @@
 
 @synthesize flashLightSlider, redLightSlider, flashLightValue, redLightValue, flashLightLabel, redLightLabel, multiText, debugToggle,bleDelay,captureDelay,flashDuration,multiShot, timedFlashSwitch;
 @synthesize remoteLightSlider, remoteLightLabel;
-
+@synthesize flashTooLong, bleDelayTooLong;
 @synthesize bleManager = _bleManager;
 
 BOOL debugMode;
@@ -62,7 +65,7 @@ double fs,fe,rs,re, rems, reme;
     [ timedFlashSwitch setOn: timedFlash animated: NO];
     
     if(debugMode == YES){
-        [timedFlashSwitch setEnabled:NO];
+        //[timedFlashSwitch setEnabled:NO];
     }
     
     if(timedFlash == NO){
@@ -137,7 +140,37 @@ double fs,fe,rs,re, rems, reme;
 
 - (void)backgroundTapped {
     NSLog(@"Background Tapped");
+    
+    if(captureDelay.text.doubleValue<flashDuration.text.doubleValue){
+        flashTooLong = [[UIAlertView alloc] initWithTitle:@"Flash Duration must be shorter than Capture Delay"
+                                                            message:nil                                                           delegate:self
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil];
+        [flashTooLong show];
+    }
+    
+    if(captureDelay.text.doubleValue<bleDelay.text.doubleValue){
+        bleDelayTooLong = [[UIAlertView alloc] initWithTitle:@"BLE Delay must be shorter than Capture Delay"
+                                                            message:nil
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil];
+        [bleDelayTooLong show];
+    }
+    
+    
     [[self tableView] endEditing:YES];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    
+    if (alertView == bleDelayTooLong && buttonIndex == 0){
+        [bleDelay becomeFirstResponder];
+    }
+    if (alertView == flashTooLong && buttonIndex == 0){
+        [flashDuration becomeFirstResponder];
+    }
 }
 
 - (IBAction)toggleDidChange:(id)sender {
@@ -146,13 +179,13 @@ double fs,fe,rs,re, rems, reme;
         debugMode = YES;
         [_prefs setValue: @YES forKey:@"debugMode" ];
         
+        [_bleManager setDebugMode:YES];
         [_bleManager turnOffAllLights];
         [_bleManager disconnect];
     }
     else if(debugToggle.on == NO){
         debugMode = NO;
         [_prefs setValue: @NO forKey:@"debugMode" ];
-        [timedFlashSwitch setEnabled:YES];
         [_bleManager btnScanForPeripherals];
     }
     NSLog(@"ToggleChange to %d",debugToggle.on);

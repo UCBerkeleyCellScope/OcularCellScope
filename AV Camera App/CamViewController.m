@@ -3,7 +3,7 @@
 //  OcularCellscope
 //
 //  Created by Chris Echanique on 4/17/14.
-//  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
+//  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
 
 #import "CamViewController.h"
@@ -52,7 +52,7 @@
     
     [[self.bleManager whiteLight]toggleLight];
     
-    [self.captureManager setExposureLock:NO];
+
     //[self.captureManager unlockFocus];
     
     self.debugMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"debugMode"];
@@ -68,8 +68,11 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     NSLog(@"APPEARED");
+    [self.captureManager setExposureLock:NO];
+    
+    [self.bleDisabledLabel setHidden:YES];
     [self.navigationItem setHidesBackButton:NO animated:YES];
-    if(self.bleManager.isConnected== YES){
+    if(self.bleManager.isConnected== YES){ //BLE disabled label needs to go away succesfully
         [self.bleManager.redLight turnOn];
         [[self.bleManager.fixationLights objectAtIndex: self.bleManager.selectedLight] turnOn];
     }
@@ -83,7 +86,6 @@
     
     else if (self.debugMode == YES){
         [self.aiv stopAnimating];
-        [self.captureButton setEnabled:YES];
         [self.bleDisabledLabel setHidden:NO];
     }
     else{
@@ -137,12 +139,13 @@
 - (IBAction)didPressCapture:(id)sender{
     NSLog(@"didPressCapture");
     [self.captureButton setEnabled:NO];
-    [self.captureManager setExposureLock:YES];
+    //[self.captureManager setExposureLock:YES];
     [self.captureManager lockFocus];
     [self.navigationItem setHidesBackButton:YES animated:YES];
 
-    
     BOOL timedFlash = [[NSUserDefaults standardUserDefaults] boolForKey:@"timedFlash"];
+    
+    [self focusingFlash];
     
     if(timedFlash == YES){
         NSNumber *interval = [[NSUserDefaults standardUserDefaults] objectForKey:@"captureDelay"];
@@ -154,6 +157,17 @@
     }
 }
 
+-(void) focusingFlash{
+    if(self.bleManager.debugMode==NO){
+        NSLog(@"FOCUSING FLASH");
+        [self.bleManager.whiteLight turnOn];
+        [NSThread sleepForTimeInterval: .6];
+        [self.captureManager setExposureLock:YES];
+        [NSThread sleepForTimeInterval: .3];
+        [self.bleManager.whiteLight turnOff];
+    }
+}
+    
 -(void)captureTimerFired{
     self.currentImageCount++;
     int totalNumberOfImages = [[[NSUserDefaults standardUserDefaults] objectForKey:@"numberOfImages"] intValue];
@@ -161,7 +175,6 @@
         [self updateCounterLabelText];
         // Timed flash or ping back
         [self.bleManager timedFlash];
-        
         [self.bleManager bleDelay];
         
         //self.waitForBle = [NSTimer scheduledTimerWithTimeInterval:[bleDelay doubleValue] target:self selector:@selector(readyToTakePicture) userInfo:nil repeats:NO];

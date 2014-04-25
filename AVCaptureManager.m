@@ -3,7 +3,7 @@
 //  OcularCellscope
 //
 //  Created by Chris Echanique on 4/17/14.
-//  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
+//  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
 
 #import "AVCaptureManager.h"
@@ -97,11 +97,11 @@
 }
 
 -(void)lockFocus{
-    if ([self.device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+    if ([self.device isFocusModeSupported:AVCaptureFocusModeLocked]) {
         CGPoint autofocusPoint = CGPointMake(0.5f, 0.5f);
         [self.device lockForConfiguration:nil];
-        [self.device setFocusPointOfInterest:autofocusPoint];
-        [self.device setFocusMode:AVCaptureFocusModeAutoFocus];
+        //[self.device setFocusPointOfInterest:autofocusPoint];
+        [self.device setFocusMode:AVCaptureFocusModeLocked];
         [self.device unlockForConfiguration];
     }
 }

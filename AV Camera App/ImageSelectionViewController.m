@@ -3,7 +3,7 @@
 //  OcularCellscope
 //
 //  Created by Chris Echanique on 2/19/14.
-//  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
+//  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
 
 
@@ -152,11 +152,11 @@
 }
 
 -(IBAction)didPressSave:(id)sender{
-    if([EImage containsSelectedImageInArray:images]){
+    //if([EImage containsSelectedImageInArray:images]){
         //save
         
         NSMutableArray* eImagesToSave = [EImage selectedImagesFromArray:images];
-        for( EImage* ei in eImagesToSave){
+    for( EImage* ei in images){//eImagesToSave){
             EyeImage* coreDataObject = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"EyeImage" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
             coreDataObject.date = ei.date;
             coreDataObject.eye = ei.eye;
@@ -175,12 +175,13 @@
             [e addEyeImagesObject:coreDataObject];
              
             
-        }
+        //}
         
         NSArray* viewControllers = self.navigationController.viewControllers;
         UIViewController* fvc = [viewControllers objectAtIndex: 1];
         [self.navigationController popToViewController:fvc animated:YES];
     }
+    /*
     else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Images Selected"
                                                         message:@"You must select at least one image before saving."
@@ -188,7 +189,7 @@
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
         [alert show];
-    }
+    }*/
 }
 
 
