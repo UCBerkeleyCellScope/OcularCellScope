@@ -99,6 +99,9 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     }
     else{
         [segControl setSelectedSegmentIndex: 0];
+        self.selectedEye = LEFT_EYE;
+        [[CellScopeContext sharedContext]setSelectedEye: LEFT_EYE];
+
     }
 }
 
@@ -119,11 +122,12 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     if(self.segControl.selectedSegmentIndex == 0){
         [[CellScopeContext sharedContext] setSelectedEye: LEFT_EYE];
-        //selectedEye = LEFT_EYE;
+        self.selectedEye = LEFT_EYE;
+
     }
     else{
         [[CellScopeContext sharedContext] setSelectedEye: RIGHT_EYE];
-        //selectedEye = RIGHT_EYE;
+        self.selectedEye = RIGHT_EYE;
     }
     
     
@@ -189,6 +193,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 - (IBAction)didPressFixation:(id)sender {
     
     self.selectedLight = [sender tag];
+    [_bleManager setSelectedLight: self.selectedLight];
     
     if( [sender isSelected] == NO){
         //there are pictures!
@@ -223,7 +228,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 {
     if ([[segue identifier] isEqualToString:@"CamViewSegue"])
     {
-        [_bleManager setSelectedLight: self.selectedLight];
+
         NSLog(@"Preparing for CamViewSegue");
         CamViewController* cvc = (CamViewController*)[segue destinationViewController];
         [[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
@@ -234,8 +239,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     {
         NSLog(@"Segue to ImageReview");
         ImageSelectionViewController * isvc = (ImageSelectionViewController*)[segue destinationViewController];
-       //isvc.selectedEye = self.selectedEye;
-       //isvc.selectedLight = self.selectedLight;
         
         isvc.reviewMode = YES;
         
@@ -245,6 +248,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                                                         andSortKey: @"date" andSortAscending: YES
                                                         andContext: [[CellScopeContext sharedContext] managedObjectContext]];
         
+        //NOTE THAT eyeImages DO NOT get passed over to ISVC, only EImages do!!!, So let's create some EImages
         self.eyeImages = [NSMutableArray arrayWithArray:temp];
         
         NSLog(@"%lu",(unsigned long)[eyeImages count]);
@@ -259,9 +263,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                 //UIImage *im = [UIImage imageWithContentsOfFile: i.filePath];
                 //Let's get an image!
                 
-                
                 NSURL *aURL = [NSURL URLWithString: i.filePath];
-                
                 //NSLog(@"displaying image at: %@",i.filePath);
                 
                 ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
@@ -273,7 +275,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                  }
                         failureBlock:^(NSError *error)
                  {
-                     // error handling
+
                      NSLog(@"failure loading video/image from AssetLibrary");
                  }];
 

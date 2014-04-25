@@ -203,10 +203,10 @@ BOOL capturing = NO;
 -(void)timedFlash{
     if(debugMode == NO){
         [self turnOffAllLights];
-        [self.whiteLight turnOn];
+        [self.whiteLight turnOn];    
+        NSNumber *duration = [[NSUserDefaults standardUserDefaults] objectForKey:@"flashDuration"];
+        [NSTimer scheduledTimerWithTimeInterval:[duration doubleValue] target:self.whiteLight selector:@selector(turnOff) userInfo:nil repeats:NO];
     }
-    NSNumber *duration = [[NSUserDefaults standardUserDefaults] objectForKey:@"flashDuration"];
-    [NSTimer scheduledTimerWithTimeInterval:[duration doubleValue] target:self.whiteLight selector:@selector(turnOff) userInfo:nil repeats:NO];
 }
 
 -(void)activatePinForLight:(Light *)light {

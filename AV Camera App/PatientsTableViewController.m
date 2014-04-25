@@ -126,6 +126,10 @@
 - (IBAction)didPressAddExam:(id)sender {
     
     self.currentExam = nil;
+    
+    Exam* newExam = (Exam*)[NSEntityDescription insertNewObjectForEntityForName:@"Exam" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
+    [[CellScopeContext sharedContext] setCurrentExam:newExam ];
+
     [self performSegueWithIdentifier: @"AddExamSegue" sender: self];
 
 
