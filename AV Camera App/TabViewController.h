@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CellScopeContext.h"
 
 @interface TabViewController : UITabBarController
+
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 - (IBAction)didPressSave:(id)sender;
+- (IBAction)didPressCancel:(id)sender;
 
 @end

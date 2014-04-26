@@ -23,7 +23,7 @@
 
 @implementation ImageSelectionViewController
 
-@synthesize imageView,slider, images, currentImageIndex, imageViewButton, selectedIcon, reviewMode, imageCollectionView;
+@synthesize imageView, slider, images, currentImageIndex, imageViewButton, selectedIcon, reviewMode, imageCollectionView;
 @synthesize fixationVC, deleteAllAlert;
 
 //ARE WE PASSING SELECTED LIGHT< SELECTED EYE TO THIS VC?
@@ -60,7 +60,7 @@
     NSLog(@"There are %lu images", (unsigned long)[images count]);
     //NSLog(@"There are %lu images", (unsigned long)[_eyeImages count]);
     
-    if([images count]<1){
+    if([images count]<=1){
         slider.hidden = YES;
         NSLog(@"LESS THAN 1");
     }
@@ -78,6 +78,25 @@
         [[UIBarButtonItem alloc] initWithTitle:@"Delete All" style:UIBarButtonItemStylePlain target: self action:@selector(didPressDeleteAll)];
 
     }
+    
+    NSMutableArray *imageViews = [[NSMutableArray alloc] init];
+    for(EImage *im in images){
+        [imageViews addObject:[[UIImageView alloc] initWithImage: im]];
+    }
+    
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview: scrollView]; //This code assumes it's in a UIViewController
+    CGRect cRect = scrollView.bounds;
+    UIImageView *cView;
+    for (int i = 0; i < imageViews.count; i++){
+        cView = [imageViews objectAtIndex:i];
+        cView.frame = cRect;
+        [scrollView addSubview:cView];
+        cRect.origin.x += cRect.size.width;
+    }
+    scrollView.contentSize = CGSizeMake(cRect.origin.x, scrollView.bounds.size.height);
+    scrollView.contentOffset = CGPointMake(scrollView.bounds.size.width, 0); //should be the center page in a 3 page setup
+    
     
 }
 

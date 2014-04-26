@@ -2,8 +2,8 @@
 //  Exam.m
 //  OcularCellscope
 //
-//  Created by PJ Loury on 3/18/14.
-//  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
+//  Created by Chris Echanique on 4/26/14.
+//  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
 #import "Exam.h"
@@ -19,11 +19,5 @@
 @dynamic patientID;
 @dynamic patientName;
 @dynamic eyeImages;
-
-- (void)addEyeImagesObject:(EyeImage *)value {
-    NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.eyeImages];
-    [tempSet addObject:value];
-    self.eyeImages = tempSet;
-}
 
 @end

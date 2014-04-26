@@ -2,8 +2,8 @@
 //  Exam.h
 //  OcularCellscope
 //
-//  Created by PJ Loury on 3/18/14.
-//  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
+//  Created by Chris Echanique on 4/26/14.
+//  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -30,11 +30,8 @@
 - (void)removeEyeImagesAtIndexes:(NSIndexSet *)indexes;
 - (void)replaceObjectInEyeImagesAtIndex:(NSUInteger)idx withObject:(EyeImage *)value;
 - (void)replaceEyeImagesAtIndexes:(NSIndexSet *)indexes withEyeImages:(NSArray *)values;
-
 - (void)addEyeImagesObject:(EyeImage *)value;
 - (void)removeEyeImagesObject:(EyeImage *)value;
-
 - (void)addEyeImages:(NSOrderedSet *)values;
 - (void)removeEyeImages:(NSOrderedSet *)values;
-
 @end
