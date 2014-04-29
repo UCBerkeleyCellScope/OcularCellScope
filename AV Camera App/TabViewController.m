@@ -7,6 +7,7 @@
 //
 
 #import "TabViewController.h"
+#import "UIColorManager.h"
 
 @interface TabViewController ()
 
@@ -26,8 +27,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[UITabBar appearance] setTintColor: [UIColor colorWithR:26 G:188 B:156 A:1]];
+    [ [UITabBar appearance] setTintColor: [UIColor lightGreenColor]];
     // Do any additional setup after loading the view.
+    
 }
 
 - (void)didReceiveMemoryWarning

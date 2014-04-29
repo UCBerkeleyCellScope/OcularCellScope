@@ -29,7 +29,7 @@
         selectedEye = @"";
         connected = NO;
         camViewLoaded = NO;
-        colorManager = [[UIColorManager alloc]init];
+        //colorManager = [[UIColorManager alloc]init];
         bleManager = [[BLEManager alloc]init];
         NSLog(@"MADE THE SINGLETON");
         
