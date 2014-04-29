@@ -9,12 +9,16 @@
 #import "DiagnosisViewController.h"
 
 @interface DiagnosisViewController ()
+//@property (strong, nonatomic) NSDictionary* diagnosis;
+@property CellScopeHTTPClient *c;
 
 @end
 
 @implementation DiagnosisViewController
 
-@synthesize patientID, diagnosis, diagnosisTitle, diagnosisText;
+@synthesize patientID, diagnosisTitle, diagnosisText;
+//@synthesize diagnosis;
+@synthesize c;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,16 +32,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    c = [CellScopeHTTPClient sharedCellScopeHTTPClient];
+    c.delegate = self;
+    
     // Do any additional setup after loading the view.
 }
 
 
 - (void)viewWillAppear:(BOOL)animated{
+   
+    NSLog([[CellScopeContext sharedContext]currentExam].description);
+    [c updateDiagnosisForExam: [[CellScopeContext sharedContext]currentExam]];
     
     patientID = [[[CellScopeContext sharedContext] currentExam] patientID];
     
     //NSString *string = [NSString stringWithFormat:@"%@diagnosis?patientID=%@&format=json",
     //                    BaseURLString, patientID];
+    
+    /*
     NSString *string = [NSString stringWithFormat:@"%@diagnosis?format=json",
                         BaseURLString];
 
@@ -79,11 +91,24 @@
     
     // 5
     [operation start];
+    */
+    
+    
 }
     
-    
+-(void)cellScopeHTTPClient:(CellScopeHTTPClient *)client didUpdateDiagnosis:(id)diagnosis{
+    NSLog(@"RETRIEVED DIAGNOSIS");
+    [diagnosisTitle setText: diagnosis[@"diagnosisTitle"]];
+    [diagnosisText setText: diagnosis[@"diagnosisText"]];
+}
 
-
+-(void)cellScopeHTTPClient:(CellScopeHTTPClient *)client didFailWithError:(NSError *)error{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error Retrieving Diagnosis"
+                                                        message:[NSString stringWithFormat:@"%@",error]
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alertView show];
+}
 
 - (void)didReceiveMemoryWarning
 {

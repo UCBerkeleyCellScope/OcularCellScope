@@ -12,6 +12,7 @@
 #import "FixationViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "ImageCell.h"
+#import "CoreDataController.h"
 
 
 @interface ImageSelectionViewController ()

@@ -70,9 +70,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:(BOOL) animated];
-        
-    NSLog(@"Seg Back, even from ImageSelection");
-    
+            
     [_bleManager turnOffAllLights];
     
     [self setSelectedEye:  [[CellScopeContext sharedContext]selectedEye] ];
@@ -197,7 +195,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 - (IBAction)didPressFixation:(id)sender {
     
-    self.selectedLight = [sender tag];
+    self.selectedLight = (int)[sender tag];
     [_bleManager setSelectedLight: self.selectedLight];
     
     if( [sender isSelected] == NO){

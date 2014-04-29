@@ -32,13 +32,13 @@ BOOL capturing = NO;
         ble = [[BLE alloc] init];
         [ble controlSetup];
         ble.delegate = self;
-     
-        [[CellScopeContext sharedContext] setBle: ble];
+                
+        NSLog(@"MADE THE BLEM");
         
         _prefs = [NSUserDefaults standardUserDefaults];
 
-        int r_i = [_prefs integerForKey:@"redLightValue"];
-        int w_i = [_prefs integerForKey:@"flashLightValue"];
+        int r_i = (int)[_prefs integerForKey:@"redLightValue"];
+        int w_i = (int)[_prefs integerForKey:@"flashLightValue"];
         
         if (r_i<10){
             [_prefs setInteger: 50 forKey:@"redLightValue"];
@@ -50,8 +50,14 @@ BOOL capturing = NO;
         _whitePing = [[Light alloc] initWithBLE:self pin:WHITE_PING intensity: w_i];
         _remoteLight = [[Light alloc] initWithBLE:self pin:REMOTE_LIGHT intensity: 255];
         
-        _prefs = [NSUserDefaults standardUserDefaults];
+
+        
         debugMode = [_prefs boolForKey:@"debugMode" ];
+        
+        if(debugMode == NO){
+            [self btnScanForPeripherals];
+        }
+        
         
         
         NSMutableArray *lights = [[NSMutableArray alloc] init];
@@ -141,6 +147,7 @@ BOOL capturing = NO;
     NSLog(@"->Disconnected");
     //[self btnScanForPeripherals];
     _isConnected = NO;
+    debugMode = [_prefs boolForKey:@"debugMode" ];
     if(debugMode==NO){
         [self btnScanForPeripherals];
     }
@@ -191,7 +198,7 @@ BOOL capturing = NO;
 }
 
 -(void)turnOffAllLights{
-    
+    debugMode = [_prefs boolForKey:@"debugMode" ];
     if(debugMode==NO){
         for(Light *l in self.fixationLights){
             l.isOn = NO;

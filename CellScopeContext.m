@@ -11,7 +11,8 @@
 
 @implementation CellScopeContext
 
-@synthesize selectedEye, currentExam, connected, ble, bleManager, camViewLoaded;
+@synthesize selectedEye, currentExam, connected, bleManager, camViewLoaded;
+@synthesize colorManager;
 
 + (id)sharedContext {
     static CellScopeContext *newContext = nil;
@@ -24,9 +25,12 @@
 
 - (id)init {
     if (self = [super init]) {
+        NSLog(@"STARTED THE SINGLETON");
         selectedEye = @"";
         connected = NO;
         camViewLoaded = NO;
+        colorManager = [[UIColorManager alloc]init];
+        bleManager = [[BLEManager alloc]init];
         NSLog(@"MADE THE SINGLETON");
         
     }

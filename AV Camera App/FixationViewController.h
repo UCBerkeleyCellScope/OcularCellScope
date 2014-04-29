@@ -18,27 +18,19 @@
 @property (weak, nonatomic) IBOutlet UIButton *bottomFixationButton;
 @property (weak, nonatomic) IBOutlet UIButton *topFixationButton;
 @property (weak, nonatomic) IBOutlet UIButton *noFixationButton;
+@property NSMutableArray *fixationButtons;
 
 @property (strong, nonatomic) BLEManager *bleManager;
 
 @property (copy,nonatomic) NSString *selectedEye;
 @property (nonatomic) int selectedLight;
 
-//Delete this later
-@property (strong, nonatomic) NSArray* imageArray;
-
-@property (nonatomic, assign ) NSInteger oldSegmentedIndex;
-@property (nonatomic, assign ) NSInteger actualSegmentedIndex;
-
 @property (strong, nonatomic) EyeImage * currentEyeImage;
-
-@property NSMutableArray *fixationButtons;
-
-@property NSMutableArray *eyeImages;
-
-@property (strong, nonatomic) NSMutableArray *passedImages;
-
 @property (strong, nonatomic) EImage* currentEImage;
+
+@property (strong, nonatomic) NSArray* imageArray;
+@property NSMutableArray *eyeImages;
+@property (strong, nonatomic) NSMutableArray *passedImages;
 
 @property(nonatomic, readonly, retain) UIImage *uim;
 

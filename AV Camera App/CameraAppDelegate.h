@@ -8,10 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CellScopeContext.h"
-#import "PatientInfoViewController.h"
 #import "PatientsTableViewController.h"
-#import "MainMenuViewController.h"
-#import "CaptureViewController.h"
 #import "BLEManager.h"
 
 @interface CameraAppDelegate : UIResponder <UIApplicationDelegate, UIAlertViewDelegate>

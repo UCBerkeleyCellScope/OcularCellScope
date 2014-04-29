@@ -26,8 +26,7 @@
 -(IBAction)didPressCancel:(id)sender;
 -(IBAction)didPressSave:(id)sender;
 -(IBAction)didSwipeRight:(id)sender;
-
--(void)didPressDelete;
+-(void)didPressDeleteAll;
 
 
 

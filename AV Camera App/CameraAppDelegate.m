@@ -8,6 +8,7 @@
 
 #import "CameraAppDelegate.h"
 
+
 @import AVFoundation;
 
 @implementation CameraAppDelegate
@@ -22,23 +23,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-    
     NSString* defaultPrefsFile = [[NSBundle mainBundle] pathForResource:@"default-configuration" ofType:@"plist"];
     NSDictionary* defaultPreferences = [NSDictionary dictionaryWithContentsOfFile:defaultPrefsFile];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPreferences];
     
-    _prefs = [NSUserDefaults standardUserDefaults];
-    debugMode = [_prefs boolForKey:@"debugMode" ];
-    
-    BLEManager * blem = [[BLEManager alloc]init];
-    
     [[CellScopeContext sharedContext] setManagedObjectContext:self.managedObjectContext];
-    
-    [[CellScopeContext sharedContext] setBleManager:blem ];
-    
-    if(debugMode == NO){
-        [blem btnScanForPeripherals];
-    }
     
     return YES;
 }

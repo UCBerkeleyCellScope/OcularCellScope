@@ -7,14 +7,18 @@
 //
 
 #import "ExamInfoViewController.h"
+#import "CellScopeHTTPClient.h"
 #define SYSTEM_VERSION_LESS_THAN(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+
 
 @interface ExamInfoViewController ()
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
+@property Exam* e;
 @end
 
 @implementation ExamInfoViewController
 
+@synthesize e;
 @synthesize firstnameField, lastnameField, patientIDField, physicianField;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -43,44 +47,27 @@
     lastnameField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     physicianField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     
-    [[UITabBar appearance] setTintColor: [UIColor colorWithR:26 G:188 B:156 A:1]];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if ([[CellScopeContext sharedContext] currentExam]==nil){
-        
-        NSLog(@"New Exam Object Created");
+    e = [[CellScopeContext sharedContext]currentExam];
+    
+    if(e.firstName != nil && e.lastName != nil)
+    {
+        self.tabBarController.title = [NSString stringWithFormat:@"%@ %@",
+        e.firstName,
+        e.lastName];
+    }
+    else{
         self.tabBarController.title = @"New Exam";
-        
-        Exam* newExam = (Exam*)[NSEntityDescription insertNewObjectForEntityForName:@"Exam" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
-        newExam.firstName =@"FIRST";
-        newExam.lastName = @"LAST";
-        newExam.patientID = @"11111";
-        newExam.patientName = @"AAA";
-        
-        [[CellScopeContext sharedContext] setCurrentExam:newExam];
-    
+
     }
     
-    else {
-        //self.title = @"@% @%", currentExam.firstName, currentExam.lastName;
-        if([[CellScopeContext sharedContext]currentExam].firstName != nil &&
-           [[CellScopeContext sharedContext]currentExam].lastName != nil){
-            self.tabBarController.title = [NSString stringWithFormat:@"%@ %@",
-            [[CellScopeContext sharedContext]currentExam].firstName,
-            [[CellScopeContext sharedContext]currentExam].lastName];
-        }
-        
-        
-        self.firstnameField.text = [[CellScopeContext sharedContext]currentExam].firstName;
-        self.lastnameField.text = [[CellScopeContext sharedContext]currentExam].lastName;
-        self.patientIDField.text = [[CellScopeContext sharedContext]currentExam].patientID;
-
-        
-        
-    }
-
+    self.firstnameField.text = [[CellScopeContext sharedContext]currentExam].firstName;
+    self.lastnameField.text = [[CellScopeContext sharedContext]currentExam].lastName;
+    self.patientIDField.text = [[CellScopeContext sharedContext]currentExam].patientID;
 }
 
 - (void)didMoveToParentViewController:(UIViewController *)parent
@@ -95,16 +82,18 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     NSLog(@"Saving Exam Data");
-    //save changes to core data
-    //self.currentExam.firstName = firstnameField.text;
-    //self.currentExam.lastName = lastnameField.text;
-    //self.currentExam.patientID = patientIDField.text;
+
     if(![firstnameField.text isEqualToString: @""])
-    [[CellScopeContext sharedContext]currentExam].firstName = firstnameField.text;
+        e.firstName = firstnameField.text;
+    else e.firstName =@"FIRST";
+    
     if(![lastnameField.text isEqualToString: @""])
-    [[CellScopeContext sharedContext]currentExam].lastName = lastnameField.text;
+        e.lastName = lastnameField.text;
+    else e.lastName = @"LAST";
+
     if(![patientIDField.text isEqualToString: @""])
-    [[CellScopeContext sharedContext]currentExam].patientID = patientIDField.text;
+        e.patientID = patientIDField.text;
+    else e.patientID = @"11111";
     
     // Commit to core data
     NSError *error;

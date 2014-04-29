@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSMutableArray *patientsArray;
 
 @property (nonatomic, strong) Exam *currentExam;
+@property UIColorManager *colorManager;
 
 - (IBAction)didPressAddExam:(id)sender;
 

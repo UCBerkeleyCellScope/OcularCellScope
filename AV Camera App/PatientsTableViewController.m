@@ -7,13 +7,13 @@
 //
 
 #import "PatientsTableViewController.h"
-#import "MainMenuViewController.h"
 #import "CoreDataController.h"
-#import "DetailViewController.h"
+#import "DiagnosisViewController.h"
+#import "CellScopeHTTPClient.h"
 
 @implementation PatientsTableViewController
 
-@synthesize currentExam, patientsArray;
+@synthesize currentExam, patientsArray, colorManager;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -44,6 +44,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    colorManager = [[CellScopeContext sharedContext]colorManager];
+    
     
 }
 
@@ -69,9 +71,9 @@
     return [patientsArray count];
 }
 
+//INITIALIZE EXAM CELL
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -83,28 +85,41 @@
     //[PatientInfo objectAtIndex:indexPath.row];
     
     // Fill in the cell contents
+    cell.contentView.backgroundColor = [colorManager darkGreen];
+    
     cell.textLabel.text = [NSString stringWithFormat:@"%@, %@",
-                           
                            exam.lastName, exam.firstName];
+    cell.textLabel.textColor = [colorManager lightGreen];
+    
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", exam.patientID];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    
+    //cell.imageView = ;
+    
     return cell;
 }
 
+//SELECT EXAM CELL
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //self.currentExam = ;
     
     [[CellScopeContext sharedContext] setCurrentExam: (Exam *)[patientsArray objectAtIndex:indexPath.row]];
-    
     [self performSegueWithIdentifier: @"ExamInfoSegue" sender: self];
 }
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+//    DiagnosisViewController *dvc = [[DiagnosisViewController alloc]init];
+//    UITabBarController *tbc = [segue destinationViewController];
+//    CellScopeHTTPClient *c = [CellScopeHTTPClient sharedCellScopeHTTPClient];
+//    c.delegate = dvc;
+//    
+//    
+//    dvc = (DiagnosisViewController*)[[tbc customizableViewControllers] objectAtIndex:1];
 
 }
  
-// Edit the table view
+// Edit/DELETE Cell in the table view
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -122,6 +137,8 @@
         
     }
 }
+
+//ADD EXAM
 - (IBAction)didPressAddExam:(id)sender {
     
     self.currentExam = nil;
@@ -130,8 +147,6 @@
     [[CellScopeContext sharedContext] setCurrentExam:newExam ];
 
     [self performSegueWithIdentifier: @"AddExamSegue" sender: self];
-
-
     
 }
 @end

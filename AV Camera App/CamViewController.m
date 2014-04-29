@@ -183,6 +183,7 @@
 }
 
 -(void) focusingFlash{
+    //THIS MIGHT BE A PROBLEM
     if(self.bleManager.debugMode==NO){
         NSLog(@"FOCUSING FLASH");
         [self.bleManager.whiteLight turnOn];

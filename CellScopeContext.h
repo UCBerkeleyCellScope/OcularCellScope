@@ -13,6 +13,7 @@
 #import "Constants.h"
 #import "AFNetworking.h"
 #import "BLEManager.h"
+#import "UIColorManager.h"
 
 @class BLEManager;
 
@@ -20,11 +21,13 @@
 
 @property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, retain) NSString* selectedEye;
-@property (nonatomic, strong) BLE* ble;
+//@property (nonatomic, strong) BLE* ble;
 @property (nonatomic, retain) Exam* currentExam;
 @property (nonatomic) BOOL connected;
 @property(nonatomic,strong) BLEManager* bleManager;
 @property (nonatomic) BOOL camViewLoaded;
+@property UIColorManager *colorManager;
+
 
 + (id)sharedContext;
 

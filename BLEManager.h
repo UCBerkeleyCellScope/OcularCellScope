@@ -31,7 +31,6 @@
 @property (strong, nonatomic) BLE *ble;
 @property (weak, nonatomic) id <BLEConnectionDelegate> BLECdelegate;
 
-
 -(void)turnOffAllLights;
 -(void)timedFlash;
 -(void)activatePinForLight:(Light *)light;
