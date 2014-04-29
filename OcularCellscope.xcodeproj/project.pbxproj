@@ -13,8 +13,6 @@
 		603B077D18DD810B002179CD /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B077C18DD810B002179CD /* TabViewController.m */; };
 		603C44FD18DAE72F00402AE1 /* ExamInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C44FC18DAE72F00402AE1 /* ExamInfoViewController.m */; };
 		60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60418F22189B3E780001D490 /* CoreBluetooth.framework */; };
-		60533D1F18D8454C00FF336E /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 60533D1E18D8454C00FF336E /* EyeImage.m */; };
-		60533D2218D8454D00FF336E /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 60533D2118D8454D00FF336E /* Exam.m */; };
 		60AECE6718D8CD1A00C4EA15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60AECE6618D8CD1A00C4EA15 /* Main.storyboard */; };
 		60B2E8F918C6EE7E00973C7E /* CameraModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */; };
 		60B2E8FC18C717B100973C7E /* img.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 60B2E8FB18C717B100973C7E /* img.jpeg */; };
@@ -105,6 +103,9 @@
 		F385B3041900E6E200A3F974 /* Light.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3031900E6E200A3F974 /* Light.m */; };
 		F385B30A1900F85B00A3F974 /* AVCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3091900F85B00A3F974 /* AVCaptureManager.m */; };
 		F3A6034D18FE6A5F006BFFEC /* settings_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F3A6034C18FE6A5F006BFFEC /* settings_icon.png */; };
+		F3BE1388190AFB5400B23630 /* ImageScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BE1387190AFB5400B23630 /* ImageScrollViewController.m */; };
+		F3BE138B190C419800B23630 /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BE138A190C419800B23630 /* Exam.m */; };
+		F3BE138E190C419800B23630 /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BE138D190C419800B23630 /* EyeImage.m */; };
 		F3FA32CB18B5E4B7000FACF4 /* im1.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C718B5E4B7000FACF4 /* im1.png */; };
 		F3FA32CC18B5E4B7000FACF4 /* im2.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C818B5E4B7000FACF4 /* im2.png */; };
 		F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C918B5E4B7000FACF4 /* im3.png */; };
@@ -143,10 +144,6 @@
 		60418F27189B3ED60001D490 /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
 		60418F2C189BB2ED0001D490 /* ImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCell.h; sourceTree = "<group>"; };
 		60418F2D189BB2ED0001D490 /* ImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCell.m; sourceTree = "<group>"; };
-		60533D1D18D8454C00FF336E /* EyeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeImage.h; sourceTree = "<group>"; };
-		60533D1E18D8454C00FF336E /* EyeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeImage.m; sourceTree = "<group>"; };
-		60533D2018D8454D00FF336E /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
-		60533D2118D8454D00FF336E /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
 		60A0865D18C069C900A2667D /* FixationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixationViewController.h; sourceTree = "<group>"; };
 		60A0865E18C069C900A2667D /* FixationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixationViewController.m; sourceTree = "<group>"; };
 		60AECE6618D8CD1A00C4EA15 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -479,6 +476,7 @@
 				60C1AE0118F346E700902F28 /* DiagnosisViewController.m */,
 				F385B2FC1900E31E00A3F974 /* CamViewController.h */,
 				F385B2FD1900E31E00A3F974 /* CamViewController.m */,
+				60A0865D18C069C900A2667D /* FixationViewController.h */,
 				6D3260FC184BBD6200E34428 /* PatientsTableViewController.h */,
 				6D3260FD184BBD6200E34428 /* PatientsTableViewController.m */,
 				603B077B18DD810B002179CD /* TabViewController.h */,
@@ -534,10 +532,10 @@
 			isa = PBXGroup;
 			children = (
 				6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */,
-				60533D1D18D8454C00FF336E /* EyeImage.h */,
-				60533D1E18D8454C00FF336E /* EyeImage.m */,
-				60533D2018D8454D00FF336E /* Exam.h */,
-				60533D2118D8454D00FF336E /* Exam.m */,
+				F3BE138C190C419800B23630 /* EyeImage.h */,
+				F3BE138D190C419800B23630 /* EyeImage.m */,
+				F3BE1389190C419800B23630 /* Exam.h */,
+				F3BE138A190C419800B23630 /* Exam.m */,
 				6DD89D7B18426AD400F3C7FC /* CoreDataController.h */,
 				6DD89D7C18426AD400F3C7FC /* CoreDataController.m */,
 			);
@@ -759,6 +757,7 @@
 				60B4233A190F0B7F005A9ABD /* UIColorCategory.m in Sources */,
 				60C1AE3418F3507E00902F28 /* AFURLSessionManager.m in Sources */,
 				603B077D18DD810B002179CD /* TabViewController.m in Sources */,
+				F3BE1388190AFB5400B23630 /* ImageScrollViewController.m in Sources */,
 				60C1AE2E18F3507E00902F28 /* AFHTTPSessionManager.m in Sources */,
 				60C1AE3618F3507E00902F28 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				60C1AE3318F3507E00902F28 /* AFURLResponseSerialization.m in Sources */,
@@ -775,7 +774,6 @@
 				60C1AE3A18F3507E00902F28 /* UIProgressView+AFNetworking.m in Sources */,
 				F385B2FE1900E31E00A3F974 /* CamViewController.m in Sources */,
 				60C1AE3718F3507E00902F28 /* UIAlertView+AFNetworking.m in Sources */,
-				60533D2218D8454D00FF336E /* Exam.m in Sources */,
 				60B4231F1908D294005A9ABD /* NSMutableDictionary+ImageMetadata.m in Sources */,
 				60D8C7CA18C69BB1007D26A7 /* PatientsTableViewController.m in Sources */,
 				60C1AE2F18F3507E00902F28 /* AFNetworkReachabilityManager.m in Sources */,
@@ -787,12 +785,13 @@
 				60D8C7CE18C69BB2007D26A7 /* BLE.m in Sources */,
 				603C44FD18DAE72F00402AE1 /* ExamInfoViewController.m in Sources */,
 				60D8C7D218C6BF87007D26A7 /* Constants.m in Sources */,
+				F3BE138E190C419800B23630 /* EyeImage.m in Sources */,
 				F385B3041900E6E200A3F974 /* Light.m in Sources */,
+				F3BE138B190C419800B23630 /* Exam.m in Sources */,
 				603B077A18DD26E2002179CD /* SettingsViewController.m in Sources */,
 				60C1AE3818F3507E00902F28 /* UIButton+AFNetworking.m in Sources */,
 				F325703018D1A9AE00FEA80E /* UIImage+Alpha.m in Sources */,
 				60C1AE3018F3507E00902F28 /* AFSecurityPolicy.m in Sources */,
-				60533D1F18D8454C00FF336E /* EyeImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,8 @@
 
 #import "SettingsViewController.h"
 #import "CameraAppDelegate.h"
+#import "CameraAppDelegate.h"
+#import "FixationViewController.h"
 
 @interface SettingsViewController ()
 

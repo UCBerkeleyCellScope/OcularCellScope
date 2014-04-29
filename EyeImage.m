@@ -2,13 +2,12 @@
 //  EyeImage.m
 //  OcularCellscope
 //
-//  Created by PJ Loury on 3/18/14.
-//  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
+//  Created by Chris Echanique on 4/26/14.
+//  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
 #import "EyeImage.h"
 #import "Exam.h"
-#import "EImage.h"
 
 
 @implementation EyeImage
@@ -20,6 +19,5 @@
 @dynamic fixationLight;
 @dynamic thumbnail;
 @dynamic exam;
-
 
 @end

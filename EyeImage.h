@@ -2,8 +2,8 @@
 //  EyeImage.h
 //  OcularCellscope
 //
-//  Created by PJ Loury on 3/18/14.
-//  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
+//  Created by Chris Echanique on 4/26/14.
+//  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

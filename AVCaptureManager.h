@@ -25,6 +25,8 @@
 @property (weak, nonatomic) UIView *view;
 @property (weak, nonatomic) id <ImageCaptureDelegate> delegate;
 @property (nonatomic) BOOL isExposureLocked;
+@property (assign, nonatomic) BOOL isCapturingImages;
+@property (assign, nonatomic) BOOL previewLayerIsInverted;
 
 @property (strong,atomic) NSMutableDictionary* lastImageMetadata;
 

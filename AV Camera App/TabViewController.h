@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CellScopeContext.h"
 
 @interface TabViewController : UITabBarController
 

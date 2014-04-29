@@ -55,19 +55,17 @@
     
     [[self.bleManager whiteLight]toggleLight];
     
-
     //[self.captureManager unlockFocus];
     
     self.imageArray = [[NSMutableArray alloc] init];
     
-    
     [[CellScopeContext sharedContext] setCamViewLoaded:YES];
-    
-    [self.captureManager setupVideoForView:self.view];
 }
 
 -(void) viewWillAppear:(BOOL)animated{
     NSLog(@"APPEARED");
+    [self.captureManager setupVideoForView:self.view];
+    
     [self.captureManager setExposureLock:NO];
     
     [self setupIndicators];
@@ -91,7 +89,6 @@
         [self.captureButton setEnabled:NO];
         //JUST WAIT FOR CONNECTION
     }
-    
     else if (self.debugMode == YES){
         [self.aiv stopAnimating];
         [self.bleDisabledLabel setHidden:NO];
@@ -236,7 +233,7 @@
     int totalNumberOfImages = [[[NSUserDefaults standardUserDefaults] objectForKey:@"numberOfImages"] intValue];
     if([self.imageArray count] >= totalNumberOfImages){
         NSLog(@"About to segue to ImageSelectionView");
-        [self performSegueWithIdentifier:@"ImageSelectionSegue" sender:self];
+        [self performSegueWithIdentifier:@"ImageScrollSegue" sender:self];
         
     }
 }
@@ -254,7 +251,7 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"ImageSelectionSegue"])
+    if ([[segue identifier] isEqualToString:@"ImageScrollSegue"])
     {
         self.navigationController.navigationBar.alpha = 1;
         ImageSelectionViewController *isvc = (ImageSelectionViewController*)[segue destinationViewController];

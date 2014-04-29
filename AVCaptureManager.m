@@ -17,39 +17,50 @@
 @synthesize previewLayer = _previewLayer;
 @synthesize stillOutput = _stillOutput;
 @synthesize delegate = _delegate;
-@synthesize isExposureLocked;
+@synthesize isExposureLocked = _isExposureLocked;
+@synthesize isCapturingImages = _isCapturingImages;
+@synthesize lastImageMetadata = _lastImageMetadata;
 
-@synthesize lastImageMetadata;
 
+-(id)init{
+    self = [super init];
+    
+    if(self){
+        self.isCapturingImages = NO;
+        
+        // Create a new photo session
+        self.session = [[AVCaptureSession alloc] init];
+        [self.session setSessionPreset:AVCaptureSessionPresetPhoto];
+        
+        // Set device to video
+        self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        
+        // Add device to session
+        self.deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:self.device error:Nil];
+        if ( [self.session canAddInput:self.deviceInput] )
+            [self.session addInput:self.deviceInput];
+        
+        // Add still image output
+        self.stillOutput = [[AVCaptureStillImageOutput alloc] init];
+        NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
+        [self.stillOutput setOutputSettings:outputSettings];
+        [self.session addOutput:self.stillOutput];
+        
+        // Set preview layer
+        self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
+        [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
+        //AVLayerVideoGravityResizeAspectFill];
+    }
+    
+    return self;
+}
 
 -(void)setupVideoForView:(UIView*)view{
     self.view = view;
     
+    // Added gesture recognizer for taps to focus
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     [self.view addGestureRecognizer:gestureRecognizer];
-    
-    
-    // Create a new photo session
-    self.session = [[AVCaptureSession alloc] init];
-    [self.session setSessionPreset:AVCaptureSessionPresetPhoto];
-    
-    // Set device to video
-    self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    
-    // Add device to session
-    self.deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:self.device error:Nil];
-    if ( [self.session canAddInput:self.deviceInput] )
-        [self.session addInput:self.deviceInput];
-    
-    // Set preview layer
-    self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
-    [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
-    
-    // Add still image output
-    self.stillOutput = [[AVCaptureStillImageOutput alloc] init];
-    NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
-    [self.stillOutput setOutputSettings:outputSettings];
-    [self.session addOutput:self.stillOutput];
     
     // Set the preview layer to the bounds of the screen
     CALayer *rootLayer = [self.view layer];
@@ -83,8 +94,12 @@
 
 -(void)takePicture{
     
+    // Set boolean for capturing images
+    self.isCapturingImages = YES;
     
     AVCaptureConnection *videoConnection = [self getVideoConnection];
+    
+    // Asynchronous call to capture image
 	[_stillOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
      {
          self.lastImageMetadata = [[NSMutableDictionary alloc] initWithImageSampleBuffer:imageSampleBuffer];
@@ -92,16 +107,14 @@
          
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
          
-         
+         // Call to delegate to do something with this image data
          [self.delegate didCaptureImageWithData:imageData];
      }];
 }
 
 -(void)lockFocus{
     if ([self.device isFocusModeSupported:AVCaptureFocusModeLocked]) {
-        CGPoint autofocusPoint = CGPointMake(0.5f, 0.5f);
         [self.device lockForConfiguration:nil];
-        //[self.device setFocusPointOfInterest:autofocusPoint];
         [self.device setFocusMode:AVCaptureFocusModeLocked];
         [self.device unlockForConfiguration];
     }
@@ -116,7 +129,7 @@
             [self.device setExposureMode:AVCaptureExposureModeLocked];
         else
             [self.device setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
-        isExposureLocked = locked;
+        self.isExposureLocked = locked;
         [self.device unlockForConfiguration];
     }
     else
@@ -136,9 +149,7 @@
 
 -(void)setFocusWithPoint:(CGPoint)focusPoint{
     if([self.device isFocusModeSupported:AVCaptureFocusModeAutoFocus] && [self.device isFocusPointOfInterestSupported]){
-        NSLog(@"trying to set focus");
         [self.device lockForConfiguration:nil];
-        NSLog(@"setting focus");
         [self.device setFocusPointOfInterest:focusPoint];
         [self.device setFocusMode:AVCaptureFocusModeAutoFocus];
         [self.device unlockForConfiguration];
@@ -146,15 +157,14 @@
 }
 
 - (IBAction)viewTapped:(id)sender {
-    CGPoint tapPoint = [sender locationInView:self.view];
-    
-    CGPoint focusPoint = CGPointMake(tapPoint.x/self.view.bounds.size.width, tapPoint.y/self.view.bounds.size.height);
-    NSLog(@"x = %f, y = %f",focusPoint.x,focusPoint.y);
-    [self setFocusWithPoint:focusPoint];
+    // Focuses camera if not currently capturing images
+    if(!self.isCapturingImages){
+        CGPoint tapPoint = [sender locationInView:self.view];
+        CGPoint focusPoint = CGPointMake(tapPoint.x/self.view.bounds.size.width, tapPoint.y/self.view.bounds.size.height);
+        NSLog(@"x = %f, y = %f",focusPoint.x,focusPoint.y);
+        [self setFocusWithPoint:focusPoint];
+    }
 }
 
-/*
--(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer  fromConnection:(AVCaptureConnection *)connection
-*/
 
 @end

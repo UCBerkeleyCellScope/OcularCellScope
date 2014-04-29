@@ -15,14 +15,7 @@
 
 @implementation TabViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@synthesize managedObjectContext = _managedObjectContext;
 
 - (void)viewDidLoad
 {
@@ -55,14 +48,27 @@
     if (![[[CellScopeContext sharedContext] managedObjectContext] save:&error])
         NSLog(@"Failed to commit to core data: %@", [error domain]);
     
-    /*
-    [self.navigationController popToRootViewControllerAnimated:YES];
-
-    UIViewController* fixationVC = [viewControllers objectAtIndex: 2 ];
-    //The Fixation ViewController will be either index 1 out of 0-2 or 1 out of 0-3.
-    */
-    //[self.navigationController popToViewController:[self.viewControllers objectAtIndex:1] animated:YES];
     [self.navigationController popViewControllerAnimated:YES];
     
 }
+
+- (IBAction)didPressCancel:(id)sender {
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Delete this exam?"
+                                                        message:@"Your images and patient data will be lost."
+                                                       delegate:self
+                                              cancelButtonTitle:@"No"
+                                              otherButtonTitles:@"Yes",nil];
+
+    [alertView show];
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1){
+        [self.managedObjectContext deleteObject:[[CellScopeContext sharedContext] currentExam]];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 @end
