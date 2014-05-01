@@ -6,10 +6,13 @@
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
+#import <AssetsLibrary/ALAsset.h>
 #import "ImageScrollViewController.h"
 #import "EImage.h"
 #import "EyeImage.h"
 #import "CellScopeContext.h"
+
+
 @interface ImageScrollViewController ()
 
 @property UIViewController *fixationVC;

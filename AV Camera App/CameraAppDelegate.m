@@ -3,7 +3,7 @@
 //  AV Camera App
 //
 //  Created by NAYA LOUMOU on 11/11/13.
-//  Copyright (c) 2013 NAYA LOUMOU. All rights reserved.
+//  Copyright (c) 2013 UC Berkeley Ocular CellScope. All rights reserved.
 //
 
 #import "CameraAppDelegate.h"
@@ -31,9 +31,6 @@
     
     return YES;
 }
-
-
-
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

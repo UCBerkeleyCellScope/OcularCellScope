@@ -3,7 +3,7 @@
 //  AV Camera App
 //
 //  Created by NAYA LOUMOU on 12/1/13.
-//  Copyright (c) 2013 NAYA LOUMOU. All rights reserved.
+//  Copyright (c) 2013 UC Berkeley Ocular CellScope. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -14,7 +14,6 @@
 @property (nonatomic, strong) NSMutableArray *patientsArray;
 
 @property (nonatomic, strong) Exam *currentExam;
-@property UIColorManager *colorManager;
 
 - (IBAction)didPressAddExam:(id)sender;
 

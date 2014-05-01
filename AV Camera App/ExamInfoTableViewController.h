@@ -13,10 +13,11 @@
 #import "TabViewController.h"
 
 @interface ExamInfoTableViewController : UITableViewController<UITextFieldDelegate, UITextViewDelegate, BSKeyboardControlsDelegate>
-@property (strong, nonatomic) IBOutlet UITextField *firstnameField;
-@property (strong, nonatomic) IBOutlet UITextField *lastnameField;
-@property (strong, nonatomic) IBOutlet UITextField *patientIDField;
-@property (strong, nonatomic) IBOutlet UITextField *physicianField;
+@property (weak, nonatomic) IBOutlet UITextField *firstnameField;
+@property (weak, nonatomic) IBOutlet UITextField *lastnameField;
+@property (weak, nonatomic) IBOutlet UITextField *patientIDField;
+@property (weak, nonatomic) IBOutlet UITextField *physicianField;
+@property (weak, nonatomic) IBOutlet UITextField *phoneNumberField;
 
 @end
 

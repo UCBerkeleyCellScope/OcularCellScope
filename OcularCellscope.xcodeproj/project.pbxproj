@@ -274,6 +274,12 @@
 		F385B3081900F85B00A3F974 /* AVCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCaptureManager.h; sourceTree = "<group>"; };
 		F385B3091900F85B00A3F974 /* AVCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCaptureManager.m; sourceTree = "<group>"; };
 		F3A6034C18FE6A5F006BFFEC /* settings_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_icon.png; sourceTree = "<group>"; };
+		F3BE1386190AFB5400B23630 /* ImageScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScrollViewController.h; sourceTree = "<group>"; };
+		F3BE1387190AFB5400B23630 /* ImageScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScrollViewController.m; sourceTree = "<group>"; };
+		F3BE1389190C419800B23630 /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
+		F3BE138A190C419800B23630 /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
+		F3BE138C190C419800B23630 /* EyeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeImage.h; sourceTree = "<group>"; };
+		F3BE138D190C419800B23630 /* EyeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeImage.m; sourceTree = "<group>"; };
 		F3FA32C418B5D6BF000FACF4 /* ImageSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectionViewController.h; sourceTree = "<group>"; };
 		F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectionViewController.m; sourceTree = "<group>"; };
 		F3FA32C718B5E4B7000FACF4 /* im1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im1.png; sourceTree = "<group>"; };
@@ -471,6 +477,8 @@
 				60B42338190F0B7F005A9ABD /* UIColorCategory.h */,
 				60B42339190F0B7F005A9ABD /* UIColorCategory.m */,
 				60A0865D18C069C900A2667D /* FixationViewController.h */,
+				F3BE1386190AFB5400B23630 /* ImageScrollViewController.h */,
+				F3BE1387190AFB5400B23630 /* ImageScrollViewController.m */,
 				60A0865E18C069C900A2667D /* FixationViewController.m */,
 				60C1AE0018F346E700902F28 /* DiagnosisViewController.h */,
 				60C1AE0118F346E700902F28 /* DiagnosisViewController.m */,

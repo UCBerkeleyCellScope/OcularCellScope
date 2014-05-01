@@ -13,7 +13,7 @@
 #import "Constants.h"
 #import "AFNetworking.h"
 #import "BLEManager.h"
-#import "UIColorManager.h"
+#import "UIColorCategory.h"
 
 @class BLEManager;
 
@@ -26,7 +26,7 @@
 @property (nonatomic) BOOL connected;
 @property(nonatomic,strong) BLEManager* bleManager;
 @property (nonatomic) BOOL camViewLoaded;
-@property UIColorManager *colorManager;
+
 
 
 + (id)sharedContext;

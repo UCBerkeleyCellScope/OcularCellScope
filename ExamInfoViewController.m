@@ -40,8 +40,6 @@
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:fields]];
     [self.keyboardControls setDelegate:self];
     
-    //CameraAppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
-    
     
     firstnameField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     lastnameField.autocapitalizationType = UITextAutocapitalizationTypeSentences;

@@ -3,7 +3,7 @@
 //  AV Camera App
 //
 //  Created by NAYA LOUMOU on 12/1/13.
-//  Copyright (c) 2013 NAYA LOUMOU. All rights reserved.
+//  Copyright (c) 2013 UC Berkeley Ocular CellScope. All rights reserved.
 //
 
 #import "PatientsTableViewController.h"
@@ -13,7 +13,7 @@
 
 @implementation PatientsTableViewController
 
-@synthesize currentExam, patientsArray, colorManager;
+@synthesize currentExam, patientsArray;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -44,9 +44,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    colorManager = [[CellScopeContext sharedContext]colorManager];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -85,11 +82,11 @@
     //[PatientInfo objectAtIndex:indexPath.row];
     
     // Fill in the cell contents
-    cell.contentView.backgroundColor = [colorManager darkGreen];
+    cell.contentView.backgroundColor = [UIColor darkGreenColor];
     
     cell.textLabel.text = [NSString stringWithFormat:@"%@, %@",
                            exam.lastName, exam.firstName];
-    cell.textLabel.textColor = [colorManager lightGreen];
+    cell.textLabel.textColor = [UIColor lightGreenColor];
     
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", exam.patientID];
     cell.textLabel.textColor = [UIColor whiteColor];
@@ -109,6 +106,13 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    self.currentExam = nil;
+    
+    Exam* newExam = (Exam*)[NSEntityDescription insertNewObjectForEntityForName:@"Exam" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
+    [[CellScopeContext sharedContext] setCurrentExam:newExam ];
+
+    
+    
 //    DiagnosisViewController *dvc = [[DiagnosisViewController alloc]init];
 //    UITabBarController *tbc = [segue destinationViewController];
 //    CellScopeHTTPClient *c = [CellScopeHTTPClient sharedCellScopeHTTPClient];
@@ -141,10 +145,10 @@
 //ADD EXAM
 - (IBAction)didPressAddExam:(id)sender {
     
-    self.currentExam = nil;
-    
-    Exam* newExam = (Exam*)[NSEntityDescription insertNewObjectForEntityForName:@"Exam" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
-    [[CellScopeContext sharedContext] setCurrentExam:newExam ];
+//    self.currentExam = nil;
+//    
+//    Exam* newExam = (Exam*)[NSEntityDescription insertNewObjectForEntityForName:@"Exam" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
+//    [[CellScopeContext sharedContext] setCurrentExam:newExam ];
 
     [self performSegueWithIdentifier: @"AddExamSegue" sender: self];
     

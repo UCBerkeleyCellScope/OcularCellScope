@@ -7,7 +7,8 @@
 //
 
 #import "TabViewController.h"
-#import "UIColorManager.h"
+#import "UIColorCategory.h"
+#import "CellScopeContext.h"
 
 @interface TabViewController ()
 
@@ -23,12 +24,7 @@
     [ [UITabBar appearance] setTintColor: [UIColor lightGreenColor]];
     // Do any additional setup after loading the view.
     
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.managedObjectContext = [[CellScopeContext sharedContext] managedObjectContext];
 }
 
 /*
