@@ -45,7 +45,6 @@
     lastnameField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     physicianField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated

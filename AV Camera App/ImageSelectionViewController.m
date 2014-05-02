@@ -85,20 +85,6 @@
         [imageViews addObject:[[UIImageView alloc] initWithImage: im]];
     }
     
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview: scrollView]; //This code assumes it's in a UIViewController
-    CGRect cRect = scrollView.bounds;
-    UIImageView *cView;
-    for (int i = 0; i < imageViews.count; i++){
-        cView = [imageViews objectAtIndex:i];
-        cView.frame = cRect;
-        [scrollView addSubview:cView];
-        cRect.origin.x += cRect.size.width;
-    }
-    scrollView.contentSize = CGSizeMake(cRect.origin.x, scrollView.bounds.size.height);
-    scrollView.contentOffset = CGPointMake(scrollView.bounds.size.width, 0); //should be the center page in a 3 page setup
-    
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -132,18 +118,6 @@
         }
          */
     }
-    
-}
-
-
-- (IBAction)didSwipeRight:(id)sender {
-    
-    NSLog(@"The User Swiped Right!");    
-    if(slider.value>0.5){
-        [slider setValue:(slider.value-1) animated:YES];
-        currentImageIndex--;
-    }
-    [self updateViewWithImage:[images objectAtIndex:currentImageIndex] useThumbnail:NO];
     
 }
 
@@ -196,11 +170,10 @@
     //if([EImage containsSelectedImageInArray:images]){
         //save
     
-    
     // GO THROUGH AND DELETE THE EyeImages MARKED FOR DELETEION
   
     if(reviewMode == NO){
-            NSMutableArray* eImagesToSave = [EImage selectedImagesFromArray:images];
+            //NSMutableArray* eImagesToSave = [EImage selectedImagesFromArray:images];
         for( EImage* ei in images){//eImagesToSave){     //HACK TO SAVE ALL
                 EyeImage* coreDataObject = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"EyeImage" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
                 coreDataObject.date = ei.date;
@@ -222,8 +195,8 @@
                 
             //}
             
-            [self.navigationController popToViewController:fixationVC animated:YES];
         }
+        [self.navigationController popToViewController:fixationVC animated:YES];
     }
     
     else{
@@ -237,6 +210,7 @@
         */
         [self.navigationController popToViewController:fixationVC animated:YES];
     }
+    
 }
 
 
@@ -287,56 +261,4 @@
     }
 }
 
-
-/*
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return  [images count];
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return 1;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *identifier = @"myCell";
-    
-    ImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    EImage *image = [images objectAtIndex:indexPath.row];
-    cell.image.image =  image.thumbnail;
-    
-    return cell;
-    
-    
-}
-//*/
-
- 
-/*
- -(void) load: (int) cii{
- NSLog(@"IN THE LOAD");
- currentEyeImage = [eyeImages objectAtIndex:cii];
- 
- NSURL *aURL = [NSURL URLWithString: currentEyeImage.filePath];
- 
- NSLog(@"displaying image at: %@",currentEyeImage.filePath);
- 
- ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
- [library assetForURL:aURL resultBlock:^(ALAsset *asset)
- {
- ALAssetRepresentation* rep = [asset defaultRepresentation];
- CGImageRef iref = [rep fullResolutionImage];
- 
- [imageView setImage:[UIImage imageWithCGImage:iref]];
- }
- failureBlock:^(NSError *error)
- {
- // error handling
- NSLog(@"failure loading video/image from AssetLibrary");
- }];
- 
- }
- */
 @end

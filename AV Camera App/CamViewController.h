@@ -31,7 +31,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *redOffIndicator;
 @property (weak, nonatomic) IBOutlet UIImageView *flashOffIndicator;
 
-
 @property (strong, nonatomic) IBOutlet UIButton *pauseButton;
 
 @property (assign, nonatomic) int selectedLight;

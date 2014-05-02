@@ -9,6 +9,7 @@
 #import "CamViewController.h"
 #import "UIImage+Resize.h"
 #import "ImageSelectionViewController.h"
+#import "ImageScrollViewController.h"
 
 @interface CamViewController ()
 
@@ -233,8 +234,8 @@
     int totalNumberOfImages = [[[NSUserDefaults standardUserDefaults] objectForKey:@"numberOfImages"] intValue];
     if([self.imageArray count] >= totalNumberOfImages){
         NSLog(@"About to segue to ImageSelectionView");
-        [self performSegueWithIdentifier:@"ImageScrollSegue" sender:self];
-        
+//        [self performSegueWithIdentifier:@"ImageScrollSegue" sender:self];
+        [self performSegueWithIdentifier:@"ImageSelectionSegue" sender:self];
     }
 }
 
@@ -251,10 +252,12 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"ImageScrollSegue"])
+    if ([[segue identifier] isEqualToString:@"ImageSelectionSegue"])
+        //@"ImageScrollSegue"
     {
         self.navigationController.navigationBar.alpha = 1;
         ImageSelectionViewController *isvc = (ImageSelectionViewController*)[segue destinationViewController];
+//        ImageScrollViewController *isvc = (ImageScrollViewController*)[segue destinationViewController];
         isvc.images = self.imageArray;
         isvc.reviewMode = NO;
     }

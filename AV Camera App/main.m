@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "CameraAppDelegate.h"
 
 int main(int argc, char * argv[])

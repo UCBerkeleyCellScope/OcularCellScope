@@ -1015,8 +1015,12 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <slider contentMode="bottom" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="V3s-CM-8Fg">
-                                <rect key="frame" x="18" y="454" width="284" height="31"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NqN-Fh-BWJ">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <slider contentMode="bottom" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="V3s-CM-8Fg">
+                                <rect key="frame" x="18" y="366" width="284" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="didMoveSlider:" destination="2qF-pw-3PT" eventType="valueChanged" id="ifB-qC-gGl"/>
@@ -1024,13 +1028,13 @@
                                     <action selector="didTouchUpFromSlider:" destination="2qF-pw-3PT" eventType="touchUpOutside" id="tO9-24-9zC"/>
                                 </connections>
                             </slider>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NqN-Fh-BWJ">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="347"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YB0-we-XWf" userLabel="SelectionButton">
-                                <rect key="frame" x="266" y="276" width="34" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YB0-we-XWf" userLabel="SelectionButton">
+                                <rect key="frame" x="266" y="324" width="34" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="OeP-El-3rP"/>
+                                    <constraint firstAttribute="width" constant="34" id="fZX-gV-jvJ"/>
+                                </constraints>
                                 <state key="normal" backgroundImage="unselected_icon.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1040,9 +1044,17 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="eMP-qn-2U7" appends="YES" id="Maw-NK-Jgc"/>
-                        </connections>
+                        <constraints>
+                            <constraint firstItem="uhu-rb-hj7" firstAttribute="top" secondItem="YB0-we-XWf" secondAttribute="bottom" constant="58" id="3YF-gS-9u8"/>
+                            <constraint firstItem="NqN-Fh-BWJ" firstAttribute="top" secondItem="nsn-2b-QjT" secondAttribute="bottom" id="5o3-f6-9eI"/>
+                            <constraint firstAttribute="trailing" secondItem="V3s-CM-8Fg" secondAttribute="trailing" constant="20" id="6C6-KG-gEl"/>
+                            <constraint firstItem="V3s-CM-8Fg" firstAttribute="leading" secondItem="yIH-7h-k7d" secondAttribute="leading" constant="20" id="OUv-0X-C5N"/>
+                            <constraint firstAttribute="trailing" secondItem="YB0-we-XWf" secondAttribute="trailing" constant="20" id="d3J-hR-0hf"/>
+                            <constraint firstAttribute="bottom" secondItem="V3s-CM-8Fg" secondAttribute="bottom" constant="20" id="fNZ-5h-7ZI"/>
+                            <constraint firstItem="NqN-Fh-BWJ" firstAttribute="leading" secondItem="yIH-7h-k7d" secondAttribute="leading" id="k4Y-qG-ZH7"/>
+                            <constraint firstItem="uhu-rb-hj7" firstAttribute="top" secondItem="NqN-Fh-BWJ" secondAttribute="bottom" id="soT-5Z-ORa"/>
+                            <constraint firstAttribute="trailing" secondItem="NqN-Fh-BWJ" secondAttribute="trailing" id="yDb-ra-YiN"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7dv-jV-lDW">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="ZS4-ng-3RW">
@@ -1054,7 +1066,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Save" id="VdC-99-cYH">
                             <color key="tintColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="didPressSave:" destination="2qF-pw-3PT" id="1GM-BI-VU1"/>
+                                <action selector="didPressSave:" destination="2qF-pw-3PT" id="6TU-W3-B51"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1064,15 +1076,9 @@
                         <outlet property="imageCollectionView" destination="pFc-uX-0df" id="pxb-s1-Rjw"/>
                         <outlet property="imageView" destination="NqN-Fh-BWJ" id="iQa-xE-VLS"/>
                         <outlet property="slider" destination="V3s-CM-8Fg" id="DFg-Iu-p2s"/>
-                        <outlet property="swipeRightRecognizer" destination="eMP-qn-2U7" id="GBD-4x-aQ2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Dp-ra-vEL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="left" id="eMP-qn-2U7">
-                    <connections>
-                        <action selector="didSwipeRight:" destination="2qF-pw-3PT" id="RaA-S0-NDP"/>
-                    </connections>
-                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2177" y="-870"/>
         </scene>
@@ -1271,7 +1277,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="vfp-dg-Pid"/>
         <segue reference="bxS-mp-ayJ"/>
+        <segue reference="vfp-dg-Pid"/>
     </inferredMetricsTieBreakers>
 </document>

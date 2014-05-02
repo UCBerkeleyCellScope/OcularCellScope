@@ -20,4 +20,10 @@
 @dynamic patientName;
 @dynamic eyeImages;
 
+- (void)addEyeImagesObject:(EyeImage *)image {
+    NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.eyeImages];
+    [tempSet addObject:image];
+    self.eyeImages = tempSet;
+}
+
 @end
