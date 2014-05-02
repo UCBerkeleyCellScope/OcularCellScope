@@ -222,6 +222,13 @@ BOOL capturing = NO;
     }
 }
 
+-(void)arduinoFlash{
+    if(debugMode == NO){
+        [self turnOffAllLights];
+        [self.whiteLight turnOnWithDelay];
+    }
+}
+
 -(void)activatePinForLight:(Light *)light {
     UInt8 buf[] = {light.pin, 0x01, light.intensity};
     NSData *data = [[NSData alloc] initWithBytes:buf length:3];
@@ -232,6 +239,15 @@ BOOL capturing = NO;
 
 -(void)deactivatePinForLight:(Light *)light{
     UInt8 buf[] = {light.pin, 0x00, 0x00};
+    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
+    int i = 0;
+    NSLog(@"0x%02X, 0x%02X, 0x%02X", buf[i], buf[i+1], buf[i+2]);
+    [ble write:data];
+}
+
+-(void)activatePinForLightForDelay:(Light *)light{
+    UInt8 arduinoDelay = [[[NSUserDefaults standardUserDefaults] objectForKey:@"arduinoDelay"]intValue];
+    UInt8 buf[] = {light.pin, arduinoDelay, light.intensity};
     NSData *data = [[NSData alloc] initWithBytes:buf length:3];
     int i = 0;
     NSLog(@"0x%02X, 0x%02X, 0x%02X", buf[i], buf[i+1], buf[i+2]);

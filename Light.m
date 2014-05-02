@@ -15,6 +15,7 @@
 @synthesize intensity = _intensity;
 @synthesize bluetoothSystem = _bluetoothSystem;
 @synthesize pin = _pin;
+@synthesize delay = _delay;
 
 -(id)initWithBLE:(BLEManager *)bluetooth pin:(int)p intensity:(int)i{
     self = [super init];
@@ -52,6 +53,12 @@
         [self.bluetoothSystem activatePinForLight:self];
         NSLog(@"Let's turn a light ON!");
     //}
+    self.isOn = YES;
+}
+
+-(void) turnOnWithDelay{
+    [self.bluetoothSystem activatePinForLightForDelay:self];
+    NSLog(@"Let's turn a light ON!");
     self.isOn = YES;
 }
 

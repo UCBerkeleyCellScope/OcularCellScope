@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *bleDelay;
 @property (weak, nonatomic) IBOutlet UITextField *captureDelay;
 @property (weak, nonatomic) IBOutlet UITextField *flashDuration;
+@property (weak, nonatomic) IBOutlet UITextField *arduinoDelay;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *multiShot;
 @property (weak, nonatomic) IBOutlet UISwitch *timedFlashSwitch;
 

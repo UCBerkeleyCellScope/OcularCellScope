@@ -176,7 +176,10 @@
         self.repeatingTimer = [NSTimer scheduledTimerWithTimeInterval:[interval doubleValue] target:self selector:@selector(captureTimerFired) userInfo:nil repeats:YES];
     }
     else{
-        [self.bleManager.whitePing turnOn];
+        //[self.bleManager.whitePing turnOn];
+        NSNumber *interval = [[NSUserDefaults standardUserDefaults] objectForKey:@"captureDelay"];
+        
+        self.repeatingTimer = [NSTimer scheduledTimerWithTimeInterval:[interval doubleValue] target:self selector:@selector(captureTimerFired) userInfo:nil repeats:YES];
     }
 }
 
@@ -184,6 +187,7 @@
     //THIS MIGHT BE A PROBLEM
     if(self.bleManager.debugMode==NO){
         NSLog(@"FOCUSING FLASH");
+        [self.bleManager turnOffAllLights];
         [self.bleManager.whiteLight turnOn];
         [NSThread sleepForTimeInterval: .6];
         [self.captureManager setExposureLock:YES];
@@ -198,7 +202,14 @@
     if(self.currentImageCount <= totalNumberOfImages){
         [self updateCounterLabelText];
         // Timed flash or ping back
+        
+        BOOL timedFlash = [[NSUserDefaults standardUserDefaults] boolForKey:@"timedFlash"];
+
+        if(timedFlash){
         [self.bleManager timedFlash];
+        }
+        [self.bleManager arduinoFlash];
+        
         [self.bleManager bleDelay];
         
         //self.waitForBle = [NSTimer scheduledTimerWithTimeInterval:[bleDelay doubleValue] target:self selector:@selector(readyToTakePicture) userInfo:nil repeats:NO];

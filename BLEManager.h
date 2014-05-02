@@ -33,10 +33,11 @@
 
 -(void)turnOffAllLights;
 -(void)timedFlash;
+-(void)arduinoFlash;
 -(void)activatePinForLight:(Light *)light;
 -(void)deactivatePinForLight:(Light *)light;
 -(void)btnScanForPeripherals;
 -(void) disconnect;
 -(void) bleDelay;
-
+-(void)activatePinForLightForDelay:(Light *)light;
 @end

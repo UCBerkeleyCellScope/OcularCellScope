@@ -22,7 +22,7 @@
 @implementation SettingsViewController
 @synthesize prefs = _prefs;
 
-@synthesize flashLightSlider, redLightSlider, flashLightValue, redLightValue, flashLightLabel, redLightLabel, multiText, debugToggle,bleDelay,captureDelay,flashDuration,multiShot, timedFlashSwitch;
+@synthesize flashLightSlider, redLightSlider, flashLightValue, redLightValue, flashLightLabel, redLightLabel, multiText, debugToggle,bleDelay,captureDelay,flashDuration,multiShot, timedFlashSwitch, arduinoDelay;
 @synthesize remoteLightSlider, remoteLightLabel;
 @synthesize flashTooLong, bleDelayTooLong;
 @synthesize bleManager = _bleManager;
@@ -36,7 +36,6 @@ double fs,fe,rs,re, rems, reme;
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        
         
     }
     return self;
@@ -101,6 +100,10 @@ double fs,fe,rs,re, rems, reme;
     self.multiText =  [ NSString stringWithFormat:@"%ld",[_prefs integerForKey: @"numberOfImages"]];
     [self selectUISegment: self.multiText];
 
+    NSString *arduinoDelayText =  [ NSString stringWithFormat:@"%f",[_prefs floatForKey: @"arduinoDelay"]];
+    arduinoDelayText = [arduinoDelayText substringToIndex:3];
+    [arduinoDelay setText: arduinoDelayText];
+
     
 }
 
@@ -131,6 +134,11 @@ double fs,fe,rs,re, rems, reme;
     [f4 setNumberStyle:NSNumberFormatterDecimalStyle];
     NSNumber *prefNum4 = [f4 numberFromString:self.multiText];
     [_prefs setObject: prefNum4 forKey:@"numberOfImages"];
+    
+    NSNumberFormatter * f5 = [[NSNumberFormatter alloc] init];
+    [f5 setNumberStyle:NSNumberFormatterDecimalStyle];
+    NSNumber *prefNum5 = [f5 numberFromString:arduinoDelay.text];
+    [_prefs setObject: prefNum5 forKey:@"arduinoDelay"];
     
 }
 

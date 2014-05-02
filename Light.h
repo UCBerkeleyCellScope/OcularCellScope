@@ -25,11 +25,13 @@
 @property (assign, nonatomic) BOOL isOn;
 @property (assign, nonatomic) int intensity;
 @property (assign, nonatomic) int pin;
+@property (assign, nonatomic) int delay;
 @property (weak, nonatomic) BLEManager *bluetoothSystem;
 
 -(void)toggleLight;
 -(void)turnOff;
 -(void)turnOn;
+-(void)turnOnWithDelay;
 -(id)initWithBLE:(BLEManager *)bluetooth pin:(int)p intensity:(int)i;
 -(void)changeIntensity:(int)i;
 @end
