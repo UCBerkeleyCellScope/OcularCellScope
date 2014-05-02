@@ -116,9 +116,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="54"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="DM3-co-cGG" kind="push" identifier="ExamInfoSegue" id="IbK-dq-lak"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -130,12 +127,14 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="aYt-zt-T8O">
                             <color key="tintColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="didPressAddExam:" destination="heK-xf-yYg" id="mhv-of-6DR"/>
-                                <segue destination="DM3-co-cGG" kind="push" identifier="AddExamSegue" id="vfp-dg-Pid"/>
+                                <action selector="didPressAddExam:" destination="heK-xf-yYg" id="IwP-l7-aDh"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <segue destination="DM3-co-cGG" kind="push" identifier="ExamInfoSegue" id="qCQ-t9-R6b"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KAX-oc-sGE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1278,6 +1277,5 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="bxS-mp-ayJ"/>
-        <segue reference="vfp-dg-Pid"/>
     </inferredMetricsTieBreakers>
 </document>

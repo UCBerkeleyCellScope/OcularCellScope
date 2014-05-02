@@ -103,16 +103,8 @@
     [self performSegueWithIdentifier: @"ExamInfoSegue" sender: self];
 }
 
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    self.currentExam = nil;
-    
-    Exam* newExam = (Exam*)[NSEntityDescription insertNewObjectForEntityForName:@"Exam" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
-    [[CellScopeContext sharedContext] setCurrentExam:newExam ];
-
-    
-    
 //    DiagnosisViewController *dvc = [[DiagnosisViewController alloc]init];
 //    UITabBarController *tbc = [segue destinationViewController];
 //    CellScopeHTTPClient *c = [CellScopeHTTPClient sharedCellScopeHTTPClient];
@@ -120,7 +112,6 @@
 //    
 //    
 //    dvc = (DiagnosisViewController*)[[tbc customizableViewControllers] objectAtIndex:1];
-
 }
  
 // Edit/DELETE Cell in the table view
@@ -138,19 +129,21 @@
      
         // Commit
         [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
-        
     }
 }
 
 //ADD EXAM
 - (IBAction)didPressAddExam:(id)sender {
+    self.currentExam = nil;
+    Exam* newExam = (Exam*)[NSEntityDescription insertNewObjectForEntityForName:@"Exam" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
+    [[CellScopeContext sharedContext] setCurrentExam:newExam ];
+    self.currentExam = newExam;
     
-//    self.currentExam = nil;
-//    
-//    Exam* newExam = (Exam*)[NSEntityDescription insertNewObjectForEntityForName:@"Exam" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
-//    [[CellScopeContext sharedContext] setCurrentExam:newExam ];
+    [self.patientsArray addObject:newExam];
+    
+    NSLog(@"B4 TRANSITION We have %lu patients in our database", (unsigned long)[self.patientsArray count]);
 
-    [self performSegueWithIdentifier: @"AddExamSegue" sender: self];
     
+    [self performSegueWithIdentifier: @"ExamInfoSegue" sender: self];
 }
 @end
