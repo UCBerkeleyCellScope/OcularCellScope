@@ -24,7 +24,7 @@
 		60B4232D190B1663005A9ABD /* green_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 60B4232C190B1663005A9ABD /* green_icon.png */; };
 		60B42334190EF236005A9ABD /* CellScopeHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B42333190EF236005A9ABD /* CellScopeHTTPClient.m */; };
 		60B42337190F02FC005A9ABD /* ExamInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B42336190F02FC005A9ABD /* ExamInfoTableViewController.m */; };
-		60B4233A190F0B7F005A9ABD /* UIColorCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B42339190F0B7F005A9ABD /* UIColorCategory.m */; };
+		60B4233A190F0B7F005A9ABD /* UIColor+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B42339190F0B7F005A9ABD /* UIColor+Custom.m */; };
 		60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0118F346E700902F28 /* DiagnosisViewController.m */; };
 		60C1AE0518F34DD400902F28 /* PatientTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0418F34DD400902F28 /* PatientTableViewCell.m */; };
 		60C1AE2C18F3507E00902F28 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0818F3507E00902F28 /* AFHTTPRequestOperation.m */; };
@@ -159,8 +159,8 @@
 		60B42333190EF236005A9ABD /* CellScopeHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellScopeHTTPClient.m; sourceTree = "<group>"; };
 		60B42335190F02FC005A9ABD /* ExamInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExamInfoTableViewController.h; sourceTree = "<group>"; };
 		60B42336190F02FC005A9ABD /* ExamInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExamInfoTableViewController.m; sourceTree = "<group>"; };
-		60B42338190F0B7F005A9ABD /* UIColorCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColorCategory.h; sourceTree = "<group>"; };
-		60B42339190F0B7F005A9ABD /* UIColorCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColorCategory.m; sourceTree = "<group>"; };
+		60B42338190F0B7F005A9ABD /* UIColor+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Custom.h"; sourceTree = "<group>"; };
+		60B42339190F0B7F005A9ABD /* UIColor+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Custom.m"; sourceTree = "<group>"; };
 		60C1AE0018F346E700902F28 /* DiagnosisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiagnosisViewController.h; sourceTree = "<group>"; };
 		60C1AE0118F346E700902F28 /* DiagnosisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiagnosisViewController.m; sourceTree = "<group>"; };
 		60C1AE0318F34DD400902F28 /* PatientTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientTableViewCell.h; sourceTree = "<group>"; };
@@ -479,8 +479,8 @@
 			isa = PBXGroup;
 			children = (
 				60AECE6618D8CD1A00C4EA15 /* Main.storyboard */,
-				60B42338190F0B7F005A9ABD /* UIColorCategory.h */,
-				60B42339190F0B7F005A9ABD /* UIColorCategory.m */,
+				60B42338190F0B7F005A9ABD /* UIColor+Custom.h */,
+				60B42339190F0B7F005A9ABD /* UIColor+Custom.m */,
 				60F03E1919138446008D729B /* FixationViewController.h */,
 				60A0865E18C069C900A2667D /* FixationViewController.m */,
 				F3BE1386190AFB5400B23630 /* ImageScrollViewController.h */,
@@ -770,7 +770,7 @@
 				60F03E1819137F09008D729B /* Exam+Methods.m in Sources */,
 				60D8C7C118C69BB1007D26A7 /* FixationViewController.m in Sources */,
 				60D8C7C418C69BB1007D26A7 /* ImageSelectionViewController.m in Sources */,
-				60B4233A190F0B7F005A9ABD /* UIColorCategory.m in Sources */,
+				60B4233A190F0B7F005A9ABD /* UIColor+Custom.m in Sources */,
 				60C1AE3418F3507E00902F28 /* AFURLSessionManager.m in Sources */,
 				603B077D18DD810B002179CD /* TabViewController.m in Sources */,
 				F3BE1388190AFB5400B23630 /* ImageScrollViewController.m in Sources */,

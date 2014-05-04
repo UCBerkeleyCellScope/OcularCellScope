@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>arduinoDelay</key>
-	<integer>50</integer>
+	<integer>40</integer>
 	<key>timedFlash</key>
 	<true/>
 	<key>ImageScaleFactor</key>
