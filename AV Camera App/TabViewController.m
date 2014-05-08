@@ -7,7 +7,7 @@
 //
 
 #import "TabViewController.h"
-#import "UIColorCategory.h"
+#import "UIColor+Custom.h"
 #import "CellScopeContext.h"
 
 @interface TabViewController ()

@@ -61,6 +61,11 @@ static NSString * const CellScopeURLString = @"http://warm-dawn-6399.herokuapp.c
         }
     }];
 }
+
+- (void)uploadEyeImagesForExam:(Exam *)exam{
+    
+}
+
 @end
 
 

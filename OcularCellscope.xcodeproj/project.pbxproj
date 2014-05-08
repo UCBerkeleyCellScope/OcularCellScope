@@ -44,6 +44,8 @@
 		60C1AE3A18F3507E00902F28 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE2718F3507E00902F28 /* UIProgressView+AFNetworking.m */; };
 		60C1AE3B18F3507E00902F28 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE2918F3507E00902F28 /* UIRefreshControl+AFNetworking.m */; };
 		60C1AE3C18F3507E00902F28 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE2B18F3507E00902F28 /* UIWebView+AFNetworking.m */; };
+		60C7746B1916394100731B3A /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 60C7746A1916394100731B3A /* title.png */; };
+		60C7746D19163A0800731B3A /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 60C7746C19163A0800731B3A /* title.png */; };
 		60D8C7BC18C69BB1007D26A7 /* CameraAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */; };
 		60D8C7BD18C69BB1007D26A7 /* CellScopeContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2A51C18C19F2800021510 /* CellScopeContext.m */; };
 		60D8C7C018C69BB1007D26A7 /* CoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD89D7C18426AD400F3C7FC /* CoreDataController.m */; };
@@ -85,7 +87,6 @@
 		F325703D18D366FE00FEA80E /* EImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F325703C18D366FE00FEA80E /* EImage.m */; };
 		F325704418D3911200FEA80E /* selected_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F325704218D3911200FEA80E /* selected_icon.png */; };
 		F325704518D3911200FEA80E /* unselected_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F325704318D3911200FEA80E /* unselected_icon.png */; };
-		F345FDA91855A2C9003E448E /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = F345FDA81855A2C9003E448E /* title.png */; };
 		F356909318559CC700DBB4BE /* button_addpatients.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909218559CC700DBB4BE /* button_addpatients.png */; };
 		F356909718559ECA00DBB4BE /* button_viewpatients.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909518559ECA00DBB4BE /* button_viewpatients.png */; };
 		F356909818559ECA00DBB4BE /* button_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909618559ECA00DBB4BE /* button_settings.png */; };
@@ -203,6 +204,8 @@
 		60C1AE2B18F3507E00902F28 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		60C2A51B18C19F2800021510 /* CellScopeContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellScopeContext.h; sourceTree = "<group>"; };
 		60C2A51C18C19F2800021510 /* CellScopeContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellScopeContext.m; sourceTree = "<group>"; };
+		60C7746A1916394100731B3A /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
+		60C7746C19163A0800731B3A /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
 		60D8C7D018C6BF87007D26A7 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		60D8C7D118C6BF87007D26A7 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		60F03E1619137F09008D729B /* Exam+Methods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Exam+Methods.h"; sourceTree = "<group>"; };
@@ -254,7 +257,6 @@
 		F325703C18D366FE00FEA80E /* EImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EImage.m; sourceTree = "<group>"; };
 		F325704218D3911200FEA80E /* selected_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected_icon.png; sourceTree = "<group>"; };
 		F325704318D3911200FEA80E /* unselected_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselected_icon.png; sourceTree = "<group>"; };
-		F345FDA81855A2C9003E448E /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = title.png; path = images/title.png; sourceTree = "<group>"; };
 		F356909218559CC700DBB4BE /* button_addpatients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_addpatients.png; path = images/button_addpatients.png; sourceTree = "<group>"; };
 		F356909518559ECA00DBB4BE /* button_viewpatients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_viewpatients.png; path = images/button_viewpatients.png; sourceTree = "<group>"; };
 		F356909618559ECA00DBB4BE /* button_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_settings.png; path = images/button_settings.png; sourceTree = "<group>"; };
@@ -568,10 +570,12 @@
 				F38224B218F7BB3F00D861FE /* retina_icon_right.png */,
 				F38224B318F7BB3F00D861FE /* retina_icon_top.png */,
 				F325704218D3911200FEA80E /* selected_icon.png */,
+				60C7746A1916394100731B3A /* title.png */,
 				F325704318D3911200FEA80E /* unselected_icon.png */,
 				60B2E8FB18C717B100973C7E /* img.jpeg */,
 				F325702718CC0E4100FEA80E /* eye_icon_small.png */,
 				F325702118CC0CD500FEA80E /* notes_icon.png */,
+				60C7746C19163A0800731B3A /* title.png */,
 				F325702318CC0D3300FEA80E /* patient_icon_small.png */,
 				F325702418CC0D3300FEA80E /* notes_icon_small.png */,
 				F325701F18CC0CD100FEA80E /* patient_icon.png */,
@@ -583,7 +587,6 @@
 				F358E31A185A859900872304 /* Icon@2x.png */,
 				F358E313185A82E600872304 /* capture_back.png */,
 				F358E314185A82E600872304 /* capture2.png */,
-				F345FDA81855A2C9003E448E /* title.png */,
 				F356909518559ECA00DBB4BE /* button_viewpatients.png */,
 				F356909618559ECA00DBB4BE /* button_settings.png */,
 				F358E317185A834500872304 /* capture.png */,
@@ -624,6 +627,7 @@
 				6D2D5DAF18318D9F00A58A96 /* Sources */,
 				6D2D5DB018318D9F00A58A96 /* Frameworks */,
 				6D2D5DB118318D9F00A58A96 /* Resources */,
+				60C77468191634D800731B3A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -723,6 +727,8 @@
 				F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */,
 				F325700C18CAA04600FEA80E /* capture_button.png in Resources */,
 				F356909718559ECA00DBB4BE /* button_viewpatients.png in Resources */,
+				60C7746D19163A0800731B3A /* title.png in Resources */,
+				60C7746B1916394100731B3A /* title.png in Resources */,
 				F325703418D1AF1F00FEA80E /* default-configuration.plist in Resources */,
 				F356909818559ECA00DBB4BE /* button_settings.png in Resources */,
 				6D2D5DC118318D9F00A58A96 /* InfoPlist.strings in Resources */,
@@ -739,7 +745,6 @@
 				F325704418D3911200FEA80E /* selected_icon.png in Resources */,
 				F3FA32CE18B5E4B7000FACF4 /* im4.png in Resources */,
 				F38224B718F7BB3F00D861FE /* retina_icon_right.png in Resources */,
-				F345FDA91855A2C9003E448E /* title.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,6 +757,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		60C77468191634D800731B3A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#if [ ${CONFIGURATION} == \"Release\" ]; then\nAPPLEDOC_PATH=`which appledoc`\nif [ $APPLEDOC_PATH ]; then\n$APPLEDOC_PATH \\\n--project-name ${PRODUCT_NAME} \\\n--project-company \"Ocular CellScope Team\" \\\n--company-id \"com.CellScope\" \\\n--output ${PRODUCT_NAME}Docs \\\n--keep-undocumented-objects \\\n--keep-undocumented-members \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n${PROJECT_DIR}/${PRODUCT_NAME}\nfi;\n#fi;";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6D2D5DAF18318D9F00A58A96 /* Sources */ = {

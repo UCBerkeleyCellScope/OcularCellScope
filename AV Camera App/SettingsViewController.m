@@ -183,6 +183,11 @@ double fs,fe,rs,re, rems, reme;
     }
 }
 
+/**
+ *  <#Description#>
+ *
+ *  @param sender <#sender description#>
+ */
 - (IBAction)toggleDidChange:(id)sender {
 
     if(debugToggle.on == YES){

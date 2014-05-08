@@ -13,7 +13,7 @@
 #import "Constants.h"
 #import "AFNetworking.h"
 #import "BLEManager.h"
-#import "UIColorCategory.h"
+#import "UIColor+Custom.h"
 
 @class BLEManager;
 
