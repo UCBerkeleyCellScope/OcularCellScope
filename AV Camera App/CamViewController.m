@@ -109,8 +109,8 @@
 }
 
 -(void) setupIndicators {
-    int redVal = [[[NSUserDefaults standardUserDefaults] objectForKey:@"redLightValue"]intValue];
-    int flashVal =[[[NSUserDefaults standardUserDefaults] objectForKey:@"flashLightValue"]intValue];
+    int redVal = [[[NSUserDefaults standardUserDefaults] objectForKey:@"redFocusValue"]intValue];
+    int flashVal =[[[NSUserDefaults standardUserDefaults] objectForKey:@"whiteFlashValue"]intValue];
     
     if (redVal==0){
         [redOffIndicator setHidden:NO];
