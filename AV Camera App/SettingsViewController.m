@@ -22,14 +22,28 @@
 @implementation SettingsViewController
 @synthesize prefs = _prefs;
 
-@synthesize flashLightSlider, redLightSlider, flashLightValue, redLightValue, flashLightLabel, redLightLabel, multiText, debugToggle,bleDelay,captureDelay,flashDuration,multiShot, timedFlashSwitch, arduinoDelay;
+@synthesize whiteFlashSlider;
+@synthesize whiteFlashValue;
+@synthesize redFlashSlider;
+@synthesize redFlashValue;
+
+@synthesize redFocusSlider;
+@synthesize redFocusValue;
+@synthesize whiteFocusSlider;
+@synthesize whiteFocusValue;
+
+@synthesize redFlashLabel, whiteFlashLabel, redFocusLabel, whiteFocusLabel;
+
+@synthesize multiText, debugToggle,bleDelay,captureDelay,flashDuration,multiShot, timedFlashSwitch, arduinoDelay;
+
 @synthesize remoteLightSlider, remoteLightLabel;
 @synthesize flashTooLong, bleDelayTooLong;
 @synthesize bleManager = _bleManager;
 
 BOOL debugMode;
 
-double fs,fe,rs,re, rems, reme;
+double whiteFlashStart,whiteFlashEnd,redFocusStart,redFocusEnd, remoteLightStart, remoteLightEnd;
+double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -56,7 +70,7 @@ double fs,fe,rs,re, rems, reme;
     
     _prefs = [NSUserDefaults standardUserDefaults];
     
-    [[_bleManager whiteLight]toggleLight];
+    [[_bleManager whiteFlashLight]toggleLight];
     
     debugMode = [_prefs boolForKey: @"debugMode"] ;
     
@@ -76,14 +90,26 @@ double fs,fe,rs,re, rems, reme;
         [flashDuration setEnabled:YES];
     }
     
-    flashLightValue =  [_prefs integerForKey: @"flashLightValue"];
-    redLightValue =  [_prefs integerForKey: @"redLightValue"];
+    whiteFlashValue =  [_prefs integerForKey: @"whiteFlashValue"];
+    redFocusValue =  [_prefs integerForKey: @"redFocusValue"];
+
+    whiteFocusValue =  [_prefs integerForKey: @"whiteFocusValue"];
+    redFlashValue =  [_prefs integerForKey: @"redFlashValue"];
     
-    flashLightSlider.value = flashLightValue;
-    redLightSlider.value = redLightValue;
     
-    flashLightLabel.text = [NSString stringWithFormat: @"%d", (int)flashLightValue];
-    redLightLabel.text = [NSString stringWithFormat: @"%d", (int)redLightValue];
+    whiteFlashSlider.value = whiteFlashValue;
+    redFocusSlider.value = redFocusValue;
+    
+    whiteFocusSlider.value = whiteFocusValue;
+    redFlashSlider.value = redFlashValue;
+    
+    whiteFlashLabel.text = [NSString stringWithFormat: @"%d", (int)whiteFlashValue];
+    redFocusLabel.text = [NSString stringWithFormat: @"%d", (int)redFocusValue];
+    
+    redFlashLabel.text = [NSString stringWithFormat: @"%d", (int)redFlashValue];
+    whiteFocusLabel.text = [NSString stringWithFormat: @"%d", (int)whiteFocusValue];
+
+    
     
     NSString *bleText =  [ NSString stringWithFormat:@"%f",[_prefs floatForKey: @"bleDelay"]];
     bleText = [bleText substringToIndex:4];
@@ -109,11 +135,19 @@ double fs,fe,rs,re, rems, reme;
 
 -(void) viewWillDisappear:(BOOL)animated{
     
-    if(debugMode == NO)
-        [_bleManager.whiteLight turnOff];
+    if(debugMode == NO){
+        [_bleManager.whiteFlashLight turnOff];
+        [_bleManager.redFlashLight turnOff];
+    }
        
-    [_prefs setInteger: flashLightSlider.value forKey:@"flashLightValue"];
-    [_prefs setInteger: redLightSlider.value forKey:@"redLightValue"];
+    [_prefs setInteger: whiteFlashSlider.value forKey:@"whiteFlashValue"];
+    [_prefs setInteger: redFocusSlider.value forKey:@"redFocusValue"];
+
+    [_prefs setInteger: redFlashSlider.value forKey:@"redFlashValue"];
+    [_prefs setInteger: whiteFocusSlider.value forKey:@"whiteFocusValue"];
+    
+    [_prefs setInteger: remoteLightSlider.value forKey:@"fixationLightValue"];
+    
     
     NSNumberFormatter * f1 = [[NSNumberFormatter alloc] init];
     [f1 setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -207,33 +241,56 @@ double fs,fe,rs,re, rems, reme;
 }
 
 
-- (IBAction)flashSliderDidChange:(id)sender {
-    flashLightLabel.text = [NSString stringWithFormat: @"%d", (int)flashLightSlider.value];
-    fs = CACurrentMediaTime();
-    if(fs-fe>=.05){
-        [[_bleManager whiteLight] changeIntensity:flashLightSlider.value];
-        fe = fs;
-        //NSLog(@"%f",fe);
+- (IBAction)whiteFlashSliderDidChange:(id)sender {
+    whiteFlashLabel.text = [NSString stringWithFormat: @"%d", (int)whiteFlashSlider.value];
+    whiteFlashStart = CACurrentMediaTime();
+    if(whiteFlashStart-whiteFlashEnd>=.05){
+        [[_bleManager whiteFlashLight] changeIntensity:whiteFlashSlider.value];
+        whiteFlashEnd = whiteFlashStart;
+        //NSLog(@"%f",whiteFlashEnd);
     }
 }
 
 
-- (IBAction)redSliderDidChange:(id)sender {
-    redLightLabel.text = [NSString stringWithFormat: @"%d", (int)redLightSlider.value];
-    rs = CACurrentMediaTime();
-    if(rs-re>=.05){
-        [[_bleManager redLight] changeIntensity:redLightSlider.value];
-        re = rs;
-        //NSLog(@"%f",re);
+- (IBAction)redFocusSliderDidChange:(id)sender {
+    redFocusLabel.text = [NSString stringWithFormat: @"%d", (int)redFocusSlider.value];
+    redFocusStart = CACurrentMediaTime();
+    if(redFocusStart-redFocusEnd>=.05){
+        [[_bleManager redFocusLight] changeIntensity:redFocusSlider.value];
+        redFocusEnd = redFocusStart;
+        //NSLog(@"%f",redFocusEnd);
+    }
+}
+
+- (IBAction)whiteFocusSliderDidChange:(id)sender {
+    whiteFocusLabel.text = [NSString stringWithFormat: @"%d", (int)whiteFocusSlider.value];
+    whiteFocusStart = CACurrentMediaTime();
+    if(whiteFocusStart-whiteFocusEnd>=.05){
+        [[_bleManager whiteFocusLight] changeIntensity:whiteFocusSlider.value];
+        whiteFocusEnd = whiteFocusStart;
+        //NSLog(@"%f",whiteFocusEnd);
+    }
+    
+}
+
+- (IBAction)redFlashSliderDidChange:(id)sender {
+    redFlashLabel.text = [NSString stringWithFormat: @"%d", (int)redFlashSlider.value];
+    redFlashStart = CACurrentMediaTime();
+    if(redFlashStart-redFlashEnd>=.05){
+        [[_bleManager redFlashLight] changeIntensity:redFlashSlider.value];
+        redFlashEnd = redFlashStart;
+        //NSLog(@"%f",redFlashEnd);
     }
 }
 
 - (IBAction)remoteLightSliderDidChange:(id)sender {
     remoteLightLabel.text = [NSString stringWithFormat: @"%d", (int)remoteLightSlider.value];
-    rems = CACurrentMediaTime();
-    if(rems-reme>=.05){
-        [[_bleManager remoteLight] changeIntensity:remoteLightSlider.value];
-        reme = rems;
+    remoteLightStart = CACurrentMediaTime();
+    if(remoteLightStart-remoteLightEnd>=.05){
+        [[[_bleManager fixationLights]objectAtIndex:[_bleManager selectedLight]]changeIntensity:remoteLightSlider.value];
+        
+        //[[_bleManager remoteLight] changeIntensity:remoteLightSlider.value];
+        remoteLightEnd = remoteLightStart;
     }
 }
 

@@ -11,8 +11,11 @@
 
 @implementation BLEManager
 
-@synthesize redLight = _redLight;
-@synthesize whiteLight = _whiteLight;
+@synthesize redFocusLight = _redFocusLight;
+@synthesize whiteFlashLight = _whiteFlashLight;
+
+@synthesize whiteFocusLight = _whiteFocusLight;
+@synthesize redFlashLight = _redFlashLight;
 @synthesize remoteLight = _remoteLight;
 @synthesize whitePing = _whitePing;
 @synthesize fixationLights = _fixationLights;
@@ -22,6 +25,11 @@
 @synthesize isConnected = _isConnected;
 @synthesize selectedLight = _selectedLight;
 @synthesize BLECdelegate = _BLECdelegate;
+
+//has a FocusingLight
+//has a FlashLight
+//which on the FocusingLight
+//if is not zero then send
 
 int attempts = 0;
 BOOL capturing = NO;
@@ -37,17 +45,28 @@ BOOL capturing = NO;
         
         _prefs = [NSUserDefaults standardUserDefaults];
 
-        int r_i = (int)[_prefs integerForKey:@"redLightValue"];
-        int w_i = (int)[_prefs integerForKey:@"flashLightValue"];
+        int r_i = (int)[_prefs integerForKey:@"redFocusValue"];
+        int w_i = (int)[_prefs integerForKey:@"whiteFlashValue"];
+        
+        int redFlash_i = (int)[_prefs integerForKey:@"redFlashValue"];
+        int whiteFocus_i = (int)[_prefs integerForKey:@"whiteFocusValue"];
+        
+        int fixationLightValue = (int)[_prefs integerForKey:@"fixationLightValue"];
+        
         
         if (r_i<10){
             [_prefs setInteger: 50 forKey:@"redLightValue"];
             r_i = 50;
         }
         
-        _redLight = [[Light alloc] initWithBLE:self pin:RED_LIGHT intensity: r_i ];
-        _whiteLight = [[Light alloc] initWithBLE:self pin:WHITE_LIGHT intensity: w_i ];
+        _redFocusLight = [[Light alloc] initWithBLE:self pin:RED_LIGHT intensity: r_i ];
+        _whiteFlashLight = [[Light alloc] initWithBLE:self pin:WHITE_LIGHT intensity: w_i ];
+        
+        _whiteFocusLight = [[Light alloc] initWithBLE:self pin:WHITE_LIGHT intensity: whiteFocus_i ];
+        _redFlashLight = [[Light alloc] initWithBLE:self pin:RED_LIGHT intensity: redFlash_i ];
+        
         _whitePing = [[Light alloc] initWithBLE:self pin:WHITE_PING intensity: w_i];
+        
         _remoteLight = [[Light alloc] initWithBLE:self pin:REMOTE_LIGHT intensity: 255];
         
 
@@ -62,7 +81,7 @@ BOOL capturing = NO;
         
         NSMutableArray *lights = [[NSMutableArray alloc] init];
         for(int i = 0; i <= 5; ++i){
-            [lights addObject:[[Light alloc] initWithBLE:self pin: i intensity: 255]];
+            [lights addObject:[[Light alloc] initWithBLE:self pin: i intensity: fixationLightValue]];
         }
         _fixationLights = lights;
     }
@@ -163,7 +182,9 @@ BOOL capturing = NO;
     _isConnected = YES;
     
     if([[CellScopeContext sharedContext]camViewLoaded]==YES){
-        [self.redLight turnOn];
+        [self.redFocusLight turnOn];
+        [self.whiteFocusLight turnOn];
+        
         [[self.fixationLights objectAtIndex: _selectedLight] turnOn];
         [_BLECdelegate didReceiveConnectionConfirmation];
     }
@@ -203,9 +224,11 @@ BOOL capturing = NO;
         for(Light *l in self.fixationLights){
             l.isOn = NO;
         }
-        self.whiteLight.isOn = NO;
-        self.redLight.isOn = NO;
+        self.whiteFlashLight.isOn = NO;
+        self.redFocusLight.isOn = NO;
         self.remoteLight.isOn = NO;
+        self.redFlashLight.isOn = NO;
+        self.whiteFocusLight.isOn = NO;
         
         UInt8 buf[] = {0xFF, 0x00, 0x00};
         NSData *data = [[NSData alloc] initWithBytes:buf length:3];
@@ -216,18 +239,22 @@ BOOL capturing = NO;
 -(void)timedFlash{
     if(debugMode == NO){
         [self turnOffAllLights];
-        [self.whiteLight turnOn];    
+        [self.whiteFlashLight turnOn];
+        [self.redFlashLight turnOn];
         NSNumber *duration = [[NSUserDefaults standardUserDefaults] objectForKey:@"flashDuration"];
-        [NSTimer scheduledTimerWithTimeInterval:[duration doubleValue] target:self.whiteLight selector:@selector(turnOff) userInfo:nil repeats:NO];
+        [NSTimer scheduledTimerWithTimeInterval:[duration doubleValue] target:self.whiteFlashLight selector:@selector(turnOff) userInfo:nil repeats:NO];
+        [NSTimer scheduledTimerWithTimeInterval:[duration doubleValue] target:self.redFlashLight selector:@selector(turnOff) userInfo:nil repeats:NO];
     }
 }
 
 -(void)arduinoFlash{
     if(debugMode == NO){
         [self turnOffAllLights];
-        [self.whiteLight turnOnWithDelay];
+        [self.whiteFlashLight turnOnWithDelay];
+        [self.redFlashLight turnOnWithDelay];
     }
 }
+
 
 -(void)activatePinForLight:(Light *)light {
     UInt8 buf[] = {light.pin, 0x01, light.intensity};

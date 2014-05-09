@@ -18,8 +18,12 @@
 
 @interface BLEManager : BLE<BLEDelegate>
 
-@property (strong, nonatomic) Light *redLight;
-@property (strong, nonatomic) Light *whiteLight;
+@property (strong, nonatomic) Light *redFocusLight;
+@property (strong, nonatomic) Light *whiteFlashLight;
+
+@property (strong, nonatomic) Light *whiteFocusLight;
+@property (strong, nonatomic) Light *redFlashLight;
+
 @property (strong, nonatomic) Light *whitePing;
 @property (strong, nonatomic) Light *remoteLight;
 @property (strong, nonatomic) NSArray *fixationLights;

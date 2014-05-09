@@ -54,7 +54,10 @@
     self.captureManager.delegate = self;
     self.currentImageCount = 0;
     
-    [[self.bleManager whiteLight]toggleLight];
+    
+    /// WHY IS THIS HERE>>>??? IN ORDER TO
+    //GET TURN OFF/TURN ON TO WORK
+    [[self.bleManager whiteFlashLight]toggleLight];
     
     //[self.captureManager unlockFocus];
     
@@ -73,6 +76,7 @@
     
     self.debugMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"debugMode"];
     
+    int fixationLightValue = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"fixationLightValue"];
     
     [self.bleDisabledLabel setHidden:YES];
     self.counterLabel.hidden = YES;
@@ -80,8 +84,12 @@
     [self.bleDisabledLabel setHidden:YES];
     [self.navigationItem setHidesBackButton:NO animated:YES];
     if(self.bleManager.isConnected== YES){ //BLE disabled label needs to go away succesfully
-        [self.bleManager.redLight turnOn];
-        [[self.bleManager.fixationLights objectAtIndex: self.bleManager.selectedLight] turnOn];
+        [self.bleManager.redFocusLight turnOn];
+        [self.bleManager.whiteFocusLight turnOn];
+        
+        [[self.bleManager.fixationLights objectAtIndex: self.bleManager.selectedLight]
+         changeIntensity:fixationLightValue];
+         //turnOn];
     }
     
     if (self.bleManager.isConnected == NO && self.debugMode == NO){
@@ -188,11 +196,14 @@
     if(self.bleManager.debugMode==NO){
         NSLog(@"FOCUSING FLASH");
         [self.bleManager turnOffAllLights];
-        [self.bleManager.whiteLight turnOn];
+        [self.bleManager.whiteFlashLight turnOn];
+        [self.bleManager.redFlashLight turnOn];
+        
         [NSThread sleepForTimeInterval: .6];
         [self.captureManager setExposureLock:YES];
         [NSThread sleepForTimeInterval: .3];
-        [self.bleManager.whiteLight turnOff];
+        [self.bleManager.whiteFlashLight turnOff];
+        [self.bleManager.redFlashLight turnOff];
     }
 }
     
@@ -208,8 +219,12 @@
         if(timedFlash){
         [self.bleManager timedFlash];
         }
-        [self.bleManager arduinoFlash];
         
+        ///>>>>?????
+        else{
+        [self.bleManager arduinoFlash];
+        }
+            
         [self.bleManager bleDelay];
         
         //self.waitForBle = [NSTimer scheduledTimerWithTimeInterval:[bleDelay doubleValue] target:self selector:@selector(readyToTakePicture) userInfo:nil repeats:NO];
