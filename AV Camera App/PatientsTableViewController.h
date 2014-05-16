@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "CellScopeContext.h"
+#import "CellScopeHTTPClient.h"
 
-@interface PatientsTableViewController : UITableViewController
+@interface PatientsTableViewController : UITableViewController<CellScopeHTTPClientDelegate>
+
 
 @property (nonatomic, strong) NSMutableArray *patientsArray;
 
 @property (nonatomic, strong) Exam *currentExam;
+- (IBAction)didPressUpload:(id)sender;
 
 - (IBAction)didPressAddExam:(id)sender;
 

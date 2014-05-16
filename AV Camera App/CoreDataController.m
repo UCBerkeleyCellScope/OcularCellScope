@@ -7,10 +7,75 @@
 //
 
 #import "CoreDataController.h"
+#import "CellScopeContext.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @implementation CoreDataController
 
 #pragma mark - Retrieve objects
+
++(UIImage*)getUIImageFromCameraRoll:(NSString*)filePath{
+    
+    NSURL *aURL = [NSURL URLWithString: filePath];
+    
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    [library assetForURL:aURL resultBlock:^(ALAsset *asset)
+     {
+         ALAssetRepresentation* rep = [asset defaultRepresentation];
+         CGImageRef iref = [rep fullResolutionImage];
+         UIImage* uim = [UIImage imageWithCGImage:iref];
+         //return uim;
+         
+     }
+    failureBlock:^(NSError *error)
+     {
+         NSLog(@"failure loading video/image from AssetLibrary");
+     }];
+
+    UIImage* uim;
+    return uim;
+    
+ }
+
+void(^foo)(void);
+
+//UIImage* (^picGrabber)(ALAsset *asset);
+// ^pic is a pointer to a block
+// *pic is a pointer to an object
+
+UIImage*(^picGrabber)(ALAsset *garbage) = ^UIImage*(ALAsset *asset){
+    ALAssetRepresentation* rep = [asset defaultRepresentation];
+    CGImageRef iref = [rep fullResolutionImage];
+    UIImage* uim = [UIImage imageWithCGImage:iref];
+    return uim;
+};
+
+/*
+resultBlock:^(ALAsset *asset)
+{
+    ALAssetRepresentation* rep = [asset defaultRepresentation];
+    CGImageRef iref = [rep fullResolutionImage];
+    UIImage* uim = [UIImage imageWithCGImage:iref];
+    //return uim;
+    
+};
+
+failureBlock:^(NSError *error)
+{
+    NSLog(@"failure loading video/image from AssetLibrary");
+};
+
+*/
+
+
++(NSArray*)getEyeImagesForExam:(Exam*)exam{
+
+    NSPredicate *p = [NSPredicate predicateWithFormat: @"exam == %@", exam];
+    NSArray* examImages = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: p
+                                    andSortKey: @"date" andSortAscending: YES
+                                    andContext:   [[CellScopeContext sharedContext] managedObjectContext]];
+    return examImages;
+}
 
 // Fetch objects with a predicate
 +(NSMutableArray *)searchObjectsForEntity:(NSString*)entityName withPredicate:(NSPredicate *)predicate andSortKey:(NSString*)sortKey andSortAscending:(BOOL)sortAscending andContext:(NSManagedObjectContext *)managedObjectContext

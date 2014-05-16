@@ -13,6 +13,7 @@
 		603B077D18DD810B002179CD /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B077C18DD810B002179CD /* TabViewController.m */; };
 		603C44FD18DAE72F00402AE1 /* ExamInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C44FC18DAE72F00402AE1 /* ExamInfoViewController.m */; };
 		60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60418F22189B3E780001D490 /* CoreBluetooth.framework */; };
+		6043C8E81925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043C8E71925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
 		60AECE6718D8CD1A00C4EA15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60AECE6618D8CD1A00C4EA15 /* Main.storyboard */; };
 		60B2E8F918C6EE7E00973C7E /* CameraModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */; };
 		60B2E8FC18C717B100973C7E /* img.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 60B2E8FB18C717B100973C7E /* img.jpeg */; };
@@ -146,6 +147,8 @@
 		60418F27189B3ED60001D490 /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
 		60418F2C189BB2ED0001D490 /* ImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCell.h; sourceTree = "<group>"; };
 		60418F2D189BB2ED0001D490 /* ImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCell.m; sourceTree = "<group>"; };
+		6043C8E61925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
+		6043C8E71925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
 		60A0865E18C069C900A2667D /* FixationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixationViewController.m; sourceTree = "<group>"; };
 		60AECE6618D8CD1A00C4EA15 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		60B2E8FB18C717B100973C7E /* img.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = img.jpeg; sourceTree = "<group>"; };
@@ -343,6 +346,15 @@
 			path = BLE;
 			sourceTree = "<group>";
 		};
+		6043C8E51925D960007DFAFB /* ALAssetsLibrary_CustomPhotoAlbum */ = {
+			isa = PBXGroup;
+			children = (
+				6043C8E61925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.h */,
+				6043C8E71925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m */,
+			);
+			path = ALAssetsLibrary_CustomPhotoAlbum;
+			sourceTree = "<group>";
+		};
 		60B4231C1908D27B005A9ABD /* NSMD_MetaData */ = {
 			isa = PBXGroup;
 			children = (
@@ -420,6 +432,7 @@
 			children = (
 				60F03E1619137F09008D729B /* Exam+Methods.h */,
 				60F03E1719137F09008D729B /* Exam+Methods.m */,
+				6043C8E51925D960007DFAFB /* ALAssetsLibrary_CustomPhotoAlbum */,
 				60C1AE0618F3507E00902F28 /* AFNetworking */,
 				6D2D5DBC18318D9F00A58A96 /* AV Camera App */,
 				6DD89D211842666C00F3C7FC /* Core Data */,
@@ -433,12 +446,12 @@
 				F385B3031900E6E200A3F974 /* Light.m */,
 				60D8C7D018C6BF87007D26A7 /* Constants.h */,
 				60D8C7D118C6BF87007D26A7 /* Constants.m */,
+				60B42332190EF236005A9ABD /* CellScopeHTTPClient.h */,
+				60B42333190EF236005A9ABD /* CellScopeHTTPClient.m */,
 				60C2A51B18C19F2800021510 /* CellScopeContext.h */,
 				60C2A51C18C19F2800021510 /* CellScopeContext.m */,
 				6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */,
 				6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */,
-				60B42332190EF236005A9ABD /* CellScopeHTTPClient.h */,
-				60B42333190EF236005A9ABD /* CellScopeHTTPClient.m */,
 				F356909418559CCA00DBB4BE /* Images */,
 				6D2D5DDB18318DA000A58A96 /* AV Camera AppTests */,
 				6D2D5DB518318D9F00A58A96 /* Frameworks */,
@@ -802,6 +815,7 @@
 				60C1AE2C18F3507E00902F28 /* AFHTTPRequestOperation.m in Sources */,
 				60D8C7C518C69BB1007D26A7 /* ImageCell.m in Sources */,
 				60C1AE3218F3507E00902F28 /* AFURLRequestSerialization.m in Sources */,
+				6043C8E81925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				F325703118D1A9AE00FEA80E /* UIImage+Resize.m in Sources */,
 				60C1AE3B18F3507E00902F28 /* UIRefreshControl+AFNetworking.m in Sources */,
 				60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */,

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="igk-Rv-cre">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="igk-Rv-cre">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -124,6 +124,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Ocular CellScope" id="gbN-Ji-VCU">
+                        <barButtonItem key="leftBarButtonItem" title="Upload" id="QAQ-ic-7u4">
+                            <color key="tintColor" red="0.41579909129999998" green="0.66232860329999999" blue="0.62588200189999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="didPressUpload:" destination="heK-xf-yYg" id="Jor-QW-KJY"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="aYt-zt-T8O">
                             <color key="tintColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -470,7 +476,7 @@
                                     <action selector="didPressFixation:" destination="AGJ-xP-Dbn" eventType="touchUpInside" id="XqL-hA-HYS"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9nU-jg-0UU" userLabel="NoFixationButton">
+                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9nU-jg-0UU" userLabel="NoFixationButton">
                                 <rect key="frame" x="36" y="263" width="55" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
@@ -804,7 +810,7 @@
                                                         <action selector="whiteFocusSliderDidChange:" destination="x8V-KE-hAE" eventType="valueChanged" id="auQ-1C-h4Y"/>
                                                     </connections>
                                                 </slider>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="50" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0F-VK-3z1" userLabel="RedFocusValue">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0F-VK-3z1" userLabel="RedFocusValue">
                                                     <rect key="frame" x="284" y="13" width="57" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -852,7 +858,7 @@
                                                         <action selector="redFlashSliderDidChange:" destination="x8V-KE-hAE" eventType="valueChanged" id="NVr-Fg-1JZ"/>
                                                     </connections>
                                                 </slider>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="50" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6S-41-3nw" userLabel="WhiteFlashValue">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6S-41-3nw" userLabel="WhiteFlashValue">
                                                     <rect key="frame" x="286" y="16" width="57" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -945,6 +951,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="zHl-4s-gsL" appends="YES" id="uCP-FD-qob"/>
+                                </connections>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 01" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e2k-xh-50U">
                                 <rect key="frame" x="260" y="73" width="40" height="40"/>
@@ -1037,9 +1046,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yr8-8t-C4g" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="g2K-Nd-ctV">
                     <connections>
-                        <action selector="tappedToFocus:" destination="24z-Pm-1Fb" id="JpG-PS-PBd"/>
+                        <action selector="didReceiveTapToFocus:" destination="24z-Pm-1Fb" id="ZVH-7M-rjr"/>
                     </connections>
                 </tapGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="zHl-4s-gsL">
+                    <connections>
+                        <action selector="longPressedToCapture:" destination="24z-Pm-1Fb" id="aDo-Ld-G6e"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2177" y="-242"/>
         </scene>

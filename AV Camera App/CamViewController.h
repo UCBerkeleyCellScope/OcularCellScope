@@ -33,11 +33,15 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *pauseButton;
 
-@property (assign, nonatomic) int selectedLight;
+@property (strong, nonatomic) UILongPressGestureRecognizer *longPressGestureRecognizer;
+
+
 @property (copy, nonatomic) NSString *selectedEye;
 @property (assign, nonatomic) BOOL debugMode;
 
 - (IBAction)tappedToFocus:(UITapGestureRecognizer *)sender;
+- (IBAction)longPressedToCapture:(UILongPressGestureRecognizer *) longPress;
+
 
 - (IBAction)didPressCapture:(id)sender;
 

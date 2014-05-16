@@ -11,9 +11,13 @@
 #import "DiagnosisViewController.h"
 #import "CellScopeHTTPClient.h"
 
+@interface PatientsTableViewController ()
+@property CellScopeHTTPClient *client;
+@end
+
 @implementation PatientsTableViewController
 
-@synthesize currentExam, patientsArray;
+@synthesize currentExam, patientsArray,client;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -44,6 +48,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    client = [[CellScopeContext sharedContext] client];
 }
 
 - (void)didReceiveMemoryWarning
@@ -133,11 +139,30 @@
 }
 
 //ADD EXAM
+- (IBAction)didPressUpload:(id)sender {
+    Exam* grabbedFirstExam = [patientsArray objectAtIndex:0];
+    [[CellScopeContext sharedContext] setCurrentExam:grabbedFirstExam ];
+    
+    NSArray *images = [CoreDataController getEyeImagesForExam:grabbedFirstExam];
+    
+    //NSMutableArray *imagesToUpload = [NSMutableArray arrayWithArray:images];
+    
+    //[client uploadEyeImagesPJ:images];
+    [client uploadEyeImagesFromArray:images];
+}
+
+-(void)cellScopeHTTPClient:(CellScopeHTTPClient *)client didUploadEyeImage:(id)eyeImage{
+    
+}
+
+
 - (IBAction)didPressAddExam:(id)sender {
     self.currentExam = nil;
     Exam* newExam = (Exam*)[NSEntityDescription insertNewObjectForEntityForName:@"Exam" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
+    newExam.date = [NSDate date];
     [[CellScopeContext sharedContext] setCurrentExam:newExam ];
     self.currentExam = newExam;
+    
     
     [self.patientsArray addObject:newExam];
     

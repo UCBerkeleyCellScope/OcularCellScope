@@ -14,8 +14,10 @@
 #import "AFNetworking.h"
 #import "BLEManager.h"
 #import "UIColor+Custom.h"
+#import "CellScopeHTTPClient.h"
 
 @class BLEManager;
+@class CellScopeHTTPClient;
 
 @interface CellScopeContext : NSObject
 
@@ -26,7 +28,7 @@
 @property (nonatomic) BOOL connected;
 @property(nonatomic,strong) BLEManager* bleManager;
 @property (nonatomic) BOOL camViewLoaded;
-
+@property (nonatomic) CellScopeHTTPClient* client;
 
 
 + (id)sharedContext;

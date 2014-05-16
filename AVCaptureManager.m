@@ -58,10 +58,6 @@
 -(void)setupVideoForView:(UIView*)view{
     self.view = view;
     
-    // Added gesture recognizer for taps to focus
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
-    [self.view addGestureRecognizer:gestureRecognizer];
-    
     // Set the preview layer to the bounds of the screen
     CALayer *rootLayer = [self.view layer];
     [rootLayer setMasksToBounds:YES];
@@ -69,7 +65,7 @@
     [rootLayer insertSublayer:self.previewLayer atIndex:0];
     
     // Invert the screen for optics
-    //self.previewLayer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
+    self.previewLayer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
     
     [self.session startRunning];
     [self unlockFocus];
@@ -103,7 +99,8 @@
 	[_stillOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
      {
          self.lastImageMetadata = [[NSMutableDictionary alloc] initWithImageSampleBuffer:imageSampleBuffer];
-         NSLog(self.lastImageMetadata.description);
+         //PRINTS ALL METADATA
+         //NSLog(self.lastImageMetadata.description);
          
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
          
@@ -156,15 +153,10 @@
     }
 }
 
-- (IBAction)viewTapped:(id)sender {
-    // Focuses camera if not currently capturing images
-    if(!self.isCapturingImages){
-        CGPoint tapPoint = [sender locationInView:self.view];
-        CGPoint focusPoint = CGPointMake(tapPoint.x/self.view.bounds.size.width, tapPoint.y/self.view.bounds.size.height);
-        NSLog(@"x = %f, y = %f",focusPoint.x,focusPoint.y);
-        [self setFocusWithPoint:focusPoint];
-    }
-}
+
+
+
+
 
 
 @end

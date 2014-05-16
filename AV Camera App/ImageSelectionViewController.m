@@ -52,6 +52,8 @@
     
     NSArray* viewControllers = self.navigationController.viewControllers;
     fixationVC = [viewControllers objectAtIndex: 1 ];
+    self.imageView.layer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
+
     
 }
 

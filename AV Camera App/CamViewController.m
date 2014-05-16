@@ -30,12 +30,12 @@
 @synthesize aiv = _aiv;
 @synthesize counterLabel = _counterLabel;
 @synthesize bleDisabledLabel = _bleDisabledLabel;
-@synthesize selectedLight = _selectedLight;
 @synthesize selectedEye = _selectedEye;
 @synthesize debugMode;
 @synthesize redOffIndicator;
 @synthesize flashOffIndicator;
 
+@synthesize longPressGestureRecognizer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,6 +54,13 @@
     self.captureManager.delegate = self;
     self.currentImageCount = 0;
     
+    // Added gesture recognizer for taps to focus
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didReceiveTapToFocus:)];
+    [self.view addGestureRecognizer:tapGestureRecognizer];
+
+    longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedToCapture:)];
+    [self.view addGestureRecognizer:longPressGestureRecognizer];
+    
     
     /// WHY IS THIS HERE>>>??? IN ORDER TO
     //GET TURN OFF/TURN ON TO WORK
@@ -64,11 +71,16 @@
     self.imageArray = [[NSMutableArray alloc] init];
     
     [[CellScopeContext sharedContext] setCamViewLoaded:YES];
+    
+    self.capturedImageView.layer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
 }
 
 -(void) viewWillAppear:(BOOL)animated{
     NSLog(@"APPEARED");
     [self.captureManager setupVideoForView:self.view];
+    
+    
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
     [self.captureManager setExposureLock:NO];
     
@@ -106,6 +118,10 @@
         NSLog(@"Device is in Standard Mode");
     }
 
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 -(void) setupIndicators {
@@ -161,11 +177,20 @@
     [self.captureButton setEnabled:YES];
 }
 
+
+/*
 - (IBAction)tappedToFocus:(UITapGestureRecognizer *)sender {
+    [self.captureButton setEnabled:NO];
     CGPoint focusPoint = [sender locationInView:self.view];
-    NSLog(@"x = %f  y = %f", focusPoint.x, focusPoint.y);
+    //NSLog(@"x = %f  y = %f", focusPoint.x, focusPoint.y);
     [self.captureManager setFocusWithPoint:focusPoint];
+    [self.captureButton setEnabled:YES];
 }
+*/
+
+
+
+
 
 - (IBAction)didPressCapture:(id)sender{
     NSLog(@"didPressCapture");
@@ -176,7 +201,7 @@
 
     BOOL timedFlash = [[NSUserDefaults standardUserDefaults] boolForKey:@"timedFlash"];
     
-    [self focusingFlash];
+    [self setExposureUsingWhiteLight];
     
     if(timedFlash == YES){
         NSNumber *interval = [[NSUserDefaults standardUserDefaults] objectForKey:@"captureDelay"];
@@ -191,7 +216,7 @@
     }
 }
 
--(void) focusingFlash{
+-(void) setExposureUsingWhiteLight{
     //THIS MIGHT BE A PROBLEM
     if(self.bleManager.debugMode==NO){
         NSLog(@"FOCUSING FLASH");
@@ -199,11 +224,12 @@
         [self.bleManager.whiteFlashLight turnOn];
         [self.bleManager.redFlashLight turnOn];
         
-        [NSThread sleepForTimeInterval: .6];
+        [NSThread sleepForTimeInterval: .4];
         [self.captureManager setExposureLock:YES];
         [NSThread sleepForTimeInterval: .3];
         [self.bleManager.whiteFlashLight turnOff];
         [self.bleManager.redFlashLight turnOff];
+
     }
 }
     
@@ -246,8 +272,10 @@
     EImage *image = [[EImage alloc] initWithData:  data
                                             date: [NSDate date]
                                              eye: [[CellScopeContext sharedContext] selectedEye]
-                                   fixationLight: self.selectedLight];
+                                   fixationLight: _bleManager.selectedLight];
     self.capturedImageView.image = image;
+    
+    NSLog(@"%@",[[CellScopeContext sharedContext]selectedEye]);
     
     float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
     image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
@@ -271,6 +299,26 @@
         self.counterLabel.text = [NSString stringWithFormat:@"0%d",self.currentImageCount];
     else
         self.counterLabel.text = [NSString stringWithFormat:@"%d",self.currentImageCount];
+}
+
+- (IBAction)didReceiveTapToFocus:(id)sender {
+    // Focuses camera if not currently capturing images
+    if(!self.captureManager.isCapturingImages){
+        CGPoint tapPoint = [sender locationInView:self.view];
+        CGPoint focusPoint = CGPointMake(tapPoint.x/self.view.bounds.size.width, tapPoint.y/self.view.bounds.size.height);
+        NSLog(@"x = %f, y = %f",focusPoint.x,focusPoint.y);
+        [self.captureManager setFocusWithPoint:focusPoint];
+    }
+}
+
+- (IBAction)longPressedToCapture:(id)sender {
+    
+    if (self.longPressGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        NSLog(@"OMG LONG PRESS");
+        [self.longPressGestureRecognizer setEnabled:NO];
+        [self didPressCapture:sender];
+    }
+   
 }
 
 #pragma mark - Navigation

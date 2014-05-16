@@ -143,6 +143,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     //load the images
         for (int i = 0; i <= 5; i++)
         {
+            [fixationButtons[i] setImage: nil forState:UIControlStateNormal];
             //Attempt 3
             /*
              self.eyeImages = [CoreDataController getObjectsForEntity:@"EyeImage" withSortKey:@"date" andSortAscending:YES andContext:self.managedObjectContext];
@@ -151,6 +152,9 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
             
             NSPredicate *p = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == %d", [[CellScopeContext sharedContext]currentExam],
                               [[CellScopeContext sharedContext] selectedEye], i];
+            if( i==0)
+                NSLog(@"%@",[[CellScopeContext sharedContext] selectedEye]);
+            
             
             
             NSArray *temp = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: p
@@ -162,6 +166,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         
             NSLog(@"Images for Fixation %d : %d", i, (int)[eyeImages count]);
             
+            /*
             if([imageArray count]>0){
                 NSLog(@"testing transition from image selection");
                 EImage *image = [imageArray objectAtIndex:0];
@@ -170,6 +175,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                     [fixationButtons[i] setSelected: YES];
                 }
             }
+            */
             
             if([eyeImages count] != 0){
                 currentEyeImage = eyeImages[0];
@@ -221,6 +227,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                     ];
      
      */
+    
     
       [self loadImages: self.segControl.selectedSegmentIndex];
     
@@ -281,6 +288,20 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                          ALAssetRepresentation* rep = [asset defaultRepresentation];
                          CGImageRef iref = [rep fullResolutionImage];
                          uim = [UIImage imageWithCGImage:iref];
+                         
+                         NSLog(@"What's the Fixation %@", i.fixationLight);
+                         
+//                         UIImage *th = [UIImage imageWithData: i.thumbnail];
+//                         
+//                         EImage *image = [[EImage alloc] initWithUIImage: uim
+//                                                                    date: i.date
+//                                                                     eye: i.eye
+//                                                           fixationLight: i.fixationLight
+//                                                               thumbnail: th];
+//                         
+//                         [passedImages addObject: image];
+
+                         
                      }
                             failureBlock:^(NSError *error)
                      {

@@ -9,10 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "CellScopeContext.h"
 #import "PatientsTableViewController.h"
-#import "BLEManager.h"
+#import "AFHTTPSessionManager.h"
 
 @interface CameraAppDelegate : UIResponder <UIApplicationDelegate, UIAlertViewDelegate>
-
 @property (strong, nonatomic) UIWindow *window;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;

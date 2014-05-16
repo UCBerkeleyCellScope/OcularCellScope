@@ -10,7 +10,7 @@
 
 @interface DiagnosisViewController ()
 //@property (strong, nonatomic) NSDictionary* diagnosis;
-@property CellScopeHTTPClient *c;
+@property CellScopeHTTPClient *client;
 
 @end
 
@@ -18,7 +18,7 @@
 
 @synthesize patientID, diagnosisTitle, diagnosisText;
 //@synthesize diagnosis;
-@synthesize c;
+@synthesize client;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,8 +32,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    c = [CellScopeHTTPClient sharedCellScopeHTTPClient];
-    c.delegate = self;
+    client = [[CellScopeContext sharedContext] client];
+    client.delegate = self;
     
     // Do any additional setup after loading the view.
 }
@@ -42,7 +42,7 @@
 - (void)viewWillAppear:(BOOL)animated{
    
     NSLog([[CellScopeContext sharedContext]currentExam].description);
-    [c updateDiagnosisForExam: [[CellScopeContext sharedContext]currentExam]];
+    [client updateDiagnosisForExam: [[CellScopeContext sharedContext]currentExam]];
     
     patientID = [[[CellScopeContext sharedContext] currentExam] patientID];
     
