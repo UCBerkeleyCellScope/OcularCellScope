@@ -14,10 +14,11 @@
 @interface CellScopeHTTPClient : AFHTTPSessionManager
 @property (nonatomic, weak) id<CellScopeHTTPClientDelegate>delegate;
 
-+ (CellScopeHTTPClient *)sharedCellScopeHTTPClient;
+//+ (CellScopeHTTPClient *)sharedCellScopeHTTPClient;
 - (instancetype)initWithBaseURL:(NSURL *)url;
 - (void)updateDiagnosisForExam:(Exam *)exam;
-- (void)uploadEyeImagesForExam:(Exam *)exam;
+- (void)uploadEyeImagesPJ:(NSArray *)images;
+- (void)uploadEyeImagesFromArray:(NSArray *)images;
 
 @end
 

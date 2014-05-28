@@ -12,12 +12,17 @@
 #import "BSKeyboardControls.h"
 #import "TabViewController.h"
 
-@interface ExamInfoTableViewController : UITableViewController<UITextFieldDelegate, UITextViewDelegate, BSKeyboardControlsDelegate>
+@interface ExamInfoTableViewController : UITableViewController<UITextFieldDelegate, UITextViewDelegate, BSKeyboardControlsDelegate,UIPickerViewDataSource, UIPickerViewDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate>
+{
+        UIPopoverController *profilePicturePopover;
+}
 @property (weak, nonatomic) IBOutlet UITextField *firstnameField;
 @property (weak, nonatomic) IBOutlet UITextField *lastnameField;
 @property (weak, nonatomic) IBOutlet UITextField *patientIDField;
-@property (weak, nonatomic) IBOutlet UITextField *physicianField;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberField;
+@property (strong, nonatomic) IBOutlet UIPickerView *physicianPickerView;
+@property (weak, nonatomic) IBOutlet UIButton *profilePicButton;
+
 
 @end
 

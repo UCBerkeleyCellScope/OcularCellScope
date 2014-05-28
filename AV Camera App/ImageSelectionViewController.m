@@ -52,6 +52,8 @@
     
     NSArray* viewControllers = self.navigationController.viewControllers;
     fixationVC = [viewControllers objectAtIndex: 1 ];
+    self.imageView.layer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
+
     
 }
 
@@ -178,7 +180,10 @@
                 EyeImage* coreDataObject = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"EyeImage" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
                 coreDataObject.date = ei.date;
                 coreDataObject.eye = ei.eye;
+            
                 coreDataObject.fixationLight = [[NSNumber alloc ]initWithInteger: [[[CellScopeContext sharedContext]bleManager]selectedLight]];
+            
+                NSLog(@"FIxATION LIGHT CORE DATA %@", coreDataObject.fixationLight);
                 coreDataObject.exam = [[CellScopeContext sharedContext]currentExam];
             
             
@@ -224,9 +229,9 @@
         else {
             NSString *myString = [assetURL absoluteString];
             NSString *myPath = [assetURL path];
-            NSLog(@"Super important! This is the file path!");
-            NSLog(@"%@", myString);
-            NSLog(@"%@", myPath);
+            //NSLog(@"Super important! This is the file path!");
+            //NSLog(@"%@", myString);
+            //NSLog(@"%@", myPath);
             
             NSLog(@"Added image to asset library");
             
@@ -244,6 +249,8 @@
 }
 
 -(void)updateViewWithImage:(EImage*) image useThumbnail:(bool) useThumbnail{
+    NSLog(@"IMAGE REVIEW FL %d",image.fixationLight);
+    
     if(useThumbnail)
         [imageView setImage:image.thumbnail];
     else

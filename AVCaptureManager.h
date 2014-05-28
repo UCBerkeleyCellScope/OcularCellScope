@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 @import AVFoundation;
 
-
-
 @protocol ImageCaptureDelegate
 - (void)didCaptureImageWithData:(NSData *)data;
 @end
@@ -34,7 +32,11 @@
 -(void)takePicture;
 -(void)lockFocus;
 -(void)unlockFocus;
+-(void)lockWhiteBalance;
+-(void)unlockWhiteBalance;
+
 -(void)setFocusWithPoint:(CGPoint)focusPoint;
 -(void)setExposureLock:(BOOL)locked;
+-(void)drawFocusBox:(CGPoint) tapPoint;
 
 @end

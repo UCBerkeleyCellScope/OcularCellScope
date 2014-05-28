@@ -11,6 +11,11 @@
 
 @interface SettingsViewController : UITableViewController <UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UISwitch *debugToggle;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *multiShot;
+
+@property (weak, nonatomic) IBOutlet UITextField *bleDelay;
+@property (weak, nonatomic) IBOutlet UISwitch *mirrorToggle;
 
 @property (weak, nonatomic) IBOutlet UISlider *redFocusSlider;
 @property (weak, nonatomic) IBOutlet UILabel *redFocusLabel;
@@ -30,16 +35,15 @@
 
 @property (weak, nonatomic) NSString *multiText;
 
-@property (weak, nonatomic) IBOutlet UITextField *bleDelay;
 @property (weak, nonatomic) IBOutlet UITextField *captureDelay;
 @property (weak, nonatomic) IBOutlet UITextField *flashDuration;
 @property (weak, nonatomic) IBOutlet UITextField *arduinoDelay;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *multiShot;
+
 @property (weak, nonatomic) IBOutlet UISwitch *timedFlashSwitch;
 
 @property(strong, nonatomic) BLEManager *bleManager;
 
-@property (weak, nonatomic) IBOutlet UISwitch *debugToggle;
+
 - (IBAction)toggleDidChange:(id)sender;
 
 - (IBAction)redFocusSliderDidChange:(id)sender;

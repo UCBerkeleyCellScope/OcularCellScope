@@ -9,6 +9,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "Exam.h"
 
 @interface CoreDataController : NSObject
 
@@ -23,5 +24,9 @@
 // For counting objects
 +(NSUInteger)countForEntity:(NSString *)entityName andContext:(NSManagedObjectContext *)managedObjectContext;
 +(NSUInteger)countForEntity:(NSString *)entityName withPredicate:(NSPredicate *)predicate andContext:(NSManagedObjectContext *)managedObjectContext;
+
+// For Fetching Images
++(NSArray*)getEyeImagesForExam:(Exam*)exam;
++(UIImage*)getUIImageFromCameraRoll:(NSString*)filePath;
 
 @end

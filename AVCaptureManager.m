@@ -8,6 +8,16 @@
 
 #import "AVCaptureManager.h"
 #import "NSMutableDictionary+ImageMetadata.h"
+#import <QuartzCore/QuartzCore.h>
+#import "UIColor+Custom.h"
+
+@interface AVCaptureManager()
+{
+    CALayer *rootLayer;
+    CALayer *boxLayer;
+    CALayer *focusBoxLayer;
+}
+@end
 
 @implementation AVCaptureManager
 
@@ -20,7 +30,6 @@
 @synthesize isExposureLocked = _isExposureLocked;
 @synthesize isCapturingImages = _isCapturingImages;
 @synthesize lastImageMetadata = _lastImageMetadata;
-
 
 -(id)init{
     self = [super init];
@@ -58,18 +67,21 @@
 -(void)setupVideoForView:(UIView*)view{
     self.view = view;
     
-    // Added gesture recognizer for taps to focus
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
-    [self.view addGestureRecognizer:gestureRecognizer];
-    
     // Set the preview layer to the bounds of the screen
-    CALayer *rootLayer = [self.view layer];
+    rootLayer = [self.view layer];
     [rootLayer setMasksToBounds:YES];
     [self.previewLayer setFrame:CGRectMake(-70, 0, rootLayer.bounds.size.height, rootLayer.bounds.size.height)];
     [rootLayer insertSublayer:self.previewLayer atIndex:0];
     
-    // Invert the screen for optics
-    //self.previewLayer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
+    BOOL mirroredView = [[NSUserDefaults standardUserDefaults] boolForKey:@"mirroredView"];
+    
+    if(mirroredView == YES){
+        self.previewLayer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
+    }
+    
+    if(mirroredView == NO){
+        self.previewLayer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(0));
+    }
     
     [self.session startRunning];
     [self unlockFocus];
@@ -92,6 +104,7 @@
     return videoConnection;
 }
 
+
 -(void)takePicture{
     
     // Set boolean for capturing images
@@ -103,7 +116,8 @@
 	[_stillOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
      {
          self.lastImageMetadata = [[NSMutableDictionary alloc] initWithImageSampleBuffer:imageSampleBuffer];
-         NSLog(self.lastImageMetadata.description);
+         //PRINTS ALL METADATA
+         //NSLog(self.lastImageMetadata.description);
          
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
          
@@ -116,6 +130,14 @@
     if ([self.device isFocusModeSupported:AVCaptureFocusModeLocked]) {
         [self.device lockForConfiguration:nil];
         [self.device setFocusMode:AVCaptureFocusModeLocked];
+        [self.device unlockForConfiguration];
+    }
+}
+
+-(void)lockWhiteBalance{
+    if ([self.device isWhiteBalanceModeSupported:AVCaptureWhiteBalanceModeLocked]) {
+        [self.device lockForConfiguration:nil];
+        [self.device setWhiteBalanceMode:AVCaptureWhiteBalanceModeLocked];
         [self.device unlockForConfiguration];
     }
 }
@@ -134,7 +156,6 @@
     }
     else
         NSLog(@"Error: %@",error);
-    
 }
 
 -(void)unlockFocus{
@@ -147,6 +168,16 @@
     }
 }
 
+-(void)unlockWhiteBalance{
+    if ([self.device isWhiteBalanceModeSupported:AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance]) {
+
+        [self.device lockForConfiguration:nil];
+        [self.device setWhiteBalanceMode:AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance];
+        [self.device unlockForConfiguration];
+    }
+}
+
+
 -(void)setFocusWithPoint:(CGPoint)focusPoint{
     if([self.device isFocusModeSupported:AVCaptureFocusModeAutoFocus] && [self.device isFocusPointOfInterestSupported]){
         [self.device lockForConfiguration:nil];
@@ -156,15 +187,10 @@
     }
 }
 
-- (IBAction)viewTapped:(id)sender {
-    // Focuses camera if not currently capturing images
-    if(!self.isCapturingImages){
-        CGPoint tapPoint = [sender locationInView:self.view];
-        CGPoint focusPoint = CGPointMake(tapPoint.x/self.view.bounds.size.width, tapPoint.y/self.view.bounds.size.height);
-        NSLog(@"x = %f, y = %f",focusPoint.x,focusPoint.y);
-        [self setFocusWithPoint:focusPoint];
-    }
-}
+
+
+
+
 
 
 @end

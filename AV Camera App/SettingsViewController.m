@@ -22,6 +22,9 @@
 @implementation SettingsViewController
 @synthesize prefs = _prefs;
 
+@synthesize debugToggle;
+@synthesize mirrorToggle;
+
 @synthesize whiteFlashSlider;
 @synthesize whiteFlashValue;
 @synthesize redFlashSlider;
@@ -34,13 +37,14 @@
 
 @synthesize redFlashLabel, whiteFlashLabel, redFocusLabel, whiteFocusLabel;
 
-@synthesize multiText, debugToggle,bleDelay,captureDelay,flashDuration,multiShot, timedFlashSwitch, arduinoDelay;
+@synthesize multiText,bleDelay,captureDelay,flashDuration,multiShot, timedFlashSwitch, arduinoDelay;
 
 @synthesize remoteLightSlider, remoteLightLabel;
 @synthesize flashTooLong, bleDelayTooLong;
 @synthesize bleManager = _bleManager;
 
 BOOL debugMode;
+BOOL mirroredView;
 
 double whiteFlashStart,whiteFlashEnd,redFocusStart,redFocusEnd, remoteLightStart, remoteLightEnd;
 double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
@@ -72,9 +76,11 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     
     [[_bleManager whiteFlashLight]toggleLight];
     
-    debugMode = [_prefs boolForKey: @"debugMode"] ;
-    
+    debugMode = [_prefs boolForKey: @"debugMode"];
     [ debugToggle setOn: debugMode animated: NO];
+    
+    mirroredView = [_prefs boolForKey: @"mirroredView"]; //gonna be yes
+    [ mirrorToggle setOn: mirroredView animated: NO];
     
     BOOL timedFlash = [_prefs boolForKey: @"timedFlash"];
     [ timedFlashSwitch setOn: timedFlash animated: NO];
@@ -109,8 +115,6 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     redFlashLabel.text = [NSString stringWithFormat: @"%d", (int)redFlashValue];
     whiteFocusLabel.text = [NSString stringWithFormat: @"%d", (int)whiteFocusValue];
 
-    
-    
     NSString *bleText =  [ NSString stringWithFormat:@"%f",[_prefs floatForKey: @"bleDelay"]];
     bleText = [bleText substringToIndex:4];
     [bleDelay setText: bleText];
@@ -297,7 +301,6 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
 
 - (IBAction)multiShotValueChanged:(id)sender {
     self.multiText = [multiShot titleForSegmentAtIndex:multiShot.selectedSegmentIndex];
-    
 }
 
 - (IBAction)timedFlashToggleDidChange:(id)sender {
@@ -313,7 +316,18 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     NSLog(@"ToggleChange to %d",timedFlashSwitch.on);
 }
 
-
+- (IBAction)mirrorToggleDidChange:(id)sender {
+    
+    if(mirrorToggle.on == YES){
+        [_prefs setValue: @YES forKey:@"mirroredView" ];
+    }
+    else if(mirrorToggle.on == NO){
+        [_prefs setValue: @NO forKey:@"mirroredView" ];
+    }
+    
+    
+    NSLog(@"MirrorToggle changed to %d",mirrorToggle.on);
+}
 
 - (void)selectUISegment:(NSString *)segmentString{
         

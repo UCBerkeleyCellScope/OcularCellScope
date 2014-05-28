@@ -6,7 +6,9 @@
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
-#import <AssetsLibrary/ALAsset.h>
+//#import <AssetsLibrary/ALAsset.h>
+#import <AssetsLibrary/AssetsLibrary.h>
+
 #import "ImageScrollViewController.h"
 #import "EImage.h"
 #import "EyeImage.h"
@@ -117,6 +119,27 @@
     
     [self.navigationController popToViewController:self.fixationVC animated:YES];
 }
+
+
+-(void)saveToAlbumWithUI:(UIImage*)ui andEI:(EyeImage*)ei andExam:(Exam*)exam{
+    ALAssetsLibrary* libraryFolder = [[ALAssetsLibrary alloc] init];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    //[formatter setDateFormat:@"yyyy"];
+    [formatter setDateStyle: NSDateFormatterLongStyle];
+    
+    NSString *stringFromDate = [formatter stringFromDate:exam.date];
+    
+    
+    [libraryFolder addAssetsGroupAlbumWithName: stringFromDate resultBlock:^(ALAssetsGroup *group)
+    {
+        NSLog(@"Adding Folder:'My Album', success: %s", group.editable ? "Success" : "Already created: Not Success");
+    } failureBlock:^(NSError *error)
+    {
+        NSLog(@"Error: Adding on Folder");
+    }];
+}
+
 
 -(void)saveImageToCameraRoll:(UIImage*) image coreData: (EyeImage*) cd{
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];

@@ -29,6 +29,13 @@
     
     [[CellScopeContext sharedContext] setManagedObjectContext:self.managedObjectContext];
     
+    /*
+    UIStoryboard *storyboard = [ UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self.window.rootViewController = [storyboard instantiateInitialViewController];
+    
+    [self.window makeKeyAndVisible];
+    */
+     
     return YES;
 }
 

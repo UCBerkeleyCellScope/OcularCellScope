@@ -11,13 +11,15 @@
 
 @interface ExamInfoTableViewController ()
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
+@property NSArray *physiciansArray;
 @property Exam* e;
 
 @end
 
 @implementation ExamInfoTableViewController
 
-@synthesize firstnameField, lastnameField, patientIDField, physicianField;
+@synthesize firstnameField, lastnameField, patientIDField, physiciansArray, profilePicButton;
+//physicianField
 @synthesize e;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -29,11 +31,33 @@
     return self;
 }
 
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return [physiciansArray count];
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
+{
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 0.0f, 300.0f, 60.0f)]; //x and width are mutually correlated
+    label.textAlignment = NSTextAlignmentCenter;
+    [label setFont:[UIFont systemFontOfSize:17]];
+    label.text = [physiciansArray objectAtIndex:row];
+    return label;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     NSArray *fields = @[ self.firstnameField, self.lastnameField,
-                         self.patientIDField, self.physicianField];
+                         self.patientIDField];
+                         //,self.physicianField];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
     
     //[self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:fields]];
     //[self.keyboardControls setDelegate:self];
@@ -41,22 +65,126 @@
     self.firstnameField.delegate=self;
     self.lastnameField.delegate=self;
     self.patientIDField.delegate=self;
-    self.physicianField.delegate=self;
+    //self.physicianField.delegate=self;
     
+    physiciansArray = (NSArray*) @[@"Dr. Harrison", @"Dr. Copeland", @"Dr. King", @"Dr. Liu"];
+    
+    
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)];
+    [self.tableView addGestureRecognizer:gestureRecognizer];
+
     
     //self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     firstnameField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     lastnameField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
-    physicianField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    //physicianField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     
     
 }
+
+- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    
+    //Now, what if it's a video? There's no UIVideo class.
+    //Video is written to disk in a temporary directory
+    //When user finalizes recording, the message is sent to the delegate (this file)
+    //The PATH of the video on disk is in the info dictionary
+    NSURL *mediaURL = [info objectForKey:UIImagePickerControllerMediaURL];
+    //Temporary is not safe, it needs to be moved
+    
+    if(mediaURL){
+        //apparently NSURLs, not NSStrings, have paths
+        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum([mediaURL path]))
+        {
+            UISaveVideoAtPathToSavedPhotosAlbum([mediaURL path], nil, nil, nil);
+            [[NSFileManager defaultManager] removeItemAtPath:[mediaURL path] error:nil];
+        }
+    }
+    
+    // // // // ///
+    //e.profilePicPath= mediaURL;
+
+    UIImage *image = [info objectForKey: UIImagePickerControllerOriginalImage];
+    
+    //[item setThumbnailDataFromImage:image];
+    
+    //Core Foundation objects.. Ref means its a Pointer
+    //Core Foundation a collection of C classes
+    
+    [profilePicButton setImage:image forState:UIControlStateNormal];
+    
+    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+    {
+        // If on the phone, image picker is presented modally, so Dismiss it
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else{
+        //We dismiss popovers differently
+        [profilePicturePopover dismissPopoverAnimated:YES];
+        profilePicturePopover =nil;
+    }
+}
+
+- (IBAction)profilePicturePressed:(id)sender {
+    
+    if([profilePicturePopover isPopoverVisible]){
+        //Because you're making a new popover you need to destroy the old one, mamke it not visible
+        [profilePicturePopover dismissPopoverAnimated:YES];
+        profilePicturePopover = nil;
+        return;
+        
+    }
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
+    
+    //[imagePicker setAllowsEditing: YES];
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        
+        NSArray *availableTypes = [UIImagePickerController availableMediaTypesForSourceType: UIImagePickerControllerSourceTypeCamera];
+        
+        [imagePicker setMediaTypes: availableTypes];
+        [imagePicker setSourceType: UIImagePickerControllerSourceTypeCamera]; //4
+    }
+    
+    else{
+        [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    }
+    
+    [imagePicker setDelegate:self];//5
+    
+    //This was the simple modal way, now we're going for a popover
+    //[self presentViewController: imagePicker animated:YES completion:nil];
+    //See, we presentedViewController as a modal transition
+    
+    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad){
+        profilePicturePopover = [[UIPopoverController alloc]
+                              initWithContentViewController:imagePicker ];
+        
+        [profilePicturePopover setDelegate:self];
+        
+        [profilePicturePopover presentPopoverFromBarButtonItem: sender
+                                   permittedArrowDirections: UIPopoverArrowDirectionAny
+                                                   animated: YES];
+        
+        //BTW UIPopoverControllers only work on iPad
+    }
+    
+    else{
+        [self presentViewController:imagePicker animated:YES completion: nil];
+    }
+    
+}
+
+
+
+- (void)backgroundTapped {
+    NSLog(@"Background Tapped");
+    
+    [[self tableView] endEditing:YES];
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {

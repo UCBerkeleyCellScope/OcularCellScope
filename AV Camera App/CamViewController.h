@@ -26,19 +26,20 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *captureButton;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *aiv;
-@property (strong, nonatomic) IBOutlet UIButton *settingsButton;
 @property (weak, nonatomic) IBOutlet UIImageView *capturedImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *redOffIndicator;
 @property (weak, nonatomic) IBOutlet UIImageView *flashOffIndicator;
 
 @property (strong, nonatomic) IBOutlet UIButton *pauseButton;
 
-@property (assign, nonatomic) int selectedLight;
+@property (strong, nonatomic) UILongPressGestureRecognizer *longPressGestureRecognizer;
+
 @property (copy, nonatomic) NSString *selectedEye;
 @property (assign, nonatomic) BOOL debugMode;
+@property (assign, nonatomic) BOOL mirroredView;
 
-- (IBAction)tappedToFocus:(UITapGestureRecognizer *)sender;
-
+//- (IBAction)tappedToFocus:(UITapGestureRecognizer *)sender;
+//- (IBAction)longPressedToCapture:(UILongPressGestureRecognizer *) longPress;
 - (IBAction)didPressCapture:(id)sender;
 
 

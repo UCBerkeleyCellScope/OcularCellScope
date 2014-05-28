@@ -9,9 +9,14 @@
 
 #import "CellScopeContext.h"
 
+//static NSString * const CellScopeAPIKey = @"PASTE YOUR API KEY HERE";
+static NSString * const CellScopeURLString = @"http://warm-dawn-6399.herokuapp.com/";
+//static NSString * const CellScopeURLString = @"http://localhost:5000/";
+
+
 @implementation CellScopeContext
 
-@synthesize selectedEye, currentExam, connected, bleManager, camViewLoaded;
+@synthesize selectedEye, currentExam, connected, bleManager, camViewLoaded, client;
 
 + (id)sharedContext {
     static CellScopeContext *newContext = nil;
@@ -29,6 +34,9 @@
         connected = NO;
         camViewLoaded = NO;
         bleManager = [[BLEManager alloc]init];
+        client = [[CellScopeHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:CellScopeURLString]];
+        
+        
         NSLog(@"MADE THE SINGLETON");
         
     }
