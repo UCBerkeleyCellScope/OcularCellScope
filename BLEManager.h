@@ -24,7 +24,6 @@
 @property (strong, nonatomic) Light *whiteFocusLight;
 @property (strong, nonatomic) Light *redFlashLight;
 
-@property (strong, nonatomic) Light *whitePing;
 @property (strong, nonatomic) Light *remoteLight;
 @property (strong, nonatomic) NSArray *fixationLights;
 
@@ -34,6 +33,8 @@
 @property BOOL debugMode;
 @property (strong, nonatomic) BLE *ble;
 @property (weak, nonatomic) id <BLEConnectionDelegate> BLECdelegate;
+
+//@property (strong, nonatomic) Light *whitePing;
 
 -(void)turnOffAllLights;
 -(void)timedFlash;

@@ -17,7 +17,6 @@
 @synthesize whiteFocusLight = _whiteFocusLight;
 @synthesize redFlashLight = _redFlashLight;
 @synthesize remoteLight = _remoteLight;
-@synthesize whitePing = _whitePing;
 @synthesize fixationLights = _fixationLights;
 @synthesize ble;
 @synthesize prefs = _prefs;
@@ -25,6 +24,8 @@
 @synthesize isConnected = _isConnected;
 @synthesize selectedLight = _selectedLight;
 @synthesize BLECdelegate = _BLECdelegate;
+
+//@synthesize whitePing = _whitePing;
 
 //has a FocusingLight
 //has a FlashLight
@@ -65,7 +66,7 @@ BOOL capturing = NO;
         _whiteFocusLight = [[Light alloc] initWithBLE:self pin:WHITE_LIGHT intensity: whiteFocus_i ];
         _redFlashLight = [[Light alloc] initWithBLE:self pin:RED_LIGHT intensity: redFlash_i ];
         
-        _whitePing = [[Light alloc] initWithBLE:self pin:WHITE_PING intensity: w_i];
+        //_whitePing = [[Light alloc] initWithBLE:self pin:WHITE_PING intensity: w_i];
         
         _remoteLight = [[Light alloc] initWithBLE:self pin:REMOTE_LIGHT intensity: 255];
         

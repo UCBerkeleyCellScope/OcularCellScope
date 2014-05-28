@@ -10,8 +10,10 @@
 #import "CellScopeContext.h"
 #import "CellScopeHTTPClient.h"
 
-@interface PatientsTableViewController : UITableViewController<CellScopeHTTPClientDelegate>
+@interface PatientsTableViewController : UITableViewController<CellScopeHTTPClientDelegate,  NSFetchedResultsControllerDelegate>
 
+@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
 
 @property (nonatomic, strong) NSMutableArray *patientsArray;
 

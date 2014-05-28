@@ -14,6 +14,7 @@
 		603C44FD18DAE72F00402AE1 /* ExamInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C44FC18DAE72F00402AE1 /* ExamInfoViewController.m */; };
 		60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60418F22189B3E780001D490 /* CoreBluetooth.framework */; };
 		6043C8E81925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043C8E71925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
+		6043C8EE192B12F9007DFAFB /* CameraFocusSquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043C8ED192B12F9007DFAFB /* CameraFocusSquare.m */; };
 		60AECE6718D8CD1A00C4EA15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60AECE6618D8CD1A00C4EA15 /* Main.storyboard */; };
 		60B2E8F918C6EE7E00973C7E /* CameraModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */; };
 		60B2E8FC18C717B100973C7E /* img.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 60B2E8FB18C717B100973C7E /* img.jpeg */; };
@@ -26,6 +27,9 @@
 		60B42334190EF236005A9ABD /* CellScopeHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B42333190EF236005A9ABD /* CellScopeHTTPClient.m */; };
 		60B42337190F02FC005A9ABD /* ExamInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B42336190F02FC005A9ABD /* ExamInfoTableViewController.m */; };
 		60B4233A190F0B7F005A9ABD /* UIColor+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B42339190F0B7F005A9ABD /* UIColor+Custom.m */; };
+		60B718A1192DD16900E0F40A /* beepbeep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 60B7189F192DD16900E0F40A /* beepbeep.wav */; };
+		60B718A2192DD16900E0F40A /* long-beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 60B718A0192DD16900E0F40A /* long-beep.wav */; };
+		60B718A5193067C100E0F40A /* DataGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B718A4193067C100E0F40A /* DataGenerator.m */; };
 		60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0118F346E700902F28 /* DiagnosisViewController.m */; };
 		60C1AE0518F34DD400902F28 /* PatientTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0418F34DD400902F28 /* PatientTableViewCell.m */; };
 		60C1AE2C18F3507E00902F28 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0818F3507E00902F28 /* AFHTTPRequestOperation.m */; };
@@ -149,6 +153,8 @@
 		60418F2D189BB2ED0001D490 /* ImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCell.m; sourceTree = "<group>"; };
 		6043C8E61925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
 		6043C8E71925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
+		6043C8EC192B12F9007DFAFB /* CameraFocusSquare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraFocusSquare.h; path = ../CameraFocusSquare.h; sourceTree = "<group>"; };
+		6043C8ED192B12F9007DFAFB /* CameraFocusSquare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CameraFocusSquare.m; path = ../CameraFocusSquare.m; sourceTree = "<group>"; };
 		60A0865E18C069C900A2667D /* FixationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixationViewController.m; sourceTree = "<group>"; };
 		60AECE6618D8CD1A00C4EA15 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		60B2E8FB18C717B100973C7E /* img.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = img.jpeg; sourceTree = "<group>"; };
@@ -165,6 +171,10 @@
 		60B42336190F02FC005A9ABD /* ExamInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExamInfoTableViewController.m; sourceTree = "<group>"; };
 		60B42338190F0B7F005A9ABD /* UIColor+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Custom.h"; sourceTree = "<group>"; };
 		60B42339190F0B7F005A9ABD /* UIColor+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Custom.m"; sourceTree = "<group>"; };
+		60B7189F192DD16900E0F40A /* beepbeep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beepbeep.wav; sourceTree = "<group>"; };
+		60B718A0192DD16900E0F40A /* long-beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "long-beep.wav"; sourceTree = "<group>"; };
+		60B718A3193067C100E0F40A /* DataGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataGenerator.h; sourceTree = "<group>"; };
+		60B718A4193067C100E0F40A /* DataGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataGenerator.m; sourceTree = "<group>"; };
 		60C1AE0018F346E700902F28 /* DiagnosisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiagnosisViewController.h; sourceTree = "<group>"; };
 		60C1AE0118F346E700902F28 /* DiagnosisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiagnosisViewController.m; sourceTree = "<group>"; };
 		60C1AE0318F34DD400902F28 /* PatientTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientTableViewCell.h; sourceTree = "<group>"; };
@@ -279,8 +289,8 @@
 		F385B3001900E66400A3F974 /* BLEManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEManager.m; sourceTree = "<group>"; };
 		F385B3021900E6E200A3F974 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
 		F385B3031900E6E200A3F974 /* Light.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Light.m; sourceTree = "<group>"; };
-		F385B3081900F85B00A3F974 /* AVCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCaptureManager.h; sourceTree = "<group>"; };
-		F385B3091900F85B00A3F974 /* AVCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCaptureManager.m; sourceTree = "<group>"; };
+		F385B3081900F85B00A3F974 /* AVCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVCaptureManager.h; path = ../AVCaptureManager.h; sourceTree = "<group>"; };
+		F385B3091900F85B00A3F974 /* AVCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVCaptureManager.m; path = ../AVCaptureManager.m; sourceTree = "<group>"; };
 		F3A6034C18FE6A5F006BFFEC /* settings_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_icon.png; sourceTree = "<group>"; };
 		F3BE1386190AFB5400B23630 /* ImageScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScrollViewController.h; sourceTree = "<group>"; };
 		F3BE1387190AFB5400B23630 /* ImageScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScrollViewController.m; sourceTree = "<group>"; };
@@ -377,6 +387,21 @@
 			name = "UIImage+Resize";
 			sourceTree = "<group>";
 		};
+		60B7189E192D72B600E0F40A /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				60B7189F192DD16900E0F40A /* beepbeep.wav */,
+				60B718A0192DD16900E0F40A /* long-beep.wav */,
+				6043C8EC192B12F9007DFAFB /* CameraFocusSquare.h */,
+				6043C8ED192B12F9007DFAFB /* CameraFocusSquare.m */,
+				F385B3081900F85B00A3F974 /* AVCaptureManager.h */,
+				F385B3091900F85B00A3F974 /* AVCaptureManager.m */,
+				F385B2FC1900E31E00A3F974 /* CamViewController.h */,
+				F385B2FD1900E31E00A3F974 /* CamViewController.m */,
+			);
+			name = Camera;
+			sourceTree = "<group>";
+		};
 		60C1AE0618F3507E00902F28 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -438,8 +463,6 @@
 				6DD89D211842666C00F3C7FC /* Core Data */,
 				F325703B18D366FE00FEA80E /* EImage.h */,
 				F325703C18D366FE00FEA80E /* EImage.m */,
-				F385B3081900F85B00A3F974 /* AVCaptureManager.h */,
-				F385B3091900F85B00A3F974 /* AVCaptureManager.m */,
 				F385B2FF1900E66400A3F974 /* BLEManager.h */,
 				F385B3001900E66400A3F974 /* BLEManager.m */,
 				F385B3021900E6E200A3F974 /* Light.h */,
@@ -493,6 +516,7 @@
 		6D2D5DBC18318D9F00A58A96 /* AV Camera App */ = {
 			isa = PBXGroup;
 			children = (
+				60B7189E192D72B600E0F40A /* Camera */,
 				60AECE6618D8CD1A00C4EA15 /* Main.storyboard */,
 				60B42338190F0B7F005A9ABD /* UIColor+Custom.h */,
 				60B42339190F0B7F005A9ABD /* UIColor+Custom.m */,
@@ -502,10 +526,6 @@
 				F3BE1387190AFB5400B23630 /* ImageScrollViewController.m */,
 				60C1AE0018F346E700902F28 /* DiagnosisViewController.h */,
 				60C1AE0118F346E700902F28 /* DiagnosisViewController.m */,
-				F385B2FC1900E31E00A3F974 /* CamViewController.h */,
-				F385B2FD1900E31E00A3F974 /* CamViewController.m */,
-				6D3260FC184BBD6200E34428 /* PatientsTableViewController.h */,
-				6D3260FD184BBD6200E34428 /* PatientsTableViewController.m */,
 				603B077B18DD810B002179CD /* TabViewController.h */,
 				603B077C18DD810B002179CD /* TabViewController.m */,
 				60B42335190F02FC005A9ABD /* ExamInfoTableViewController.h */,
@@ -516,8 +536,12 @@
 				603B077918DD26E2002179CD /* SettingsViewController.m */,
 				60418F2C189BB2ED0001D490 /* ImageCell.h */,
 				60418F2D189BB2ED0001D490 /* ImageCell.m */,
+				6D3260FC184BBD6200E34428 /* PatientsTableViewController.h */,
+				6D3260FD184BBD6200E34428 /* PatientsTableViewController.m */,
 				60C1AE0318F34DD400902F28 /* PatientTableViewCell.h */,
 				60C1AE0418F34DD400902F28 /* PatientTableViewCell.m */,
+				60B718A3193067C100E0F40A /* DataGenerator.h */,
+				60B718A4193067C100E0F40A /* DataGenerator.m */,
 				F385B2FB1900E20F00A3F974 /* Old View Controllers */,
 				6D2D5DBD18318D9F00A58A96 /* Supporting Files */,
 			);
@@ -721,6 +745,7 @@
 				60B42329190AFFC7005A9ABD /* redDot.png in Resources */,
 				60B4232B190B14F3005A9ABD /* GREENsettings_icon.png in Resources */,
 				F325702018CC0CD100FEA80E /* patient_icon.png in Resources */,
+				60B718A2192DD16900E0F40A /* long-beep.wav in Resources */,
 				F38224B818F7BB3F00D861FE /* retina_icon_top.png in Resources */,
 				F325702218CC0CD500FEA80E /* notes_icon.png in Resources */,
 				60B42325190AE69B005A9ABD /* flashOffWhite.png in Resources */,
@@ -755,6 +780,7 @@
 				F358E31C185A859900872304 /* Icon@2x.png in Resources */,
 				60AECE6718D8CD1A00C4EA15 /* Main.storyboard in Resources */,
 				F356909318559CC700DBB4BE /* button_addpatients.png in Resources */,
+				60B718A1192DD16900E0F40A /* beepbeep.wav in Resources */,
 				F325704418D3911200FEA80E /* selected_icon.png in Resources */,
 				F3FA32CE18B5E4B7000FACF4 /* im4.png in Resources */,
 				F38224B718F7BB3F00D861FE /* retina_icon_right.png in Resources */,
@@ -792,10 +818,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6043C8EE192B12F9007DFAFB /* CameraFocusSquare.m in Sources */,
 				60D8C7BC18C69BB1007D26A7 /* CameraAppDelegate.m in Sources */,
 				60C1AE0518F34DD400902F28 /* PatientTableViewCell.m in Sources */,
 				60B42337190F02FC005A9ABD /* ExamInfoTableViewController.m in Sources */,
 				60C1AE3C18F3507E00902F28 /* UIWebView+AFNetworking.m in Sources */,
+				60B718A5193067C100E0F40A /* DataGenerator.m in Sources */,
 				60C1AE2D18F3507E00902F28 /* AFHTTPRequestOperationManager.m in Sources */,
 				F385B3011900E66400A3F974 /* BLEManager.m in Sources */,
 				60D8C7BD18C69BB1007D26A7 /* CellScopeContext.m in Sources */,

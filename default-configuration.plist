@@ -2,8 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>fixationLightValue</key>
-	<integer>255</integer>
+	<key>debugMode</key>
+	<false/>
+	<key>numberOfImages</key>
+	<integer>4</integer>
+	<key>arduinoDelay</key>
+	<integer>40</integer>
+	<key>bleDelay</key>
+	<real>0.2</real>
+	<key>flashDuration</key>
+	<real>0</real>
+	<key>timedFlash</key>
+	<true/>
+	<key>captureDelay</key>
+	<real>1</real>
 	<key>redFlashValue</key>
 	<integer>0</integer>
 	<key>whiteFocusValue</key>
@@ -12,23 +24,13 @@
 	<integer>12</integer>
 	<key>redFocusValue</key>
 	<integer>12</integer>
-	<key>arduinoDelay</key>
-	<integer>40</integer>
-	<key>timedFlash</key>
-	<true/>
 	<key>ImageScaleFactor</key>
 	<string>10</string>
 	<key>ThumbnailSize</key>
 	<integer>160</integer>
-	<key>numberOfImages</key>
-	<integer>4</integer>
-	<key>debugMode</key>
+	<key>mirroredView</key>
 	<false/>
-	<key>bleDelay</key>
-	<real>0.2</real>
-	<key>captureDelay</key>
-	<real>1</real>
-	<key>flashDuration</key>
-	<real>0</real>
+	<key>fixationLightValue</key>
+	<integer>255</integer>
 </dict>
 </plist>

@@ -8,6 +8,16 @@
 
 #import "AVCaptureManager.h"
 #import "NSMutableDictionary+ImageMetadata.h"
+#import <QuartzCore/QuartzCore.h>
+#import "UIColor+Custom.h"
+
+@interface AVCaptureManager()
+{
+    CALayer *rootLayer;
+    CALayer *boxLayer;
+    CALayer *focusBoxLayer;
+}
+@end
 
 @implementation AVCaptureManager
 
@@ -20,7 +30,6 @@
 @synthesize isExposureLocked = _isExposureLocked;
 @synthesize isCapturingImages = _isCapturingImages;
 @synthesize lastImageMetadata = _lastImageMetadata;
-
 
 -(id)init{
     self = [super init];
@@ -59,13 +68,20 @@
     self.view = view;
     
     // Set the preview layer to the bounds of the screen
-    CALayer *rootLayer = [self.view layer];
+    rootLayer = [self.view layer];
     [rootLayer setMasksToBounds:YES];
     [self.previewLayer setFrame:CGRectMake(-70, 0, rootLayer.bounds.size.height, rootLayer.bounds.size.height)];
     [rootLayer insertSublayer:self.previewLayer atIndex:0];
     
-    // Invert the screen for optics
-    self.previewLayer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
+    BOOL mirroredView = [[NSUserDefaults standardUserDefaults] boolForKey:@"mirroredView"];
+    
+    if(mirroredView == YES){
+        self.previewLayer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
+    }
+    
+    if(mirroredView == NO){
+        self.previewLayer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(0));
+    }
     
     [self.session startRunning];
     [self unlockFocus];
@@ -87,6 +103,7 @@
 	}
     return videoConnection;
 }
+
 
 -(void)takePicture{
     
@@ -117,6 +134,14 @@
     }
 }
 
+-(void)lockWhiteBalance{
+    if ([self.device isWhiteBalanceModeSupported:AVCaptureWhiteBalanceModeLocked]) {
+        [self.device lockForConfiguration:nil];
+        [self.device setWhiteBalanceMode:AVCaptureWhiteBalanceModeLocked];
+        [self.device unlockForConfiguration];
+    }
+}
+
 - (void)setExposureLock:(BOOL)locked
 {
     NSError* error;
@@ -131,7 +156,6 @@
     }
     else
         NSLog(@"Error: %@",error);
-    
 }
 
 -(void)unlockFocus{
@@ -143,6 +167,16 @@
         [self.device unlockForConfiguration];
     }
 }
+
+-(void)unlockWhiteBalance{
+    if ([self.device isWhiteBalanceModeSupported:AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance]) {
+
+        [self.device lockForConfiguration:nil];
+        [self.device setWhiteBalanceMode:AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance];
+        [self.device unlockForConfiguration];
+    }
+}
+
 
 -(void)setFocusWithPoint:(CGPoint)focusPoint{
     if([self.device isFocusModeSupported:AVCaptureFocusModeAutoFocus] && [self.device isFocusPointOfInterestSupported]){
