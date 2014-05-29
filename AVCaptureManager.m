@@ -57,7 +57,7 @@
         
         // Set preview layer
         self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
-        [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+        [self.previewLayer setVideoGravity: AVLayerVideoGravityResize];
         //AVLayerVideoGravityResizeAspectFill];
     }
     

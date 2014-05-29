@@ -17,7 +17,6 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (strong,nonatomic) Exam *currentExam;
 @property(nonatomic, strong) NSUserDefaults *prefs;
 @property BOOL debugMode;
 

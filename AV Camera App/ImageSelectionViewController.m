@@ -14,6 +14,7 @@
 #import "ImageCell.h"
 #import "CoreDataController.h"
 #import "EyePhotoCell.h"
+#import "Exam+Methods.h"
 
 
 @interface ImageSelectionViewController ()

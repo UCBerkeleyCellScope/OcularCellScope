@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6015874919379A2B00814D06 /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 6015874819379A2B00814D06 /* Exam.m */; };
 		603B077318DCB8F1002179CD /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B076A18DCB8F1002179CD /* BSKeyboardControls.m */; };
 		603B077418DCB8F1002179CD /* BSKeyboardControls.strings in Resources */ = {isa = PBXBuildFile; fileRef = 603B076B18DCB8F1002179CD /* BSKeyboardControls.strings */; };
 		603B077A18DD26E2002179CD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B077918DD26E2002179CD /* SettingsViewController.m */; };
@@ -16,7 +17,6 @@
 		6043C8E81925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043C8E71925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
 		6043C8EE192B12F9007DFAFB /* CameraFocusSquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043C8ED192B12F9007DFAFB /* CameraFocusSquare.m */; };
 		60441CCB1937104C000A017C /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 60441CCA1937104C000A017C /* EyeImage.m */; };
-		60441CCE1937104D000A017C /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 60441CCD1937104D000A017C /* Exam.m */; };
 		60441CD1193728B1000A017C /* SpecialistSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60441CD0193728B1000A017C /* SpecialistSelectionTableViewController.m */; };
 		60AECE6718D8CD1A00C4EA15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60AECE6618D8CD1A00C4EA15 /* Main.storyboard */; };
 		60B2E8F918C6EE7E00973C7E /* CameraModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */; };
@@ -117,7 +117,6 @@
 		F385B3041900E6E200A3F974 /* Light.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3031900E6E200A3F974 /* Light.m */; };
 		F385B30A1900F85B00A3F974 /* AVCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3091900F85B00A3F974 /* AVCaptureManager.m */; };
 		F3A6034D18FE6A5F006BFFEC /* settings_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F3A6034C18FE6A5F006BFFEC /* settings_icon.png */; };
-		F3BE1388190AFB5400B23630 /* ImageScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BE1387190AFB5400B23630 /* ImageScrollViewController.m */; };
 		F3FA32CB18B5E4B7000FACF4 /* im1.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C718B5E4B7000FACF4 /* im1.png */; };
 		F3FA32CC18B5E4B7000FACF4 /* im2.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C818B5E4B7000FACF4 /* im2.png */; };
 		F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C918B5E4B7000FACF4 /* im3.png */; };
@@ -183,6 +182,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6015874719379A2B00814D06 /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
+		6015874819379A2B00814D06 /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
 		603B076918DCB8F1002179CD /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
 		603B076A18DCB8F1002179CD /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
 		603B076C18DCB8F1002179CD /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
@@ -210,8 +211,6 @@
 		6043C8ED192B12F9007DFAFB /* CameraFocusSquare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CameraFocusSquare.m; path = ../CameraFocusSquare.m; sourceTree = "<group>"; };
 		60441CC91937104C000A017C /* EyeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeImage.h; sourceTree = "<group>"; };
 		60441CCA1937104C000A017C /* EyeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeImage.m; sourceTree = "<group>"; };
-		60441CCC1937104D000A017C /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
-		60441CCD1937104D000A017C /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
 		60441CCF193728B1000A017C /* SpecialistSelectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialistSelectionTableViewController.h; sourceTree = "<group>"; };
 		60441CD0193728B1000A017C /* SpecialistSelectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialistSelectionTableViewController.m; sourceTree = "<group>"; };
 		60A0865E18C069C900A2667D /* FixationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixationViewController.m; sourceTree = "<group>"; };
@@ -356,8 +355,6 @@
 		F385B3081900F85B00A3F974 /* AVCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVCaptureManager.h; path = ../AVCaptureManager.h; sourceTree = "<group>"; };
 		F385B3091900F85B00A3F974 /* AVCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVCaptureManager.m; path = ../AVCaptureManager.m; sourceTree = "<group>"; };
 		F3A6034C18FE6A5F006BFFEC /* settings_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_icon.png; sourceTree = "<group>"; };
-		F3BE1386190AFB5400B23630 /* ImageScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScrollViewController.h; sourceTree = "<group>"; };
-		F3BE1387190AFB5400B23630 /* ImageScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScrollViewController.m; sourceTree = "<group>"; };
 		F3FA32C418B5D6BF000FACF4 /* ImageSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectionViewController.h; sourceTree = "<group>"; };
 		F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectionViewController.m; sourceTree = "<group>"; };
 		F3FA32C718B5E4B7000FACF4 /* im1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im1.png; sourceTree = "<group>"; };
@@ -688,11 +685,11 @@
 		6DD89D211842666C00F3C7FC /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				6015874719379A2B00814D06 /* Exam.h */,
+				6015874819379A2B00814D06 /* Exam.m */,
 				6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */,
 				60441CC91937104C000A017C /* EyeImage.h */,
 				60441CCA1937104C000A017C /* EyeImage.m */,
-				60441CCC1937104D000A017C /* Exam.h */,
-				60441CCD1937104D000A017C /* Exam.m */,
 				6DD89D7B18426AD400F3C7FC /* CoreDataController.h */,
 				6DD89D7C18426AD400F3C7FC /* CoreDataController.m */,
 			);
@@ -1001,7 +998,6 @@
 				60B42337190F02FC005A9ABD /* ExamInfoTableViewController.m in Sources */,
 				60C1AE3C18F3507E00902F28 /* UIWebView+AFNetworking.m in Sources */,
 				60B718A5193067C100E0F40A /* DataGenerator.m in Sources */,
-				60441CCE1937104D000A017C /* Exam.m in Sources */,
 				60C1AE2D18F3507E00902F28 /* AFHTTPRequestOperationManager.m in Sources */,
 				F385B3011900E66400A3F974 /* BLEManager.m in Sources */,
 				60D8C7BD18C69BB1007D26A7 /* CellScopeContext.m in Sources */,
@@ -1026,6 +1022,7 @@
 				60B7A5CB1936797000A1F9EB /* GTLDrive_Sources.m in Sources */,
 				60C1AE3B18F3507E00902F28 /* UIRefreshControl+AFNetworking.m in Sources */,
 				60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */,
+				6015874919379A2B00814D06 /* Exam.m in Sources */,
 				60C1AE3918F3507E00902F28 /* UIImageView+AFNetworking.m in Sources */,
 				F3FCC96B19369BA10093A1EB /* CameraModel.xcdatamodeld in Sources */,
 				60D8C7C618C69BB1007D26A7 /* MainMenuViewController.m in Sources */,
@@ -1047,6 +1044,7 @@
 				603C44FD18DAE72F00402AE1 /* ExamInfoViewController.m in Sources */,
 				60D8C7D218C6BF87007D26A7 /* Constants.m in Sources */,
 				F385B3041900E6E200A3F974 /* Light.m in Sources */,
+				F3FCC97119369F180093A1EB /* EyePhotoCell.m in Sources */,
 				603B077A18DD26E2002179CD /* SettingsViewController.m in Sources */,
 				60C1AE3818F3507E00902F28 /* UIButton+AFNetworking.m in Sources */,
 				F325703018D1A9AE00FEA80E /* UIImage+Alpha.m in Sources */,

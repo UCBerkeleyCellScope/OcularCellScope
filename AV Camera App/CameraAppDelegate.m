@@ -16,7 +16,6 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
-@synthesize currentExam = _currentExam;
 @synthesize prefs = _prefs;
 @synthesize debugMode;
 

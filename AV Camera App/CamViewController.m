@@ -293,11 +293,36 @@
 }
 
 -(void)didCaptureImageWithData:(NSData *)data{
-    EImage *image = [[EImage alloc] initWithData:  data
-                                            date: [NSDate date]
-                                             eye: [[CellScopeContext sharedContext] selectedEye]
-                                   fixationLight: _bleManager.selectedLight];
-    NSLog(@"Save fixation light %ld", (long)_bleManager.selectedLight);
+    
+    SelectableEyeImage *image;
+    
+    if(mirroredView){
+        UIImage *sourceImage = [UIImage imageWithData:data];
+        UIImage *flippedImage = [UIImage imageWithCGImage: sourceImage.CGImage
+                                                    scale: sourceImage.scale
+                                              orientation: UIImageOrientationLeft];
+        
+        float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
+        UIImage *thumbnail = [flippedImage resizedImageWithScaleFactor:scaleFactor];
+        
+        image = [[SelectableEyeImage alloc] initWithUIImage: flippedImage
+                                                       date: [NSDate date]
+                                                        eye: [[CellScopeContext sharedContext] selectedEye]
+                                              fixationLight: (int) self.selectedLight
+                                                  thumbnail: thumbnail];
+    }
+    
+    else{
+        image = [[SelectableEyeImage alloc] initWithData:data
+                                                    date: [NSDate date]
+                                                     eye: [[CellScopeContext sharedContext] selectedEye]
+                                           fixationLight: (int) self.selectedLight];
+        
+        float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
+        image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
+    }
+    
+    NSLog(@"Save fixation light %ld", self.bleManager.selectedLight);
     NSLog(@"%@",[[CellScopeContext sharedContext]selectedEye]);
     
     self.capturedImageView.image = image;

@@ -9,6 +9,7 @@
 #import "SelectableUIEyeImage.h"
 #import "EyeImage.h"
 #import "CellScopeContext.h"
+#import "Exam+Methods.h"
 @import AssetsLibrary;
 
 @implementation SelectableUIEyeImage
