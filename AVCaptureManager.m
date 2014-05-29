@@ -57,7 +57,7 @@
         
         // Set preview layer
         self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
-        [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+        [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
         //AVLayerVideoGravityResizeAspectFill];
     }
     
@@ -178,12 +178,20 @@
 }
 
 
--(void)setFocusWithPoint:(CGPoint)focusPoint{
-    if([self.device isFocusModeSupported:AVCaptureFocusModeAutoFocus] && [self.device isFocusPointOfInterestSupported]){
-        [self.device lockForConfiguration:nil];
-        [self.device setFocusPointOfInterest:focusPoint];
-        [self.device setFocusMode:AVCaptureFocusModeAutoFocus];
-        [self.device unlockForConfiguration];
+- (void)setFocusWithPoint:(CGPoint)point
+{
+    NSError *error;
+    
+    if ([self.device isFocusModeSupported:AVCaptureFocusModeAutoFocus] &&
+        [self.device isFocusPointOfInterestSupported])
+    {
+        if ([self.device lockForConfiguration:&error]) {
+            [self.device setFocusPointOfInterest:point];
+            [self.device setFocusMode:AVCaptureFocusModeAutoFocus];
+            [self.device unlockForConfiguration];
+        } else {
+            NSLog(@"Error: %@", error);
+        }
     }
 }
 

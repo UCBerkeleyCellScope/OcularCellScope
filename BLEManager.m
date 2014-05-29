@@ -54,12 +54,13 @@ BOOL capturing = NO;
         
         int fixationLightValue = (int)[_prefs integerForKey:@"fixationLightValue"];
         
-        
+        /*
         if (r_i<10){
             [_prefs setInteger: 50 forKey:@"redLightValue"];
             r_i = 50;
         }
-        
+        */
+         
         _redFocusLight = [[Light alloc] initWithBLE:self pin:RED_LIGHT intensity: r_i ];
         _whiteFlashLight = [[Light alloc] initWithBLE:self pin:WHITE_LIGHT intensity: w_i ];
         

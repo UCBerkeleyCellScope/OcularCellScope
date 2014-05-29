@@ -625,14 +625,14 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="255" translatesAutoresizingMaskIntoConstraints="NO" id="2c0-aO-0LK" userLabel="RedFocusSlider">
+                                                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="12" minValue="0.0" maxValue="33" translatesAutoresizingMaskIntoConstraints="NO" id="2c0-aO-0LK" userLabel="RedFocusSlider">
                                                     <rect key="frame" x="119" y="9" width="149" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <connections>
                                                         <action selector="redFocusSliderDidChange:" destination="x8V-KE-hAE" eventType="valueChanged" id="Rcg-gk-TJj"/>
                                                     </connections>
                                                 </slider>
-                                                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="255" translatesAutoresizingMaskIntoConstraints="NO" id="lb5-jJ-ftw" userLabel="WhiteFocusSlider">
+                                                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="33" translatesAutoresizingMaskIntoConstraints="NO" id="lb5-jJ-ftw" userLabel="WhiteFocusSlider">
                                                     <rect key="frame" x="119" y="47" width="149" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <connections>
@@ -673,14 +673,14 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="255" translatesAutoresizingMaskIntoConstraints="NO" id="b1q-2M-H9T" userLabel="WhiteFlashSlider">
+                                                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="12" minValue="0.0" maxValue="33" translatesAutoresizingMaskIntoConstraints="NO" id="b1q-2M-H9T" userLabel="WhiteFlashSlider">
                                                     <rect key="frame" x="119" y="11" width="151" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <connections>
                                                         <action selector="whiteFlashSliderDidChange:" destination="x8V-KE-hAE" eventType="valueChanged" id="9sZ-vW-m1i"/>
                                                     </connections>
                                                 </slider>
-                                                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="255" translatesAutoresizingMaskIntoConstraints="NO" id="BZh-Z4-KZP" userLabel="RedFlashSlider">
+                                                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="33" translatesAutoresizingMaskIntoConstraints="NO" id="BZh-Z4-KZP" userLabel="RedFlashSlider">
                                                     <rect key="frame" x="119" y="47" width="151" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <connections>
