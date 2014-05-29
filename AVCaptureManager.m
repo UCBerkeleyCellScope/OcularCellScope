@@ -39,7 +39,7 @@
         
         // Create a new photo session
         self.session = [[AVCaptureSession alloc] init];
-        [self.session setSessionPreset:AVCaptureSessionPresetPhoto];
+        [self.session setSessionPreset:AVCaptureSessionPresetHigh];
         
         // Set device to video
         self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -57,7 +57,7 @@
         
         // Set preview layer
         self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
-        [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
+        [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
         //AVLayerVideoGravityResizeAspectFill];
     }
     

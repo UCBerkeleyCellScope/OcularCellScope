@@ -301,7 +301,7 @@
         image = [[SelectableEyeImage alloc] initWithUIImage: flippedImage
                                                        date: [NSDate date]
                                                         eye: [[CellScopeContext sharedContext] selectedEye]
-                                              fixationLight: (int) self.bleManager.selectedLight
+                                              fixationLight: (int) self.selectedLight
                                                   thumbnail: thumbnail];
     }
     
@@ -309,7 +309,7 @@
         image = [[SelectableEyeImage alloc] initWithData:data
                                                     date: [NSDate date]
                                                      eye: [[CellScopeContext sharedContext] selectedEye]
-                                           fixationLight: (int) self.bleManager.selectedLight];
+                                           fixationLight: (int) self.selectedLight];
         
         float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
         image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];

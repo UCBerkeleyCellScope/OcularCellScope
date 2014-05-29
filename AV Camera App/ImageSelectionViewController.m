@@ -131,7 +131,7 @@
                 coreDataObject.date = ei.date;
                 coreDataObject.eye = ei.eye;
             
-                coreDataObject.fixationLight = [[NSNumber alloc ]initWithInteger: [[[CellScopeContext sharedContext]bleManager]selectedLight]];
+                coreDataObject.fixationLight = [[NSNumber alloc] initWithInt: ei.fixationLight]; //[[NSNumber alloc ]initWithInteger: [[[CellScopeContext sharedContext]bleManager]selectedLight]];
             
                 NSLog(@"FIxATION LIGHT CORE DATA %@", coreDataObject.fixationLight);
                 coreDataObject.exam = [[CellScopeContext sharedContext]currentExam];
