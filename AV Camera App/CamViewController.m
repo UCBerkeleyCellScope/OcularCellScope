@@ -9,12 +9,13 @@
 #import "CamViewController.h"
 #import "UIImage+Resize.h"
 #import "ImageSelectionViewController.h"
-#import "ImageScrollViewController.h"
 #import "CameraFocusSquare.h"
 
 @interface CamViewController ()
 @property (assign) SystemSoundID beepBeepSound;
 @property (nonatomic) CameraFocusSquare* camFocus;
+@property (nonatomic, assign) long selectedLight;
+@property (nonatomic, strong) UIAlertView *nextFixationAlert;
 
 @end
 
@@ -37,6 +38,9 @@
 @synthesize bleDisabledLabel = _bleDisabledLabel;
 @synthesize debugMode;
 @synthesize mirroredView;
+@synthesize fullscreeningMode = _fullscreeningMode;
+@synthesize nextFixationAlert = _nextFixationAlert;
+@synthesize fixationImageView = _fixationImageView;
 
 @synthesize redOffIndicator;
 @synthesize flashOffIndicator;
@@ -57,6 +61,12 @@
 {
     [super viewDidLoad];
     self.bleManager = [[CellScopeContext sharedContext] bleManager];
+    
+    if(self.fullscreeningMode)
+        self.selectedLight = CENTER_LIGHT;
+    else
+        self.selectedLight = self.bleManager.selectedLight;
+    
     self.captureManager = [[AVCaptureManager alloc] init];
     self.captureManager.delegate = self;
     self.currentImageCount = 0;
@@ -82,7 +92,7 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [self.captureManager setupVideoForView:self.view];
-    
+    [self updateFixationImageView];
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
     [self.captureManager setExposureLock:NO];
@@ -94,13 +104,14 @@
     self.debugMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"debugMode"];
     self.mirroredView = [[NSUserDefaults standardUserDefaults] boolForKey:@"mirroredView"];
 
-    
+    /*
     if(mirroredView == YES){
         self.capturedImageView.transform = CGAffineTransformMakeRotation(M_PI);
     }
     else{
         self.capturedImageView.transform = CGAffineTransformMakeRotation(0);
     }
+     */
     
     
     int fixationLightValue = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"fixationLightValue"];
@@ -223,11 +234,16 @@
     [self.bleManager turnOffAllLights];
     [self setExposureUsingLight];
 
+    [self beginImageCapture];
+    
+}
+
+- (void) beginImageCapture{
     NSNumber *interval = [[NSUserDefaults standardUserDefaults] objectForKey:@"captureDelay"];
     
     self.repeatingTimer = [NSTimer scheduledTimerWithTimeInterval:[interval doubleValue] target:self selector:@selector(captureTimerFired) userInfo:nil repeats:YES];
 
-  }
+}
 
 -(void) setExposureUsingLight{
     //THIS MIGHT BE A PROBLEM
@@ -286,10 +302,6 @@
     
     self.capturedImageView.image = image;
 
-
-    
-    float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
-    image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
     // Add the capture image to the image array
     [self.imageArray addObject:image];
     
@@ -297,11 +309,68 @@
     
     // Once all images are captured, segue to the Image Selection View
     int totalNumberOfImages = [[[NSUserDefaults standardUserDefaults] objectForKey:@"numberOfImages"] intValue];
-    if([self.imageArray count] >= totalNumberOfImages){
-        NSLog(@"About to segue to ImageSelectionView");
-//        [self performSegueWithIdentifier:@"ImageScrollSegue" sender:self];
+    if(self.currentImageCount >= totalNumberOfImages){
+        if(!self.fullscreeningMode){
+            NSLog(@"About to segue to ImageSelectionSegue");
+            [self performSegueWithIdentifier:@"ImageSelectionSegue" sender:self];
+        }
+        else
+            [self didFinishCaptureRound];
+    }
+}
+
+
+- (void) didFinishCaptureRound{
+    if([self proceedToNextLight]){
+        [self resetView];
+        [self displayNextFixationView];
+    }
+    else{
+        NSLog(@"About to segue to ImageSelectionSegue");
         [self performSegueWithIdentifier:@"ImageSelectionSegue" sender:self];
     }
+}
+
+- (void) displayNextFixationView{
+    
+    //NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:2.0  target:self selector:@selector(beginImageCapture) userInfo:nil repeats:NO];
+    self.nextFixationAlert = [[UIAlertView alloc] initWithTitle:@"Proceed to next fixation light?"
+                                                   message:@""
+                                                  delegate:self
+                                         cancelButtonTitle:@"No"
+                                         otherButtonTitles:@"Yes",nil];
+    [self.nextFixationAlert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView == self.nextFixationAlert){
+        if(buttonIndex == 1){
+            [self beginImageCapture];
+        }
+        else{
+            NSLog(@"About to segue to ImageSelectionSegue");
+            [self performSegueWithIdentifier:@"ImageSelectionSegue" sender:self];
+        }
+    }
+}
+
+- (void) resetView{
+    self.capturedImageView.image = nil;
+    self.currentImageCount = 0;
+    [self updateCounterLabelText];
+    [self updateFixationImageView];
+    [self.repeatingTimer invalidate];
+    self.repeatingTimer = nil;
+}
+
+- (BOOL) proceedToNextLight{
+    self.selectedLight++;
+    
+    if(self.selectedLight > 4){
+        return NO;
+    }
+    
+    return YES;
 }
 
 -(void)updateCounterLabelText{
@@ -369,6 +438,30 @@
     AudioServicesPlaySystemSound(self.beepBeepSound);
 }
 
+-(void) updateFixationImageView{
+    
+    switch(self.selectedLight){
+            
+        case CENTER_LIGHT:
+            self.fixationImageView.image = [UIImage imageNamed:@"center.png"];
+            break;
+        case TOP_LIGHT:
+            self.fixationImageView.image = [UIImage imageNamed:@"top.png"];
+            break;
+        case BOTTOM_LIGHT:
+            self.fixationImageView.image = [UIImage imageNamed:@"bottom.png"];
+            break;
+        case LEFT_LIGHT:
+            self.fixationImageView.image = [UIImage imageNamed:@"left.png"];
+            break;
+        case RIGHT_LIGHT:
+            self.fixationImageView.image = [UIImage imageNamed:@"right.png"];
+            break;
+        case NO_LIGHT:
+            self.fixationImageView.image = nil;
+            break;
+    }
+}
 
 #pragma mark - Navigation
 

@@ -66,6 +66,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     passedImages = [[NSMutableArray alloc]init];
     
+    [self setupFixationButtons];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -243,10 +244,20 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 {
     if ([[segue identifier] isEqualToString:@"CamViewSegue"])
     {
-
+        
         NSLog(@"Preparing for CamViewSegue");
         CamViewController* cvc = (CamViewController*)[segue destinationViewController];
         [[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
+        cvc.fullscreeningMode = NO;
+        
+    }
+    if ([[segue identifier] isEqualToString:@"FullScreeningSegue"])
+    {
+        
+        NSLog(@"Preparing for FullScreeningSegue");
+        CamViewController* cvc = (CamViewController*)[segue destinationViewController];
+        [[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
+        cvc.fullscreeningMode = YES;
         
     }
     
@@ -318,12 +329,12 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                 
                 UIImage *th = [UIImage imageWithData: i.thumbnail];
                              
-                EImage *image = [[EImage alloc] initWithUIImage: th
+                SelectableEyeImage *image = [[SelectableEyeImage alloc] initWithUIImage: th
                                                         date: i.date
                                                          eye: i.eye
                                                fixationLight: i.fixationLight
                                                       thumbnail: th];
-                
+                image.coreDataImage = i;
                 [passedImages addObject: image];
         
             }
@@ -333,6 +344,16 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         isvc.images = passedImages;
     }
 
+}
+
+-(void) setupFixationButtons{
+    for(UIButton *button in self.fixationButtons){
+        button.layer.cornerRadius = button.frame.size.width / 2;
+        button.clipsToBounds = YES;
+        button.layer.borderWidth = 2.0f;
+        button.layer.borderColor = [UIColor whiteColor].CGColor;
+
+    }
 }
 
 

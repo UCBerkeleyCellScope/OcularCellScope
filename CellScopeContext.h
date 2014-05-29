@@ -8,7 +8,7 @@
 
 #import "Exam.h"
 #import "EyeImage.h"
-#import "EImage.h"
+#import "SelectableEyeImage.h"
 #import "BLE.h"
 #import "Constants.h"
 #import "AFNetworking.h"

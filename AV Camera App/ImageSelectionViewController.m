@@ -13,6 +13,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "ImageCell.h"
 #import "CoreDataController.h"
+#import "EyePhotoCell.h"
 
 
 @interface ImageSelectionViewController ()
@@ -24,22 +25,8 @@
 
 @implementation ImageSelectionViewController
 
-@synthesize imageView, slider, images, currentImageIndex, imageViewButton, selectedIcon, reviewMode, imageCollectionView;
+@synthesize images, reviewMode, imageCollectionView;
 @synthesize fixationVC, deleteAllAlert;
-
-//ARE WE PASSING SELECTED LIGHT< SELECTED EYE TO THIS VC?
-
-
-/*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-*/
 
 - (void)viewDidLoad
 {
@@ -47,12 +34,11 @@
     
     self.navigationController.navigationBar.hidden = NO;
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
-    currentImageIndex = 0;
-    selectedIcon.layer.shadowOffset = CGSizeMake(0, 1);
+    
     
     NSArray* viewControllers = self.navigationController.viewControllers;
     fixationVC = [viewControllers objectAtIndex: 1 ];
-    self.imageView.layer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
+    //self.imageView.layer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
 
     
 }
@@ -62,19 +48,7 @@
     //[selectedIcon setImage:[UIImage imageNamed:@"x_button.png"]];
     NSLog(@"There are %lu images", (unsigned long)[images count]);
     //NSLog(@"There are %lu images", (unsigned long)[_eyeImages count]);
-    
-    if([images count]<=1){
-        slider.hidden = YES;
-        NSLog(@"LESS THAN 1");
-    }
-    else{
-        slider.hidden = NO;
-        slider.minimumValue = 0;
-        slider.maximumValue = [images count]-1;
         
-        [self updateViewWithImage:[images objectAtIndex:currentImageIndex] useThumbnail:NO];
-    }
-    
     if(reviewMode == YES){
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.leftBarButtonItem =
@@ -83,7 +57,7 @@
     }
     
     NSMutableArray *imageViews = [[NSMutableArray alloc] init];
-    for(EImage *im in images){
+    for(SelectableEyeImage *im in images){
         [imageViews addObject:[[UIImageView alloc] initWithImage: im]];
     }
     
@@ -94,49 +68,24 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
--(IBAction)didMoveSlider:(id)sender{
-    int newImageIndex = (int) (slider.value + .5);
-    
-    if(newImageIndex!=currentImageIndex){
-        currentImageIndex = newImageIndex;
-        
-        [self updateViewWithImage:[images objectAtIndex:currentImageIndex] useThumbnail:YES];
-        
-        //[imageView setImage:[thumbnails objectAtIndex:newImageIndex]];
-        
-        /*
-        NSNumber* currentIndex = [NSNumber numberWithInt:currentImageIndex];
-        
-        BOOL isCurrentlySelected =[selectedImageIndices containsObject:currentIndex];
-        
-        if(isCurrentlySelected){
-            // Deselect image
-            [self changeImageIconToSelected:YES];
-        }
-        else{
-            // Select image
-            [self changeImageIconToSelected:NO];
-        }
-         */
-    }
-    
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
 }
 
--(IBAction)didTouchUpFromSlider:(id)sender{
-    //slider.value = currentImageIndex;
-    //[imageView setImage:[images objectAtIndex:currentImageIndex]];
-    //[self load:currentImageIndex];
-    
-    [self updateViewWithImage:[images objectAtIndex:currentImageIndex] useThumbnail:NO];
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return [self.images count];
 }
 
--(IBAction)didSelectImage:(id)sender{
-    NSLog(@"Image %d touched", currentImageIndex);
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    EImage* currentImage = [images objectAtIndex:currentImageIndex];
-    [currentImage toggleSelected];
-    [self changeImageIconToSelected:[currentImage isSelected]];
+    EyePhotoCell *cell = (EyePhotoCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
+    
+    cell.eyeImage = [self.images objectAtIndex:[indexPath row]];
+    NSLog(@"Index path %ld", (long)[indexPath row]);
+    
+    [cell updateCell];
+    
+    return cell;
     
 }
 
@@ -174,14 +123,15 @@
     
     // GO THROUGH AND DELETE THE EyeImages MARKED FOR DELETEION
   
-    if(reviewMode == NO){
+    if(!reviewMode){
             //NSMutableArray* eImagesToSave = [EImage selectedImagesFromArray:images];
-        for( EImage* ei in images){//eImagesToSave){     //HACK TO SAVE ALL
+        for( SelectableEyeImage* ei in images){//eImagesToSave){     //HACK TO SAVE ALL
+            if(!ei.isSelected){
                 EyeImage* coreDataObject = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"EyeImage" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
                 coreDataObject.date = ei.date;
                 coreDataObject.eye = ei.eye;
             
-                coreDataObject.fixationLight = [[NSNumber alloc ]initWithInteger: [[[CellScopeContext sharedContext]bleManager]selectedLight]];
+                coreDataObject.fixationLight = [[NSNumber alloc] initWithInt: ei.fixationLight]; //[[NSNumber alloc ]initWithInteger: [[[CellScopeContext sharedContext]bleManager]selectedLight]];
             
                 NSLog(@"FIxATION LIGHT CORE DATA %@", coreDataObject.fixationLight);
                 coreDataObject.exam = [[CellScopeContext sharedContext]currentExam];
@@ -198,23 +148,21 @@
                 [e addEyeImagesObject:coreDataObject];
                  
                 
-            //}
+            }
             
         }
-        [self.navigationController popToViewController:fixationVC animated:YES];
+
     }
     
-    else{
-        /*
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Images Selected"
-                                                        message:@"You must select at least one image before saving."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        */
-        [self.navigationController popToViewController:fixationVC animated:YES];
+    if(reviewMode){
+        for( SelectableEyeImage* ei in images){
+            if(ei.isSelected){
+                [[[CellScopeContext sharedContext] managedObjectContext] deleteObject: ei.coreDataImage];
+            }
+        }
     }
+    
+    [self.navigationController popToViewController:fixationVC animated:YES];
     
 }
 
@@ -249,24 +197,5 @@
     
 }
 
--(void)updateViewWithImage:(EImage*) image useThumbnail:(bool) useThumbnail{
-    NSLog(@"IMAGE REVIEW FL %d",image.fixationLight);
-    
-    if(useThumbnail)
-        [imageView setImage:image.thumbnail];
-    else
-        [imageView setImage:image];
-    
-    [self changeImageIconToSelected:[image isSelected]];
-}
-
--(void)changeImageIconToSelected:(BOOL) isSelected{
-    if(isSelected){
-        [selectedIcon setImage:[UIImage imageNamed:@"selected_icon.png"]];
-    }
-    else{
-        [selectedIcon setImage:[UIImage imageNamed:@"unselected_icon.png"]];
-    }
-}
 
 @end

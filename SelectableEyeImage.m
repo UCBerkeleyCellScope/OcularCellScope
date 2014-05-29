@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
 
-#import "EImage.h"
+#import "SelectableEyeImage.h"
 
-@implementation EImage
+@implementation SelectableEyeImage
 
 @synthesize date = _date;
 @synthesize eye = _eye;
@@ -63,7 +63,7 @@
 }
 
 +(BOOL) containsSelectedImageInArray:(NSMutableArray*) imageArray{
-    for(EImage *image in imageArray){
+    for(SelectableEyeImage *image in imageArray){
         if([image isSelected]){
             return YES;
         }
@@ -73,7 +73,7 @@
 
 +(NSMutableArray*) selectedImagesFromArray:(NSMutableArray*) imageArray{
     NSMutableArray *selectedImages = [[NSMutableArray alloc] init];
-    for(EImage *image in imageArray){
+    for(SelectableEyeImage *image in imageArray){
         if([image isSelected]){
             [selectedImages addObject:image];
         }
