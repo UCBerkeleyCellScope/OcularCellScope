@@ -59,7 +59,8 @@ BOOL capturing = NO;
             [_prefs setInteger: 5 forKey:@"redLightValue"];
             r_i = 5;
         }
-        
+        */
+         
         _redFocusLight = [[Light alloc] initWithBLE:self pin:RED_LIGHT intensity: r_i ];
         _whiteFlashLight = [[Light alloc] initWithBLE:self pin:WHITE_LIGHT intensity: w_i ];
         

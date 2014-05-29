@@ -126,7 +126,7 @@
         [self.bleManager.redFocusLight turnOn];
         [self.bleManager.whiteFocusLight turnOn];
         
-        [[self.bleManager.fixationLights objectAtIndex: self.bleManager.selectedLight]
+        [[self.bleManager.fixationLights objectAtIndex: self.selectedLight]
          changeIntensity:fixationLightValue];
     }
     
