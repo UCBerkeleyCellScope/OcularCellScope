@@ -117,7 +117,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 -(void)loadImages:(NSInteger)segmentedIndex{
     
-    UIView* fxv = [[UIView alloc]init];
+    //UIView* fxv = [[UIView alloc]init];
     
     if(self.segControl.selectedSegmentIndex == 0){
         [[CellScopeContext sharedContext] setSelectedEye: LEFT_EYE];

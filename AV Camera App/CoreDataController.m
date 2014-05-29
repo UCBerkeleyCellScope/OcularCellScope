@@ -22,8 +22,8 @@
     [library assetForURL:aURL resultBlock:^(ALAsset *asset)
      {
          ALAssetRepresentation* rep = [asset defaultRepresentation];
-         CGImageRef iref = [rep fullResolutionImage];
-         UIImage* uim = [UIImage imageWithCGImage:iref];
+         //CGImageRef iref = [rep fullResolutionImage];
+         //UIImage* uim = [UIImage imageWithCGImage:iref];
          //return uim;
          
      }

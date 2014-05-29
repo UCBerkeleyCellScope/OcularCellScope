@@ -55,9 +55,9 @@ BOOL capturing = NO;
         int fixationLightValue = (int)[_prefs integerForKey:@"fixationLightValue"];
         
         
-        if (r_i<10){
-            [_prefs setInteger: 50 forKey:@"redLightValue"];
-            r_i = 50;
+        if (r_i<3){
+            [_prefs setInteger: 5 forKey:@"redLightValue"];
+            r_i = 5;
         }
         
         _redFocusLight = [[Light alloc] initWithBLE:self pin:RED_LIGHT intensity: r_i ];
@@ -108,7 +108,70 @@ BOOL capturing = NO;
 
 - (void) connectionTimer:(NSTimer *)timer
 {
+    if (ble.peripherals.count > 0)
+    {
+        for (CBPeripheral* p in ble.peripherals)
+        {
+            NSLog(p.identifier.UUIDString);
+            if ([p.identifier.UUIDString isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"CellScopeBTUUID"]])
+            {
+                [ble connectPeripheral:p];
+                return;
+            }
+        }
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Bluetooth Connection", nil)
+                                                         message:NSLocalizedString(@"A new CellScope has been detected. Pair this iPhone with this CellScope?",nil)
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"No",nil)
+                                               otherButtonTitles:NSLocalizedString(@"Yes",nil),nil];
+        alert.alertViewStyle = UIAlertViewStyleDefault;
+        alert.tag = 1;
+        [alert show];
+    }
     
+    else if(attempts < 3 && capturing == NO)
+    {
+        NSLog(@"No peripherals found, initiaiting attempt number %d", attempts);
+        [self btnScanForPeripherals];
+        attempts++;
+    }
+
+    
+    else
+    {
+        UIAlertView *disableAlertView = [[UIAlertView alloc] initWithTitle:@"Bluetooth could not connect."
+                                                            message: @"Check that the Ocular CellScope is fully charged and switched on."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Try Again"
+                                                  otherButtonTitles:@"Disable BLE",nil];
+        [disableAlertView show];
+        [disableAlertView setTag:2];
+        
+        
+        
+        /*
+        
+        //try connecting again
+        if (ble.activePeripheral)
+            if(ble.activePeripheral.isConnected)
+            {
+                [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
+                return;
+            }
+        
+        if (ble.peripherals)
+            ble.peripherals = nil;
+        
+        [ble findBLEPeripherals:2];
+        [NSTimer scheduledTimerWithTimeInterval:(float)1.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
+        */
+    }
+
+    
+    
+    
+    
+    /*
     if (ble.peripherals.count > 0)
     {
         [ble connectPeripheral:[ble.peripherals objectAtIndex:0]];
@@ -134,21 +197,68 @@ BOOL capturing = NO;
         [alertView show];
         
     }
+    */
+    
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0){
-        NSLog(@"user pressed Try Again");
-        attempts = 0;
-        [self btnScanForPeripherals];
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag==1) //this is the title prompt for new photo/video
+    {
+        if (buttonIndex==1) {
+            [self pairBLECellScope];
+        }
     }
-    else {
-        _prefs = [NSUserDefaults standardUserDefaults];
-        [_prefs setValue: @YES forKey:@"debugMode" ];
-        [_BLECdelegate didReceiveNoBLEConfirmation];
+    
+    if (alertView.tag==2){
+        if (buttonIndex == 0){
+            NSLog(@"user pressed Try Again");
+            attempts = 0;
+            [self btnScanForPeripherals];
+        }
+        else {
+            _prefs = [NSUserDefaults standardUserDefaults];
+            [_prefs setValue: @YES forKey:@"debugMode" ];
+            [_BLECdelegate didReceiveNoBLEConfirmation];
+        }
     }
 }
 
+/*
+ - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+ if (buttonIndex == 0){
+ NSLog(@"user pressed Try Again");
+ attempts = 0;
+ [self btnScanForPeripherals];
+ }
+ else {
+ _prefs = [NSUserDefaults standardUserDefaults];
+ [_prefs setValue: @YES forKey:@"debugMode" ];
+ [_BLECdelegate didReceiveNoBLEConfirmation];
+ }
+ }
+ */
+
+
+-(void) pairBLECellScope
+{
+    if (ble.peripherals.count > 0)
+    {
+        NSString* newUUID = ((CBPeripheral*)ble.peripherals[0]).identifier.UUIDString;
+        
+        [[NSUserDefaults standardUserDefaults] setObject:newUUID forKey:@"CellScopeBTUUID"];
+        
+        [ble connectPeripheral:[ble.peripherals objectAtIndex:0]];
+        
+        NSLog(@"now paired with %@",newUUID);
+    }
+    
+}
+
+
+
+ 
+ 
 -(void) disconnect{
     if (ble.activePeripheral)
         if(ble.activePeripheral.state == CBPeripheralStateConnected){
@@ -236,6 +346,24 @@ BOOL capturing = NO;
         [ble write:data];
     }
 }
+
+-(void)turnOffAllLightsExceptFixation{
+    debugMode = [_prefs boolForKey:@"debugMode" ];
+    if(debugMode==NO){
+        self.whiteFlashLight.isOn = NO;
+        self.redFocusLight.isOn = NO;
+        self.remoteLight.isOn = NO;
+        self.redFlashLight.isOn = NO;
+        self.whiteFocusLight.isOn = NO;
+        
+        UInt8 buf[] = {0xEE, 0x00, 0x00};
+        NSData *data = [[NSData alloc] initWithBytes:buf length:3];
+        [ble write:data];
+        
+        
+    }
+}
+
 
 -(void)timedFlash{
     if(debugMode == NO){

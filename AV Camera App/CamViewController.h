@@ -33,8 +33,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *pauseButton;
 
 @property (strong, nonatomic) UILongPressGestureRecognizer *longPressGestureRecognizer;
+@property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 
-@property (copy, nonatomic) NSString *selectedEye;
 @property (assign, nonatomic) BOOL debugMode;
 @property (assign, nonatomic) BOOL mirroredView;
 

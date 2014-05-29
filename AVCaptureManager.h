@@ -37,6 +37,5 @@
 
 -(void)setFocusWithPoint:(CGPoint)focusPoint;
 -(void)setExposureLock:(BOOL)locked;
--(void)drawFocusBox:(CGPoint) tapPoint;
 
 @end

@@ -2,7 +2,7 @@
 //  Exam.m
 //  OcularCellscope
 //
-//  Created by Chris Echanique on 4/26/14.
+//  Created by PJ Loury on 5/28/14.
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
@@ -18,12 +18,7 @@
 @dynamic notes;
 @dynamic patientID;
 @dynamic patientName;
+@dynamic phoneNumber;
 @dynamic eyeImages;
-
-- (void)addEyeImagesObject:(EyeImage *)image {
-    NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.eyeImages];
-    [tempSet addObject:image];
-    self.eyeImages = tempSet;
-}
 
 @end

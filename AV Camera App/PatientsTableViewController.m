@@ -302,11 +302,13 @@
     newExam.date = [NSDate date];
     [[CellScopeContext sharedContext] setCurrentExam:newExam ];
     self.currentExam = newExam;
+    newExam.patientID = 0;
+    
     [self.patientsArray addObject:newExam];
     
     //[self.fetchedResultsController addObject:newExam];
     
-    NSLog(@"B4 TRANSITION We have %lu patients in our database", (unsigned long)[self.patientsArray count]);
+    NSLog(@"Before Adding Exam, %lu patients in our database", (unsigned long)[self.patientsArray count]);
 
     
     [self performSegueWithIdentifier: @"ExamInfoSegue" sender: self];

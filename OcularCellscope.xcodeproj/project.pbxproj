@@ -15,6 +15,9 @@
 		60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60418F22189B3E780001D490 /* CoreBluetooth.framework */; };
 		6043C8E81925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043C8E71925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
 		6043C8EE192B12F9007DFAFB /* CameraFocusSquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043C8ED192B12F9007DFAFB /* CameraFocusSquare.m */; };
+		60441CCB1937104C000A017C /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 60441CCA1937104C000A017C /* EyeImage.m */; };
+		60441CCE1937104D000A017C /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 60441CCD1937104D000A017C /* Exam.m */; };
+		60441CD1193728B1000A017C /* SpecialistSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60441CD0193728B1000A017C /* SpecialistSelectionTableViewController.m */; };
 		60AECE6718D8CD1A00C4EA15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60AECE6618D8CD1A00C4EA15 /* Main.storyboard */; };
 		60B2E8F918C6EE7E00973C7E /* CameraModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */; };
 		60B2E8FC18C717B100973C7E /* img.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 60B2E8FB18C717B100973C7E /* img.jpeg */; };
@@ -30,6 +33,11 @@
 		60B718A1192DD16900E0F40A /* beepbeep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 60B7189F192DD16900E0F40A /* beepbeep.wav */; };
 		60B718A2192DD16900E0F40A /* long-beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 60B718A0192DD16900E0F40A /* long-beep.wav */; };
 		60B718A5193067C100E0F40A /* DataGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B718A4193067C100E0F40A /* DataGenerator.m */; };
+		60B7A5C21936772A00A1F9EB /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5BD1936766400A1F9EB /* libGTLTouchStaticLib.a */; };
+		60B7A5C41936774000A1F9EB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5C31936774000A1F9EB /* Security.framework */; };
+		60B7A5C61936775200A1F9EB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */; };
+		60B7A5C81936790100A1F9EB /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60B7A5C71936790100A1F9EB /* GTMOAuth2ViewTouch.xib */; };
+		60B7A5CB1936797000A1F9EB /* GTLDrive_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B7A5C91936797000A1F9EB /* GTLDrive_Sources.m */; };
 		60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0118F346E700902F28 /* DiagnosisViewController.m */; };
 		60C1AE0518F34DD400902F28 /* PatientTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0418F34DD400902F28 /* PatientTableViewCell.m */; };
 		60C1AE2C18F3507E00902F28 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0818F3507E00902F28 /* AFHTTPRequestOperation.m */; };
@@ -111,8 +119,6 @@
 		F385B30A1900F85B00A3F974 /* AVCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3091900F85B00A3F974 /* AVCaptureManager.m */; };
 		F3A6034D18FE6A5F006BFFEC /* settings_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F3A6034C18FE6A5F006BFFEC /* settings_icon.png */; };
 		F3BE1388190AFB5400B23630 /* ImageScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BE1387190AFB5400B23630 /* ImageScrollViewController.m */; };
-		F3BE138B190C419800B23630 /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BE138A190C419800B23630 /* Exam.m */; };
-		F3BE138E190C419800B23630 /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BE138D190C419800B23630 /* EyeImage.m */; };
 		F3FA32CB18B5E4B7000FACF4 /* im1.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C718B5E4B7000FACF4 /* im1.png */; };
 		F3FA32CC18B5E4B7000FACF4 /* im2.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C818B5E4B7000FACF4 /* im2.png */; };
 		F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C918B5E4B7000FACF4 /* im3.png */; };
@@ -120,6 +126,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		60B7A5BA1936766400A1F9EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4F38F6A60B66E91D00B24B81;
+			remoteInfo = GTLFramework;
+		};
+		60B7A5BC1936766400A1F9EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4F12027C11A4CA2F00BEB470;
+			remoteInfo = GTLTouchStaticLib;
+		};
+		60B7A5BE1936766400A1F9EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4F12027D11A4CA2F00BEB470;
+			remoteInfo = GTLUnitTests;
+		};
+		60B7A5C01936766400A1F9EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4F1AD9020B71603F00DC0485;
+			remoteInfo = DevelopmentTestTool;
+		};
 		6D2D5DD918318DA000A58A96 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6D2D5DAB18318D9F00A58A96 /* Project object */;
@@ -155,6 +189,12 @@
 		6043C8E71925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
 		6043C8EC192B12F9007DFAFB /* CameraFocusSquare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraFocusSquare.h; path = ../CameraFocusSquare.h; sourceTree = "<group>"; };
 		6043C8ED192B12F9007DFAFB /* CameraFocusSquare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CameraFocusSquare.m; path = ../CameraFocusSquare.m; sourceTree = "<group>"; };
+		60441CC91937104C000A017C /* EyeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeImage.h; sourceTree = "<group>"; };
+		60441CCA1937104C000A017C /* EyeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeImage.m; sourceTree = "<group>"; };
+		60441CCC1937104D000A017C /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
+		60441CCD1937104D000A017C /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
+		60441CCF193728B1000A017C /* SpecialistSelectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialistSelectionTableViewController.h; sourceTree = "<group>"; };
+		60441CD0193728B1000A017C /* SpecialistSelectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialistSelectionTableViewController.m; sourceTree = "<group>"; };
 		60A0865E18C069C900A2667D /* FixationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixationViewController.m; sourceTree = "<group>"; };
 		60AECE6618D8CD1A00C4EA15 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		60B2E8FB18C717B100973C7E /* img.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = img.jpeg; sourceTree = "<group>"; };
@@ -175,6 +215,12 @@
 		60B718A0192DD16900E0F40A /* long-beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "long-beep.wav"; sourceTree = "<group>"; };
 		60B718A3193067C100E0F40A /* DataGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataGenerator.h; sourceTree = "<group>"; };
 		60B718A4193067C100E0F40A /* DataGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataGenerator.m; sourceTree = "<group>"; };
+		60B7A5B31936766200A1F9EB /* GTL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GTL.xcodeproj; path = "../google-api-objectivec-client-read-only/Source/GTL.xcodeproj"; sourceTree = "<group>"; };
+		60B7A5C31936774000A1F9EB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		60B7A5C71936790100A1F9EB /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTMOAuth2ViewTouch.xib; sourceTree = "<group>"; };
+		60B7A5C91936797000A1F9EB /* GTLDrive_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDrive_Sources.m; sourceTree = "<group>"; };
+		60B7A5CA1936797000A1F9EB /* GTLDrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDrive.h; sourceTree = "<group>"; };
 		60C1AE0018F346E700902F28 /* DiagnosisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiagnosisViewController.h; sourceTree = "<group>"; };
 		60C1AE0118F346E700902F28 /* DiagnosisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiagnosisViewController.m; sourceTree = "<group>"; };
 		60C1AE0318F34DD400902F28 /* PatientTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientTableViewCell.h; sourceTree = "<group>"; };
@@ -294,10 +340,6 @@
 		F3A6034C18FE6A5F006BFFEC /* settings_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_icon.png; sourceTree = "<group>"; };
 		F3BE1386190AFB5400B23630 /* ImageScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScrollViewController.h; sourceTree = "<group>"; };
 		F3BE1387190AFB5400B23630 /* ImageScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScrollViewController.m; sourceTree = "<group>"; };
-		F3BE1389190C419800B23630 /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
-		F3BE138A190C419800B23630 /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
-		F3BE138C190C419800B23630 /* EyeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeImage.h; sourceTree = "<group>"; };
-		F3BE138D190C419800B23630 /* EyeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeImage.m; sourceTree = "<group>"; };
 		F3FA32C418B5D6BF000FACF4 /* ImageSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectionViewController.h; sourceTree = "<group>"; };
 		F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectionViewController.m; sourceTree = "<group>"; };
 		F3FA32C718B5E4B7000FACF4 /* im1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im1.png; sourceTree = "<group>"; };
@@ -311,6 +353,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60B7A5C61936775200A1F9EB /* SystemConfiguration.framework in Frameworks */,
+				60B7A5C41936774000A1F9EB /* Security.framework in Frameworks */,
+				60B7A5C21936772A00A1F9EB /* libGTLTouchStaticLib.a in Frameworks */,
 				60B4231A19089678005A9ABD /* MobileCoreServices.framework in Frameworks */,
 				60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */,
 				6DD89D8118426B0700F3C7FC /* CoreImage.framework in Frameworks */,
@@ -402,6 +447,17 @@
 			name = Camera;
 			sourceTree = "<group>";
 		};
+		60B7A5B41936766200A1F9EB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				60B7A5BB1936766400A1F9EB /* GTL.framework */,
+				60B7A5BD1936766400A1F9EB /* libGTLTouchStaticLib.a */,
+				60B7A5BF1936766400A1F9EB /* GTLUnitTests.octest */,
+				60B7A5C11936766400A1F9EB /* DevelopmentTestTool */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		60C1AE0618F3507E00902F28 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -455,6 +511,9 @@
 		6D2D5DAA18318D9E00A58A96 = {
 			isa = PBXGroup;
 			children = (
+				60B7A5C91936797000A1F9EB /* GTLDrive_Sources.m */,
+				60B7A5CA1936797000A1F9EB /* GTLDrive.h */,
+				60B7A5B31936766200A1F9EB /* GTL.xcodeproj */,
 				60F03E1619137F09008D729B /* Exam+Methods.h */,
 				60F03E1719137F09008D729B /* Exam+Methods.m */,
 				6043C8E51925D960007DFAFB /* ALAssetsLibrary_CustomPhotoAlbum */,
@@ -494,6 +553,8 @@
 		6D2D5DB518318D9F00A58A96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */,
+				60B7A5C31936774000A1F9EB /* Security.framework */,
 				60B42323190AE512005A9ABD /* UIImage+Resize */,
 				60B4231C1908D27B005A9ABD /* NSMD_MetaData */,
 				60C1AE1A18F3507E00902F28 /* UIKit+AFNetworking */,
@@ -538,6 +599,8 @@
 				60418F2D189BB2ED0001D490 /* ImageCell.m */,
 				6D3260FC184BBD6200E34428 /* PatientsTableViewController.h */,
 				6D3260FD184BBD6200E34428 /* PatientsTableViewController.m */,
+				60441CCF193728B1000A017C /* SpecialistSelectionTableViewController.h */,
+				60441CD0193728B1000A017C /* SpecialistSelectionTableViewController.m */,
 				60C1AE0318F34DD400902F28 /* PatientTableViewCell.h */,
 				60C1AE0418F34DD400902F28 /* PatientTableViewCell.m */,
 				60B718A3193067C100E0F40A /* DataGenerator.h */,
@@ -551,6 +614,7 @@
 		6D2D5DBD18318D9F00A58A96 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				60B7A5C71936790100A1F9EB /* GTMOAuth2ViewTouch.xib */,
 				6D2D5DCE18318D9F00A58A96 /* Images.xcassets */,
 				F325703318D1AF1F00FEA80E /* default-configuration.plist */,
 				6D2D5DBE18318D9F00A58A96 /* AV Camera App-Info.plist */,
@@ -583,10 +647,10 @@
 			isa = PBXGroup;
 			children = (
 				6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */,
-				F3BE138C190C419800B23630 /* EyeImage.h */,
-				F3BE138D190C419800B23630 /* EyeImage.m */,
-				F3BE1389190C419800B23630 /* Exam.h */,
-				F3BE138A190C419800B23630 /* Exam.m */,
+				60441CC91937104C000A017C /* EyeImage.h */,
+				60441CCA1937104C000A017C /* EyeImage.m */,
+				60441CCC1937104D000A017C /* Exam.h */,
+				60441CCD1937104D000A017C /* Exam.m */,
 				6DD89D7B18426AD400F3C7FC /* CoreDataController.h */,
 				6DD89D7C18426AD400F3C7FC /* CoreDataController.m */,
 			);
@@ -728,6 +792,12 @@
 			mainGroup = 6D2D5DAA18318D9E00A58A96;
 			productRefGroup = 6D2D5DB418318D9F00A58A96 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 60B7A5B41936766200A1F9EB /* Products */;
+					ProjectRef = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				6D2D5DB218318D9F00A58A96 /* AV Camera App */,
@@ -735,6 +805,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		60B7A5BB1936766400A1F9EB /* GTL.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GTL.framework;
+			remoteRef = 60B7A5BA1936766400A1F9EB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		60B7A5BD1936766400A1F9EB /* libGTLTouchStaticLib.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libGTLTouchStaticLib.a;
+			remoteRef = 60B7A5BC1936766400A1F9EB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		60B7A5BF1936766400A1F9EB /* GTLUnitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GTLUnitTests.octest;
+			remoteRef = 60B7A5BE1936766400A1F9EB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		60B7A5C11936766400A1F9EB /* DevelopmentTestTool */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = DevelopmentTestTool;
+			remoteRef = 60B7A5C01936766400A1F9EB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6D2D5DB118318D9F00A58A96 /* Resources */ = {
@@ -749,6 +850,7 @@
 				F38224B818F7BB3F00D861FE /* retina_icon_top.png in Resources */,
 				F325702218CC0CD500FEA80E /* notes_icon.png in Resources */,
 				60B42325190AE69B005A9ABD /* flashOffWhite.png in Resources */,
+				60B7A5C81936790100A1F9EB /* GTMOAuth2ViewTouch.xib in Resources */,
 				F325702518CC0D3300FEA80E /* patient_icon_small.png in Resources */,
 				60B2E8F918C6EE7E00973C7E /* CameraModel.xcdatamodeld in Resources */,
 				F3FA32CC18B5E4B7000FACF4 /* im2.png in Resources */,
@@ -824,6 +926,7 @@
 				60B42337190F02FC005A9ABD /* ExamInfoTableViewController.m in Sources */,
 				60C1AE3C18F3507E00902F28 /* UIWebView+AFNetworking.m in Sources */,
 				60B718A5193067C100E0F40A /* DataGenerator.m in Sources */,
+				60441CCE1937104D000A017C /* Exam.m in Sources */,
 				60C1AE2D18F3507E00902F28 /* AFHTTPRequestOperationManager.m in Sources */,
 				F385B3011900E66400A3F974 /* BLEManager.m in Sources */,
 				60D8C7BD18C69BB1007D26A7 /* CellScopeContext.m in Sources */,
@@ -840,11 +943,13 @@
 				60C1AE3618F3507E00902F28 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				60C1AE3318F3507E00902F28 /* AFURLResponseSerialization.m in Sources */,
 				60B42334190EF236005A9ABD /* CellScopeHTTPClient.m in Sources */,
+				60441CCB1937104C000A017C /* EyeImage.m in Sources */,
 				60C1AE2C18F3507E00902F28 /* AFHTTPRequestOperation.m in Sources */,
 				60D8C7C518C69BB1007D26A7 /* ImageCell.m in Sources */,
 				60C1AE3218F3507E00902F28 /* AFURLRequestSerialization.m in Sources */,
 				6043C8E81925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				F325703118D1A9AE00FEA80E /* UIImage+Resize.m in Sources */,
+				60B7A5CB1936797000A1F9EB /* GTLDrive_Sources.m in Sources */,
 				60C1AE3B18F3507E00902F28 /* UIRefreshControl+AFNetworking.m in Sources */,
 				60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */,
 				60C1AE3918F3507E00902F28 /* UIImageView+AFNetworking.m in Sources */,
@@ -861,12 +966,11 @@
 				60D8C7CC18C69BB1007D26A7 /* main.m in Sources */,
 				F385B30A1900F85B00A3F974 /* AVCaptureManager.m in Sources */,
 				60C1AE3118F3507E00902F28 /* AFURLConnectionOperation.m in Sources */,
+				60441CD1193728B1000A017C /* SpecialistSelectionTableViewController.m in Sources */,
 				60D8C7CE18C69BB2007D26A7 /* BLE.m in Sources */,
 				603C44FD18DAE72F00402AE1 /* ExamInfoViewController.m in Sources */,
 				60D8C7D218C6BF87007D26A7 /* Constants.m in Sources */,
-				F3BE138E190C419800B23630 /* EyeImage.m in Sources */,
 				F385B3041900E6E200A3F974 /* Light.m in Sources */,
-				F3BE138B190C419800B23630 /* Exam.m in Sources */,
 				603B077A18DD26E2002179CD /* SettingsViewController.m in Sources */,
 				60C1AE3818F3507E00902F28 /* UIButton+AFNetworking.m in Sources */,
 				F325703018D1A9AE00FEA80E /* UIImage+Alpha.m in Sources */,
@@ -960,6 +1064,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "C98E6898-9B36-4A4B-91BB-21E79CC7AA13";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -991,6 +1096,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PROVISIONING_PROFILE = "C98E6898-9B36-4A4B-91BB-21E79CC7AA13";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1011,9 +1117,14 @@
 				GCC_PREFIX_HEADER = "AV Camera App/AV Camera App-Prefix.pch";
 				INFOPLIST_FILE = "AV Camera App/AV Camera App-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "~/Documents/google-api-objectivec-client-read-only/Source/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1033,9 +1144,14 @@
 				GCC_PREFIX_HEADER = "AV Camera App/AV Camera App-Prefix.pch";
 				INFOPLIST_FILE = "AV Camera App/AV Camera App-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "~/Documents/google-api-objectivec-client-read-only/Source/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

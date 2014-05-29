@@ -227,8 +227,9 @@
             NSLog(@"Error writing image to photo album");
         }
         else {
-            NSString *myString = [assetURL absoluteString];
-            NSString *myPath = [assetURL path];
+            
+            //NSString *myString = [assetURL absoluteString];
+            //NSString *myPath = [assetURL path];
             //NSLog(@"Super important! This is the file path!");
             //NSLog(@"%@", myString);
             //NSLog(@"%@", myPath);

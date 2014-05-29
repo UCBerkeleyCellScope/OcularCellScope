@@ -7,7 +7,7 @@
 	<key>numberOfImages</key>
 	<integer>4</integer>
 	<key>arduinoDelay</key>
-	<integer>40</integer>
+	<integer>60</integer>
 	<key>bleDelay</key>
 	<real>0.2</real>
 	<key>flashDuration</key>
@@ -32,5 +32,9 @@
 	<false/>
 	<key>fixationLightValue</key>
 	<integer>255</integer>
+	<key>CellScopeBTUUID</key>
+	<string></string>
+	<key>patientNumberIndex</key>
+	<integer>0</integer>
 </dict>
 </plist>

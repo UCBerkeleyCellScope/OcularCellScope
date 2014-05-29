@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C1021" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Exam" representedClassName="Exam" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="patientID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="patientID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="patientName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="eyeImages" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="EyeImage" inverseName="exam" inverseEntity="EyeImage" syncable="YES"/>
     </entity>
     <entity name="EyeImage" representedClassName="EyeImage" syncable="YES">
@@ -19,7 +20,7 @@
         <relationship name="exam" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Exam" inverseName="eyeImages" inverseEntity="Exam" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Exam" positionX="0" positionY="0" width="128" height="148"/>
+        <element name="Exam" positionX="0" positionY="0" width="128" height="163"/>
         <element name="EyeImage" positionX="250" positionY="-9" width="128" height="150"/>
     </elements>
 </model>

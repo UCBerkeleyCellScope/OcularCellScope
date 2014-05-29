@@ -127,7 +127,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     flashText = [flashText substringToIndex:4];
     [flashDuration setText: flashText];
     
-    self.multiText =  [ NSString stringWithFormat:@"%ld",[_prefs integerForKey: @"numberOfImages"]];
+    self.multiText =  [ NSString stringWithFormat:@"%ld",(long)[_prefs integerForKey: @"numberOfImages"]];
     [self selectUISegment: self.multiText];
 
     NSString *arduinoDelayText =  [ NSString stringWithFormat:@"%f",[_prefs floatForKey: @"arduinoDelay"]];

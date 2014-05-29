@@ -41,7 +41,6 @@
 
 - (void)viewWillAppear:(BOOL)animated{
    
-    NSLog([[CellScopeContext sharedContext]currentExam].description);
     [client updateDiagnosisForExam: [[CellScopeContext sharedContext]currentExam]];
     
     patientID = [[[CellScopeContext sharedContext] currentExam] patientID];

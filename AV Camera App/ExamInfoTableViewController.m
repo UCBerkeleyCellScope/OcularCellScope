@@ -9,16 +9,23 @@
 #import "ExamInfoTableViewController.h"
 #define SYSTEM_VERSION_LESS_THAN(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
+static NSString *const kKeychainItemName = @"Google Drive Quickstart";
+static NSString *const kClientID = @"1081725371247-qltk4n42c8j8fkciuct6qt9gn50n4h21.apps.googleusercontent.com";
+static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
+
+
 @interface ExamInfoTableViewController ()
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
-@property NSArray *physiciansArray;
+
 @property Exam* e;
 
 @end
 
 @implementation ExamInfoTableViewController
 
-@synthesize firstnameField, lastnameField, patientIDField, physiciansArray, profilePicButton;
+@synthesize firstnameField, lastnameField, profilePicButton, patientIDLabel, phoneNumberField;
+@synthesize birthDayTextField,birthMonthTextField,birthYearTextField;
+@synthesize driveService;
 //physicianField
 @synthesize e;
 
@@ -31,30 +38,26 @@
     return self;
 }
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return [physiciansArray count];
-}
-
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
-{
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 0.0f, 300.0f, 60.0f)]; //x and width are mutually correlated
-    label.textAlignment = NSTextAlignmentCenter;
-    [label setFont:[UIFont systemFontOfSize:17]];
-    label.text = [physiciansArray objectAtIndex:row];
-    return label;
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    if(indexPath) {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.driveService = [[GTLServiceDrive alloc] init];
+    self.driveService.authorizer = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName
+                                                                                         clientID:kClientID
+                                                                                     clientSecret:kClientSecret];
+    
     NSArray *fields = @[ self.firstnameField, self.lastnameField,
-                         self.patientIDField];
+                         ];
                          //,self.physicianField];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
@@ -64,15 +67,12 @@
     
     self.firstnameField.delegate=self;
     self.lastnameField.delegate=self;
-    self.patientIDField.delegate=self;
-    //self.physicianField.delegate=self;
-    
-    physiciansArray = (NSArray*) @[@"Dr. Harrison", @"Dr. Copeland", @"Dr. King", @"Dr. Liu"];
-    
-    
+    self.phoneNumberField.delegate=self;
+       
+   
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)];
     [self.tableView addGestureRecognizer:gestureRecognizer];
-
+   
     
     //self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
@@ -104,13 +104,10 @@
     
     // // // // ///
     //e.profilePicPath= mediaURL;
-
     UIImage *image = [info objectForKey: UIImagePickerControllerOriginalImage];
     
-    //[item setThumbnailDataFromImage:image];
+    [self uploadPhoto:image];
     
-    //Core Foundation objects.. Ref means its a Pointer
-    //Core Foundation a collection of C classes
     
     [profilePicButton setImage:image forState:UIControlStateNormal];
     
@@ -124,9 +121,13 @@
         [profilePicturePopover dismissPopoverAnimated:YES];
         profilePicturePopover =nil;
     }
+    [profilePicButton setHighlighted: NO];
+    
 }
 
-- (IBAction)profilePicturePressed:(id)sender {
+- (IBAction)didPressProfilePicture:(id)sender {
+    
+    [profilePicButton setHighlighted: YES];
     
     if([profilePicturePopover isPopoverVisible]){
         //Because you're making a new popover you need to destroy the old one, mamke it not visible
@@ -158,10 +159,12 @@
     //[self presentViewController: imagePicker animated:YES completion:nil];
     //See, we presentedViewController as a modal transition
     
+    
     if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad){
         profilePicturePopover = [[UIPopoverController alloc]
                               initWithContentViewController:imagePicker ];
         
+        NSLog(@"SHOULD ONLY SHOW ON IPAD)");
         [profilePicturePopover setDelegate:self];
         
         [profilePicturePopover presentPopoverFromBarButtonItem: sender
@@ -178,7 +181,6 @@
 }
 
 
-
 - (void)backgroundTapped {
     NSLog(@"Background Tapped");
     
@@ -186,8 +188,17 @@
 }
 
 
+
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    [self.tableView reloadData];
+    if(indexPath) {
+        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }
+    
     e = [[CellScopeContext sharedContext]currentExam];
     
     if(e.firstName != nil && e.lastName != nil)
@@ -201,9 +212,28 @@
         
     }
     
-    self.firstnameField.text = [[CellScopeContext sharedContext]currentExam].firstName;
-    self.lastnameField.text = [[CellScopeContext sharedContext]currentExam].lastName;
-    self.patientIDField.text = [[CellScopeContext sharedContext]currentExam].patientID;
+    self.firstnameField.text = e.firstName;
+    self.lastnameField.text = e.lastName;
+    
+    NSLog(e.patientID.description);
+    
+    if( e.patientID == 0){ // indicates a new exam
+        e.patientID = [[NSUserDefaults standardUserDefaults] objectForKey:@"patientNumberIndex"];
+        int value = [e.patientID intValue];
+        value=value+1;
+        
+        [[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithInt:value] forKey:@"patientNumberIndex" ];
+        NSLog(@"%d",value);
+        
+        e.patientID = [NSNumber numberWithInt: value];
+        //self.patientIDField.text = [e.patientID stringValue];
+        self.patientIDLabel.text = [e.patientID stringValue];
+    }
+    else{
+        //self.patientIDField.text = [e.patientID stringValue];
+        self.patientIDLabel.text = [e.patientID stringValue];
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -224,9 +254,7 @@
         e.lastName = lastnameField.text;
     else e.lastName = @"LAST";
     
-    if(![patientIDField.text isEqualToString: @""])
-        e.patientID = patientIDField.text;
-    else e.patientID = @"11111";
+    e.phoneNumber = phoneNumberField.text;
     
     // Commit to core data
     NSError *error;
@@ -262,6 +290,57 @@
     [self.tableView scrollToRowAtIndexPath:[self.tableView indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
+// Restrict phone textField to format 123-456-7890
+- (BOOL)textField:(UITextField *)textField
+shouldChangeCharactersInRange:(NSRange)range
+replacementString:(NSString *)string {
+    if (textField==phoneNumberField){
+        // All digits entered
+        if (range.location == 14) {
+            return NO;
+        }
+        
+        // Reject appending non-digit characters
+        if (range.length == 0 &&
+            ![[NSCharacterSet decimalDigitCharacterSet] characterIsMember:[string characterAtIndex:0]]) {
+            return NO;
+        }
+        
+        // Auto-add hyphen and parentheses
+        if (range.length == 0 && range.location == 3 &&![[textField.text substringToIndex:1] isEqualToString:@"("]) {
+            textField.text = [NSString stringWithFormat:@"(%@)-%@", textField.text,string];
+            return NO;
+        }
+        if (range.length == 0 && range.location == 4 &&[[textField.text substringToIndex:1] isEqualToString:@"("]) {
+            textField.text = [NSString stringWithFormat:@"%@)-%@", textField.text,string];
+            return NO;
+        }
+        
+        // Auto-add 2nd hyphen
+        if (range.length == 0 && range.location == 9) {
+            textField.text = [NSString stringWithFormat:@"%@-%@", textField.text, string];
+            return NO;
+        }
+        
+        // Delete hyphen and parentheses when deleting its trailing digit
+        if (range.length == 1 &&
+            (range.location == 10 || range.location == 1)){
+            range.location--;
+            range.length = 2;
+            textField.text = [textField.text stringByReplacingCharactersInRange:range withString:@""];
+            return NO;
+        }
+        if (range.length == 1 && range.location == 6){
+            range.location=range.location-2;
+            range.length = 3;
+            textField.text = [textField.text stringByReplacingCharactersInRange:range withString:@""];
+            return NO;
+        }
+    }
+    return YES;
+}
+
+
 #pragma mark -
 #pragma mark Keyboard Controls Delegate
 
@@ -283,6 +362,108 @@
     [self.view endEditing:YES];
 }
 
+- (BOOL)isAuthorized
+{
+    return [((GTMOAuth2Authentication *)self.driveService.authorizer) canAuthorize];
+}
+
+// Creates the auth controller for authorizing access to Google Drive.
+- (GTMOAuth2ViewControllerTouch *)createAuthController
+{
+    GTMOAuth2ViewControllerTouch *authController;
+    authController = [[GTMOAuth2ViewControllerTouch alloc] initWithScope:kGTLAuthScopeDriveFile
+                                                                clientID:kClientID
+                                                            clientSecret:kClientSecret
+                                                        keychainItemName:kKeychainItemName
+                                                                delegate:self
+                                                        finishedSelector:@selector(viewController:finishedWithAuth:error:)];
+    return authController;
+}
+
+// Handle completion of the authorization process, and updates the Drive service
+// with the new credentials.
+- (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController
+      finishedWithAuth:(GTMOAuth2Authentication *)authResult
+                 error:(NSError *)error
+{
+    if (error != nil)
+    {
+        [self showAlert:@"Authentication Error" message:error.localizedDescription];
+        self.driveService.authorizer = nil;
+    }
+    else
+    {
+        self.driveService.authorizer = authResult;
+    }
+}
+
+// Uploads a photo to Google Drive
+- (void)uploadPhoto:(UIImage*)image
+{
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"'Quickstart Uploaded File ('EEEE MMMM d, YYYY h:mm a, zzz')"];
+    
+    GTLDriveFile *file = [GTLDriveFile object];
+    file.title = [dateFormat stringFromDate:[NSDate date]];
+    file.descriptionProperty = @"Uploaded from the Google Drive iOS Quickstart";
+    file.mimeType = @"image/png";
+    
+    NSData *data = UIImagePNGRepresentation((UIImage *)image);
+    GTLUploadParameters *uploadParameters = [GTLUploadParameters uploadParametersWithData:data MIMEType:file.mimeType];
+    GTLQueryDrive *query = [GTLQueryDrive queryForFilesInsertWithObject:file
+                                                       uploadParameters:uploadParameters];
+    
+    UIAlertView *waitIndicator = [self showWaitIndicator:@"Uploading to Google Drive"];
+    
+    [self.driveService executeQuery:query
+                  completionHandler:^(GTLServiceTicket *ticket,
+                                      GTLDriveFile *insertedFile, NSError *error) {
+                      [waitIndicator dismissWithClickedButtonIndex:0 animated:YES];
+                      if (error == nil)
+                      {
+                          NSLog(@"File ID: %@", insertedFile.identifier);
+                          [self showAlert:@"Google Drive" message:@"File saved!"];
+                      }
+                      else
+                      {
+                          NSLog(@"An error occurred: %@", error);
+                          [self showAlert:@"Google Drive" message:@"Sorry, an error occurred!"];
+                      }
+                  }];
+}
+
+// Helper for showing a wait indicator in a popup
+- (UIAlertView*)showWaitIndicator:(NSString *)title
+{
+    UIAlertView *progressAlert;
+    progressAlert = [[UIAlertView alloc] initWithTitle:title
+                                               message:@"Please wait..."
+                                              delegate:nil
+                                     cancelButtonTitle:nil
+                                     otherButtonTitles:nil];
+    [progressAlert show];
+    
+    UIActivityIndicatorView *activityView;
+    activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    activityView.center = CGPointMake(progressAlert.bounds.size.width / 2,
+                                      progressAlert.bounds.size.height - 45);
+    
+    [progressAlert addSubview:activityView];
+    [activityView startAnimating];
+    return progressAlert;
+}
+
+// Helper for showing an alert
+- (void)showAlert:(NSString *)title message:(NSString *)message
+{
+    UIAlertView *alert;
+    alert = [[UIAlertView alloc] initWithTitle: title
+                                       message: message
+                                      delegate: nil
+                             cancelButtonTitle: @"OK"
+                             otherButtonTitles: nil];
+    [alert show];
+}
 
 #pragma mark - Table view data source
 
