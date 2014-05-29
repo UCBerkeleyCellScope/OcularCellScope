@@ -342,7 +342,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="coS-1d-XvQ">
-                                <rect key="frame" x="0.0" y="40" width="320" height="39"/>
+                                <rect key="frame" x="0.0" y="48" width="320" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.32436381609999998" green="0.52256058670000005" blue="0.4941006926" alpha="0.31" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -377,7 +377,7 @@
                             <constraint firstAttribute="centerY" secondItem="dfr-G7-7Q1" secondAttribute="centerY" id="hBh-Dp-p8g"/>
                             <constraint firstAttribute="trailing" secondItem="coS-1d-XvQ" secondAttribute="trailing" id="iWr-tw-GQo"/>
                             <constraint firstAttribute="centerX" secondItem="dfr-G7-7Q1" secondAttribute="centerX" id="pnc-0e-z9f"/>
-                            <constraint firstItem="coS-1d-XvQ" firstAttribute="top" secondItem="6vg-nH-LMo" secondAttribute="bottom" constant="40" id="zp1-nL-1ro"/>
+                            <constraint firstItem="coS-1d-XvQ" firstAttribute="top" secondItem="6vg-nH-LMo" secondAttribute="bottom" constant="48" id="zp1-nL-1ro"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Images" image="eye_icon_small.png" id="6ve-qZ-Svk"/>
@@ -1149,6 +1149,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="TBr-4c-NTm"/>
-        <segue reference="bxS-mp-ayJ"/>
+        <segue reference="yZ8-bd-Ndx"/>
     </inferredMetricsTieBreakers>
 </document>

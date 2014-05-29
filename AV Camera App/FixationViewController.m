@@ -66,6 +66,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     passedImages = [[NSMutableArray alloc]init];
     
+    [self setupFixationButtons];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -343,6 +344,16 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         isvc.images = passedImages;
     }
 
+}
+
+-(void) setupFixationButtons{
+    for(UIButton *button in self.fixationButtons){
+        button.layer.cornerRadius = button.frame.size.width / 2;
+        button.clipsToBounds = YES;
+        button.layer.borderWidth = 2.0f;
+        button.layer.borderColor = [UIColor whiteColor].CGColor;
+
+    }
 }
 
 
