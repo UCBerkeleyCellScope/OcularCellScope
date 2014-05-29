@@ -8,6 +8,7 @@
 
 #import "EyePhotoCell.h"
 #import "SelectableUIEyeImage.h"
+#import "SelectableEyeImage.h"
 #import "EyeImage.h"
 #import "Light.h"
 
@@ -16,33 +17,33 @@
 @synthesize eyeImage = _eyeImage;
 @synthesize eyeImageView = _eyeImageView;
 @synthesize fixationImageView = _fixationImageView;
+@synthesize scrollView = _scrollView;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
         [self updateCell];
     }
     
     return self;
 }
 
--(void) setEyeImage:(SelectableUIEyeImage *)eyeImage{
-    _eyeImage = eyeImage;
-    _eyeImageView.image = eyeImage;
+-(void) setEyeImage:(SelectableEyeImage *)image{
+    _eyeImage = image;
+    _eyeImageView.image = image;
     [self setFixationImageViewWithEyeImage];
     [self updateCell];
     
 }
 
 - (IBAction)didSelectImage:(id)sender {
-    NSLog(@"eyeImage exists? %d,  eyeImage.selected = %d", self.eyeImage != nil, self.eyeImage.selected);
     [self.eyeImage toggleSelected];
     [self updateCell];
 }
 
 - (void)updateCell{
+    self.eyeImageView.image = self.eyeImage;
     [self changeImageIconToSelected:self.eyeImage.selected];
 }
 
@@ -57,7 +58,7 @@
 }
 
 -(void) setFixationImageViewWithEyeImage{
-    EyeImage *cdImage = self.eyeImage.eyeImage;
+    EyeImage *cdImage = self.eyeImage.coreDataImage;
     switch(cdImage.fixationLight.intValue){
 
         case CENTER_LIGHT:
@@ -80,5 +81,12 @@
             break;
     }
 }
+
+/*
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.eyeImageView;
+}
+ */
 
 @end

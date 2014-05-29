@@ -89,8 +89,7 @@
 		F325703118D1A9AE00FEA80E /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = F325702D18D1A9AE00FEA80E /* UIImage+Resize.m */; };
 		F325703218D1A9AE00FEA80E /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = F325702F18D1A9AE00FEA80E /* UIImage+RoundedCorner.m */; };
 		F325703418D1AF1F00FEA80E /* default-configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = F325703318D1AF1F00FEA80E /* default-configuration.plist */; };
-		F325703D18D366FE00FEA80E /* EImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F325703C18D366FE00FEA80E /* EImage.m */; };
-		F325704418D3911200FEA80E /* selected_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F325704218D3911200FEA80E /* selected_icon.png */; };
+		F325703D18D366FE00FEA80E /* SelectableEyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F325703C18D366FE00FEA80E /* SelectableEyeImage.m */; };
 		F325704518D3911200FEA80E /* unselected_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F325704318D3911200FEA80E /* unselected_icon.png */; };
 		F356909318559CC700DBB4BE /* button_addpatients.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909218559CC700DBB4BE /* button_addpatients.png */; };
 		F356909718559ECA00DBB4BE /* button_viewpatients.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909518559ECA00DBB4BE /* button_viewpatients.png */; };
@@ -110,13 +109,32 @@
 		F385B3041900E6E200A3F974 /* Light.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3031900E6E200A3F974 /* Light.m */; };
 		F385B30A1900F85B00A3F974 /* AVCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3091900F85B00A3F974 /* AVCaptureManager.m */; };
 		F3A6034D18FE6A5F006BFFEC /* settings_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F3A6034C18FE6A5F006BFFEC /* settings_icon.png */; };
-		F3BE1388190AFB5400B23630 /* ImageScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BE1387190AFB5400B23630 /* ImageScrollViewController.m */; };
 		F3BE138B190C419800B23630 /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BE138A190C419800B23630 /* Exam.m */; };
 		F3BE138E190C419800B23630 /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BE138D190C419800B23630 /* EyeImage.m */; };
 		F3FA32CB18B5E4B7000FACF4 /* im1.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C718B5E4B7000FACF4 /* im1.png */; };
 		F3FA32CC18B5E4B7000FACF4 /* im2.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C818B5E4B7000FACF4 /* im2.png */; };
 		F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C918B5E4B7000FACF4 /* im3.png */; };
 		F3FA32CE18B5E4B7000FACF4 /* im4.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32CA18B5E4B7000FACF4 /* im4.png */; };
+		F3FCC95A19369BA10093A1EB /* bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC94519369BA10093A1EB /* bottom.png */; };
+		F3FCC95B19369BA10093A1EB /* center.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC94619369BA10093A1EB /* center.png */; };
+		F3FCC95C19369BA10093A1EB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC94719369BA10093A1EB /* Default-568h@2x.png */; };
+		F3FCC95D19369BA10093A1EB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC94819369BA10093A1EB /* Default.png */; };
+		F3FCC95E19369BA10093A1EB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC94919369BA10093A1EB /* Default@2x.png */; };
+		F3FCC95F19369BA10093A1EB /* delete_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC94A19369BA10093A1EB /* delete_icon.png */; };
+		F3FCC96019369BA10093A1EB /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC94B19369BA10093A1EB /* Icon.png */; };
+		F3FCC96119369BA10093A1EB /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC94C19369BA10093A1EB /* Icon@2x.png */; };
+		F3FCC96219369BA10093A1EB /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC94D19369BA10093A1EB /* left.png */; };
+		F3FCC96319369BA10093A1EB /* notes_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC94E19369BA10093A1EB /* notes_icon@2x.png */; };
+		F3FCC96419369BA10093A1EB /* patient_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC94F19369BA10093A1EB /* patient_icon@2x.png */; };
+		F3FCC96519369BA10093A1EB /* red_retina@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC95019369BA10093A1EB /* red_retina@2x.png */; };
+		F3FCC96619369BA10093A1EB /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC95119369BA10093A1EB /* right.png */; };
+		F3FCC96719369BA10093A1EB /* title_image.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC95219369BA10093A1EB /* title_image.png */; };
+		F3FCC96819369BA10093A1EB /* top.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC95319369BA10093A1EB /* top.png */; };
+		F3FCC96919369BA10093A1EB /* white_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC95419369BA10093A1EB /* white_logo.png */; };
+		F3FCC96A19369BA10093A1EB /* yellow_retina.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC95519369BA10093A1EB /* yellow_retina.png */; };
+		F3FCC96B19369BA10093A1EB /* CameraModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3FCC95619369BA10093A1EB /* CameraModel.xcdatamodeld */; };
+		F3FCC96C19369BA10093A1EB /* SelectableUIEyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F3FCC95919369BA10093A1EB /* SelectableUIEyeImage.m */; };
+		F3FCC97119369F180093A1EB /* EyePhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3FCC96E19369F180093A1EB /* EyePhotoCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -266,9 +284,8 @@
 		F325702E18D1A9AE00FEA80E /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+RoundedCorner.h"; path = "AV Camera App/UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
 		F325702F18D1A9AE00FEA80E /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+RoundedCorner.m"; path = "AV Camera App/UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		F325703318D1AF1F00FEA80E /* default-configuration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "default-configuration.plist"; path = "../default-configuration.plist"; sourceTree = "<group>"; };
-		F325703B18D366FE00FEA80E /* EImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EImage.h; sourceTree = "<group>"; };
-		F325703C18D366FE00FEA80E /* EImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EImage.m; sourceTree = "<group>"; };
-		F325704218D3911200FEA80E /* selected_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected_icon.png; sourceTree = "<group>"; };
+		F325703B18D366FE00FEA80E /* SelectableEyeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectableEyeImage.h; sourceTree = "<group>"; };
+		F325703C18D366FE00FEA80E /* SelectableEyeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectableEyeImage.m; sourceTree = "<group>"; };
 		F325704318D3911200FEA80E /* unselected_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselected_icon.png; sourceTree = "<group>"; };
 		F356909218559CC700DBB4BE /* button_addpatients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_addpatients.png; path = images/button_addpatients.png; sourceTree = "<group>"; };
 		F356909518559ECA00DBB4BE /* button_viewpatients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_viewpatients.png; path = images/button_viewpatients.png; sourceTree = "<group>"; };
@@ -292,8 +309,6 @@
 		F385B3081900F85B00A3F974 /* AVCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVCaptureManager.h; path = ../AVCaptureManager.h; sourceTree = "<group>"; };
 		F385B3091900F85B00A3F974 /* AVCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVCaptureManager.m; path = ../AVCaptureManager.m; sourceTree = "<group>"; };
 		F3A6034C18FE6A5F006BFFEC /* settings_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_icon.png; sourceTree = "<group>"; };
-		F3BE1386190AFB5400B23630 /* ImageScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScrollViewController.h; sourceTree = "<group>"; };
-		F3BE1387190AFB5400B23630 /* ImageScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScrollViewController.m; sourceTree = "<group>"; };
 		F3BE1389190C419800B23630 /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
 		F3BE138A190C419800B23630 /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
 		F3BE138C190C419800B23630 /* EyeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeImage.h; sourceTree = "<group>"; };
@@ -304,6 +319,28 @@
 		F3FA32C818B5E4B7000FACF4 /* im2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im2.png; sourceTree = "<group>"; };
 		F3FA32C918B5E4B7000FACF4 /* im3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im3.png; sourceTree = "<group>"; };
 		F3FA32CA18B5E4B7000FACF4 /* im4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im4.png; sourceTree = "<group>"; };
+		F3FCC94519369BA10093A1EB /* bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottom.png; sourceTree = "<group>"; };
+		F3FCC94619369BA10093A1EB /* center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = center.png; sourceTree = "<group>"; };
+		F3FCC94719369BA10093A1EB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		F3FCC94819369BA10093A1EB /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		F3FCC94919369BA10093A1EB /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		F3FCC94A19369BA10093A1EB /* delete_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete_icon.png; sourceTree = "<group>"; };
+		F3FCC94B19369BA10093A1EB /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		F3FCC94C19369BA10093A1EB /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		F3FCC94D19369BA10093A1EB /* left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left.png; sourceTree = "<group>"; };
+		F3FCC94E19369BA10093A1EB /* notes_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notes_icon@2x.png"; sourceTree = "<group>"; };
+		F3FCC94F19369BA10093A1EB /* patient_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "patient_icon@2x.png"; sourceTree = "<group>"; };
+		F3FCC95019369BA10093A1EB /* red_retina@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red_retina@2x.png"; sourceTree = "<group>"; };
+		F3FCC95119369BA10093A1EB /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right.png; sourceTree = "<group>"; };
+		F3FCC95219369BA10093A1EB /* title_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title_image.png; sourceTree = "<group>"; };
+		F3FCC95319369BA10093A1EB /* top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = top.png; sourceTree = "<group>"; };
+		F3FCC95419369BA10093A1EB /* white_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white_logo.png; sourceTree = "<group>"; };
+		F3FCC95519369BA10093A1EB /* yellow_retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellow_retina.png; sourceTree = "<group>"; };
+		F3FCC95719369BA10093A1EB /* CameraModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CameraModel.xcdatamodel; sourceTree = "<group>"; };
+		F3FCC95819369BA10093A1EB /* SelectableUIEyeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectableUIEyeImage.h; sourceTree = "<group>"; };
+		F3FCC95919369BA10093A1EB /* SelectableUIEyeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectableUIEyeImage.m; sourceTree = "<group>"; };
+		F3FCC96D19369F180093A1EB /* EyePhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyePhotoCell.h; sourceTree = "<group>"; };
+		F3FCC96E19369F180093A1EB /* EyePhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyePhotoCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -461,8 +498,8 @@
 				60C1AE0618F3507E00902F28 /* AFNetworking */,
 				6D2D5DBC18318D9F00A58A96 /* AV Camera App */,
 				6DD89D211842666C00F3C7FC /* Core Data */,
-				F325703B18D366FE00FEA80E /* EImage.h */,
-				F325703C18D366FE00FEA80E /* EImage.m */,
+				F325703B18D366FE00FEA80E /* SelectableEyeImage.h */,
+				F325703C18D366FE00FEA80E /* SelectableEyeImage.m */,
 				F385B2FF1900E66400A3F974 /* BLEManager.h */,
 				F385B3001900E66400A3F974 /* BLEManager.m */,
 				F385B3021900E6E200A3F974 /* Light.h */,
@@ -473,6 +510,8 @@
 				60B42333190EF236005A9ABD /* CellScopeHTTPClient.m */,
 				60C2A51B18C19F2800021510 /* CellScopeContext.h */,
 				60C2A51C18C19F2800021510 /* CellScopeContext.m */,
+				F3FCC95819369BA10093A1EB /* SelectableUIEyeImage.h */,
+				F3FCC95919369BA10093A1EB /* SelectableUIEyeImage.m */,
 				6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */,
 				6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */,
 				F356909418559CCA00DBB4BE /* Images */,
@@ -522,8 +561,6 @@
 				60B42339190F0B7F005A9ABD /* UIColor+Custom.m */,
 				60F03E1919138446008D729B /* FixationViewController.h */,
 				60A0865E18C069C900A2667D /* FixationViewController.m */,
-				F3BE1386190AFB5400B23630 /* ImageScrollViewController.h */,
-				F3BE1387190AFB5400B23630 /* ImageScrollViewController.m */,
 				60C1AE0018F346E700902F28 /* DiagnosisViewController.h */,
 				60C1AE0118F346E700902F28 /* DiagnosisViewController.m */,
 				603B077B18DD810B002179CD /* TabViewController.h */,
@@ -532,6 +569,8 @@
 				60B42336190F02FC005A9ABD /* ExamInfoTableViewController.m */,
 				F3FA32C418B5D6BF000FACF4 /* ImageSelectionViewController.h */,
 				F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */,
+				F3FCC96D19369F180093A1EB /* EyePhotoCell.h */,
+				F3FCC96E19369F180093A1EB /* EyePhotoCell.m */,
 				603B077818DD26E2002179CD /* SettingsViewController.h */,
 				603B077918DD26E2002179CD /* SettingsViewController.m */,
 				60418F2C189BB2ED0001D490 /* ImageCell.h */,
@@ -596,6 +635,24 @@
 		F356909418559CCA00DBB4BE /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F3FCC94519369BA10093A1EB /* bottom.png */,
+				F3FCC94619369BA10093A1EB /* center.png */,
+				F3FCC94719369BA10093A1EB /* Default-568h@2x.png */,
+				F3FCC94819369BA10093A1EB /* Default.png */,
+				F3FCC94919369BA10093A1EB /* Default@2x.png */,
+				F3FCC94A19369BA10093A1EB /* delete_icon.png */,
+				F3FCC94B19369BA10093A1EB /* Icon.png */,
+				F3FCC94C19369BA10093A1EB /* Icon@2x.png */,
+				F3FCC94D19369BA10093A1EB /* left.png */,
+				F3FCC94E19369BA10093A1EB /* notes_icon@2x.png */,
+				F3FCC94F19369BA10093A1EB /* patient_icon@2x.png */,
+				F3FCC95019369BA10093A1EB /* red_retina@2x.png */,
+				F3FCC95119369BA10093A1EB /* right.png */,
+				F3FCC95219369BA10093A1EB /* title_image.png */,
+				F3FCC95319369BA10093A1EB /* top.png */,
+				F3FCC95419369BA10093A1EB /* white_logo.png */,
+				F3FCC95519369BA10093A1EB /* yellow_retina.png */,
+				F3FCC95619369BA10093A1EB /* CameraModel.xcdatamodeld */,
 				60B4232C190B1663005A9ABD /* green_icon.png */,
 				60B4232A190B14F3005A9ABD /* GREENsettings_icon.png */,
 				60B42328190AFFC7005A9ABD /* redDot.png */,
@@ -606,7 +663,6 @@
 				F38224B118F7BB3F00D861FE /* retina_icon_left.png */,
 				F38224B218F7BB3F00D861FE /* retina_icon_right.png */,
 				F38224B318F7BB3F00D861FE /* retina_icon_top.png */,
-				F325704218D3911200FEA80E /* selected_icon.png */,
 				60C7746A1916394100731B3A /* title.png */,
 				F325704318D3911200FEA80E /* unselected_icon.png */,
 				60B2E8FB18C717B100973C7E /* img.jpeg */,
@@ -741,29 +797,45 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3FCC96719369BA10093A1EB /* title_image.png in Resources */,
+				F3FCC96819369BA10093A1EB /* top.png in Resources */,
+				F3FCC95E19369BA10093A1EB /* Default@2x.png in Resources */,
 				F325701218CAA87200FEA80E /* x_button.png in Resources */,
+				F3FCC96019369BA10093A1EB /* Icon.png in Resources */,
 				60B42329190AFFC7005A9ABD /* redDot.png in Resources */,
 				60B4232B190B14F3005A9ABD /* GREENsettings_icon.png in Resources */,
 				F325702018CC0CD100FEA80E /* patient_icon.png in Resources */,
+				F3FCC96219369BA10093A1EB /* left.png in Resources */,
 				60B718A2192DD16900E0F40A /* long-beep.wav in Resources */,
+				F3FCC96A19369BA10093A1EB /* yellow_retina.png in Resources */,
 				F38224B818F7BB3F00D861FE /* retina_icon_top.png in Resources */,
 				F325702218CC0CD500FEA80E /* notes_icon.png in Resources */,
+				F3FCC96919369BA10093A1EB /* white_logo.png in Resources */,
 				60B42325190AE69B005A9ABD /* flashOffWhite.png in Resources */,
 				F325702518CC0D3300FEA80E /* patient_icon_small.png in Resources */,
 				60B2E8F918C6EE7E00973C7E /* CameraModel.xcdatamodeld in Resources */,
 				F3FA32CC18B5E4B7000FACF4 /* im2.png in Resources */,
+				F3FCC96119369BA10093A1EB /* Icon@2x.png in Resources */,
 				60B4232D190B1663005A9ABD /* green_icon.png in Resources */,
 				F3FA32CB18B5E4B7000FACF4 /* im1.png in Resources */,
+				F3FCC95B19369BA10093A1EB /* center.png in Resources */,
 				F325702818CC0E4100FEA80E /* eye_icon_small.png in Resources */,
+				F3FCC95A19369BA10093A1EB /* bottom.png in Resources */,
 				60B2E8FC18C717B100973C7E /* img.jpeg in Resources */,
+				F3FCC95C19369BA10093A1EB /* Default-568h@2x.png in Resources */,
 				F38224B618F7BB3F00D861FE /* retina_icon_left.png in Resources */,
+				F3FCC95D19369BA10093A1EB /* Default.png in Resources */,
 				F38224B418F7BB3F00D861FE /* retina_icon_bottom.png in Resources */,
 				6D2D5DCF18318D9F00A58A96 /* Images.xcassets in Resources */,
+				F3FCC96519369BA10093A1EB /* red_retina@2x.png in Resources */,
 				F3A6034D18FE6A5F006BFFEC /* settings_icon.png in Resources */,
+				F3FCC96319369BA10093A1EB /* notes_icon@2x.png in Resources */,
 				F325704518D3911200FEA80E /* unselected_icon.png in Resources */,
 				F358E316185A82E600872304 /* capture2.png in Resources */,
+				F3FCC95F19369BA10093A1EB /* delete_icon.png in Resources */,
 				F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */,
 				F325700C18CAA04600FEA80E /* capture_button.png in Resources */,
+				F3FCC96619369BA10093A1EB /* right.png in Resources */,
 				F356909718559ECA00DBB4BE /* button_viewpatients.png in Resources */,
 				60C7746D19163A0800731B3A /* title.png in Resources */,
 				60C7746B1916394100731B3A /* title.png in Resources */,
@@ -778,10 +850,10 @@
 				F358E31B185A859900872304 /* Icon.png in Resources */,
 				F358E315185A82E600872304 /* capture_back.png in Resources */,
 				F358E31C185A859900872304 /* Icon@2x.png in Resources */,
+				F3FCC96419369BA10093A1EB /* patient_icon@2x.png in Resources */,
 				60AECE6718D8CD1A00C4EA15 /* Main.storyboard in Resources */,
 				F356909318559CC700DBB4BE /* button_addpatients.png in Resources */,
 				60B718A1192DD16900E0F40A /* beepbeep.wav in Resources */,
-				F325704418D3911200FEA80E /* selected_icon.png in Resources */,
 				F3FA32CE18B5E4B7000FACF4 /* im4.png in Resources */,
 				F38224B718F7BB3F00D861FE /* retina_icon_right.png in Resources */,
 			);
@@ -835,7 +907,6 @@
 				60B4233A190F0B7F005A9ABD /* UIColor+Custom.m in Sources */,
 				60C1AE3418F3507E00902F28 /* AFURLSessionManager.m in Sources */,
 				603B077D18DD810B002179CD /* TabViewController.m in Sources */,
-				F3BE1388190AFB5400B23630 /* ImageScrollViewController.m in Sources */,
 				60C1AE2E18F3507E00902F28 /* AFHTTPSessionManager.m in Sources */,
 				60C1AE3618F3507E00902F28 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				60C1AE3318F3507E00902F28 /* AFURLResponseSerialization.m in Sources */,
@@ -848,8 +919,9 @@
 				60C1AE3B18F3507E00902F28 /* UIRefreshControl+AFNetworking.m in Sources */,
 				60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */,
 				60C1AE3918F3507E00902F28 /* UIImageView+AFNetworking.m in Sources */,
+				F3FCC96B19369BA10093A1EB /* CameraModel.xcdatamodeld in Sources */,
 				60D8C7C618C69BB1007D26A7 /* MainMenuViewController.m in Sources */,
-				F325703D18D366FE00FEA80E /* EImage.m in Sources */,
+				F325703D18D366FE00FEA80E /* SelectableEyeImage.m in Sources */,
 				60C1AE3A18F3507E00902F28 /* UIProgressView+AFNetworking.m in Sources */,
 				F385B2FE1900E31E00A3F974 /* CamViewController.m in Sources */,
 				60C1AE3718F3507E00902F28 /* UIAlertView+AFNetworking.m in Sources */,
@@ -858,6 +930,7 @@
 				60C1AE2F18F3507E00902F28 /* AFNetworkReachabilityManager.m in Sources */,
 				F325703218D1A9AE00FEA80E /* UIImage+RoundedCorner.m in Sources */,
 				603B077318DCB8F1002179CD /* BSKeyboardControls.m in Sources */,
+				F3FCC96C19369BA10093A1EB /* SelectableUIEyeImage.m in Sources */,
 				60D8C7CC18C69BB1007D26A7 /* main.m in Sources */,
 				F385B30A1900F85B00A3F974 /* AVCaptureManager.m in Sources */,
 				60C1AE3118F3507E00902F28 /* AFURLConnectionOperation.m in Sources */,
@@ -866,6 +939,7 @@
 				60D8C7D218C6BF87007D26A7 /* Constants.m in Sources */,
 				F3BE138E190C419800B23630 /* EyeImage.m in Sources */,
 				F385B3041900E6E200A3F974 /* Light.m in Sources */,
+				F3FCC97119369F180093A1EB /* EyePhotoCell.m in Sources */,
 				F3BE138B190C419800B23630 /* Exam.m in Sources */,
 				603B077A18DD26E2002179CD /* SettingsViewController.m in Sources */,
 				60C1AE3818F3507E00902F28 /* UIButton+AFNetworking.m in Sources */,
@@ -1119,6 +1193,16 @@
 				6DD89D1F1842629600F3C7FC /* CameraModel.xcdatamodel */,
 			);
 			currentVersion = 6DD89D1F1842629600F3C7FC /* CameraModel.xcdatamodel */;
+			path = CameraModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		F3FCC95619369BA10093A1EB /* CameraModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F3FCC95719369BA10093A1EB /* CameraModel.xcdatamodel */,
+			);
+			currentVersion = F3FCC95719369BA10093A1EB /* CameraModel.xcdatamodel */;
 			path = CameraModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -27,6 +27,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *captureButton;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *aiv;
 @property (weak, nonatomic) IBOutlet UIImageView *capturedImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *fixationImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *redOffIndicator;
 @property (weak, nonatomic) IBOutlet UIImageView *flashOffIndicator;
 
@@ -37,6 +38,7 @@
 @property (copy, nonatomic) NSString *selectedEye;
 @property (assign, nonatomic) BOOL debugMode;
 @property (assign, nonatomic) BOOL mirroredView;
+@property (assign, nonatomic) BOOL fullscreeningMode;
 
 //- (IBAction)tappedToFocus:(UITapGestureRecognizer *)sender;
 //- (IBAction)longPressedToCapture:(UILongPressGestureRecognizer *) longPress;

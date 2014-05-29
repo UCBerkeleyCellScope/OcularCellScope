@@ -243,10 +243,20 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 {
     if ([[segue identifier] isEqualToString:@"CamViewSegue"])
     {
-
+        
         NSLog(@"Preparing for CamViewSegue");
         CamViewController* cvc = (CamViewController*)[segue destinationViewController];
         [[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
+        cvc.fullscreeningMode = NO;
+        
+    }
+    if ([[segue identifier] isEqualToString:@"FullScreeningSegue"])
+    {
+        
+        NSLog(@"Preparing for FullScreeningSegue");
+        CamViewController* cvc = (CamViewController*)[segue destinationViewController];
+        [[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
+        cvc.fullscreeningMode = YES;
         
     }
     
@@ -318,12 +328,12 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                 
                 UIImage *th = [UIImage imageWithData: i.thumbnail];
                              
-                EImage *image = [[EImage alloc] initWithUIImage: th
+                SelectableEyeImage *image = [[SelectableEyeImage alloc] initWithUIImage: th
                                                         date: i.date
                                                          eye: i.eye
                                                fixationLight: i.fixationLight
                                                       thumbnail: th];
-                
+                image.coreDataImage = i;
                 [passedImages addObject: image];
         
             }

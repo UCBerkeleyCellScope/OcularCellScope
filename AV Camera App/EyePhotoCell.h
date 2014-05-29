@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-@class SelectableUIEyeImage;
+@class SelectableEyeImage;
 
-@interface EyePhotoCell : UICollectionViewCell
+@interface EyePhotoCell : UICollectionViewCell <UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIButton *selectButton;
 @property (strong, nonatomic) IBOutlet UIImageView *eyeImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *fixationImageView;
-@property (strong, nonatomic) SelectableUIEyeImage *eyeImage;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) SelectableEyeImage *eyeImage;
 - (IBAction)didSelectImage:(id)sender;
 - (void)updateCell;
 

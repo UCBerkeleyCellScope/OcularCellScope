@@ -7,23 +7,27 @@
 //
 
 #import <UIKit/UIKit.h>
+@class EyeImage;
 
-@interface EImage : UIImage
+@interface SelectableEyeImage : UIImage
 
 @property (nonatomic, strong) NSDate * date;
 @property (nonatomic, strong) NSString * eye;
 @property (nonatomic, strong) NSString * filePath;
 @property (nonatomic) int fixationLight;
+@property (nonatomic, weak) EyeImage *coreDataImage;
 @property (nonatomic, strong) UIImage * thumbnail;
 @property (assign, nonatomic, getter = isSelected) BOOL selected;
 
--(id) initWithData:(NSData *)data date:(NSDate*) date
+-(id) initWithData:(NSData *)data
+              date:(NSDate*) date
                eye:(NSString*) eye
      fixationLight:(int) fixationLight;
+
 - (id) initWithUIImage: (UIImage*) image
                   date:(NSDate*) date
                    eye:(NSString*) eye
-         fixationLight: fixationLight
+         fixationLight: (int) fixationLight
              thumbnail:(UIImage*) thumbnail;
 
 +(BOOL) containsSelectedImageInArray:(NSMutableArray*) imageArray;

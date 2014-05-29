@@ -26,7 +26,7 @@
 @property (nonatomic) int selectedLight;
 
 @property (strong, nonatomic) EyeImage * currentEyeImage;
-@property (strong, nonatomic) EImage* currentEImage;
+@property (strong, nonatomic) SelectableEyeImage* currentEImage;
 
 @property (strong, nonatomic) NSArray* imageArray;
 @property NSMutableArray *eyeImages;
