@@ -16,7 +16,7 @@ static NSString * const CellScopeURLString = @"http://warm-dawn-6399.herokuapp.c
 
 @implementation CellScopeContext
 
-@synthesize selectedEye, currentExam, connected, bleManager, camViewLoaded, client;
+@synthesize selectedEye, currentExam, connected, bleManager, camViewLoaded, client, s3manager;
 
 + (id)sharedContext {
     static CellScopeContext *newContext = nil;
@@ -34,6 +34,7 @@ static NSString * const CellScopeURLString = @"http://warm-dawn-6399.herokuapp.c
         connected = NO;
         camViewLoaded = NO;
         bleManager = [[BLEManager alloc]init];
+        s3manager = [[S3manager alloc]init];
         client = [[CellScopeHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:CellScopeURLString]];
         
         

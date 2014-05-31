@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SpecialistSelectionTableViewController : UITableViewController
+@interface StudySelectionTableViewController : UITableViewController
 
 @end

@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
-#import "SpecialistSelectionTableViewController.h"
+#import "StudySelectionTableViewController.h"
 
-@interface SpecialistSelectionTableViewController ()
+@interface StudySelectionTableViewController ()
 @property NSArray *physiciansArray;
 @end
 
-@implementation SpecialistSelectionTableViewController
+@implementation StudySelectionTableViewController
 @synthesize physiciansArray;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -36,7 +36,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    physiciansArray = (NSArray*) @[@"Dr. Harrison", @"Dr. Copeland", @"Dr. King", @"Dr. Liu"];
+    physiciansArray = (NSArray*) @[@"Trachoma", @"Loa-Loa", @"CMV Retinitis", @"Diabetic Retinopathy"];
 }
 
 - (void)didReceiveMemoryWarning

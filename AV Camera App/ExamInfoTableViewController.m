@@ -23,9 +23,11 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 
 @implementation ExamInfoTableViewController
 
-@synthesize firstnameField, lastnameField, profilePicButton, patientIDLabel, phoneNumberField;
+@synthesize firstnameField, lastnameField, profilePicButton, patientIDLabel,  phoneNumberField, patientIDTextField;
 @synthesize birthDayTextField,birthMonthTextField,birthYearTextField;
 @synthesize driveService;
+@synthesize s3manager;
+
 //physicianField
 @synthesize e;
 
@@ -56,25 +58,29 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
                                                                                          clientID:kClientID
                                                                                      clientSecret:kClientSecret];
     
+    self.s3manager = [[CellScopeContext sharedContext]s3manager];
+    
     NSArray *fields = @[ self.firstnameField, self.lastnameField,
                          ];
                          //,self.physicianField];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    
     
     //[self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:fields]];
     //[self.keyboardControls setDelegate:self];
     
     self.firstnameField.delegate=self;
     self.lastnameField.delegate=self;
+    
+    self.birthDayTextField.delegate=self;
+    self.birthMonthTextField.delegate=self;
+    self.birthYearTextField.delegate=self;
+    
     self.phoneNumberField.delegate=self;
+    self.patientIDTextField.delegate=self;
        
    
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)];
     [self.tableView addGestureRecognizer:gestureRecognizer];
-   
-    
-    //self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     firstnameField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     lastnameField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
@@ -83,46 +89,60 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
     
 }
 
-- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+- (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     
-    //Now, what if it's a video? There's no UIVideo class.
-    //Video is written to disk in a temporary directory
-    //When user finalizes recording, the message is sent to the delegate (this file)
-    //The PATH of the video on disk is in the info dictionary
-    NSURL *mediaURL = [info objectForKey:UIImagePickerControllerMediaURL];
-    //Temporary is not safe, it needs to be moved
-    
-    if(mediaURL){
-        //apparently NSURLs, not NSStrings, have paths
-        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum([mediaURL path]))
-        {
-            UISaveVideoAtPathToSavedPhotosAlbum([mediaURL path], nil, nil, nil);
-            [[NSFileManager defaultManager] removeItemAtPath:[mediaURL path] error:nil];
-        }
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    [self.tableView reloadData];
+    if(indexPath) {
+        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
     
-    // // // // ///
-    //e.profilePicPath= mediaURL;
-    UIImage *image = [info objectForKey: UIImagePickerControllerOriginalImage];
+    e = [[CellScopeContext sharedContext]currentExam];
     
-    [self uploadPhoto:image];
-    
-    
-    [profilePicButton setImage:image forState:UIControlStateNormal];
-    
-    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+    if(e.firstName != nil && e.lastName != nil)
     {
-        // If on the phone, image picker is presented modally, so Dismiss it
-        [self dismissViewControllerAnimated:YES completion:nil];
+        self.tabBarController.title = [NSString stringWithFormat:@"%@ %@",
+                                       e.firstName,
+                                       e.lastName];
     }
     else{
-        //We dismiss popovers differently
-        [profilePicturePopover dismissPopoverAnimated:YES];
-        profilePicturePopover =nil;
+        self.tabBarController.title = @"New Exam";
+        
     }
-    [profilePicButton setHighlighted: NO];
     
+    self.firstnameField.text = e.firstName;
+    self.lastnameField.text = e.lastName;
+    self.patientIDTextField.text = e.patientID;
+    self.phoneNumberField.text = e.phoneNumber;
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:e.date];
+    
+    self.birthDayTextField.text = [NSString stringWithFormat: @"%d", (int)[components day]];
+    self.birthMonthTextField.text = [NSString stringWithFormat: @"%d", (int)[components month]];
+    self.birthYearTextField.text = [NSString stringWithFormat: @"%d", (int)[components year]];
+    
+    if(e.profilePicData){
+        [self.profilePicButton setImage:[UIImage imageWithData:e.profilePicData] forState:UIControlStateNormal];
+    }
+    
+    if( e.patientIndex == 0){ // indicates a new exam
+        e.patientIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"patientNumberIndex"];
+        int value = [e.patientIndex intValue];
+        value=value+1;
+        
+        [[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithInt:value] forKey:@"patientNumberIndex" ];
+        NSLog(@"%d",value);
+        
+        e.patientIndex = [NSNumber numberWithInt: value];
+        //self.patientIDField.text = [e.patientID stringValue];
+        self.patientIDLabel.text = [e.patientIndex stringValue];
+    }
+    else{
+        //self.patientIDField.text = [e.patientID stringValue];
+        self.patientIDLabel.text = [e.patientIndex stringValue];
+        
+    }
 }
 
 - (IBAction)didPressProfilePicture:(id)sender {
@@ -162,14 +182,14 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
     
     if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad){
         profilePicturePopover = [[UIPopoverController alloc]
-                              initWithContentViewController:imagePicker ];
+                                 initWithContentViewController:imagePicker ];
         
         NSLog(@"SHOULD ONLY SHOW ON IPAD)");
         [profilePicturePopover setDelegate:self];
         
         [profilePicturePopover presentPopoverFromBarButtonItem: sender
-                                   permittedArrowDirections: UIPopoverArrowDirectionAny
-                                                   animated: YES];
+                                      permittedArrowDirections: UIPopoverArrowDirectionAny
+                                                      animated: YES];
         
         //BTW UIPopoverControllers only work on iPad
     }
@@ -180,60 +200,78 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
     
 }
 
+- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    
+    //Now, what if it's a video? There's no UIVideo class.
+    //Video is written to disk in a temporary directory
+    //When user finalizes recording, the message is sent to the delegate (this file)
+    //The PATH of the video on disk is in the info dictionary
+    NSURL *mediaURL = [info objectForKey:UIImagePickerControllerMediaURL];
+    //Temporary is not safe, it needs to be moved
+    
+    if(mediaURL){
+        //apparently NSURLs, not NSStrings, have paths
+        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum([mediaURL path]))
+        {
+            UISaveVideoAtPathToSavedPhotosAlbum([mediaURL path], nil, nil, nil);
+            [[NSFileManager defaultManager] removeItemAtPath:[mediaURL path] error:nil];
+        }
+    }
+    
+    // // // // ///
+    //e.profilePicPath= mediaURL;
+    UIImage *image = [info objectForKey: UIImagePickerControllerOriginalImage];
+    
+    //Crop the image to a square
+    CGSize imageSize = image.size;
+    CGFloat width = imageSize.width;
+    CGFloat height = imageSize.height;
+    if (width != height) {
+        CGFloat newDimension = MIN(width, height);
+        CGFloat widthOffset = (width - newDimension) / 2;
+        CGFloat heightOffset = (height - newDimension) / 2;
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(newDimension, newDimension), NO, 0.);
+        [image drawAtPoint:CGPointMake(-widthOffset, -heightOffset)
+                 blendMode:kCGBlendModeCopy
+                     alpha:1.];
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+    e.profilePicData = imageData;
+    
+    
+    //[self uploadPhoto:image];
+    
+    
+    
+    [profilePicButton setImage:image forState:UIControlStateNormal];
+    
+    [s3manager processGrandCentralDispatchUpload:imageData];
+    
+    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+    {
+        // If on the phone, image picker is presented modally, so Dismiss it
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else{
+        //We dismiss popovers differently
+        [profilePicturePopover dismissPopoverAnimated:YES];
+        profilePicturePopover =nil;
+    }
+    [profilePicButton setHighlighted: NO];
+    
+}
+
+
+
 
 - (void)backgroundTapped {
     NSLog(@"Background Tapped");
     
     [[self tableView] endEditing:YES];
-}
-
-
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    [self.tableView reloadData];
-    if(indexPath) {
-        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-    }
-    
-    e = [[CellScopeContext sharedContext]currentExam];
-    
-    if(e.firstName != nil && e.lastName != nil)
-    {
-        self.tabBarController.title = [NSString stringWithFormat:@"%@ %@",
-                                       e.firstName,
-                                       e.lastName];
-    }
-    else{
-        self.tabBarController.title = @"New Exam";
-        
-    }
-    
-    self.firstnameField.text = e.firstName;
-    self.lastnameField.text = e.lastName;
-    
-    NSLog(e.patientID.description);
-    
-    if( e.patientID == 0){ // indicates a new exam
-        e.patientID = [[NSUserDefaults standardUserDefaults] objectForKey:@"patientNumberIndex"];
-        int value = [e.patientID intValue];
-        value=value+1;
-        
-        [[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithInt:value] forKey:@"patientNumberIndex" ];
-        NSLog(@"%d",value);
-        
-        e.patientID = [NSNumber numberWithInt: value];
-        //self.patientIDField.text = [e.patientID stringValue];
-        self.patientIDLabel.text = [e.patientID stringValue];
-    }
-    else{
-        //self.patientIDField.text = [e.patientID stringValue];
-        self.patientIDLabel.text = [e.patientID stringValue];
-        
-    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -255,6 +293,22 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
     else e.lastName = @"LAST";
     
     e.phoneNumber = phoneNumberField.text;
+    e.patientID = patientIDTextField.text;
+    
+    NSArray *array = [NSArray arrayWithObjects:
+    self.birthDayTextField.text,
+    self.birthMonthTextField.text,
+    self.birthYearTextField.text, nil
+                      ];
+    NSString * birthDateString = [[array valueForKey:@"description"] componentsJoinedByString:@""];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    // this is imporant - we set our input date format to match our input string
+    // if format doesn't match you'll get nil from your string, so be careful
+    [dateFormatter setDateFormat:@"ddMMyyyy"];
+    e.date = [dateFormatter dateFromString:birthDateString];
+    NSLog(e.phoneNumber);
+    NSLog(e.date.description);
     
     // Commit to core data
     NSError *error;
@@ -265,8 +319,29 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     NSLog(@"Text Field Should Return!");
-    [textField resignFirstResponder];
-    return NO;
+    if (textField == firstnameField) {
+        [lastnameField becomeFirstResponder];
+        return YES;
+    } else if (textField == lastnameField) {
+        [birthDayTextField becomeFirstResponder];
+        return YES;
+    } else if (textField == birthDayTextField) {
+        [birthMonthTextField becomeFirstResponder];
+        return YES;
+    } else if (textField == birthMonthTextField) {
+        [birthYearTextField becomeFirstResponder];
+        return YES;
+    }else if (textField == birthYearTextField) {
+        [phoneNumberField becomeFirstResponder];
+        return YES;
+    } else if (textField == phoneNumberField) {
+        [patientIDTextField becomeFirstResponder];
+        return YES;
+    }
+    else{
+        [textField resignFirstResponder];
+        return NO;
+    }
 }
 
 #pragma mark -
@@ -294,9 +369,28 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 - (BOOL)textField:(UITextField *)textField
 shouldChangeCharactersInRange:(NSRange)range
 replacementString:(NSString *)string {
+    
+    if(textField == birthDayTextField){
+        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+        if (newLength > 2)
+            [birthMonthTextField becomeFirstResponder];
+    }
+    if (textField == birthMonthTextField){
+        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+        if (newLength > 2)
+            [birthYearTextField becomeFirstResponder];
+    }
+    if (textField == birthYearTextField){
+        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+        if (newLength > 4)
+        [phoneNumberField becomeFirstResponder];
+    }
+
+    
+    
     if (textField==phoneNumberField){
         // All digits entered
-        if (range.location == 14) {
+        if (range.location == 15) {
             return NO;
         }
         
@@ -467,66 +561,6 @@ replacementString:(NSString *)string {
 
 #pragma mark - Table view data source
 
-/*
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-
-    // Return the number of sections.
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-
-    // Return the number of rows in the section.
-    return 0;
-}
-*/
- 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-
-
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-
- 
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-
- 
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be redFocusEnd-orderable.
-    return YES;
-}
-
-*/
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation

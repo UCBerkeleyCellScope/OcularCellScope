@@ -32,7 +32,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *birthDayTextField;
 @property (weak, nonatomic) IBOutlet UITextField *birthMonthTextField;
 @property (weak, nonatomic) IBOutlet UITextField *birthYearTextField;
+@property (weak, nonatomic) IBOutlet UITextField *patientIDTextField;
 
+
+@property (nonatomic) S3manager *s3manager;
 
 @end
 

@@ -54,7 +54,7 @@ BOOL capturing = NO;
         
         int fixationLightValue = (int)[_prefs integerForKey:@"fixationLightValue"];
         
-        
+        /*
         if (r_i<3){
             [_prefs setInteger: 5 forKey:@"redLightValue"];
             r_i = 5;

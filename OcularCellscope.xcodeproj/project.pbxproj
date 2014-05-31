@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6015874919379A2B00814D06 /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 6015874819379A2B00814D06 /* Exam.m */; };
+		60068B0219394D8C003470B9 /* S3manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60068B0119394D8C003470B9 /* S3manager.m */; };
+		60068B0919394E57003470B9 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60068B0719394E57003470B9 /* AWSRuntime.framework */; };
+		60068B0A19394E57003470B9 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60068B0819394E57003470B9 /* AWSS3.framework */; };
+		60068B141939671B003470B9 /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 60068B131939671B003470B9 /* Exam.m */; };
+		60068B171939671C003470B9 /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 60068B161939671C003470B9 /* EyeImage.m */; };
 		603B077318DCB8F1002179CD /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B076A18DCB8F1002179CD /* BSKeyboardControls.m */; };
 		603B077418DCB8F1002179CD /* BSKeyboardControls.strings in Resources */ = {isa = PBXBuildFile; fileRef = 603B076B18DCB8F1002179CD /* BSKeyboardControls.strings */; };
 		603B077A18DD26E2002179CD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B077918DD26E2002179CD /* SettingsViewController.m */; };
@@ -16,8 +20,7 @@
 		60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60418F22189B3E780001D490 /* CoreBluetooth.framework */; };
 		6043C8E81925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043C8E71925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
 		6043C8EE192B12F9007DFAFB /* CameraFocusSquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043C8ED192B12F9007DFAFB /* CameraFocusSquare.m */; };
-		60441CCB1937104C000A017C /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 60441CCA1937104C000A017C /* EyeImage.m */; };
-		60441CD1193728B1000A017C /* SpecialistSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60441CD0193728B1000A017C /* SpecialistSelectionTableViewController.m */; };
+		60441CD1193728B1000A017C /* StudySelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60441CD0193728B1000A017C /* StudySelectionTableViewController.m */; };
 		60AECE6718D8CD1A00C4EA15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60AECE6618D8CD1A00C4EA15 /* Main.storyboard */; };
 		60B2E8F918C6EE7E00973C7E /* CameraModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */; };
 		60B2E8FC18C717B100973C7E /* img.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 60B2E8FB18C717B100973C7E /* img.jpeg */; };
@@ -182,8 +185,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6015874719379A2B00814D06 /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
-		6015874819379A2B00814D06 /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
+		60068B0019394D8C003470B9 /* S3manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = S3manager.h; path = "AV Camera App/S3manager.h"; sourceTree = "<group>"; };
+		60068B0119394D8C003470B9 /* S3manager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = S3manager.m; path = "AV Camera App/S3manager.m"; sourceTree = "<group>"; };
+		60068B0719394E57003470B9 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
+		60068B0819394E57003470B9 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSS3.framework; sourceTree = "<group>"; };
+		60068B121939671B003470B9 /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
+		60068B131939671B003470B9 /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
+		60068B151939671C003470B9 /* EyeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeImage.h; sourceTree = "<group>"; };
+		60068B161939671C003470B9 /* EyeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeImage.m; sourceTree = "<group>"; };
 		603B076918DCB8F1002179CD /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
 		603B076A18DCB8F1002179CD /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
 		603B076C18DCB8F1002179CD /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
@@ -209,10 +218,8 @@
 		6043C8E71925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
 		6043C8EC192B12F9007DFAFB /* CameraFocusSquare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraFocusSquare.h; path = ../CameraFocusSquare.h; sourceTree = "<group>"; };
 		6043C8ED192B12F9007DFAFB /* CameraFocusSquare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CameraFocusSquare.m; path = ../CameraFocusSquare.m; sourceTree = "<group>"; };
-		60441CC91937104C000A017C /* EyeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeImage.h; sourceTree = "<group>"; };
-		60441CCA1937104C000A017C /* EyeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeImage.m; sourceTree = "<group>"; };
-		60441CCF193728B1000A017C /* SpecialistSelectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialistSelectionTableViewController.h; sourceTree = "<group>"; };
-		60441CD0193728B1000A017C /* SpecialistSelectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialistSelectionTableViewController.m; sourceTree = "<group>"; };
+		60441CCF193728B1000A017C /* StudySelectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudySelectionTableViewController.h; sourceTree = "<group>"; };
+		60441CD0193728B1000A017C /* StudySelectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudySelectionTableViewController.m; sourceTree = "<group>"; };
 		60A0865E18C069C900A2667D /* FixationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixationViewController.m; sourceTree = "<group>"; };
 		60AECE6618D8CD1A00C4EA15 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		60B2E8FB18C717B100973C7E /* img.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = img.jpeg; sourceTree = "<group>"; };
@@ -392,6 +399,7 @@
 			files = (
 				60B7A5C61936775200A1F9EB /* SystemConfiguration.framework in Frameworks */,
 				60B7A5C41936774000A1F9EB /* Security.framework in Frameworks */,
+				60068B0919394E57003470B9 /* AWSRuntime.framework in Frameworks */,
 				60B7A5C21936772A00A1F9EB /* libGTLTouchStaticLib.a in Frameworks */,
 				60B4231A19089678005A9ABD /* MobileCoreServices.framework in Frameworks */,
 				60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */,
@@ -399,6 +407,7 @@
 				6DD89D7F18426AFF00F3C7FC /* CoreData.framework in Frameworks */,
 				6D393A2A1831D0D2004F2EC7 /* AssetsLibrary.framework in Frameworks */,
 				6D393A281831CAD0004F2EC7 /* AVFoundation.framework in Frameworks */,
+				60068B0A19394E57003470B9 /* AWSS3.framework in Frameworks */,
 				6D2D5DB918318D9F00A58A96 /* CoreGraphics.framework in Frameworks */,
 				6D2D5DBB18318D9F00A58A96 /* UIKit.framework in Frameworks */,
 				6D2D5DB718318D9F00A58A96 /* Foundation.framework in Frameworks */,
@@ -418,6 +427,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		60068B11193965D0003470B9 /* ImageReview */ = {
+			isa = PBXGroup;
+			children = (
+				F3FCC96D19369F180093A1EB /* EyePhotoCell.h */,
+				F3FCC96E19369F180093A1EB /* EyePhotoCell.m */,
+				60418F2C189BB2ED0001D490 /* ImageCell.h */,
+				60418F2D189BB2ED0001D490 /* ImageCell.m */,
+				F3FA32C418B5D6BF000FACF4 /* ImageSelectionViewController.h */,
+				F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */,
+			);
+			name = ImageReview;
+			sourceTree = "<group>";
+		};
 		603B076818DCB8F1002179CD /* BSKeyboardControls */ = {
 			isa = PBXGroup;
 			children = (
@@ -551,12 +573,10 @@
 				60B7A5C91936797000A1F9EB /* GTLDrive_Sources.m */,
 				60B7A5CA1936797000A1F9EB /* GTLDrive.h */,
 				60B7A5B31936766200A1F9EB /* GTL.xcodeproj */,
-				60F03E1619137F09008D729B /* Exam+Methods.h */,
-				60F03E1719137F09008D729B /* Exam+Methods.m */,
 				6043C8E51925D960007DFAFB /* ALAssetsLibrary_CustomPhotoAlbum */,
+				6DD89D211842666C00F3C7FC /* Core Data */,
 				60C1AE0618F3507E00902F28 /* AFNetworking */,
 				6D2D5DBC18318D9F00A58A96 /* AV Camera App */,
-				6DD89D211842666C00F3C7FC /* Core Data */,
 				F325703B18D366FE00FEA80E /* SelectableEyeImage.h */,
 				F325703C18D366FE00FEA80E /* SelectableEyeImage.m */,
 				F385B2FF1900E66400A3F974 /* BLEManager.h */,
@@ -567,6 +587,8 @@
 				60D8C7D118C6BF87007D26A7 /* Constants.m */,
 				60B42332190EF236005A9ABD /* CellScopeHTTPClient.h */,
 				60B42333190EF236005A9ABD /* CellScopeHTTPClient.m */,
+				60068B0019394D8C003470B9 /* S3manager.h */,
+				60068B0119394D8C003470B9 /* S3manager.m */,
 				60C2A51B18C19F2800021510 /* CellScopeContext.h */,
 				60C2A51C18C19F2800021510 /* CellScopeContext.m */,
 				F3FCC95819369BA10093A1EB /* SelectableUIEyeImage.h */,
@@ -592,6 +614,8 @@
 		6D2D5DB518318D9F00A58A96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				60068B0719394E57003470B9 /* AWSRuntime.framework */,
+				60068B0819394E57003470B9 /* AWSS3.framework */,
 				60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */,
 				60B7A5C31936774000A1F9EB /* Security.framework */,
 				60B42323190AE512005A9ABD /* UIImage+Resize */,
@@ -617,35 +641,30 @@
 			isa = PBXGroup;
 			children = (
 				60B7189E192D72B600E0F40A /* Camera */,
-				60AECE6618D8CD1A00C4EA15 /* Main.storyboard */,
-				60B42338190F0B7F005A9ABD /* UIColor+Custom.h */,
-				60B42339190F0B7F005A9ABD /* UIColor+Custom.m */,
-				60F03E1919138446008D729B /* FixationViewController.h */,
-				60A0865E18C069C900A2667D /* FixationViewController.m */,
-				60C1AE0018F346E700902F28 /* DiagnosisViewController.h */,
-				60C1AE0118F346E700902F28 /* DiagnosisViewController.m */,
-				603B077B18DD810B002179CD /* TabViewController.h */,
-				603B077C18DD810B002179CD /* TabViewController.m */,
-				60B42335190F02FC005A9ABD /* ExamInfoTableViewController.h */,
-				60B42336190F02FC005A9ABD /* ExamInfoTableViewController.m */,
-				F3FA32C418B5D6BF000FACF4 /* ImageSelectionViewController.h */,
-				F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */,
-				F3FCC96D19369F180093A1EB /* EyePhotoCell.h */,
-				F3FCC96E19369F180093A1EB /* EyePhotoCell.m */,
-				603B077818DD26E2002179CD /* SettingsViewController.h */,
-				603B077918DD26E2002179CD /* SettingsViewController.m */,
-				60418F2C189BB2ED0001D490 /* ImageCell.h */,
-				60418F2D189BB2ED0001D490 /* ImageCell.m */,
-				6D3260FC184BBD6200E34428 /* PatientsTableViewController.h */,
-				6D3260FD184BBD6200E34428 /* PatientsTableViewController.m */,
-				60441CCF193728B1000A017C /* SpecialistSelectionTableViewController.h */,
-				60441CD0193728B1000A017C /* SpecialistSelectionTableViewController.m */,
-				60C1AE0318F34DD400902F28 /* PatientTableViewCell.h */,
-				60C1AE0418F34DD400902F28 /* PatientTableViewCell.m */,
 				60B718A3193067C100E0F40A /* DataGenerator.h */,
 				60B718A4193067C100E0F40A /* DataGenerator.m */,
+				60C1AE0018F346E700902F28 /* DiagnosisViewController.h */,
+				60C1AE0118F346E700902F28 /* DiagnosisViewController.m */,
+				60B42335190F02FC005A9ABD /* ExamInfoTableViewController.h */,
+				60B42336190F02FC005A9ABD /* ExamInfoTableViewController.m */,
+				60F03E1919138446008D729B /* FixationViewController.h */,
+				60A0865E18C069C900A2667D /* FixationViewController.m */,
+				60068B11193965D0003470B9 /* ImageReview */,
+				60AECE6618D8CD1A00C4EA15 /* Main.storyboard */,
 				F385B2FB1900E20F00A3F974 /* Old View Controllers */,
+				6D3260FC184BBD6200E34428 /* PatientsTableViewController.h */,
+				6D3260FD184BBD6200E34428 /* PatientsTableViewController.m */,
+				60C1AE0318F34DD400902F28 /* PatientTableViewCell.h */,
+				60C1AE0418F34DD400902F28 /* PatientTableViewCell.m */,
+				603B077818DD26E2002179CD /* SettingsViewController.h */,
+				603B077918DD26E2002179CD /* SettingsViewController.m */,
+				60441CCF193728B1000A017C /* StudySelectionTableViewController.h */,
+				60441CD0193728B1000A017C /* StudySelectionTableViewController.m */,
 				6D2D5DBD18318D9F00A58A96 /* Supporting Files */,
+				603B077B18DD810B002179CD /* TabViewController.h */,
+				603B077C18DD810B002179CD /* TabViewController.m */,
+				60B42338190F0B7F005A9ABD /* UIColor+Custom.h */,
+				60B42339190F0B7F005A9ABD /* UIColor+Custom.m */,
 			);
 			path = "AV Camera App";
 			sourceTree = "<group>";
@@ -685,11 +704,13 @@
 		6DD89D211842666C00F3C7FC /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				6015874719379A2B00814D06 /* Exam.h */,
-				6015874819379A2B00814D06 /* Exam.m */,
+				60F03E1619137F09008D729B /* Exam+Methods.h */,
+				60F03E1719137F09008D729B /* Exam+Methods.m */,
+				60068B121939671B003470B9 /* Exam.h */,
+				60068B151939671C003470B9 /* EyeImage.h */,
+				60068B161939671C003470B9 /* EyeImage.m */,
+				60068B131939671B003470B9 /* Exam.m */,
 				6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */,
-				60441CC91937104C000A017C /* EyeImage.h */,
-				60441CCA1937104C000A017C /* EyeImage.m */,
 				6DD89D7B18426AD400F3C7FC /* CoreDataController.h */,
 				6DD89D7C18426AD400F3C7FC /* CoreDataController.m */,
 			);
@@ -1013,7 +1034,6 @@
 				60C1AE3618F3507E00902F28 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				60C1AE3318F3507E00902F28 /* AFURLResponseSerialization.m in Sources */,
 				60B42334190EF236005A9ABD /* CellScopeHTTPClient.m in Sources */,
-				60441CCB1937104C000A017C /* EyeImage.m in Sources */,
 				60C1AE2C18F3507E00902F28 /* AFHTTPRequestOperation.m in Sources */,
 				60D8C7C518C69BB1007D26A7 /* ImageCell.m in Sources */,
 				60C1AE3218F3507E00902F28 /* AFURLRequestSerialization.m in Sources */,
@@ -1022,7 +1042,7 @@
 				60B7A5CB1936797000A1F9EB /* GTLDrive_Sources.m in Sources */,
 				60C1AE3B18F3507E00902F28 /* UIRefreshControl+AFNetworking.m in Sources */,
 				60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */,
-				6015874919379A2B00814D06 /* Exam.m in Sources */,
+				60068B141939671B003470B9 /* Exam.m in Sources */,
 				60C1AE3918F3507E00902F28 /* UIImageView+AFNetworking.m in Sources */,
 				F3FCC96B19369BA10093A1EB /* CameraModel.xcdatamodeld in Sources */,
 				60D8C7C618C69BB1007D26A7 /* MainMenuViewController.m in Sources */,
@@ -1039,10 +1059,12 @@
 				60D8C7CC18C69BB1007D26A7 /* main.m in Sources */,
 				F385B30A1900F85B00A3F974 /* AVCaptureManager.m in Sources */,
 				60C1AE3118F3507E00902F28 /* AFURLConnectionOperation.m in Sources */,
-				60441CD1193728B1000A017C /* SpecialistSelectionTableViewController.m in Sources */,
+				60441CD1193728B1000A017C /* StudySelectionTableViewController.m in Sources */,
 				60D8C7CE18C69BB2007D26A7 /* BLE.m in Sources */,
 				603C44FD18DAE72F00402AE1 /* ExamInfoViewController.m in Sources */,
+				60068B171939671C003470B9 /* EyeImage.m in Sources */,
 				60D8C7D218C6BF87007D26A7 /* Constants.m in Sources */,
+				60068B0219394D8C003470B9 /* S3manager.m in Sources */,
 				F385B3041900E6E200A3F974 /* Light.m in Sources */,
 				F3FCC97119369F180093A1EB /* EyePhotoCell.m in Sources */,
 				603B077A18DD26E2002179CD /* SettingsViewController.m in Sources */,
@@ -1186,6 +1208,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AV Camera App/AV Camera App-Prefix.pch";
@@ -1213,6 +1236,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AV Camera App/AV Camera App-Prefix.pch";

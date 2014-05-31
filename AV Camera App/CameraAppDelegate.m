@@ -7,7 +7,7 @@
 //
 
 #import "CameraAppDelegate.h"
-
+#import <AWSRuntime/AWSRuntime.h>
 
 @import AVFoundation;
 
@@ -25,6 +25,17 @@
     NSString* defaultPrefsFile = [[NSBundle mainBundle] pathForResource:@"default-configuration" ofType:@"plist"];
     NSDictionary* defaultPreferences = [NSDictionary dictionaryWithContentsOfFile:defaultPrefsFile];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPreferences];
+    
+    // Logging Control - Do NOT use logging for non-development builds.
+#ifdef DEBUG
+    [AmazonLogger verboseLogging];
+#else
+    [AmazonLogger turnLoggingOff];
+#endif
+    
+    [AmazonErrorHandler shouldNotThrowExceptions];
+    
+    
     
     [[CellScopeContext sharedContext] setManagedObjectContext:self.managedObjectContext];
     

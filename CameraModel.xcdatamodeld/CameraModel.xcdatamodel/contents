@@ -5,9 +5,11 @@
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="patientID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="patientID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="patientIndex" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="patientName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="profilePicData" optional="YES" attributeType="Binary" syncable="YES"/>
         <relationship name="eyeImages" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="EyeImage" inverseName="exam" inverseEntity="EyeImage" syncable="YES"/>
     </entity>
     <entity name="EyeImage" representedClassName="EyeImage" syncable="YES">
@@ -20,7 +22,7 @@
         <relationship name="exam" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Exam" inverseName="eyeImages" inverseEntity="Exam" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Exam" positionX="0" positionY="0" width="128" height="163"/>
+        <element name="Exam" positionX="0" positionY="0" width="128" height="195"/>
         <element name="EyeImage" positionX="250" positionY="-9" width="128" height="150"/>
     </elements>
 </model>

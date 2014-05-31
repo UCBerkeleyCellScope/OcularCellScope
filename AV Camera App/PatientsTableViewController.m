@@ -43,6 +43,8 @@
     
     managedObjectContext = [[CellScopeContext sharedContext]managedObjectContext];
     
+    self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
+    
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
 		// Update to handle the error appropriately.
@@ -131,8 +133,9 @@
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
     //return [content valueForKey:@"headerTitle"];
-    
+
     return [self.fetchedResultsController sectionIndexTitles];
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
@@ -249,6 +252,7 @@
 // Edit/DELETE Cell in the table view
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
 
@@ -273,7 +277,6 @@
     }
 }
 
-//ADD EXAM
 - (IBAction)didPressUpload:(id)sender {
     
     
@@ -295,14 +298,13 @@
     
 }
 
-
 - (IBAction)didPressAddExam:(id)sender {
     self.currentExam = nil;
     Exam* newExam = (Exam*)[NSEntityDescription insertNewObjectForEntityForName:@"Exam" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
     newExam.date = [NSDate date];
     [[CellScopeContext sharedContext] setCurrentExam:newExam ];
     self.currentExam = newExam;
-    newExam.patientID = 0;
+    newExam.patientIndex = 0;
     
     [self.patientsArray addObject:newExam];
     

@@ -2,13 +2,12 @@
 //  Exam.h
 //  OcularCellscope
 //
-//  Created by PJ Loury on 5/29/14.
+//  Created by PJ Loury on 5/30/14.
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-//#import "Exam+Methods.h"
 
 @class EyeImage;
 
@@ -18,9 +17,11 @@
 @property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * lastName;
 @property (nonatomic, retain) NSString * notes;
-@property (nonatomic, retain) NSNumber * patientID;
+@property (nonatomic, retain) NSString * patientID;
 @property (nonatomic, retain) NSString * patientName;
 @property (nonatomic, retain) NSString * phoneNumber;
+@property (nonatomic, retain) NSNumber * patientIndex;
+@property (nonatomic, retain) NSData * profilePicData;
 @property (nonatomic, retain) NSOrderedSet *eyeImages;
 @end
 

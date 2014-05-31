@@ -64,7 +64,7 @@
     
     self.firstnameField.text = [[CellScopeContext sharedContext]currentExam].firstName;
     self.lastnameField.text = [[CellScopeContext sharedContext]currentExam].lastName;
-    self.patientIDField.text = [[[CellScopeContext sharedContext]currentExam].patientID stringValue];
+    self.patientIDField.text = [[CellScopeContext sharedContext]currentExam].patientID;
 }
 
 - (void)didMoveToParentViewController:(UIViewController *)parent
