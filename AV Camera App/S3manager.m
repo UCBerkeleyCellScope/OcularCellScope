@@ -8,6 +8,8 @@
 
 #import "S3manager.h"
 #import "Constants.h"
+#import "Exam.h"
+#import "Exam+Methods.h"
 
 #import <AWSRuntime/AWSRuntime.h>
 
@@ -33,6 +35,8 @@
             self.s3 = [[AmazonS3Client alloc] initWithAccessKey:ACCESS_KEY_ID withSecretKey:SECRET_KEY] ;
             self.s3.endpoint = [AmazonEndpoints s3Endpoint:US_WEST_2];
             
+            
+            /*
             // Create the picture bucket.
             S3CreateBucketRequest *createBucketRequest = [[S3CreateBucketRequest alloc] initWithName:[Constants pictureBucket] andRegion:[S3Region USWest2]];
             S3CreateBucketResponse *createBucketResponse = [self.s3 createBucket:createBucketRequest];
@@ -40,20 +44,43 @@
             {
                 NSLog(@"Error: %@", createBucketResponse.error);
             }
+             
+            */
         }
 
     }
     return self;
 }
 
-- (void)processGrandCentralDispatchUpload:(NSData *)imageData
+
+-(NSString*)createBucketForExam:(Exam*)exam{
+    // Create the picture bucket.
+    
+    NSString *bucketName = [[[Constants pictureBucket] stringByAppendingString:[exam fullName]]lowercaseString];
+    
+    S3CreateBucketRequest *createBucketRequest = [[S3CreateBucketRequest alloc] initWithName:bucketName andRegion:[S3Region USWest2]];
+    S3CreateBucketResponse *createBucketResponse = [self.s3 createBucket:createBucketRequest];
+    if(createBucketResponse.error != nil)
+    {
+        NSLog(@"Error: %@", createBucketResponse.error);
+    }
+    return bucketName;
+}
+
+
+- (void)processGrandCentralDispatchUpload:(NSData *)imageData forExamBucket:(NSString*)examBucket andImageName: (NSString*)imageName
 {
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
         
         // Upload image data.  Remember to set the content type.
-        S3PutObjectRequest *por = [[S3PutObjectRequest alloc] initWithKey:PICTURE_NAME
-                                                                  inBucket:[Constants pictureBucket]];
+        S3PutObjectRequest *por = [[S3PutObjectRequest alloc] initWithKey:imageName
+                                                                  inBucket:examBucket];
+        
+        //S3PutObjectRequest *por = [[S3PutObjectRequest alloc] initWithKey:imageName
+        //                                                         inBucket:examBucket];
+        
+        
         por.contentType = @"image/jpeg";
         por.data        = imageData;
         

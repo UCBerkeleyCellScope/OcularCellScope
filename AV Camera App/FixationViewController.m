@@ -13,6 +13,7 @@
 #import "CoreDataController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <QuartzCore/QuartzCore.h>
+#import "CellScopeContext.h"
 
 @interface FixationViewController ()
 
@@ -115,7 +116,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     self.tabBarController.navigationItem.titleView = nil;
 }
 
-
 -(void)loadImages:(NSInteger)segmentedIndex{
     
     //UIView* fxv = [[UIView alloc]init];
@@ -195,7 +195,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
             }
         }
 }
-
 
 - (void)didReceiveMemoryWarning
 {

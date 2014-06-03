@@ -242,14 +242,14 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
     NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
     e.profilePicData = imageData;
     
-    
     //[self uploadPhoto:image];
-    
-    
     
     [profilePicButton setImage:image forState:UIControlStateNormal];
     
-    [s3manager processGrandCentralDispatchUpload:imageData];
+    NSString *bucketName = [[[Constants pictureBucket] stringByAppendingString:[e fullName]]lowercaseString];
+        
+    [s3manager processGrandCentralDispatchUpload:imageData forExamBucket:bucketName andImageName:PICTURE_NAME];
+    
     
     if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {

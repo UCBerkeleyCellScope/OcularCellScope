@@ -16,6 +16,9 @@ static NSString * const CellScopeURLString2 = @"http://localhost:5000/";
 
 @implementation CellScopeHTTPClient
 
+@synthesize imagesToUpload;
+@synthesize mutableOperations;
+
 /*
 + (CellScopeHTTPClient *)sharedCellScopeHTTPClient
 {
@@ -36,13 +39,104 @@ static NSString * const CellScopeURLString2 = @"http://localhost:5000/";
 {
     self = [super initWithBaseURL:url];
     
+    self.mutableOperations = [[NSMutableArray alloc]init];
+    self.imagesToUpload = [[NSMutableArray alloc]init];
+    
     if (self) {
         self.responseSerializer = [AFJSONResponseSerializer serializer];
         self.requestSerializer = [AFJSONRequestSerializer serializer];
     }
     
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver: self
+           selector:@selector(addOnNextEyeImage:)
+               name:@"OperationAdded" //The notification that was sent is named ____
+             object:nil]; //doesn't matter who sent the notification
+    
     return self;
 }
+
+-(void)addOnNextEyeImage:(NSNotification*) note{
+    
+    NSDictionary *extraInformation = [note userInfo];
+    bool fired = FALSE;
+    
+    //if([ [extraInformation objectForKey:@"imagesLeft"] isEqualToNumber:0]){
+    if ([imagesToUpload count]==0 && fired == FALSE){
+        fired = TRUE;
+        NSArray *operations = [AFURLConnectionOperation batchOfRequestOperations: mutableOperations progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
+            NSLog(@"%lu of %lu complete", (unsigned long)numberOfFinishedOperations, totalNumberOfOperations);
+        } completionBlock:^(NSArray *operations) {
+            NSLog(@"All operations in batch complete");
+        }];
+        [[NSOperationQueue mainQueue] addOperations:operations waitUntilFinished:NO];
+    }
+    
+    else{
+        [self singleImage];
+    }
+    
+    //id poster = [note object];
+    //NSString *name = [note name];
+
+}
+
+-(void)batch{
+    [self singleImage];
+}
+
+
+- (void)singleImage{
+    
+    EyeImage* ei = [self.imagesToUpload objectAtIndex:0];
+    [self.imagesToUpload removeObjectAtIndex:0];
+    
+    NSURL *aURL = [NSURL URLWithString: ei.filePath];
+        
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    [library assetForURL:aURL
+             resultBlock:^(ALAsset *asset)
+     {
+         ALAssetRepresentation* rep = [asset defaultRepresentation];
+         
+         NSUInteger size = (NSUInteger)rep.size;
+         NSMutableData *imageData = [NSMutableData dataWithLength:size];
+         NSError *error;
+         [rep getBytes:imageData.mutableBytes fromOffset:0 length:size error:&error];
+    
+         NSDictionary *parameters = @{  //@"date": [[[CellScopeContext sharedContext] currentExam] date],
+                                        @"json": @1};
+                                      //@"patientIndex": [[[CellScopeContext sharedContext] currentExam] patientIndex],
+                                    
+         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+         [formatter setDateStyle: NSDateFormatterLongStyle];
+         
+         NSString *stringFromDate = [formatter stringFromDate:ei.date];
+         
+         NSURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:[NSString stringWithFormat:@"%@uploader",self.baseURL] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
+         {
+             //[formData appendPartWithFileURL:fileURL name:@"images[]" error:nil];
+            [formData appendPartWithFileData: imageData name:@"file" fileName: stringFromDate mimeType: @"image/jpeg"];
+         }
+                                                                            error:nil];
+         
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        [mutableOperations addObject:operation];
+         
+         NSNumber* obj = [NSNumber numberWithInteger:[imagesToUpload count]];
+         
+         NSDictionary *extraInfo = [NSDictionary dictionaryWithObject:obj forKey:@"imagesLeft"];
+         NSNotification *note = [NSNotification notificationWithName:@"OperationAdded" object:self userInfo:extraInfo];
+         [[NSNotificationCenter defaultCenter] postNotification: note];
+     }
+     
+     failureBlock:^(NSError *error)
+     {
+             NSLog(@"failure loading video/image from AssetLibrary");
+     }];
+}
+
+
 
 
 
@@ -86,7 +180,7 @@ static NSString * const CellScopeURLString2 = @"http://localhost:5000/";
          
          //AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
          
-         NSDictionary *parameters = @{@"mrn": [[[CellScopeContext sharedContext] currentExam] patientID],
+         NSDictionary *parameters = @{//@"mrn": [[[CellScopeContext sharedContext] currentExam] patientID],
                                       @"date": [[[CellScopeContext sharedContext] currentExam] date],
                                       @"json": @1};
          NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -158,7 +252,7 @@ static NSString * const CellScopeURLString2 = @"http://localhost:5000/";
          
          AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
          
-         NSDictionary *parameters = @{@"mrn": [[[CellScopeContext sharedContext] currentExam] patientID],
+         NSDictionary *parameters = @{//@"mrn": [[[CellScopeContext sharedContext] currentExam] patientID],
                                       @"date": [[[CellScopeContext sharedContext] currentExam] date],
                                       @"json": @1};
          
@@ -197,7 +291,7 @@ static NSString * const CellScopeURLString2 = @"http://localhost:5000/";
    
          
      }
-            failureBlock:^(NSError *error)
+    failureBlock:^(NSError *error)
      {
          NSLog(@"failure loading video/image from AssetLibrary");
      }];
