@@ -36,11 +36,9 @@
 		60B718A1192DD16900E0F40A /* beepbeep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 60B7189F192DD16900E0F40A /* beepbeep.wav */; };
 		60B718A2192DD16900E0F40A /* long-beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 60B718A0192DD16900E0F40A /* long-beep.wav */; };
 		60B718A5193067C100E0F40A /* DataGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B718A4193067C100E0F40A /* DataGenerator.m */; };
-		60B7A5C21936772A00A1F9EB /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5BD1936766400A1F9EB /* libGTLTouchStaticLib.a */; };
 		60B7A5C41936774000A1F9EB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5C31936774000A1F9EB /* Security.framework */; };
 		60B7A5C61936775200A1F9EB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */; };
 		60B7A5C81936790100A1F9EB /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60B7A5C71936790100A1F9EB /* GTMOAuth2ViewTouch.xib */; };
-		60B7A5CB1936797000A1F9EB /* GTLDrive_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B7A5C91936797000A1F9EB /* GTLDrive_Sources.m */; };
 		60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0118F346E700902F28 /* DiagnosisViewController.m */; };
 		60C1AE0518F34DD400902F28 /* PatientTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0418F34DD400902F28 /* PatientTableViewCell.m */; };
 		60C1AE2C18F3507E00902F28 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0818F3507E00902F28 /* AFHTTPRequestOperation.m */; };
@@ -147,34 +145,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		60B7A5BA1936766400A1F9EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4F38F6A60B66E91D00B24B81;
-			remoteInfo = GTLFramework;
-		};
-		60B7A5BC1936766400A1F9EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4F12027C11A4CA2F00BEB470;
-			remoteInfo = GTLTouchStaticLib;
-		};
-		60B7A5BE1936766400A1F9EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4F12027D11A4CA2F00BEB470;
-			remoteInfo = GTLUnitTests;
-		};
-		60B7A5C01936766400A1F9EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4F1AD9020B71603F00DC0485;
-			remoteInfo = DevelopmentTestTool;
-		};
 		6D2D5DD918318DA000A58A96 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6D2D5DAB18318D9F00A58A96 /* Project object */;
@@ -240,12 +210,9 @@
 		60B718A0192DD16900E0F40A /* long-beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "long-beep.wav"; sourceTree = "<group>"; };
 		60B718A3193067C100E0F40A /* DataGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataGenerator.h; sourceTree = "<group>"; };
 		60B718A4193067C100E0F40A /* DataGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataGenerator.m; sourceTree = "<group>"; };
-		60B7A5B31936766200A1F9EB /* GTL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GTL.xcodeproj; path = "../google-api-objectivec-client-read-only/Source/GTL.xcodeproj"; sourceTree = "<group>"; };
 		60B7A5C31936774000A1F9EB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		60B7A5C71936790100A1F9EB /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTMOAuth2ViewTouch.xib; sourceTree = "<group>"; };
-		60B7A5C91936797000A1F9EB /* GTLDrive_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDrive_Sources.m; sourceTree = "<group>"; };
-		60B7A5CA1936797000A1F9EB /* GTLDrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDrive.h; sourceTree = "<group>"; };
 		60C1AE0018F346E700902F28 /* DiagnosisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiagnosisViewController.h; sourceTree = "<group>"; };
 		60C1AE0118F346E700902F28 /* DiagnosisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiagnosisViewController.m; sourceTree = "<group>"; };
 		60C1AE0318F34DD400902F28 /* PatientTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientTableViewCell.h; sourceTree = "<group>"; };
@@ -400,7 +367,6 @@
 				60B7A5C61936775200A1F9EB /* SystemConfiguration.framework in Frameworks */,
 				60B7A5C41936774000A1F9EB /* Security.framework in Frameworks */,
 				60068B0919394E57003470B9 /* AWSRuntime.framework in Frameworks */,
-				60B7A5C21936772A00A1F9EB /* libGTLTouchStaticLib.a in Frameworks */,
 				60B4231A19089678005A9ABD /* MobileCoreServices.framework in Frameworks */,
 				60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */,
 				6DD89D8118426B0700F3C7FC /* CoreImage.framework in Frameworks */,
@@ -506,17 +472,6 @@
 			name = Camera;
 			sourceTree = "<group>";
 		};
-		60B7A5B41936766200A1F9EB /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				60B7A5BB1936766400A1F9EB /* GTL.framework */,
-				60B7A5BD1936766400A1F9EB /* libGTLTouchStaticLib.a */,
-				60B7A5BF1936766400A1F9EB /* GTLUnitTests.octest */,
-				60B7A5C11936766400A1F9EB /* DevelopmentTestTool */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		60C1AE0618F3507E00902F28 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -570,9 +525,6 @@
 		6D2D5DAA18318D9E00A58A96 = {
 			isa = PBXGroup;
 			children = (
-				60B7A5C91936797000A1F9EB /* GTLDrive_Sources.m */,
-				60B7A5CA1936797000A1F9EB /* GTLDrive.h */,
-				60B7A5B31936766200A1F9EB /* GTL.xcodeproj */,
 				6043C8E51925D960007DFAFB /* ALAssetsLibrary_CustomPhotoAlbum */,
 				6DD89D211842666C00F3C7FC /* Core Data */,
 				60C1AE0618F3507E00902F28 /* AFNetworking */,
@@ -869,12 +821,6 @@
 			mainGroup = 6D2D5DAA18318D9E00A58A96;
 			productRefGroup = 6D2D5DB418318D9F00A58A96 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 60B7A5B41936766200A1F9EB /* Products */;
-					ProjectRef = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				6D2D5DB218318D9F00A58A96 /* AV Camera App */,
@@ -882,37 +828,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		60B7A5BB1936766400A1F9EB /* GTL.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = GTL.framework;
-			remoteRef = 60B7A5BA1936766400A1F9EB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60B7A5BD1936766400A1F9EB /* libGTLTouchStaticLib.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libGTLTouchStaticLib.a;
-			remoteRef = 60B7A5BC1936766400A1F9EB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60B7A5BF1936766400A1F9EB /* GTLUnitTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = GTLUnitTests.octest;
-			remoteRef = 60B7A5BE1936766400A1F9EB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60B7A5C11936766400A1F9EB /* DevelopmentTestTool */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = DevelopmentTestTool;
-			remoteRef = 60B7A5C01936766400A1F9EB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6D2D5DB118318D9F00A58A96 /* Resources */ = {
@@ -1039,7 +954,6 @@
 				60C1AE3218F3507E00902F28 /* AFURLRequestSerialization.m in Sources */,
 				6043C8E81925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				F325703118D1A9AE00FEA80E /* UIImage+Resize.m in Sources */,
-				60B7A5CB1936797000A1F9EB /* GTLDrive_Sources.m in Sources */,
 				60C1AE3B18F3507E00902F28 /* UIRefreshControl+AFNetworking.m in Sources */,
 				60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */,
 				60068B141939671B003470B9 /* Exam.m in Sources */,
