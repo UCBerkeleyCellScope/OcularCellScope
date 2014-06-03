@@ -20,7 +20,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *noFixationButton;
 @property NSMutableArray *fixationButtons;
 
-@property (strong, nonatomic) BLEManager *bleManager;
 
 @property (copy,nonatomic) NSString *selectedEye;
 @property (nonatomic) int selectedLight;

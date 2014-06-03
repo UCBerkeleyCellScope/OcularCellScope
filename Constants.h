@@ -19,6 +19,7 @@
 
 @interface Constants : NSObject
 
++(NSString *)pictureBucket;
 
 @end
 
