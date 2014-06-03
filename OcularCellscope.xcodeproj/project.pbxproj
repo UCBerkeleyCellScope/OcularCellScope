@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		60068B0219394D8C003470B9 /* S3manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60068B0119394D8C003470B9 /* S3manager.m */; };
-		60068B0919394E57003470B9 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60068B0719394E57003470B9 /* AWSRuntime.framework */; };
-		60068B0A19394E57003470B9 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60068B0819394E57003470B9 /* AWSS3.framework */; };
 		60068B141939671B003470B9 /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 60068B131939671B003470B9 /* Exam.m */; };
 		60068B171939671C003470B9 /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 60068B161939671C003470B9 /* EyeImage.m */; };
 		603B077318DCB8F1002179CD /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B076A18DCB8F1002179CD /* BSKeyboardControls.m */; };
@@ -36,11 +34,9 @@
 		60B718A1192DD16900E0F40A /* beepbeep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 60B7189F192DD16900E0F40A /* beepbeep.wav */; };
 		60B718A2192DD16900E0F40A /* long-beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 60B718A0192DD16900E0F40A /* long-beep.wav */; };
 		60B718A5193067C100E0F40A /* DataGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B718A4193067C100E0F40A /* DataGenerator.m */; };
-		60B7A5C21936772A00A1F9EB /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5BD1936766400A1F9EB /* libGTLTouchStaticLib.a */; };
 		60B7A5C41936774000A1F9EB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5C31936774000A1F9EB /* Security.framework */; };
 		60B7A5C61936775200A1F9EB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */; };
 		60B7A5C81936790100A1F9EB /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60B7A5C71936790100A1F9EB /* GTMOAuth2ViewTouch.xib */; };
-		60B7A5CB1936797000A1F9EB /* GTLDrive_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B7A5C91936797000A1F9EB /* GTLDrive_Sources.m */; };
 		60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0118F346E700902F28 /* DiagnosisViewController.m */; };
 		60C1AE0518F34DD400902F28 /* PatientTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0418F34DD400902F28 /* PatientTableViewCell.m */; };
 		60C1AE2C18F3507E00902F28 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0818F3507E00902F28 /* AFHTTPRequestOperation.m */; };
@@ -60,7 +56,6 @@
 		60C1AE3A18F3507E00902F28 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE2718F3507E00902F28 /* UIProgressView+AFNetworking.m */; };
 		60C1AE3B18F3507E00902F28 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE2918F3507E00902F28 /* UIRefreshControl+AFNetworking.m */; };
 		60C1AE3C18F3507E00902F28 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE2B18F3507E00902F28 /* UIWebView+AFNetworking.m */; };
-		60C7746B1916394100731B3A /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 60C7746A1916394100731B3A /* title.png */; };
 		60C7746D19163A0800731B3A /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 60C7746C19163A0800731B3A /* title.png */; };
 		60D8C7BC18C69BB1007D26A7 /* CameraAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */; };
 		60D8C7BD18C69BB1007D26A7 /* CellScopeContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2A51C18C19F2800021510 /* CellScopeContext.m */; };
@@ -88,6 +83,8 @@
 		6D393A2A1831D0D2004F2EC7 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D393A291831D0D2004F2EC7 /* AssetsLibrary.framework */; };
 		6DD89D7F18426AFF00F3C7FC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD89D7E18426AFF00F3C7FC /* CoreData.framework */; };
 		6DD89D8118426B0700F3C7FC /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD89D8018426B0700F3C7FC /* CoreImage.framework */; };
+		A5B768171939955E001A9C8D /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B768151939955E001A9C8D /* AWSRuntime.framework */; };
+		A5B768181939955E001A9C8D /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B768161939955E001A9C8D /* AWSS3.framework */; };
 		F325700C18CAA04600FEA80E /* capture_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F325700B18CAA04600FEA80E /* capture_button.png */; };
 		F325700F18CAA80000FEA80E /* check_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F325700D18CAA80000FEA80E /* check_button.png */; };
 		F325701218CAA87200FEA80E /* x_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F325701118CAA87200FEA80E /* x_button.png */; };
@@ -117,7 +114,6 @@
 		F38224B818F7BB3F00D861FE /* retina_icon_top.png in Resources */ = {isa = PBXBuildFile; fileRef = F38224B318F7BB3F00D861FE /* retina_icon_top.png */; };
 		F385B2FE1900E31E00A3F974 /* CamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B2FD1900E31E00A3F974 /* CamViewController.m */; };
 		F385B3011900E66400A3F974 /* BLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3001900E66400A3F974 /* BLEManager.m */; };
-		F385B3041900E6E200A3F974 /* Light.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3031900E6E200A3F974 /* Light.m */; };
 		F385B30A1900F85B00A3F974 /* AVCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3091900F85B00A3F974 /* AVCaptureManager.m */; };
 		F3A6034D18FE6A5F006BFFEC /* settings_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F3A6034C18FE6A5F006BFFEC /* settings_icon.png */; };
 		F3FA32CB18B5E4B7000FACF4 /* im1.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C718B5E4B7000FACF4 /* im1.png */; };
@@ -147,34 +143,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		60B7A5BA1936766400A1F9EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4F38F6A60B66E91D00B24B81;
-			remoteInfo = GTLFramework;
-		};
-		60B7A5BC1936766400A1F9EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4F12027C11A4CA2F00BEB470;
-			remoteInfo = GTLTouchStaticLib;
-		};
-		60B7A5BE1936766400A1F9EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4F12027D11A4CA2F00BEB470;
-			remoteInfo = GTLUnitTests;
-		};
-		60B7A5C01936766400A1F9EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4F1AD9020B71603F00DC0485;
-			remoteInfo = DevelopmentTestTool;
-		};
 		6D2D5DD918318DA000A58A96 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6D2D5DAB18318D9F00A58A96 /* Project object */;
@@ -187,8 +155,6 @@
 /* Begin PBXFileReference section */
 		60068B0019394D8C003470B9 /* S3manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = S3manager.h; path = "AV Camera App/S3manager.h"; sourceTree = "<group>"; };
 		60068B0119394D8C003470B9 /* S3manager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = S3manager.m; path = "AV Camera App/S3manager.m"; sourceTree = "<group>"; };
-		60068B0719394E57003470B9 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
-		60068B0819394E57003470B9 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSS3.framework; sourceTree = "<group>"; };
 		60068B121939671B003470B9 /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
 		60068B131939671B003470B9 /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
 		60068B151939671C003470B9 /* EyeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeImage.h; sourceTree = "<group>"; };
@@ -240,12 +206,9 @@
 		60B718A0192DD16900E0F40A /* long-beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "long-beep.wav"; sourceTree = "<group>"; };
 		60B718A3193067C100E0F40A /* DataGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataGenerator.h; sourceTree = "<group>"; };
 		60B718A4193067C100E0F40A /* DataGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataGenerator.m; sourceTree = "<group>"; };
-		60B7A5B31936766200A1F9EB /* GTL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GTL.xcodeproj; path = "../google-api-objectivec-client-read-only/Source/GTL.xcodeproj"; sourceTree = "<group>"; };
 		60B7A5C31936774000A1F9EB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		60B7A5C71936790100A1F9EB /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTMOAuth2ViewTouch.xib; sourceTree = "<group>"; };
-		60B7A5C91936797000A1F9EB /* GTLDrive_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDrive_Sources.m; sourceTree = "<group>"; };
-		60B7A5CA1936797000A1F9EB /* GTLDrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDrive.h; sourceTree = "<group>"; };
 		60C1AE0018F346E700902F28 /* DiagnosisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiagnosisViewController.h; sourceTree = "<group>"; };
 		60C1AE0118F346E700902F28 /* DiagnosisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiagnosisViewController.m; sourceTree = "<group>"; };
 		60C1AE0318F34DD400902F28 /* PatientTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientTableViewCell.h; sourceTree = "<group>"; };
@@ -322,6 +285,8 @@
 		6DD89D8018426B0700F3C7FC /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		6DD89D8B1842862F00F3C7FC /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
+		A5B768151939955E001A9C8D /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSRuntime.framework; path = ../../../Desktop/AWSRuntime.framework; sourceTree = "<group>"; };
+		A5B768161939955E001A9C8D /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSS3.framework; path = ../../../Desktop/AWSS3.framework; sourceTree = "<group>"; };
 		F325700B18CAA04600FEA80E /* capture_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = capture_button.png; sourceTree = "<group>"; };
 		F325700D18CAA80000FEA80E /* check_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check_button.png; sourceTree = "<group>"; };
 		F325701118CAA87200FEA80E /* x_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = x_button.png; sourceTree = "<group>"; };
@@ -357,8 +322,6 @@
 		F385B2FD1900E31E00A3F974 /* CamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CamViewController.m; sourceTree = "<group>"; };
 		F385B2FF1900E66400A3F974 /* BLEManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEManager.h; sourceTree = "<group>"; };
 		F385B3001900E66400A3F974 /* BLEManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEManager.m; sourceTree = "<group>"; };
-		F385B3021900E6E200A3F974 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
-		F385B3031900E6E200A3F974 /* Light.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Light.m; sourceTree = "<group>"; };
 		F385B3081900F85B00A3F974 /* AVCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVCaptureManager.h; path = ../AVCaptureManager.h; sourceTree = "<group>"; };
 		F385B3091900F85B00A3F974 /* AVCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVCaptureManager.m; path = ../AVCaptureManager.m; sourceTree = "<group>"; };
 		F3A6034C18FE6A5F006BFFEC /* settings_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_icon.png; sourceTree = "<group>"; };
@@ -397,17 +360,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5B768171939955E001A9C8D /* AWSRuntime.framework in Frameworks */,
+				A5B768181939955E001A9C8D /* AWSS3.framework in Frameworks */,
 				60B7A5C61936775200A1F9EB /* SystemConfiguration.framework in Frameworks */,
 				60B7A5C41936774000A1F9EB /* Security.framework in Frameworks */,
-				60068B0919394E57003470B9 /* AWSRuntime.framework in Frameworks */,
-				60B7A5C21936772A00A1F9EB /* libGTLTouchStaticLib.a in Frameworks */,
 				60B4231A19089678005A9ABD /* MobileCoreServices.framework in Frameworks */,
 				60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */,
 				6DD89D8118426B0700F3C7FC /* CoreImage.framework in Frameworks */,
 				6DD89D7F18426AFF00F3C7FC /* CoreData.framework in Frameworks */,
 				6D393A2A1831D0D2004F2EC7 /* AssetsLibrary.framework in Frameworks */,
 				6D393A281831CAD0004F2EC7 /* AVFoundation.framework in Frameworks */,
-				60068B0A19394E57003470B9 /* AWSS3.framework in Frameworks */,
 				6D2D5DB918318D9F00A58A96 /* CoreGraphics.framework in Frameworks */,
 				6D2D5DBB18318D9F00A58A96 /* UIKit.framework in Frameworks */,
 				6D2D5DB718318D9F00A58A96 /* Foundation.framework in Frameworks */,
@@ -506,17 +468,6 @@
 			name = Camera;
 			sourceTree = "<group>";
 		};
-		60B7A5B41936766200A1F9EB /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				60B7A5BB1936766400A1F9EB /* GTL.framework */,
-				60B7A5BD1936766400A1F9EB /* libGTLTouchStaticLib.a */,
-				60B7A5BF1936766400A1F9EB /* GTLUnitTests.octest */,
-				60B7A5C11936766400A1F9EB /* DevelopmentTestTool */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		60C1AE0618F3507E00902F28 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -570,9 +521,6 @@
 		6D2D5DAA18318D9E00A58A96 = {
 			isa = PBXGroup;
 			children = (
-				60B7A5C91936797000A1F9EB /* GTLDrive_Sources.m */,
-				60B7A5CA1936797000A1F9EB /* GTLDrive.h */,
-				60B7A5B31936766200A1F9EB /* GTL.xcodeproj */,
 				6043C8E51925D960007DFAFB /* ALAssetsLibrary_CustomPhotoAlbum */,
 				6DD89D211842666C00F3C7FC /* Core Data */,
 				60C1AE0618F3507E00902F28 /* AFNetworking */,
@@ -581,8 +529,6 @@
 				F325703C18D366FE00FEA80E /* SelectableEyeImage.m */,
 				F385B2FF1900E66400A3F974 /* BLEManager.h */,
 				F385B3001900E66400A3F974 /* BLEManager.m */,
-				F385B3021900E6E200A3F974 /* Light.h */,
-				F385B3031900E6E200A3F974 /* Light.m */,
 				60D8C7D018C6BF87007D26A7 /* Constants.h */,
 				60D8C7D118C6BF87007D26A7 /* Constants.m */,
 				60B42332190EF236005A9ABD /* CellScopeHTTPClient.h */,
@@ -614,8 +560,8 @@
 		6D2D5DB518318D9F00A58A96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				60068B0719394E57003470B9 /* AWSRuntime.framework */,
-				60068B0819394E57003470B9 /* AWSS3.framework */,
+				A5B768151939955E001A9C8D /* AWSRuntime.framework */,
+				A5B768161939955E001A9C8D /* AWSS3.framework */,
 				60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */,
 				60B7A5C31936774000A1F9EB /* Security.framework */,
 				60B42323190AE512005A9ABD /* UIImage+Resize */,
@@ -845,7 +791,7 @@
 				ORGANIZATIONNAME = "NAYA LOUMOU";
 				TargetAttributes = {
 					6D2D5DB218318D9F00A58A96 = {
-						DevelopmentTeam = 4344E54GZY;
+						DevelopmentTeam = NPZGJ9L3C2;
 					};
 					6D2D5DD318318D9F00A58A96 = {
 						TestTargetID = 6D2D5DB218318D9F00A58A96;
@@ -869,12 +815,6 @@
 			mainGroup = 6D2D5DAA18318D9E00A58A96;
 			productRefGroup = 6D2D5DB418318D9F00A58A96 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 60B7A5B41936766200A1F9EB /* Products */;
-					ProjectRef = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				6D2D5DB218318D9F00A58A96 /* AV Camera App */,
@@ -882,37 +822,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		60B7A5BB1936766400A1F9EB /* GTL.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = GTL.framework;
-			remoteRef = 60B7A5BA1936766400A1F9EB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60B7A5BD1936766400A1F9EB /* libGTLTouchStaticLib.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libGTLTouchStaticLib.a;
-			remoteRef = 60B7A5BC1936766400A1F9EB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60B7A5BF1936766400A1F9EB /* GTLUnitTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = GTLUnitTests.octest;
-			remoteRef = 60B7A5BE1936766400A1F9EB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60B7A5C11936766400A1F9EB /* DevelopmentTestTool */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = DevelopmentTestTool;
-			remoteRef = 60B7A5C01936766400A1F9EB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6D2D5DB118318D9F00A58A96 /* Resources */ = {
@@ -961,7 +870,6 @@
 				F3FCC96619369BA10093A1EB /* right.png in Resources */,
 				F356909718559ECA00DBB4BE /* button_viewpatients.png in Resources */,
 				60C7746D19163A0800731B3A /* title.png in Resources */,
-				60C7746B1916394100731B3A /* title.png in Resources */,
 				F325703418D1AF1F00FEA80E /* default-configuration.plist in Resources */,
 				F356909818559ECA00DBB4BE /* button_settings.png in Resources */,
 				6D2D5DC118318D9F00A58A96 /* InfoPlist.strings in Resources */,
@@ -1039,7 +947,6 @@
 				60C1AE3218F3507E00902F28 /* AFURLRequestSerialization.m in Sources */,
 				6043C8E81925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				F325703118D1A9AE00FEA80E /* UIImage+Resize.m in Sources */,
-				60B7A5CB1936797000A1F9EB /* GTLDrive_Sources.m in Sources */,
 				60C1AE3B18F3507E00902F28 /* UIRefreshControl+AFNetworking.m in Sources */,
 				60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */,
 				60068B141939671B003470B9 /* Exam.m in Sources */,
@@ -1065,7 +972,6 @@
 				60068B171939671C003470B9 /* EyeImage.m in Sources */,
 				60D8C7D218C6BF87007D26A7 /* Constants.m in Sources */,
 				60068B0219394D8C003470B9 /* S3manager.m in Sources */,
-				F385B3041900E6E200A3F974 /* Light.m in Sources */,
 				F3FCC97119369F180093A1EB /* EyePhotoCell.m in Sources */,
 				603B077A18DD26E2002179CD /* SettingsViewController.m in Sources */,
 				60C1AE3818F3507E00902F28 /* UIButton+AFNetworking.m in Sources */,
@@ -1209,6 +1115,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(PROJECT_DIR)",
+					/Users/frankiemyers/Desktop,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AV Camera App/AV Camera App-Prefix.pch";
@@ -1237,6 +1144,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(PROJECT_DIR)",
+					/Users/frankiemyers/Desktop,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AV Camera App/AV Camera App-Prefix.pch";

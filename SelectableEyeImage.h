@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
 
+//TODO: what is this for?
+
 #import <UIKit/UIKit.h>
 @class EyeImage;
 

@@ -74,7 +74,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     
     _prefs = [NSUserDefaults standardUserDefaults];
     
-    [[_bleManager whiteFlashLight]toggleLight];
+    //[[_bleManager whiteFlashLight]toggleLight];
     
     debugMode = [_prefs boolForKey: @"debugMode"];
     [ debugToggle setOn: debugMode animated: NO];
@@ -138,12 +138,13 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
 }
 
 -(void) viewWillDisappear:(BOOL)animated{
-    
+    /*
     if(debugMode == NO){
         [_bleManager.whiteFlashLight turnOff];
         [_bleManager.redFlashLight turnOff];
     }
-       
+     */
+    
     [_prefs setInteger: whiteFlashSlider.value forKey:@"whiteFlashValue"];
     [_prefs setInteger: redFocusSlider.value forKey:@"redFocusValue"];
 
@@ -233,13 +234,13 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
         [_prefs setValue: @YES forKey:@"debugMode" ];
         
         [_bleManager setDebugMode:YES];
-        [_bleManager turnOffAllLights];
+        //[_bleManager turnOffAllLights];
         [_bleManager disconnect];
     }
     else if(debugToggle.on == NO){
         debugMode = NO;
         [_prefs setValue: @NO forKey:@"debugMode" ];
-        [_bleManager btnScanForPeripherals];
+        [_bleManager beginBLEScan];
     }
     NSLog(@"ToggleChange to %d",debugToggle.on);
 }
@@ -249,7 +250,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     whiteFlashLabel.text = [NSString stringWithFormat: @"%d", (int)whiteFlashSlider.value];
     whiteFlashStart = CACurrentMediaTime();
     if(whiteFlashStart-whiteFlashEnd>=.05){
-        [[_bleManager whiteFlashLight] changeIntensity:whiteFlashSlider.value];
+        //[[_bleManager whiteFlashLight] changeIntensity:whiteFlashSlider.value];
         whiteFlashEnd = whiteFlashStart;
         //NSLog(@"%f",whiteFlashEnd);
     }
@@ -260,7 +261,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     redFocusLabel.text = [NSString stringWithFormat: @"%d", (int)redFocusSlider.value];
     redFocusStart = CACurrentMediaTime();
     if(redFocusStart-redFocusEnd>=.05){
-        [[_bleManager redFocusLight] changeIntensity:redFocusSlider.value];
+        //[[_bleManager redFocusLight] changeIntensity:redFocusSlider.value];
         redFocusEnd = redFocusStart;
         //NSLog(@"%f",redFocusEnd);
     }
@@ -270,7 +271,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     whiteFocusLabel.text = [NSString stringWithFormat: @"%d", (int)whiteFocusSlider.value];
     whiteFocusStart = CACurrentMediaTime();
     if(whiteFocusStart-whiteFocusEnd>=.05){
-        [[_bleManager whiteFocusLight] changeIntensity:whiteFocusSlider.value];
+        //[[_bleManager whiteFocusLight] changeIntensity:whiteFocusSlider.value];
         whiteFocusEnd = whiteFocusStart;
         //NSLog(@"%f",whiteFocusEnd);
     }
@@ -281,7 +282,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     redFlashLabel.text = [NSString stringWithFormat: @"%d", (int)redFlashSlider.value];
     redFlashStart = CACurrentMediaTime();
     if(redFlashStart-redFlashEnd>=.05){
-        [[_bleManager redFlashLight] changeIntensity:redFlashSlider.value];
+        //[[_bleManager redFlashLight] changeIntensity:redFlashSlider.value];
         redFlashEnd = redFlashStart;
         //NSLog(@"%f",redFlashEnd);
     }
@@ -291,7 +292,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     remoteLightLabel.text = [NSString stringWithFormat: @"%d", (int)remoteLightSlider.value];
     remoteLightStart = CACurrentMediaTime();
     if(remoteLightStart-remoteLightEnd>=.05){
-        [[[_bleManager fixationLights]objectAtIndex:[_bleManager selectedLight]]changeIntensity:remoteLightSlider.value];
+        //[[[_bleManager fixationLights]objectAtIndex:[_bleManager selectedLight]]changeIntensity:remoteLightSlider.value];
         
         //[[_bleManager remoteLight] changeIntensity:remoteLightSlider.value];
         remoteLightEnd = remoteLightStart;

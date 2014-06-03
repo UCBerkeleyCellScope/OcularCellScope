@@ -14,7 +14,7 @@
 
 @interface CamViewController : UIViewController<ImageCaptureDelegate, BLEConnectionDelegate>
 
-@property (strong, nonatomic) BLEManager *bleManager;
+//@property (strong, nonatomic) BLEManager *bleManager;
 @property (strong, nonatomic) AVCaptureManager *captureManager;
 @property (assign, nonatomic) int currentImageCount;
 @property (weak, nonatomic) NSTimer *repeatingTimer;
@@ -39,6 +39,8 @@
 @property (assign, nonatomic) BOOL debugMode;
 @property (assign, nonatomic) BOOL mirroredView;
 @property (assign, nonatomic) BOOL fullscreeningMode;
+
+@property (nonatomic, assign) long selectedLight;
 
 //- (IBAction)tappedToFocus:(UITapGestureRecognizer *)sender;
 //- (IBAction)longPressedToCapture:(UILongPressGestureRecognizer *) longPress;

@@ -25,7 +25,6 @@
 
 
 @synthesize selectedEye, selectedLight, imageArray, segControl;
-@synthesize bleManager = _bleManager;
 
 //This is an EyeImage
 @synthesize currentEyeImage;
@@ -53,17 +52,15 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 {
     [super viewDidLoad];
     
-    fixationButtons = [NSMutableArray arrayWithObjects: centerFixationButton, topFixationButton,
-                                       bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton, nil];
+    fixationButtons = [NSMutableArray arrayWithObjects: noFixationButton, centerFixationButton, topFixationButton,
+                                       bottomFixationButton, leftFixationButton, rightFixationButton, nil];
     
     
-    imageFileNames = [NSArray arrayWithObjects: @"retina_icon_center.png",
+    imageFileNames = [NSArray arrayWithObjects: @"retina_icon_center.png", @"retina_icon_center.png",
                       @"retina_icon_top.png", @"retina_icon_bottom.png",
-                      @"retina_icon_left.png", @"retina_icon_right",
-                      @"retina_icon_center.png", nil];
+                      @"retina_icon_left.png", @"retina_icon_right", nil];
     
-    _bleManager = [[CellScopeContext sharedContext] bleManager];
-    
+   
     passedImages = [[NSMutableArray alloc]init];
     
     [self setupFixationButtons];
@@ -73,7 +70,9 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     [super viewWillAppear:(BOOL) animated];
             
-    [_bleManager turnOffAllLights];
+    //[_bleManager turnOffAllLights];
+    
+    
     
     [self setSelectedEye:  [[CellScopeContext sharedContext]selectedEye] ];
     
@@ -205,8 +204,9 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 - (IBAction)didPressFixation:(id)sender {
     
+    
     self.selectedLight = (int)[sender tag];
-    [_bleManager setSelectedLight: self.selectedLight];
+    //[_bleManager setSelectedLight: self.selectedLight];
     
     if( [sender isSelected] == NO){
         //there are pictures!
@@ -249,15 +249,17 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         CamViewController* cvc = (CamViewController*)[segue destinationViewController];
         [[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
         cvc.fullscreeningMode = NO;
+        cvc.selectedLight = self.selectedLight;
         
     }
-    if ([[segue identifier] isEqualToString:@"FullScreeningSegue"])
+    if ([[segue identifier] isEqualToString:@"FullScreeningSegue"]) //TODO: when is this used?
     {
         
         NSLog(@"Preparing for FullScreeningSegue");
         CamViewController* cvc = (CamViewController*)[segue destinationViewController];
         [[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
         cvc.fullscreeningMode = YES;
+        cvc.selectedLight = self.selectedLight;
         
     }
     
@@ -273,7 +275,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         [passedImages removeAllObjects];
         
         NSPredicate *p = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == %d", [[CellScopeContext sharedContext]currentExam], self.selectedEye,
-                           _bleManager.selectedLight];
+                           self.selectedLight];
     
         NSArray *temp = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: p
                                                         andSortKey: @"date" andSortAscending: YES
