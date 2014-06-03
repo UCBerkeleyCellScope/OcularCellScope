@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface PatientTableViewCell : UITableViewCell
-
-@property(nonatomic,strong) UIImageView* patientThumbnail;
+@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *idLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *eyeThumbnail;
 
 @end

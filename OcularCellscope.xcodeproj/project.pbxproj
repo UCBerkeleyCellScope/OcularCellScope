@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		60068B0219394D8C003470B9 /* S3manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60068B0119394D8C003470B9 /* S3manager.m */; };
-		60068B0919394E57003470B9 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60068B0719394E57003470B9 /* AWSRuntime.framework */; };
-		60068B0A19394E57003470B9 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60068B0819394E57003470B9 /* AWSS3.framework */; };
 		60068B141939671B003470B9 /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 60068B131939671B003470B9 /* Exam.m */; };
 		60068B171939671C003470B9 /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 60068B161939671C003470B9 /* EyeImage.m */; };
 		603B077318DCB8F1002179CD /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B076A18DCB8F1002179CD /* BSKeyboardControls.m */; };
@@ -36,7 +34,6 @@
 		60B718A1192DD16900E0F40A /* beepbeep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 60B7189F192DD16900E0F40A /* beepbeep.wav */; };
 		60B718A2192DD16900E0F40A /* long-beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 60B718A0192DD16900E0F40A /* long-beep.wav */; };
 		60B718A5193067C100E0F40A /* DataGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B718A4193067C100E0F40A /* DataGenerator.m */; };
-		60B7A5C21936772A00A1F9EB /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5BD1936766400A1F9EB /* libGTLTouchStaticLib.a */; };
 		60B7A5C41936774000A1F9EB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5C31936774000A1F9EB /* Security.framework */; };
 		60B7A5C61936775200A1F9EB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */; };
 		60B7A5C81936790100A1F9EB /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60B7A5C71936790100A1F9EB /* GTMOAuth2ViewTouch.xib */; };
@@ -101,7 +98,6 @@
 		F325703218D1A9AE00FEA80E /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = F325702F18D1A9AE00FEA80E /* UIImage+RoundedCorner.m */; };
 		F325703418D1AF1F00FEA80E /* default-configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = F325703318D1AF1F00FEA80E /* default-configuration.plist */; };
 		F325703D18D366FE00FEA80E /* SelectableEyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F325703C18D366FE00FEA80E /* SelectableEyeImage.m */; };
-		F325704518D3911200FEA80E /* unselected_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F325704318D3911200FEA80E /* unselected_icon.png */; };
 		F356909318559CC700DBB4BE /* button_addpatients.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909218559CC700DBB4BE /* button_addpatients.png */; };
 		F356909718559ECA00DBB4BE /* button_viewpatients.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909518559ECA00DBB4BE /* button_viewpatients.png */; };
 		F356909818559ECA00DBB4BE /* button_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = F356909618559ECA00DBB4BE /* button_settings.png */; };
@@ -144,37 +140,12 @@
 		F3FCC96B19369BA10093A1EB /* CameraModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3FCC95619369BA10093A1EB /* CameraModel.xcdatamodeld */; };
 		F3FCC96C19369BA10093A1EB /* SelectableUIEyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F3FCC95919369BA10093A1EB /* SelectableUIEyeImage.m */; };
 		F3FCC97119369F180093A1EB /* EyePhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3FCC96E19369F180093A1EB /* EyePhotoCell.m */; };
+		F3FCC977193E72FF0093A1EB /* unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC976193E72FF0093A1EB /* unselected.png */; };
+		F3FCC979193E77DB0093A1EB /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3FCC978193E77DB0093A1EB /* AWSS3.framework */; };
+		F3FCC97B193E78160093A1EB /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3FCC97A193E78160093A1EB /* AWSRuntime.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		60B7A5BA1936766400A1F9EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4F38F6A60B66E91D00B24B81;
-			remoteInfo = GTLFramework;
-		};
-		60B7A5BC1936766400A1F9EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4F12027C11A4CA2F00BEB470;
-			remoteInfo = GTLTouchStaticLib;
-		};
-		60B7A5BE1936766400A1F9EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4F12027D11A4CA2F00BEB470;
-			remoteInfo = GTLUnitTests;
-		};
-		60B7A5C01936766400A1F9EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4F1AD9020B71603F00DC0485;
-			remoteInfo = DevelopmentTestTool;
-		};
 		6D2D5DD918318DA000A58A96 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6D2D5DAB18318D9F00A58A96 /* Project object */;
@@ -187,8 +158,6 @@
 /* Begin PBXFileReference section */
 		60068B0019394D8C003470B9 /* S3manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = S3manager.h; path = "AV Camera App/S3manager.h"; sourceTree = "<group>"; };
 		60068B0119394D8C003470B9 /* S3manager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = S3manager.m; path = "AV Camera App/S3manager.m"; sourceTree = "<group>"; };
-		60068B0719394E57003470B9 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
-		60068B0819394E57003470B9 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSS3.framework; sourceTree = "<group>"; };
 		60068B121939671B003470B9 /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
 		60068B131939671B003470B9 /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
 		60068B151939671C003470B9 /* EyeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeImage.h; sourceTree = "<group>"; };
@@ -240,7 +209,6 @@
 		60B718A0192DD16900E0F40A /* long-beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "long-beep.wav"; sourceTree = "<group>"; };
 		60B718A3193067C100E0F40A /* DataGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataGenerator.h; sourceTree = "<group>"; };
 		60B718A4193067C100E0F40A /* DataGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataGenerator.m; sourceTree = "<group>"; };
-		60B7A5B31936766200A1F9EB /* GTL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GTL.xcodeproj; path = "../google-api-objectivec-client-read-only/Source/GTL.xcodeproj"; sourceTree = "<group>"; };
 		60B7A5C31936774000A1F9EB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		60B7A5C71936790100A1F9EB /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTMOAuth2ViewTouch.xib; sourceTree = "<group>"; };
@@ -339,7 +307,6 @@
 		F325703318D1AF1F00FEA80E /* default-configuration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "default-configuration.plist"; path = "../default-configuration.plist"; sourceTree = "<group>"; };
 		F325703B18D366FE00FEA80E /* SelectableEyeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectableEyeImage.h; sourceTree = "<group>"; };
 		F325703C18D366FE00FEA80E /* SelectableEyeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectableEyeImage.m; sourceTree = "<group>"; };
-		F325704318D3911200FEA80E /* unselected_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselected_icon.png; sourceTree = "<group>"; };
 		F356909218559CC700DBB4BE /* button_addpatients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_addpatients.png; path = images/button_addpatients.png; sourceTree = "<group>"; };
 		F356909518559ECA00DBB4BE /* button_viewpatients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_viewpatients.png; path = images/button_viewpatients.png; sourceTree = "<group>"; };
 		F356909618559ECA00DBB4BE /* button_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_settings.png; path = images/button_settings.png; sourceTree = "<group>"; };
@@ -390,6 +357,9 @@
 		F3FCC95919369BA10093A1EB /* SelectableUIEyeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectableUIEyeImage.m; sourceTree = "<group>"; };
 		F3FCC96D19369F180093A1EB /* EyePhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyePhotoCell.h; sourceTree = "<group>"; };
 		F3FCC96E19369F180093A1EB /* EyePhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyePhotoCell.m; sourceTree = "<group>"; };
+		F3FCC976193E72FF0093A1EB /* unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselected.png; sourceTree = "<group>"; };
+		F3FCC978193E77DB0093A1EB /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSS3.framework; sourceTree = "<group>"; };
+		F3FCC97A193E78160093A1EB /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -399,15 +369,14 @@
 			files = (
 				60B7A5C61936775200A1F9EB /* SystemConfiguration.framework in Frameworks */,
 				60B7A5C41936774000A1F9EB /* Security.framework in Frameworks */,
-				60068B0919394E57003470B9 /* AWSRuntime.framework in Frameworks */,
-				60B7A5C21936772A00A1F9EB /* libGTLTouchStaticLib.a in Frameworks */,
+				F3FCC97B193E78160093A1EB /* AWSRuntime.framework in Frameworks */,
 				60B4231A19089678005A9ABD /* MobileCoreServices.framework in Frameworks */,
 				60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */,
 				6DD89D8118426B0700F3C7FC /* CoreImage.framework in Frameworks */,
 				6DD89D7F18426AFF00F3C7FC /* CoreData.framework in Frameworks */,
 				6D393A2A1831D0D2004F2EC7 /* AssetsLibrary.framework in Frameworks */,
 				6D393A281831CAD0004F2EC7 /* AVFoundation.framework in Frameworks */,
-				60068B0A19394E57003470B9 /* AWSS3.framework in Frameworks */,
+				F3FCC979193E77DB0093A1EB /* AWSS3.framework in Frameworks */,
 				6D2D5DB918318D9F00A58A96 /* CoreGraphics.framework in Frameworks */,
 				6D2D5DBB18318D9F00A58A96 /* UIKit.framework in Frameworks */,
 				6D2D5DB718318D9F00A58A96 /* Foundation.framework in Frameworks */,
@@ -506,17 +475,6 @@
 			name = Camera;
 			sourceTree = "<group>";
 		};
-		60B7A5B41936766200A1F9EB /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				60B7A5BB1936766400A1F9EB /* GTL.framework */,
-				60B7A5BD1936766400A1F9EB /* libGTLTouchStaticLib.a */,
-				60B7A5BF1936766400A1F9EB /* GTLUnitTests.octest */,
-				60B7A5C11936766400A1F9EB /* DevelopmentTestTool */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		60C1AE0618F3507E00902F28 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -572,7 +530,6 @@
 			children = (
 				60B7A5C91936797000A1F9EB /* GTLDrive_Sources.m */,
 				60B7A5CA1936797000A1F9EB /* GTLDrive.h */,
-				60B7A5B31936766200A1F9EB /* GTL.xcodeproj */,
 				6043C8E51925D960007DFAFB /* ALAssetsLibrary_CustomPhotoAlbum */,
 				6DD89D211842666C00F3C7FC /* Core Data */,
 				60C1AE0618F3507E00902F28 /* AFNetworking */,
@@ -614,8 +571,8 @@
 		6D2D5DB518318D9F00A58A96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				60068B0719394E57003470B9 /* AWSRuntime.framework */,
-				60068B0819394E57003470B9 /* AWSS3.framework */,
+				F3FCC97A193E78160093A1EB /* AWSRuntime.framework */,
+				F3FCC978193E77DB0093A1EB /* AWSS3.framework */,
 				60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */,
 				60B7A5C31936774000A1F9EB /* Security.framework */,
 				60B42323190AE512005A9ABD /* UIImage+Resize */,
@@ -742,6 +699,7 @@
 				60B4232A190B14F3005A9ABD /* GREENsettings_icon.png */,
 				60B42328190AFFC7005A9ABD /* redDot.png */,
 				60B42324190AE69B005A9ABD /* flashOffWhite.png */,
+				F3FCC976193E72FF0093A1EB /* unselected.png */,
 				F38224AF18F7BB3F00D861FE /* retina_icon_bottom.png */,
 				F38224B018F7BB3F00D861FE /* retina_icon_center.png */,
 				F3A6034C18FE6A5F006BFFEC /* settings_icon.png */,
@@ -749,7 +707,6 @@
 				F38224B218F7BB3F00D861FE /* retina_icon_right.png */,
 				F38224B318F7BB3F00D861FE /* retina_icon_top.png */,
 				60C7746A1916394100731B3A /* title.png */,
-				F325704318D3911200FEA80E /* unselected_icon.png */,
 				60B2E8FB18C717B100973C7E /* img.jpeg */,
 				F325702718CC0E4100FEA80E /* eye_icon_small.png */,
 				F325702118CC0CD500FEA80E /* notes_icon.png */,
@@ -869,12 +826,6 @@
 			mainGroup = 6D2D5DAA18318D9E00A58A96;
 			productRefGroup = 6D2D5DB418318D9F00A58A96 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 60B7A5B41936766200A1F9EB /* Products */;
-					ProjectRef = 60B7A5B31936766200A1F9EB /* GTL.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				6D2D5DB218318D9F00A58A96 /* AV Camera App */,
@@ -882,37 +833,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		60B7A5BB1936766400A1F9EB /* GTL.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = GTL.framework;
-			remoteRef = 60B7A5BA1936766400A1F9EB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60B7A5BD1936766400A1F9EB /* libGTLTouchStaticLib.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libGTLTouchStaticLib.a;
-			remoteRef = 60B7A5BC1936766400A1F9EB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60B7A5BF1936766400A1F9EB /* GTLUnitTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = GTLUnitTests.octest;
-			remoteRef = 60B7A5BE1936766400A1F9EB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60B7A5C11936766400A1F9EB /* DevelopmentTestTool */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = DevelopmentTestTool;
-			remoteRef = 60B7A5C01936766400A1F9EB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6D2D5DB118318D9F00A58A96 /* Resources */ = {
@@ -948,12 +868,12 @@
 				F3FCC95C19369BA10093A1EB /* Default-568h@2x.png in Resources */,
 				F38224B618F7BB3F00D861FE /* retina_icon_left.png in Resources */,
 				F3FCC95D19369BA10093A1EB /* Default.png in Resources */,
+				F3FCC977193E72FF0093A1EB /* unselected.png in Resources */,
 				F38224B418F7BB3F00D861FE /* retina_icon_bottom.png in Resources */,
 				6D2D5DCF18318D9F00A58A96 /* Images.xcassets in Resources */,
 				F3FCC96519369BA10093A1EB /* red_retina@2x.png in Resources */,
 				F3A6034D18FE6A5F006BFFEC /* settings_icon.png in Resources */,
 				F3FCC96319369BA10093A1EB /* notes_icon@2x.png in Resources */,
-				F325704518D3911200FEA80E /* unselected_icon.png in Resources */,
 				F358E316185A82E600872304 /* capture2.png in Resources */,
 				F3FCC95F19369BA10093A1EB /* delete_icon.png in Resources */,
 				F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */,

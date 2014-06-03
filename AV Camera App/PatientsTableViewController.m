@@ -7,6 +7,7 @@
 //
 
 #import "PatientsTableViewController.h"
+#import "PatientTableViewCell.h"
 #import "CoreDataController.h"
 #import "DiagnosisViewController.h"
 #import "CellScopeHTTPClient.h"
@@ -182,13 +183,23 @@
 //INITIALIZE EXAM CELL
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"PatientCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    PatientTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[PatientTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
+    // Set up the cell...
+    Exam *exam = (Exam *)[self.patientsArray objectAtIndex:indexPath.row];
+    
+    
+    
+    cell.nameLabel.text = [NSString stringWithFormat:@"%@, %@",
+                           exam.lastName, exam.firstName];
+    
+    cell.idLabel.text = [NSString stringWithFormat:@"ID: %@", exam.patientID];
+    
+    return cell;
     
     //ORIGINAL CELLSCOPE CODE
  /*

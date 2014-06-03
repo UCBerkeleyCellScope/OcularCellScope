@@ -18,4 +18,8 @@
     self.eyeImages = tempSet;
 }
 
+-(EyeImage*)getFirstImage{
+    return [self.eyeImages firstObject];
+}
+
 @end

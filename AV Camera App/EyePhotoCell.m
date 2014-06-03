@@ -53,7 +53,7 @@
         [self.selectButton setImage:[UIImage imageNamed:@"delete_icon.png"] forState:UIControlStateNormal];
     }
     else{
-        [self.selectButton setImage:[UIImage imageNamed:@"unselected_icon.png"] forState:UIControlStateNormal];
+        [self.selectButton setImage:[UIImage imageNamed:@"unselected.png"] forState:UIControlStateNormal];
     }
 }
 
