@@ -25,7 +25,7 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 
 @synthesize firstnameField, lastnameField, profilePicButton, patientIDLabel,  phoneNumberField, patientIDTextField;
 @synthesize birthDayTextField,birthMonthTextField,birthYearTextField;
-@synthesize driveService;
+//@synthesize driveService;
 @synthesize s3manager;
 
 //physicianField
@@ -53,10 +53,11 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 {
     [super viewDidLoad];
     
-    self.driveService = [[GTLServiceDrive alloc] init];
+    /*self.driveService = [[GTLServiceDrive alloc] init];
     self.driveService.authorizer = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName
                                                                                          clientID:kClientID
                                                                                      clientSecret:kClientSecret];
+    */
     
     self.s3manager = [[CellScopeContext sharedContext]s3manager];
     
@@ -455,7 +456,7 @@ replacementString:(NSString *)string {
 {
     [self.view endEditing:YES];
 }
-
+/*
 - (BOOL)isAuthorized
 {
     return [((GTMOAuth2Authentication *)self.driveService.authorizer) canAuthorize];
@@ -525,6 +526,7 @@ replacementString:(NSString *)string {
                       }
                   }];
 }
+*/
 
 // Helper for showing a wait indicator in a popup
 - (UIAlertView*)showWaitIndicator:(NSString *)title
