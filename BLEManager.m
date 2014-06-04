@@ -75,9 +75,6 @@ BOOL capturing = NO;
         
 */
         
-
-        
-        
         /*
         NSMutableArray *lights = [[NSMutableArray alloc] init];
         for(int i = 0; i <= 5; ++i){
