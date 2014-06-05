@@ -113,7 +113,7 @@ BOOL capturing = NO;
     {
         for (CBPeripheral* p in ble.peripherals)
         {
-            NSLog(p.identifier.UUIDString);
+            NSLog(@"%@",p.identifier.UUIDString);
             if ([p.identifier.UUIDString isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"CellScopeBTUUID"]])
             {
                 [ble connectPeripheral:p];

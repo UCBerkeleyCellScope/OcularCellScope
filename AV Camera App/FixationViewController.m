@@ -332,7 +332,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                 SelectableEyeImage *image = [[SelectableEyeImage alloc] initWithUIImage: th
                                                         date: i.date
                                                          eye: i.eye
-                                               fixationLight: i.fixationLight
+                                               fixationLight: i.fixationLight.intValue
                                                       thumbnail: th];
                 image.coreDataImage = i;
                 [passedImages addObject: image];

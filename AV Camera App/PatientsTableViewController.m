@@ -27,14 +27,7 @@
 @synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize managedObjectContext;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+
 
 - (void)viewDidLoad
 {
@@ -60,7 +53,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = NO;
+    self.navigationController.navigationBar.hidden = YES;
     
     [[CellScopeContext sharedContext] setCurrentExam:nil ];
     [[CellScopeContext sharedContext] setSelectedEye:nil ];
@@ -73,6 +66,11 @@
     //NSLog(@"NSResults: %lu", (unsigned long)[self.fetchedResultsController count]);
     
     
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = NO;
 }
 
 - (NSFetchedResultsController *)fetchedResultsController {
@@ -166,13 +164,14 @@
         return @"?";
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    Exam *exam = [_fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@, %@",
-                           exam.lastName, exam.firstName];
-    cell.textLabel.textColor = [UIColor lightGreenColor];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", exam.patientID];
+
+- (void)configureCell:(PatientTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    Exam *exam = (Exam *)[self.patientsArray objectAtIndex:indexPath.row];
+    
+    cell.nameLabel.text = [NSString stringWithFormat:@"%@, %@", exam.lastName, exam.firstName];
+    cell.idLabel.text = [NSString stringWithFormat:@"ID: %@", exam.patientID];
 }
+
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
@@ -189,44 +188,6 @@
     if(cell == nil) {
         cell = [[PatientTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    // Set up the cell...
-    Exam *exam = (Exam *)[self.patientsArray objectAtIndex:indexPath.row];
-    
-    
-    
-    cell.nameLabel.text = [NSString stringWithFormat:@"%@, %@",
-                           exam.lastName, exam.firstName];
-    
-    cell.idLabel.text = [NSString stringWithFormat:@"ID: %@", exam.patientID];
-    
-    return cell;
-    
-    //ORIGINAL CELLSCOPE CODE
- /*
-    // Set up the cell...
-    Exam *exam = (Exam *)[patientsArray objectAtIndex:indexPath.row];
-    
-    // Fill in the cell contents
-    cell.textLabel.text = [NSString stringWithFormat:@"%@, %@",
-                           exam.lastName, exam.firstName];
-    cell.textLabel.textColor = [UIColor lightGreenColor];
-    
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", exam.patientID];
-    //cell.detailTextLabel.textColor = [UIColor blackColor];
-    
-    //cell.imageView = ;
-    
-    return cell;
-    
-*/
-    
-    //A THROUGH Z CODE
-    /*
-    cell.textLabel.text = [[[content objectAtIndex:indexPath.section] objectForKey:@"rowValues"]
-                           objectAtIndex:indexPath.row];
-    cell.textLabel.textColor = [UIColor lightGreenColor];
-     */
-    
     
     //FETCH RESULTS CONTROLLER CODE
     [self configureCell:cell atIndexPath:indexPath];
@@ -344,7 +305,7 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            [self configureCell:(PatientTableViewCell*)[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             break;
             
         case NSFetchedResultsChangeMove:

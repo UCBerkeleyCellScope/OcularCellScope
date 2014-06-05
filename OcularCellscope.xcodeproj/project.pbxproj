@@ -37,7 +37,6 @@
 		60B7A5C41936774000A1F9EB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5C31936774000A1F9EB /* Security.framework */; };
 		60B7A5C61936775200A1F9EB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */; };
 		60B7A5C81936790100A1F9EB /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60B7A5C71936790100A1F9EB /* GTMOAuth2ViewTouch.xib */; };
-		60B7A5CB1936797000A1F9EB /* GTLDrive_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B7A5C91936797000A1F9EB /* GTLDrive_Sources.m */; };
 		60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0118F346E700902F28 /* DiagnosisViewController.m */; };
 		60C1AE0518F34DD400902F28 /* PatientTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0418F34DD400902F28 /* PatientTableViewCell.m */; };
 		60C1AE2C18F3507E00902F28 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0818F3507E00902F28 /* AFHTTPRequestOperation.m */; };
@@ -57,7 +56,6 @@
 		60C1AE3A18F3507E00902F28 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE2718F3507E00902F28 /* UIProgressView+AFNetworking.m */; };
 		60C1AE3B18F3507E00902F28 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE2918F3507E00902F28 /* UIRefreshControl+AFNetworking.m */; };
 		60C1AE3C18F3507E00902F28 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE2B18F3507E00902F28 /* UIWebView+AFNetworking.m */; };
-		60C7746B1916394100731B3A /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 60C7746A1916394100731B3A /* title.png */; };
 		60C7746D19163A0800731B3A /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 60C7746C19163A0800731B3A /* title.png */; };
 		60D8C7BC18C69BB1007D26A7 /* CameraAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */; };
 		60D8C7BD18C69BB1007D26A7 /* CellScopeContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2A51C18C19F2800021510 /* CellScopeContext.m */; };
@@ -212,8 +210,6 @@
 		60B7A5C31936774000A1F9EB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		60B7A5C71936790100A1F9EB /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTMOAuth2ViewTouch.xib; sourceTree = "<group>"; };
-		60B7A5C91936797000A1F9EB /* GTLDrive_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDrive_Sources.m; sourceTree = "<group>"; };
-		60B7A5CA1936797000A1F9EB /* GTLDrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDrive.h; sourceTree = "<group>"; };
 		60C1AE0018F346E700902F28 /* DiagnosisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiagnosisViewController.h; sourceTree = "<group>"; };
 		60C1AE0118F346E700902F28 /* DiagnosisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiagnosisViewController.m; sourceTree = "<group>"; };
 		60C1AE0318F34DD400902F28 /* PatientTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientTableViewCell.h; sourceTree = "<group>"; };
@@ -528,8 +524,6 @@
 		6D2D5DAA18318D9E00A58A96 = {
 			isa = PBXGroup;
 			children = (
-				60B7A5C91936797000A1F9EB /* GTLDrive_Sources.m */,
-				60B7A5CA1936797000A1F9EB /* GTLDrive.h */,
 				6043C8E51925D960007DFAFB /* ALAssetsLibrary_CustomPhotoAlbum */,
 				6DD89D211842666C00F3C7FC /* Core Data */,
 				60C1AE0618F3507E00902F28 /* AFNetworking */,
@@ -617,9 +611,9 @@
 				603B077918DD26E2002179CD /* SettingsViewController.m */,
 				60441CCF193728B1000A017C /* StudySelectionTableViewController.h */,
 				60441CD0193728B1000A017C /* StudySelectionTableViewController.m */,
-				6D2D5DBD18318D9F00A58A96 /* Supporting Files */,
 				603B077B18DD810B002179CD /* TabViewController.h */,
 				603B077C18DD810B002179CD /* TabViewController.m */,
+				6D2D5DBD18318D9F00A58A96 /* Supporting Files */,
 				60B42338190F0B7F005A9ABD /* UIColor+Custom.h */,
 				60B42339190F0B7F005A9ABD /* UIColor+Custom.m */,
 			);
@@ -881,7 +875,6 @@
 				F3FCC96619369BA10093A1EB /* right.png in Resources */,
 				F356909718559ECA00DBB4BE /* button_viewpatients.png in Resources */,
 				60C7746D19163A0800731B3A /* title.png in Resources */,
-				60C7746B1916394100731B3A /* title.png in Resources */,
 				F325703418D1AF1F00FEA80E /* default-configuration.plist in Resources */,
 				F356909818559ECA00DBB4BE /* button_settings.png in Resources */,
 				6D2D5DC118318D9F00A58A96 /* InfoPlist.strings in Resources */,
@@ -959,7 +952,6 @@
 				60C1AE3218F3507E00902F28 /* AFURLRequestSerialization.m in Sources */,
 				6043C8E81925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				F325703118D1A9AE00FEA80E /* UIImage+Resize.m in Sources */,
-				60B7A5CB1936797000A1F9EB /* GTLDrive_Sources.m in Sources */,
 				60C1AE3B18F3507E00902F28 /* UIRefreshControl+AFNetworking.m in Sources */,
 				60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */,
 				60068B141939671B003470B9 /* Exam.m in Sources */,

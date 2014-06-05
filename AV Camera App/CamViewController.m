@@ -268,7 +268,7 @@
         [self updateCounterLabelText];
         // Timed flash or ping back
         
-        BOOL timedFlash = [[NSUserDefaults standardUserDefaults] boolForKey:@"timedFlash"];
+        //BOOL timedFlash = [[NSUserDefaults standardUserDefaults] boolForKey:@"timedFlash"];
 
         [self.bleManager.fixationLights[self.bleManager.selectedLight] turnOn];
         

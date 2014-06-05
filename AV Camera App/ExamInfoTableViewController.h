@@ -10,9 +10,6 @@
 
 #import <MobileCoreServices/MobileCoreServices.h>
 
-#import "GTMOAuth2ViewControllerTouch.h"
-#import "GTLDrive.h"
-
 #import "Exam.h"
 #import "CellScopeContext.h"
 #import "BSKeyboardControls.h"
@@ -27,7 +24,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *lastnameField;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberField;
 @property (weak, nonatomic) IBOutlet UIButton *profilePicButton;
-@property (nonatomic, retain) GTLServiceDrive *driveService;
 @property (weak, nonatomic) IBOutlet UILabel *patientIDLabel;
 @property (weak, nonatomic) IBOutlet UITextField *birthDayTextField;
 @property (weak, nonatomic) IBOutlet UITextField *birthMonthTextField;
