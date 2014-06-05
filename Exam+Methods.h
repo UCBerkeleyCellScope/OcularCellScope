@@ -11,6 +11,7 @@
 @interface Exam (Methods)
 
 - (void)addEyeImagesObject:(EyeImage *)image;
+- (NSString*)fullName;
 - (EyeImage*)getFirstImage;
 
 @end

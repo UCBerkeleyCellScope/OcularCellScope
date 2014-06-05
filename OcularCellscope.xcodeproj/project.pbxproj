@@ -36,7 +36,6 @@
 		60B718A5193067C100E0F40A /* DataGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B718A4193067C100E0F40A /* DataGenerator.m */; };
 		60B7A5C41936774000A1F9EB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5C31936774000A1F9EB /* Security.framework */; };
 		60B7A5C61936775200A1F9EB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */; };
-		60B7A5C81936790100A1F9EB /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60B7A5C71936790100A1F9EB /* GTMOAuth2ViewTouch.xib */; };
 		60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0118F346E700902F28 /* DiagnosisViewController.m */; };
 		60C1AE0518F34DD400902F28 /* PatientTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0418F34DD400902F28 /* PatientTableViewCell.m */; };
 		60C1AE2C18F3507E00902F28 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0818F3507E00902F28 /* AFHTTPRequestOperation.m */; };
@@ -202,15 +201,14 @@
 		60B42333190EF236005A9ABD /* CellScopeHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellScopeHTTPClient.m; sourceTree = "<group>"; };
 		60B42335190F02FC005A9ABD /* ExamInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExamInfoTableViewController.h; sourceTree = "<group>"; };
 		60B42336190F02FC005A9ABD /* ExamInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExamInfoTableViewController.m; sourceTree = "<group>"; };
-		60B42338190F0B7F005A9ABD /* UIColor+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Custom.h"; sourceTree = "<group>"; };
-		60B42339190F0B7F005A9ABD /* UIColor+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Custom.m"; sourceTree = "<group>"; };
+		60B42338190F0B7F005A9ABD /* UIColor+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Custom.h"; path = "AV Camera App/UIColor+Custom.h"; sourceTree = "<group>"; };
+		60B42339190F0B7F005A9ABD /* UIColor+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Custom.m"; path = "AV Camera App/UIColor+Custom.m"; sourceTree = "<group>"; };
 		60B7189F192DD16900E0F40A /* beepbeep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beepbeep.wav; sourceTree = "<group>"; };
 		60B718A0192DD16900E0F40A /* long-beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "long-beep.wav"; sourceTree = "<group>"; };
-		60B718A3193067C100E0F40A /* DataGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataGenerator.h; sourceTree = "<group>"; };
-		60B718A4193067C100E0F40A /* DataGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataGenerator.m; sourceTree = "<group>"; };
+		60B718A3193067C100E0F40A /* DataGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataGenerator.h; path = "AV Camera App/DataGenerator.h"; sourceTree = "<group>"; };
+		60B718A4193067C100E0F40A /* DataGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataGenerator.m; path = "AV Camera App/DataGenerator.m"; sourceTree = "<group>"; };
 		60B7A5C31936774000A1F9EB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		60B7A5C71936790100A1F9EB /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTMOAuth2ViewTouch.xib; sourceTree = "<group>"; };
 		60C1AE0018F346E700902F28 /* DiagnosisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiagnosisViewController.h; sourceTree = "<group>"; };
 		60C1AE0118F346E700902F28 /* DiagnosisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiagnosisViewController.m; sourceTree = "<group>"; };
 		60C1AE0318F34DD400902F28 /* PatientTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientTableViewCell.h; sourceTree = "<group>"; };
@@ -268,8 +266,8 @@
 		6D2D5DC018318D9F00A58A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6D2D5DC218318D9F00A58A96 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6D2D5DC418318D9F00A58A96 /* AV Camera App-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AV Camera App-Prefix.pch"; sourceTree = "<group>"; };
-		6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CameraAppDelegate.h; path = "AV Camera App/CameraAppDelegate.h"; sourceTree = "<group>"; };
-		6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CameraAppDelegate.m; path = "AV Camera App/CameraAppDelegate.m"; sourceTree = "<group>"; };
+		6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraAppDelegate.h; sourceTree = "<group>"; };
+		6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraAppDelegate.m; sourceTree = "<group>"; };
 		6D2D5DCE18318D9F00A58A96 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6D2D5DD418318D9F00A58A96 /* AV Camera AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AV Camera AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D2D5DD518318D9F00A58A96 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -395,19 +393,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		60068B11193965D0003470B9 /* ImageReview */ = {
-			isa = PBXGroup;
-			children = (
-				F3FCC96D19369F180093A1EB /* EyePhotoCell.h */,
-				F3FCC96E19369F180093A1EB /* EyePhotoCell.m */,
-				60418F2C189BB2ED0001D490 /* ImageCell.h */,
-				60418F2D189BB2ED0001D490 /* ImageCell.m */,
-				F3FA32C418B5D6BF000FACF4 /* ImageSelectionViewController.h */,
-				F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */,
-			);
-			name = ImageReview;
-			sourceTree = "<group>";
-		};
 		603B076818DCB8F1002179CD /* BSKeyboardControls */ = {
 			isa = PBXGroup;
 			children = (
@@ -468,8 +453,6 @@
 				6043C8ED192B12F9007DFAFB /* CameraFocusSquare.m */,
 				F385B3081900F85B00A3F974 /* AVCaptureManager.h */,
 				F385B3091900F85B00A3F974 /* AVCaptureManager.m */,
-				F385B2FC1900E31E00A3F974 /* CamViewController.h */,
-				F385B2FD1900E31E00A3F974 /* CamViewController.m */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -531,23 +514,6 @@
 				6DD89D211842666C00F3C7FC /* Core Data */,
 				60C1AE0618F3507E00902F28 /* AFNetworking */,
 				6D2D5DBC18318D9F00A58A96 /* AV Camera App */,
-				F325703B18D366FE00FEA80E /* SelectableEyeImage.h */,
-				F325703C18D366FE00FEA80E /* SelectableEyeImage.m */,
-				F385B2FF1900E66400A3F974 /* BLEManager.h */,
-				F385B3001900E66400A3F974 /* BLEManager.m */,
-				60D8C7D018C6BF87007D26A7 /* Constants.h */,
-				60D8C7D118C6BF87007D26A7 /* Constants.m */,
-				60B42332190EF236005A9ABD /* CellScopeHTTPClient.h */,
-				60B42333190EF236005A9ABD /* CellScopeHTTPClient.m */,
-				60068B0019394D8C003470B9 /* S3manager.h */,
-				60068B0119394D8C003470B9 /* S3manager.m */,
-				60C2A51B18C19F2800021510 /* CellScopeContext.h */,
-				60C2A51C18C19F2800021510 /* CellScopeContext.m */,
-				F3FCC95819369BA10093A1EB /* SelectableUIEyeImage.h */,
-				F3FCC95919369BA10093A1EB /* SelectableUIEyeImage.m */,
-				6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */,
-				6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */,
-				F356909418559CCA00DBB4BE /* Images */,
 				6D2D5DDB18318DA000A58A96 /* AV Camera AppTests */,
 				6D2D5DB518318D9F00A58A96 /* Frameworks */,
 				6D2D5DB418318D9F00A58A96 /* Products */,
@@ -592,31 +558,14 @@
 		6D2D5DBC18318D9F00A58A96 /* AV Camera App */ = {
 			isa = PBXGroup;
 			children = (
-				60B7189E192D72B600E0F40A /* Camera */,
-				60B718A3193067C100E0F40A /* DataGenerator.h */,
-				60B718A4193067C100E0F40A /* DataGenerator.m */,
-				60C1AE0018F346E700902F28 /* DiagnosisViewController.h */,
-				60C1AE0118F346E700902F28 /* DiagnosisViewController.m */,
-				60B42335190F02FC005A9ABD /* ExamInfoTableViewController.h */,
-				60B42336190F02FC005A9ABD /* ExamInfoTableViewController.m */,
-				60F03E1919138446008D729B /* FixationViewController.h */,
-				60A0865E18C069C900A2667D /* FixationViewController.m */,
-				60068B11193965D0003470B9 /* ImageReview */,
 				60AECE6618D8CD1A00C4EA15 /* Main.storyboard */,
-				F385B2FB1900E20F00A3F974 /* Old View Controllers */,
-				6D3260FC184BBD6200E34428 /* PatientsTableViewController.h */,
-				6D3260FD184BBD6200E34428 /* PatientsTableViewController.m */,
-				60C1AE0318F34DD400902F28 /* PatientTableViewCell.h */,
-				60C1AE0418F34DD400902F28 /* PatientTableViewCell.m */,
-				603B077818DD26E2002179CD /* SettingsViewController.h */,
-				603B077918DD26E2002179CD /* SettingsViewController.m */,
-				60441CCF193728B1000A017C /* StudySelectionTableViewController.h */,
-				60441CD0193728B1000A017C /* StudySelectionTableViewController.m */,
-				603B077B18DD810B002179CD /* TabViewController.h */,
-				603B077C18DD810B002179CD /* TabViewController.m */,
+				6D2D5DC518318D9F00A58A96 /* CameraAppDelegate.h */,
+				6D2D5DC618318D9F00A58A96 /* CameraAppDelegate.m */,
+				F3FCC97E1940378B0093A1EB /* Classes */,
+				F3FCC97C1940370B0093A1EB /* View Controllers */,
+				60B7189E192D72B600E0F40A /* Camera */,
+				F3FCC97D194037330093A1EB /* Cells */,
 				6D2D5DBD18318D9F00A58A96 /* Supporting Files */,
-				60B42338190F0B7F005A9ABD /* UIColor+Custom.h */,
-				60B42339190F0B7F005A9ABD /* UIColor+Custom.m */,
 			);
 			path = "AV Camera App";
 			sourceTree = "<group>";
@@ -624,13 +573,14 @@
 		6D2D5DBD18318D9F00A58A96 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				60B7A5C71936790100A1F9EB /* GTMOAuth2ViewTouch.xib */,
-				6D2D5DCE18318D9F00A58A96 /* Images.xcassets */,
-				F325703318D1AF1F00FEA80E /* default-configuration.plist */,
-				6D2D5DBE18318D9F00A58A96 /* AV Camera App-Info.plist */,
-				6D2D5DBF18318D9F00A58A96 /* InfoPlist.strings */,
 				6D2D5DC218318D9F00A58A96 /* main.m */,
 				6D2D5DC418318D9F00A58A96 /* AV Camera App-Prefix.pch */,
+				6D2D5DBE18318D9F00A58A96 /* AV Camera App-Info.plist */,
+				F325703318D1AF1F00FEA80E /* default-configuration.plist */,
+				6D2D5DCE18318D9F00A58A96 /* Images.xcassets */,
+				F356909418559CCA00DBB4BE /* Images */,
+				6D2D5DBF18318D9F00A58A96 /* InfoPlist.strings */,
+				F385B2FB1900E20F00A3F974 /* Old View Controllers */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -723,6 +673,7 @@
 				F356909218559CC700DBB4BE /* button_addpatients.png */,
 			);
 			name = Images;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		F385B2FB1900E20F00A3F974 /* Old View Controllers */ = {
@@ -745,6 +696,70 @@
 				F3FA32CA18B5E4B7000FACF4 /* im4.png */,
 			);
 			name = test_images;
+			sourceTree = "<group>";
+		};
+		F3FCC97C1940370B0093A1EB /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F385B2FC1900E31E00A3F974 /* CamViewController.h */,
+				F385B2FD1900E31E00A3F974 /* CamViewController.m */,
+				60C1AE0018F346E700902F28 /* DiagnosisViewController.h */,
+				60C1AE0118F346E700902F28 /* DiagnosisViewController.m */,
+				60B42335190F02FC005A9ABD /* ExamInfoTableViewController.h */,
+				60B42336190F02FC005A9ABD /* ExamInfoTableViewController.m */,
+				60F03E1919138446008D729B /* FixationViewController.h */,
+				60A0865E18C069C900A2667D /* FixationViewController.m */,
+				F3FA32C418B5D6BF000FACF4 /* ImageSelectionViewController.h */,
+				F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */,
+				6D3260FC184BBD6200E34428 /* PatientsTableViewController.h */,
+				6D3260FD184BBD6200E34428 /* PatientsTableViewController.m */,
+				603B077818DD26E2002179CD /* SettingsViewController.h */,
+				603B077918DD26E2002179CD /* SettingsViewController.m */,
+				60441CCF193728B1000A017C /* StudySelectionTableViewController.h */,
+				60441CD0193728B1000A017C /* StudySelectionTableViewController.m */,
+				603B077B18DD810B002179CD /* TabViewController.h */,
+				603B077C18DD810B002179CD /* TabViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		F3FCC97D194037330093A1EB /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F3FCC96D19369F180093A1EB /* EyePhotoCell.h */,
+				F3FCC96E19369F180093A1EB /* EyePhotoCell.m */,
+				60418F2C189BB2ED0001D490 /* ImageCell.h */,
+				60418F2D189BB2ED0001D490 /* ImageCell.m */,
+				60C1AE0318F34DD400902F28 /* PatientTableViewCell.h */,
+				60C1AE0418F34DD400902F28 /* PatientTableViewCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		F3FCC97E1940378B0093A1EB /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F385B2FF1900E66400A3F974 /* BLEManager.h */,
+				F385B3001900E66400A3F974 /* BLEManager.m */,
+				60C2A51B18C19F2800021510 /* CellScopeContext.h */,
+				60C2A51C18C19F2800021510 /* CellScopeContext.m */,
+				60B42332190EF236005A9ABD /* CellScopeHTTPClient.h */,
+				60B42333190EF236005A9ABD /* CellScopeHTTPClient.m */,
+				60D8C7D018C6BF87007D26A7 /* Constants.h */,
+				60D8C7D118C6BF87007D26A7 /* Constants.m */,
+				60B718A3193067C100E0F40A /* DataGenerator.h */,
+				60B718A4193067C100E0F40A /* DataGenerator.m */,
+				60068B0019394D8C003470B9 /* S3manager.h */,
+				60068B0119394D8C003470B9 /* S3manager.m */,
+				F325703B18D366FE00FEA80E /* SelectableEyeImage.h */,
+				F325703C18D366FE00FEA80E /* SelectableEyeImage.m */,
+				F3FCC95819369BA10093A1EB /* SelectableUIEyeImage.h */,
+				F3FCC95919369BA10093A1EB /* SelectableUIEyeImage.m */,
+				60B42338190F0B7F005A9ABD /* UIColor+Custom.h */,
+				60B42339190F0B7F005A9ABD /* UIColor+Custom.m */,
+			);
+			name = Classes;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -849,7 +864,6 @@
 				F325702218CC0CD500FEA80E /* notes_icon.png in Resources */,
 				F3FCC96919369BA10093A1EB /* white_logo.png in Resources */,
 				60B42325190AE69B005A9ABD /* flashOffWhite.png in Resources */,
-				60B7A5C81936790100A1F9EB /* GTMOAuth2ViewTouch.xib in Resources */,
 				F325702518CC0D3300FEA80E /* patient_icon_small.png in Resources */,
 				60B2E8F918C6EE7E00973C7E /* CameraModel.xcdatamodeld in Resources */,
 				F3FA32CC18B5E4B7000FACF4 /* im2.png in Resources */,

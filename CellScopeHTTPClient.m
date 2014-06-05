@@ -58,7 +58,7 @@ static NSString * const CellScopeURLString2 = @"http://localhost:5000/";
 
 -(void)addOnNextEyeImage:(NSNotification*) note{
     
-    NSDictionary *extraInformation = [note userInfo];
+    //NSDictionary *extraInformation = [note userInfo];
     bool fired = FALSE;
     
     //if([ [extraInformation objectForKey:@"imagesLeft"] isEqualToNumber:0]){

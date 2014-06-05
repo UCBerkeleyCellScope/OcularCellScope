@@ -353,6 +353,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         button.clipsToBounds = YES;
         button.layer.borderWidth = 2.0f;
         button.layer.borderColor = [UIColor whiteColor].CGColor;
+        button.imageView.contentMode = UIViewContentModeScaleAspectFill;
 
     }
 }

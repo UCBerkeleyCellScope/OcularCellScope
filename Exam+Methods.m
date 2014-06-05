@@ -18,6 +18,12 @@
     self.eyeImages = tempSet;
 }
 
+-(NSString*)fullName{
+    NSString* fullName = [self.firstName stringByAppendingString:self.lastName];
+    
+    return fullName;
+}
+
 -(EyeImage*)getFirstImage{
     return [self.eyeImages firstObject];
 }

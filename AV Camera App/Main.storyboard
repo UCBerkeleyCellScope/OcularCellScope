@@ -842,7 +842,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.1895642011" green="0.43417171560000001" blue="0.23738298099999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.098039215690000001" green="0.1843137255" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="e2k-xh-50U" secondAttribute="trailing" constant="20" id="3cX-vr-qoR"/>
@@ -932,14 +932,16 @@
                                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXb-en-8l0">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="436"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default.png" translatesAutoresizingMaskIntoConstraints="NO" id="wt0-Y3-3bt">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="436"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        </imageView>
+                                                    </subviews>
                                                     <connections>
                                                         <outlet property="delegate" destination="2qF-pw-3PT" id="BJF-3M-IM1"/>
                                                     </connections>
                                                 </scrollView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default.png" translatesAutoresizingMaskIntoConstraints="NO" id="wt0-Y3-3bt">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="436"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u7C-Tj-W2A">
                                                     <rect key="frame" x="260" y="376" width="40" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -972,11 +974,7 @@
                                             <constraint firstItem="i6F-8E-lv7" firstAttribute="leading" secondItem="u5J-8w-IZO" secondAttribute="leading" constant="20" id="FqP-RG-aoE"/>
                                             <constraint firstAttribute="bottom" secondItem="LXb-en-8l0" secondAttribute="bottom" id="OJl-B1-jUf"/>
                                             <constraint firstAttribute="bottom" secondItem="u7C-Tj-W2A" secondAttribute="bottom" constant="20" id="PFt-54-WbE"/>
-                                            <constraint firstAttribute="bottom" secondItem="wt0-Y3-3bt" secondAttribute="bottom" id="ZpD-AI-rrk"/>
-                                            <constraint firstItem="wt0-Y3-3bt" firstAttribute="top" secondItem="u5J-8w-IZO" secondAttribute="top" id="bOj-33-tq1"/>
-                                            <constraint firstItem="wt0-Y3-3bt" firstAttribute="leading" secondItem="u5J-8w-IZO" secondAttribute="leading" id="hwJ-2e-Rz5"/>
                                             <constraint firstItem="i6F-8E-lv7" firstAttribute="top" secondItem="u5J-8w-IZO" secondAttribute="top" constant="20" id="lXa-lt-qZH"/>
-                                            <constraint firstAttribute="trailing" secondItem="wt0-Y3-3bt" secondAttribute="trailing" id="prP-jI-OjV"/>
                                             <constraint firstItem="LXb-en-8l0" firstAttribute="top" secondItem="u5J-8w-IZO" secondAttribute="top" id="sI4-en-pxX"/>
                                         </constraints>
                                         <connections>
@@ -1105,7 +1103,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ED9-zm-qJl">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="ED9-zm-qJl">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ED9-zm-qJl" id="cHp-Sp-jTb">
@@ -1318,6 +1316,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="TBr-4c-NTm"/>
-        <segue reference="yZ8-bd-Ndx"/>
+        <segue reference="bxS-mp-ayJ"/>
     </inferredMetricsTieBreakers>
 </document>

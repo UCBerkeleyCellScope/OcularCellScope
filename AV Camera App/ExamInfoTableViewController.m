@@ -25,6 +25,7 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 
 @synthesize firstnameField, lastnameField, profilePicButton, patientIDLabel,  phoneNumberField, patientIDTextField;
 @synthesize birthDayTextField,birthMonthTextField,birthYearTextField;
+//@synthesize driveService;
 @synthesize s3manager;
 
 //physicianField
@@ -51,6 +52,12 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    /*self.driveService = [[GTLServiceDrive alloc] init];
+    self.driveService.authorizer = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName
+                                                                                         clientID:kClientID
+                                                                                     clientSecret:kClientSecret];
+    */
     
     self.s3manager = [[CellScopeContext sharedContext]s3manager];
     
@@ -446,7 +453,78 @@ replacementString:(NSString *)string {
 {
     [self.view endEditing:YES];
 }
-   
+/*
+- (BOOL)isAuthorized
+{
+    return [((GTMOAuth2Authentication *)self.driveService.authorizer) canAuthorize];
+}
+
+// Creates the auth controller for authorizing access to Google Drive.
+- (GTMOAuth2ViewControllerTouch *)createAuthController
+{
+    GTMOAuth2ViewControllerTouch *authController;
+    authController = [[GTMOAuth2ViewControllerTouch alloc] initWithScope:kGTLAuthScopeDriveFile
+                                                                clientID:kClientID
+                                                            clientSecret:kClientSecret
+                                                        keychainItemName:kKeychainItemName
+                                                                delegate:self
+                                                        finishedSelector:@selector(viewController:finishedWithAuth:error:)];
+    return authController;
+}
+
+// Handle completion of the authorization process, and updates the Drive service
+// with the new credentials.
+- (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController
+      finishedWithAuth:(GTMOAuth2Authentication *)authResult
+                 error:(NSError *)error
+{
+    if (error != nil)
+    {
+        [self showAlert:@"Authentication Error" message:error.localizedDescription];
+        self.driveService.authorizer = nil;
+    }
+    else
+    {
+        self.driveService.authorizer = authResult;
+    }
+}
+
+// Uploads a photo to Google Drive
+- (void)uploadPhoto:(UIImage*)image
+{
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"'Quickstart Uploaded File ('EEEE MMMM d, YYYY h:mm a, zzz')"];
+    
+    GTLDriveFile *file = [GTLDriveFile object];
+    file.title = [dateFormat stringFromDate:[NSDate date]];
+    file.descriptionProperty = @"Uploaded from the Google Drive iOS Quickstart";
+    file.mimeType = @"image/png";
+    
+    NSData *data = UIImagePNGRepresentation((UIImage *)image);
+    GTLUploadParameters *uploadParameters = [GTLUploadParameters uploadParametersWithData:data MIMEType:file.mimeType];
+    GTLQueryDrive *query = [GTLQueryDrive queryForFilesInsertWithObject:file
+                                                       uploadParameters:uploadParameters];
+    
+    UIAlertView *waitIndicator = [self showWaitIndicator:@"Uploading to Google Drive"];
+    
+    [self.driveService executeQuery:query
+                  completionHandler:^(GTLServiceTicket *ticket,
+                                      GTLDriveFile *insertedFile, NSError *error) {
+                      [waitIndicator dismissWithClickedButtonIndex:0 animated:YES];
+                      if (error == nil)
+                      {
+                          NSLog(@"File ID: %@", insertedFile.identifier);
+                          [self showAlert:@"Google Drive" message:@"File saved!"];
+                      }
+                      else
+                      {
+                          NSLog(@"An error occurred: %@", error);
+                          [self showAlert:@"Google Drive" message:@"Sorry, an error occurred!"];
+                      }
+                  }];
+}
+*/
+
 // Helper for showing a wait indicator in a popup
 - (UIAlertView*)showWaitIndicator:(NSString *)title
 {
