@@ -10,7 +10,9 @@
 #import "SelectableUIEyeImage.h"
 #import "SelectableEyeImage.h"
 #import "EyeImage.h"
-#import "Light.h"
+#import "CellScopeContext.h"
+
+//#import "Light.h"
 
 @implementation EyePhotoCell
 
@@ -57,26 +59,27 @@
     }
 }
 
+//TODO: revisit...flip images for right eye
 -(void) setFixationImageViewWithEyeImage{
     EyeImage *cdImage = self.eyeImage.coreDataImage;
     switch(cdImage.fixationLight.intValue){
 
-        case CENTER_LIGHT:
+        case FIXATION_LIGHT_CENTER:
             self.fixationImageView.image = [UIImage imageNamed:@"center.png"];
             break;
-        case TOP_LIGHT:
+        case FIXATION_LIGHT_UP:
             self.fixationImageView.image = [UIImage imageNamed:@"top.png"];
             break;
-        case BOTTOM_LIGHT:
+        case FIXATION_LIGHT_DOWN:
             self.fixationImageView.image = [UIImage imageNamed:@"bottom.png"];
             break;
-        case LEFT_LIGHT:
+        case FIXATION_LIGHT_LEFT:
             self.fixationImageView.image = [UIImage imageNamed:@"left.png"];
             break;
-        case RIGHT_LIGHT:
+        case FIXATION_LIGHT_RIGHT:
             self.fixationImageView.image = [UIImage imageNamed:@"right.png"];
             break;
-        case NO_LIGHT:
+        case FIXATION_LIGHT_NONE:
             self.fixationImageView.image = nil;
             break;
     }

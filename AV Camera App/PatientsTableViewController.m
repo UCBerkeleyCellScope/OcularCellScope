@@ -12,6 +12,7 @@
 #import "DiagnosisViewController.h"
 #import "CellScopeHTTPClient.h"
 #import "DataGenerator.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface PatientsTableViewController (){
     NSArray *content;
@@ -29,10 +30,11 @@
 
 
 
+
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
     
+    [super viewDidLoad];
     client = [[CellScopeContext sharedContext] client];
     
     managedObjectContext = [[CellScopeContext sharedContext]managedObjectContext];
@@ -251,10 +253,9 @@
 
 - (IBAction)didPressUpload:(id)sender {
     
-    
+    /*
     //Exam* grabbedFirstExam = [patientsArray objectAtIndex:0];
     Exam* grabbedFirstExam = [_fetchedResultsController objectAtIndexPath:0];
-    
     
     [[CellScopeContext sharedContext] setCurrentExam:grabbedFirstExam ];
     
@@ -264,6 +265,48 @@
     
     //[client uploadEyeImagesPJ:images];
     [client uploadEyeImagesFromArray:images];
+    */
+    
+    
+    //[self uploadAllImages];
+    
+    NSArray* array = self.fetchedResultsController.fetchedObjects;
+    Exam* first = [array firstObject];
+    NSArray* filesToUpload = [CoreDataController getEyeImagesForExam:first];
+    if([filesToUpload count ]>0){
+        client.imagesToUpload = [NSMutableArray arrayWithArray:filesToUpload];
+        [client batch];
+    }
+}
+
+-(void)uploadAllImages{
+    
+    S3manager* s3manager = [[CellScopeContext sharedContext]s3manager];
+    for(Exam* exam in self.fetchedResultsController.fetchedObjects){
+        NSString* bucketName = [s3manager createBucketForExam: exam];
+        NSArray* eyeImages = [CoreDataController getEyeImagesForExam:exam];
+        
+        for(EyeImage *eyeImage in eyeImages){
+            NSURL *aURL = [NSURL URLWithString: eyeImage.filePath];
+            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+            [library assetForURL:aURL resultBlock:^(ALAsset *asset)
+             {
+                 ALAssetRepresentation* rep = [asset defaultRepresentation];
+                 NSUInteger size = (NSUInteger)rep.size;
+                 NSMutableData *imageData = [NSMutableData dataWithLength:size];
+                 NSError *error;
+                 [rep getBytes:imageData.mutableBytes fromOffset:0 length:size error:&error];
+                 
+                 NSString* imageName = [[eyeImage.eye stringByAppendingString: [eyeImage.fixationLight stringValue]]lowercaseString];
+                 
+                 [s3manager processGrandCentralDispatchUpload:imageData forExamBucket:bucketName andImageName:imageName];//imageName;
+                 
+             } failureBlock:^(NSError *error) {
+                 /* handle error */
+                 NSLog(@"There was an error in fetching form the Camera Roll");
+             }];
+        }
+    }
 }
 
 -(void)cellScopeHTTPClient:(CellScopeHTTPClient *)client didUploadEyeImage:(id)eyeImage{
@@ -280,6 +323,9 @@
     
     [self.patientsArray addObject:newExam];
     
+    /**
+     *  //////////////////
+     */
     //[self.fetchedResultsController addObject:newExam];
     
     NSLog(@"Before Adding Exam, %lu patients in our database", (unsigned long)[self.patientsArray count]);

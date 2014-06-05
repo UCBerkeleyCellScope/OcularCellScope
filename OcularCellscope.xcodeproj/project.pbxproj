@@ -83,6 +83,8 @@
 		6D393A2A1831D0D2004F2EC7 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D393A291831D0D2004F2EC7 /* AssetsLibrary.framework */; };
 		6DD89D7F18426AFF00F3C7FC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD89D7E18426AFF00F3C7FC /* CoreData.framework */; };
 		6DD89D8118426B0700F3C7FC /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD89D8018426B0700F3C7FC /* CoreImage.framework */; };
+		A5B768171939955E001A9C8D /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B768151939955E001A9C8D /* AWSRuntime.framework */; };
+		A5B768181939955E001A9C8D /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B768161939955E001A9C8D /* AWSS3.framework */; };
 		F325700C18CAA04600FEA80E /* capture_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F325700B18CAA04600FEA80E /* capture_button.png */; };
 		F325700F18CAA80000FEA80E /* check_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F325700D18CAA80000FEA80E /* check_button.png */; };
 		F325701218CAA87200FEA80E /* x_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F325701118CAA87200FEA80E /* x_button.png */; };
@@ -111,7 +113,6 @@
 		F38224B818F7BB3F00D861FE /* retina_icon_top.png in Resources */ = {isa = PBXBuildFile; fileRef = F38224B318F7BB3F00D861FE /* retina_icon_top.png */; };
 		F385B2FE1900E31E00A3F974 /* CamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B2FD1900E31E00A3F974 /* CamViewController.m */; };
 		F385B3011900E66400A3F974 /* BLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3001900E66400A3F974 /* BLEManager.m */; };
-		F385B3041900E6E200A3F974 /* Light.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3031900E6E200A3F974 /* Light.m */; };
 		F385B30A1900F85B00A3F974 /* AVCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F385B3091900F85B00A3F974 /* AVCaptureManager.m */; };
 		F3A6034D18FE6A5F006BFFEC /* settings_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F3A6034C18FE6A5F006BFFEC /* settings_icon.png */; };
 		F3FA32CB18B5E4B7000FACF4 /* im1.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FA32C718B5E4B7000FACF4 /* im1.png */; };
@@ -286,6 +287,8 @@
 		6DD89D8018426B0700F3C7FC /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		6DD89D8B1842862F00F3C7FC /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
+		A5B768151939955E001A9C8D /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSRuntime.framework; path = ../../../Desktop/AWSRuntime.framework; sourceTree = "<group>"; };
+		A5B768161939955E001A9C8D /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSS3.framework; path = ../../../Desktop/AWSS3.framework; sourceTree = "<group>"; };
 		F325700B18CAA04600FEA80E /* capture_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = capture_button.png; sourceTree = "<group>"; };
 		F325700D18CAA80000FEA80E /* check_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check_button.png; sourceTree = "<group>"; };
 		F325701118CAA87200FEA80E /* x_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = x_button.png; sourceTree = "<group>"; };
@@ -320,8 +323,6 @@
 		F385B2FD1900E31E00A3F974 /* CamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CamViewController.m; sourceTree = "<group>"; };
 		F385B2FF1900E66400A3F974 /* BLEManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEManager.h; sourceTree = "<group>"; };
 		F385B3001900E66400A3F974 /* BLEManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEManager.m; sourceTree = "<group>"; };
-		F385B3021900E6E200A3F974 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
-		F385B3031900E6E200A3F974 /* Light.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Light.m; sourceTree = "<group>"; };
 		F385B3081900F85B00A3F974 /* AVCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVCaptureManager.h; path = ../AVCaptureManager.h; sourceTree = "<group>"; };
 		F385B3091900F85B00A3F974 /* AVCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVCaptureManager.m; path = ../AVCaptureManager.m; sourceTree = "<group>"; };
 		F3A6034C18FE6A5F006BFFEC /* settings_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_icon.png; sourceTree = "<group>"; };
@@ -363,6 +364,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5B768171939955E001A9C8D /* AWSRuntime.framework in Frameworks */,
+				A5B768181939955E001A9C8D /* AWSS3.framework in Frameworks */,
 				60B7A5C61936775200A1F9EB /* SystemConfiguration.framework in Frameworks */,
 				60B7A5C41936774000A1F9EB /* Security.framework in Frameworks */,
 				F3FCC97B193E78160093A1EB /* AWSRuntime.framework in Frameworks */,
@@ -532,8 +535,6 @@
 				F325703C18D366FE00FEA80E /* SelectableEyeImage.m */,
 				F385B2FF1900E66400A3F974 /* BLEManager.h */,
 				F385B3001900E66400A3F974 /* BLEManager.m */,
-				F385B3021900E6E200A3F974 /* Light.h */,
-				F385B3031900E6E200A3F974 /* Light.m */,
 				60D8C7D018C6BF87007D26A7 /* Constants.h */,
 				60D8C7D118C6BF87007D26A7 /* Constants.m */,
 				60B42332190EF236005A9ABD /* CellScopeHTTPClient.h */,
@@ -977,7 +978,6 @@
 				60068B171939671C003470B9 /* EyeImage.m in Sources */,
 				60D8C7D218C6BF87007D26A7 /* Constants.m in Sources */,
 				60068B0219394D8C003470B9 /* S3manager.m in Sources */,
-				F385B3041900E6E200A3F974 /* Light.m in Sources */,
 				F3FCC97119369F180093A1EB /* EyePhotoCell.m in Sources */,
 				603B077A18DD26E2002179CD /* SettingsViewController.m in Sources */,
 				60C1AE3818F3507E00902F28 /* UIButton+AFNetworking.m in Sources */,
@@ -1054,6 +1054,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ocular  Cell Scope (D5TKXMUM96)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1072,7 +1073,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "C98E6898-9B36-4A4B-91BB-21E79CC7AA13";
+				PROVISIONING_PROFILE = "97E3C078-665B-4981-9F26-F4D25B5135B7";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1093,6 +1094,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ocular  Cell Scope (D5TKXMUM96)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1104,7 +1106,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PROVISIONING_PROFILE = "C98E6898-9B36-4A4B-91BB-21E79CC7AA13";
+				PROVISIONING_PROFILE = "97E3C078-665B-4981-9F26-F4D25B5135B7";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1121,6 +1123,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(PROJECT_DIR)",
+					/Users/frankiemyers/Desktop,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AV Camera App/AV Camera App-Prefix.pch";
@@ -1149,6 +1152,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(PROJECT_DIR)",
+					/Users/frankiemyers/Desktop,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AV Camera App/AV Camera App-Prefix.pch";

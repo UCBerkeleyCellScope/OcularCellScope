@@ -37,4 +37,5 @@
 - (void)removeEyeImagesObject:(EyeImage *)value;
 - (void)addEyeImages:(NSOrderedSet *)values;
 - (void)removeEyeImages:(NSOrderedSet *)values;
+-(NSString*)fullName;
 @end

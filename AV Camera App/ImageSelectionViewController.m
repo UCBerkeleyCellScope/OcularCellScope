@@ -108,12 +108,13 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView == deleteAllAlert && buttonIndex == 1){
-        NSPredicate *p = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == %d",
-                          [[CellScopeContext sharedContext]currentExam],
-                          [[CellScopeContext sharedContext]selectedEye],
-                          [[CellScopeContext sharedContext]bleManager].selectedLight];
         
-        [CoreDataController deleteAllObjectsForEntity:@"EyeImage" withPredicate:p andContext:[[CellScopeContext sharedContext]managedObjectContext]];
+        for (SelectableEyeImage* img in self.images)
+        {
+            [[[CellScopeContext sharedContext] managedObjectContext] deleteObject:img.coreDataImage];
+        }
+        [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
+
         [self.navigationController popToViewController:fixationVC animated:YES];
     }
 }
@@ -162,6 +163,8 @@
             }
         }
     }
+    
+    [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
     
     [self.navigationController popToViewController:fixationVC animated:YES];
     

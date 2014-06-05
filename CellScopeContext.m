@@ -27,6 +27,12 @@ static NSString * const CellScopeURLString = @"http://warm-dawn-6399.herokuapp.c
     return newContext;
 }
 
+/**
+ *  <#Description#>
+ *
+ *  @return reference to the Singleton Context
+ */
+
 - (id)init {
     if (self = [super init]) {
         NSLog(@"STARTED THE SINGLETON");
@@ -36,8 +42,6 @@ static NSString * const CellScopeURLString = @"http://warm-dawn-6399.herokuapp.c
         bleManager = [[BLEManager alloc]init];
         s3manager = [[S3manager alloc]init];
         client = [[CellScopeHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:CellScopeURLString]];
-        
-        
         NSLog(@"MADE THE SINGLETON");
         
     }

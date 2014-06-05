@@ -39,6 +39,8 @@
     
     [[CellScopeContext sharedContext] setManagedObjectContext:self.managedObjectContext];
     
+    [[[CellScopeContext sharedContext] bleManager] beginBLEScan];
+    
     /*
     UIStoryboard *storyboard = [ UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.window.rootViewController = [storyboard instantiateInitialViewController];

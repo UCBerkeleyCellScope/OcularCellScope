@@ -2,18 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>autoExposureDelay</key>
+	<real>0.4</real>
 	<key>debugMode</key>
 	<false/>
 	<key>numberOfImages</key>
 	<integer>4</integer>
-	<key>arduinoDelay</key>
-	<integer>60</integer>
 	<key>bleDelay</key>
 	<real>0.2</real>
 	<key>flashDuration</key>
-	<real>0</real>
-	<key>timedFlash</key>
-	<true/>
+	<integer>60</integer>
 	<key>captureDelay</key>
 	<real>1</real>
 	<key>redFlashValue</key>

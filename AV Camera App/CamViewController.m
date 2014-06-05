@@ -14,7 +14,6 @@
 @interface CamViewController ()
 @property (assign) SystemSoundID beepBeepSound;
 @property (nonatomic) CameraFocusSquare* camFocus;
-@property (nonatomic, assign) long selectedLight;
 @property (nonatomic, strong) UIAlertView *nextFixationAlert;
 
 @end
@@ -24,7 +23,7 @@
 @synthesize beepBeepSound;
 @synthesize camFocus;
 
-@synthesize bleManager = _bleManager;
+//@synthesize bleManager = _bleManager;
 @synthesize captureManager  = _captureManager;
 @synthesize currentImageCount = _currentImageCount;
 @synthesize repeatingTimer = _repeatingTimer;
@@ -60,12 +59,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    /*
     self.bleManager = [[CellScopeContext sharedContext] bleManager];
     
     if(self.fullscreeningMode)
         self.selectedLight = CENTER_LIGHT;
     else
         self.selectedLight = self.bleManager.selectedLight;
+    */
     
     self.captureManager = [[AVCaptureManager alloc] init];
     self.captureManager.delegate = self;
@@ -81,7 +82,7 @@
     
     /// WHY IS THIS HERE>>>??? IN ORDER TO
     //GET TURN OFF/TURN ON TO WORK
-    [[self.bleManager whiteFlashLight]toggleLight];
+    //[[self.bleManager whiteFlashLight]toggleLight];
     
     self.imageArray = [[NSMutableArray alloc] init];
     
@@ -114,13 +115,24 @@
      */
     
     
-    int fixationLightValue = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"fixationLightValue"];
+    //int fixationLightValue = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"fixationLightValue"];
     
-    [self.bleDisabledLabel setHidden:YES];
     self.counterLabel.hidden = YES;
-    
     [self.bleDisabledLabel setHidden:YES];
     [self.navigationItem setHidesBackButton:NO animated:YES];
+    
+    //TODO: handle connection
+    
+    //turn on focus light and fixation light
+    int whiteIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"whiteFocusValue"];
+    int redIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"redFocusValue"];
+    int fixationIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"fixationLightValue"];
+    
+    [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:whiteIntensity Red:redIntensity];
+    [[[CellScopeContext sharedContext] bleManager] setFixationLight:self.selectedLight Intensity:fixationIntensity];
+    
+    
+    /*
     if(self.bleManager.isConnected== YES){
         //BLE disabled label needs to go away succesfully
         [self.bleManager.redFocusLight turnOn];
@@ -143,12 +155,19 @@
     else{
         NSLog(@"Device is in Standard Mode");
     }
+     */
+    
 
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
-    [self.bleManager.fixationLights[self.bleManager.selectedLight] turnOff];
+
+    
+    [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:0 Red:0];
+    [[[CellScopeContext sharedContext] bleManager] setFixationLight:FIXATION_LIGHT_NONE Intensity:0];
+    
+    //[self.bleManager.fixationLights[self.bleManager.selectedLight] turnOff];
     [self.captureManager setExposureLock:NO];
     [self.captureManager unlockFocus];
     [self.captureManager unlockWhiteBalance];
@@ -225,66 +244,82 @@
     [self.captureButton setEnabled:NO];
     
     //[self.bleManager.fixationLights[self.bleManager.selectedLight] turnOn];
-
+    
+    //set flash intensity
+    int whiteIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"whiteFlashValue"];
+    int redIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"redFlashValue"];
+    [[[CellScopeContext sharedContext] bleManager] setFlashIntensityWhite:whiteIntensity Red:redIntensity];
+    
+    
+    //TODO: lockFocus should happen every time you tap, not here
     [self.captureManager lockFocus];
+    
+    //TODO: lock white balance should probably happen during exposure lock
     [self.captureManager lockWhiteBalance];
     
     [self.navigationItem setHidesBackButton:YES animated:YES];
     
-    [self.bleManager turnOffAllLights];
+    //[self.bleManager turnOffAllLights];
+    
+    //set the exposure using the flash light
     [self setExposureUsingLight];
 
+    //start the capture sequence
     [self beginImageCapture];
     
 }
 
 - (void) beginImageCapture{
-    NSNumber *interval = [[NSUserDefaults standardUserDefaults] objectForKey:@"captureDelay"];
+    int interval = [[NSUserDefaults standardUserDefaults] integerForKey:@"captureDelay"];
     
-    self.repeatingTimer = [NSTimer scheduledTimerWithTimeInterval:[interval doubleValue] target:self selector:@selector(captureTimerFired) userInfo:nil repeats:YES];
+    self.repeatingTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(captureTimerFired) userInfo:nil repeats:YES];
 
 }
 
--(void) setExposureUsingLight{
-    //THIS MIGHT BE A PROBLEM
-    if(self.bleManager.debugMode==NO){
-        NSLog(@"FOCUSING FLASH");
-        //[self.bleManager.fixationLights[self.bleManager.selectedLight] turnOn];
-        [self.bleManager.whiteFlashLight turnOn];
-        [self.bleManager.redFlashLight turnOn];
-        
-        [NSThread sleepForTimeInterval: 0.4];//.4
-        [self.captureManager setExposureLock:YES];
-        //[NSThread sleepForTimeInterval: 0.1];//.3
-        [self.bleManager.whiteFlashLight turnOff];
-        [self.bleManager.redFlashLight turnOff];
-    }
+-(void) setExposureUsingLight {
+
+    int whiteFlashIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"whiteFlashValue"];
+    int redFlashIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"redFlashValue"];
+    int whiteFocusIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"whiteFocusValue"];
+    int redFocusIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"redFocusValue"];
+    float autoExposureDelay = [[NSUserDefaults standardUserDefaults] integerForKey:@"autoExposureDelay"];
+    
+    //turn on the LED w/ flash intensity
+    [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:whiteFlashIntensity Red:redFlashIntensity];
+
+    //wait for phone to adjust exposure
+    [NSThread sleepForTimeInterval:autoExposureDelay];
+    
+    //lock exposure
+    [self.captureManager setExposureLock:YES];
+    
+    //turn off lights
+    [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:whiteFocusIntensity Red:redFocusIntensity];
+    
 }
     
 -(void)captureTimerFired{
     self.currentImageCount++;
-    int totalNumberOfImages = [[[NSUserDefaults standardUserDefaults] objectForKey:@"numberOfImages"] intValue];
+    int totalNumberOfImages = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfImages"];
+    
     if(self.currentImageCount <= totalNumberOfImages){
         [self updateCounterLabelText];
         // Timed flash or ping back
         
         //BOOL timedFlash = [[NSUserDefaults standardUserDefaults] boolForKey:@"timedFlash"];
 
-        [self.bleManager.fixationLights[self.bleManager.selectedLight] turnOn];
+        //send flash signal
+        [[[CellScopeContext sharedContext] bleManager] doFlashWithDuration:[[NSUserDefaults standardUserDefaults] integerForKey:@"flashDuration"]];
         
-        //if(timedFlash){
-        //[self.bleManager timedFlash];
-        //}
+        //wait for ble command to be sent
+        [NSThread sleepForTimeInterval: [[NSUserDefaults standardUserDefaults] integerForKey:@"bleDelay"]];
         
-        //else{
-        [self.bleManager arduinoFlash];
-        //}
-            
-        [self.bleManager bleDelay];
         
-        [self.bleManager.fixationLights[self.bleManager.selectedLight] turnOff];
+        //turn off fixation light, snap a picture, turn fixation back on
+        //[[[CellScopeContext sharedContext] bleManager] setFixationLight:FIXATION_LIGHT_NONE Intensity:0];
         [self.captureManager takePicture];
-        [self.bleManager.fixationLights[self.bleManager.selectedLight] turnOn];
+        //[[[CellScopeContext sharedContext] bleManager] setFixationLight:self.selectedLight Intensity:[[NSUserDefaults standardUserDefaults] integerForKey:@"fixationLightValue"]];
+
     }
     else{
         [self.repeatingTimer invalidate];
@@ -322,7 +357,7 @@
         image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
     }
     
-    NSLog(@"Save fixation light %ld", self.bleManager.selectedLight);
+    NSLog(@"Save fixation light %ld", self.selectedLight);
     NSLog(@"%@",[[CellScopeContext sharedContext]selectedEye]);
     
     self.capturedImageView.image = image;
@@ -467,22 +502,22 @@
     
     switch(self.selectedLight){
             
-        case CENTER_LIGHT:
+        case FIXATION_LIGHT_CENTER:
             self.fixationImageView.image = [UIImage imageNamed:@"center.png"];
             break;
-        case TOP_LIGHT:
+        case FIXATION_LIGHT_UP:
             self.fixationImageView.image = [UIImage imageNamed:@"top.png"];
             break;
-        case BOTTOM_LIGHT:
+        case FIXATION_LIGHT_DOWN:
             self.fixationImageView.image = [UIImage imageNamed:@"bottom.png"];
             break;
-        case LEFT_LIGHT:
+        case FIXATION_LIGHT_LEFT:
             self.fixationImageView.image = [UIImage imageNamed:@"left.png"];
             break;
-        case RIGHT_LIGHT:
+        case FIXATION_LIGHT_RIGHT:
             self.fixationImageView.image = [UIImage imageNamed:@"right.png"];
             break;
-        case NO_LIGHT:
+        case FIXATION_LIGHT_NONE:
             self.fixationImageView.image = nil;
             break;
     }

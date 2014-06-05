@@ -126,6 +126,8 @@
      }];
 }
 
+//TODO: refactor...
+
 -(void)lockFocus{
     if ([self.device isFocusModeSupported:AVCaptureFocusModeLocked]) {
         [self.device lockForConfiguration:nil];
