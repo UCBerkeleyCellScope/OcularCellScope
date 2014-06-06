@@ -933,13 +933,20 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="436"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default.png" translatesAutoresizingMaskIntoConstraints="NO" id="wt0-Y3-3bt">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default.png" translatesAutoresizingMaskIntoConstraints="NO" id="wt0-Y3-3bt">
                                                             <rect key="frame" x="0.0" y="0.0" width="320" height="436"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </imageView>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="wt0-Y3-3bt" firstAttribute="top" secondItem="LXb-en-8l0" secondAttribute="top" id="0a9-Qi-2ms"/>
+                                                        <constraint firstAttribute="bottom" secondItem="wt0-Y3-3bt" secondAttribute="bottom" id="3kZ-Os-I7m"/>
+                                                        <constraint firstItem="wt0-Y3-3bt" firstAttribute="leading" secondItem="LXb-en-8l0" secondAttribute="leading" id="JuT-w2-OBr"/>
+                                                        <constraint firstAttribute="trailing" secondItem="wt0-Y3-3bt" secondAttribute="trailing" id="s8a-uQ-vCB"/>
+                                                        <constraint firstItem="wt0-Y3-3bt" firstAttribute="centerY" secondItem="LXb-en-8l0" secondAttribute="centerY" id="xd8-mK-TKm"/>
+                                                    </constraints>
                                                     <connections>
-                                                        <outlet property="delegate" destination="2qF-pw-3PT" id="BJF-3M-IM1"/>
+                                                        <outlet property="delegate" destination="2qF-pw-3PT" id="Pg8-ZU-tTh"/>
                                                     </connections>
                                                 </scrollView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u7C-Tj-W2A">

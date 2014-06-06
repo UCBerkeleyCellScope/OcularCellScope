@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CellScopeContext.h"
 
-@interface ImageSelectionViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@interface ImageSelectionViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate>
 @property (strong, nonatomic) NSMutableArray *images; //THIS IS THE EIMAGEOBJECT
 @property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *swipeRightRecognizer;
 @property BOOL reviewMode;

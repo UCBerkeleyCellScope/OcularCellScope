@@ -22,6 +22,7 @@
 @property(assign, nonatomic) int currentImageIndex;
 @property UIViewController *fixationVC;
 @property UIAlertView   *deleteAllAlert;
+@property EyePhotoCell *currentCell;
 @end
 
 @implementation ImageSelectionViewController
@@ -200,6 +201,5 @@
 {
     
 }
-
 
 @end

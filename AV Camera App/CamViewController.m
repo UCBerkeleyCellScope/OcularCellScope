@@ -335,7 +335,9 @@
         UIImage *sourceImage = [UIImage imageWithData:data];
         UIImage *flippedImage = [UIImage imageWithCGImage: sourceImage.CGImage
                                                     scale: sourceImage.scale
-                                              orientation: UIImageOrientationLeft];
+                                              orientation: UIImageOrientationLeftMirrored];
+        
+        
         
         float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
         UIImage *thumbnail = [flippedImage resizedImageWithScaleFactor:scaleFactor];
@@ -345,6 +347,14 @@
                                                         eye: [[CellScopeContext sharedContext] selectedEye]
                                               fixationLight: (int) self.selectedLight
                                                   thumbnail: thumbnail];
+        
+        image = [[SelectableEyeImage alloc] initWithData:data
+                                                    date: [NSDate date]
+                                                     eye: [[CellScopeContext sharedContext] selectedEye]
+                                           fixationLight: (int) self.selectedLight];
+        
+        scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
+        image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
     }
     
     else{
