@@ -39,7 +39,7 @@
         
         // Create a new photo session
         self.session = [[AVCaptureSession alloc] init];
-        [self.session setSessionPreset:AVCaptureSessionPresetHigh];
+        [self.session setSessionPreset:AVCaptureSessionPresetPhoto];
         
         // Set device to video
         self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -57,7 +57,7 @@
         
         // Set preview layer
         self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
-        [self.previewLayer setVideoGravity: AVLayerVideoGravityResizeAspect];
+        //[self.previewLayer setVideoGravity: AVLayerVideoGravityResizeAspectFill];
         //AVLayerVideoGravityResizeAspectFill];
     }
     
@@ -71,6 +71,7 @@
     rootLayer = [self.view layer];
     [rootLayer setMasksToBounds:YES];
     [self.previewLayer setFrame:CGRectMake(-80, 0, rootLayer.bounds.size.height, rootLayer.bounds.size.height)];
+    [self.previewLayer setVideoGravity: AVLayerVideoGravityResizeAspect];
     [rootLayer insertSublayer:self.previewLayer atIndex:0];
     
     BOOL mirroredView = [[NSUserDefaults standardUserDefaults] boolForKey:@"mirroredView"];

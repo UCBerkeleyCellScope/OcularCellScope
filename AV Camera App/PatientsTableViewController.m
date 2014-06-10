@@ -168,10 +168,15 @@
 
 
 - (void)configureCell:(PatientTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+
     Exam *exam = (Exam *)[self.patientsArray objectAtIndex:indexPath.row];
     
     cell.nameLabel.text = [NSString stringWithFormat:@"%@, %@", exam.lastName, exam.firstName];
     cell.idLabel.text = [NSString stringWithFormat:@"ID: %@", exam.patientID];
+    
+    NSArray *array = self.patientsArray;
+    NSString *str = exam.lastName;
+    
 }
 
 
