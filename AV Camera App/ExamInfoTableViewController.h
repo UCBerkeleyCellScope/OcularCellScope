@@ -16,7 +16,8 @@
 #import "TabViewController.h"
 
 @interface ExamInfoTableViewController : UITableViewController<UITextFieldDelegate, UITextViewDelegate, BSKeyboardControlsDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate,
-    UINavigationControllerDelegate>
+    UINavigationControllerDelegate,UIGestureRecognizerDelegate
+>
 {
         UIPopoverController *profilePicturePopover;
 }
@@ -30,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *birthYearTextField;
 @property (weak, nonatomic) IBOutlet UITextField *patientIDTextField;
 
+@property (nonatomic) UIGestureRecognizer* tapRecognizer;
 
 @property (nonatomic) S3manager *s3manager;
 

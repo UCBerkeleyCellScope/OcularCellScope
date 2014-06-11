@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6000AC2A1947CA8B008D616C /* UploadBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6000AC291947CA8B008D616C /* UploadBannerView.m */; };
 		60068B0219394D8C003470B9 /* S3manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60068B0119394D8C003470B9 /* S3manager.m */; };
 		60068B141939671B003470B9 /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 60068B131939671B003470B9 /* Exam.m */; };
 		60068B171939671C003470B9 /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 60068B161939671C003470B9 /* EyeImage.m */; };
@@ -16,6 +17,7 @@
 		603B077D18DD810B002179CD /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B077C18DD810B002179CD /* TabViewController.m */; };
 		603C44FD18DAE72F00402AE1 /* ExamInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C44FC18DAE72F00402AE1 /* ExamInfoViewController.m */; };
 		60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60418F22189B3E780001D490 /* CoreBluetooth.framework */; };
+		6043BC871947CF5600C39A48 /* drOz.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6043BC861947CF5600C39A48 /* drOz.jpg */; };
 		6043C8E81925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043C8E71925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
 		6043C8EE192B12F9007DFAFB /* CameraFocusSquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043C8ED192B12F9007DFAFB /* CameraFocusSquare.m */; };
 		60441CD1193728B1000A017C /* StudySelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60441CD0193728B1000A017C /* StudySelectionTableViewController.m */; };
@@ -154,6 +156,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6000AC281947CA8B008D616C /* UploadBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadBannerView.h; sourceTree = "<group>"; };
+		6000AC291947CA8B008D616C /* UploadBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadBannerView.m; sourceTree = "<group>"; };
 		60068B0019394D8C003470B9 /* S3manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = S3manager.h; path = "AV Camera App/S3manager.h"; sourceTree = "<group>"; };
 		60068B0119394D8C003470B9 /* S3manager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = S3manager.m; path = "AV Camera App/S3manager.m"; sourceTree = "<group>"; };
 		60068B121939671B003470B9 /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
@@ -181,6 +185,7 @@
 		60418F27189B3ED60001D490 /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
 		60418F2C189BB2ED0001D490 /* ImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCell.h; sourceTree = "<group>"; };
 		60418F2D189BB2ED0001D490 /* ImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCell.m; sourceTree = "<group>"; };
+		6043BC861947CF5600C39A48 /* drOz.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = drOz.jpg; sourceTree = "<group>"; };
 		6043C8E61925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
 		6043C8E71925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
 		6043C8EC192B12F9007DFAFB /* CameraFocusSquare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraFocusSquare.h; path = ../CameraFocusSquare.h; sourceTree = "<group>"; };
@@ -622,6 +627,7 @@
 		F356909418559CCA00DBB4BE /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				6043BC861947CF5600C39A48 /* drOz.jpg */,
 				F3FCC94519369BA10093A1EB /* bottom.png */,
 				F3FCC94619369BA10093A1EB /* center.png */,
 				F3FCC94719369BA10093A1EB /* Default-568h@2x.png */,
@@ -739,6 +745,8 @@
 		F3FCC97E1940378B0093A1EB /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6000AC281947CA8B008D616C /* UploadBannerView.h */,
+				6000AC291947CA8B008D616C /* UploadBannerView.m */,
 				F385B2FF1900E66400A3F974 /* BLEManager.h */,
 				F385B3001900E66400A3F974 /* BLEManager.m */,
 				60C2A51B18C19F2800021510 /* CellScopeContext.h */,
@@ -883,6 +891,7 @@
 				F3FCC96519369BA10093A1EB /* red_retina@2x.png in Resources */,
 				F3A6034D18FE6A5F006BFFEC /* settings_icon.png in Resources */,
 				F3FCC96319369BA10093A1EB /* notes_icon@2x.png in Resources */,
+				6043BC871947CF5600C39A48 /* drOz.jpg in Resources */,
 				F358E316185A82E600872304 /* capture2.png in Resources */,
 				F3FCC95F19369BA10093A1EB /* delete_icon.png in Resources */,
 				F3FA32CD18B5E4B7000FACF4 /* im3.png in Resources */,
@@ -977,6 +986,7 @@
 				60C1AE3A18F3507E00902F28 /* UIProgressView+AFNetworking.m in Sources */,
 				F385B2FE1900E31E00A3F974 /* CamViewController.m in Sources */,
 				60C1AE3718F3507E00902F28 /* UIAlertView+AFNetworking.m in Sources */,
+				6000AC2A1947CA8B008D616C /* UploadBannerView.m in Sources */,
 				60B4231F1908D294005A9ABD /* NSMutableDictionary+ImageMetadata.m in Sources */,
 				60D8C7CA18C69BB1007D26A7 /* PatientsTableViewController.m in Sources */,
 				60C1AE2F18F3507E00902F28 /* AFNetworkReachabilityManager.m in Sources */,
