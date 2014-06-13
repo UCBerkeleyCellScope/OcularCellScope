@@ -31,6 +31,13 @@
     return self;
 }
 
+
+- (void)awakeFromNib{
+    self.scrollView.minimumZoomScale=1;
+    self.scrollView.maximumZoomScale=6.0;
+    self.scrollView.delegate=self;
+}
+
 -(void) setEyeImage:(SelectableEyeImage *)image{
     _eyeImage = image;
     _eyeImageView.image = image;
@@ -85,11 +92,12 @@
     }
 }
 
-/*
+
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     return self.eyeImageView;
 }
- */
+
+
 
 @end

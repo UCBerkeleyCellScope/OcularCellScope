@@ -169,13 +169,13 @@
 
 - (void)configureCell:(PatientTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 
-    Exam *exam = (Exam *)[self.patientsArray objectAtIndex:indexPath.row];
+    Exam *exam = (Exam *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    NSLog(@"Cell section: %ld row: %ld item: %ld", indexPath.section, indexPath.row, indexPath.item);
     
     cell.nameLabel.text = [NSString stringWithFormat:@"%@, %@", exam.lastName, exam.firstName];
     cell.idLabel.text = [NSString stringWithFormat:@"ID: %@", exam.patientID];
     
-    NSArray *array = self.patientsArray;
-    NSString *str = exam.lastName;
     
 }
 

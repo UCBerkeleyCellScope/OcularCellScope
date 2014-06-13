@@ -13,12 +13,14 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "ImageCell.h"
 #import "CoreDataController.h"
+#import "CamViewController.h"
 #import "EyePhotoCell.h"
 #import "Exam+Methods.h"
 
 
 @interface ImageSelectionViewController ()
 
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property(assign, nonatomic) int currentImageIndex;
 @property UIViewController *fixationVC;
 @property UIAlertView   *deleteAllAlert;
@@ -54,7 +56,9 @@
     if(reviewMode == YES){
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.leftBarButtonItem =
-        [[UIBarButtonItem alloc] initWithTitle:@"Delete All" style:UIBarButtonItemStylePlain target: self action:@selector(didPressDeleteAll)];
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemDone target: self action:@selector(didPressSave:)];
+        self.navigationItem.rightBarButtonItem =
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(didPressAdd:)];
 
     }
     
@@ -85,16 +89,43 @@
     cell.eyeImage = [self.images objectAtIndex:[indexPath row]];
     NSLog(@"Index path %ld", (long)[indexPath row]);
     
+    [self.collectionView addGestureRecognizer:cell.scrollView.pinchGestureRecognizer];
+    [self.collectionView addGestureRecognizer:cell.scrollView.panGestureRecognizer];
+    
     [cell updateCell];
     
     return cell;
     
 }
 
--(IBAction)didPressCancel:(id)sender{
+- (void)collectionView:(UICollectionView *)collectionView
+  didEndDisplayingCell:(EyePhotoCell *)cell
+    forItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [self.collectionView removeGestureRecognizer:cell.scrollView.pinchGestureRecognizer];
+    [self.collectionView removeGestureRecognizer:cell.scrollView.panGestureRecognizer];
+}
 
+-(IBAction)didPressCancel:(id)sender{
+    
     //The Fixation ViewController will be either index 1 out of 0-2 or 1 out of 0-3.
     [self.navigationController popToViewController:fixationVC animated:YES];
+}
+
+-(IBAction)didPressAdd:(id)sender{
+    
+    //The Fixation ViewController will be either index 1 out of 0-2 or 1 out of 0-3.
+    [self.navigationController popToViewController:fixationVC animated:NO];
+    
+    CamViewController * cvc = [[CamViewController alloc] init];
+    
+    [[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
+    cvc.fullscreeningMode = NO;
+    SelectableEyeImage *firstImage = [self.images firstObject];
+    cvc.selectedLight = firstImage.fixationLight;
+    
+    [fixationVC.navigationController  pushViewController:cvc animated:YES];
+    //[fixationVC performSegueWithIdentifier:@"CamViewSegue" sender:(id)sender];
 }
 
 -(void) didPressDeleteAll{
