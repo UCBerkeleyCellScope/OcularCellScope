@@ -15,8 +15,9 @@
     #import <Foundation/Foundation.h>
 #endif
 
-
+/*
 #define PICTURE_BUCKET @"1234"
 #define ACCESS_KEY_ID @"1234"
 #define SECRET_KEY @"1234"
 #define PICTURE_NAME @"1234"
+ */

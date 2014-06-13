@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UploadBannerView.h"
 
 @interface TabViewController : UITabBarController
 
+@property(nonatomic) UploadBannerView* uploadBanner;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 - (IBAction)didPressSave:(id)sender;
 - (IBAction)didPressCancel:(id)sender;

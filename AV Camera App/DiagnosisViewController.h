@@ -13,8 +13,17 @@
 
 @interface DiagnosisViewController : UIViewController<CellScopeHTTPClientDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *diagnosisTitle;
-@property (weak, nonatomic) IBOutlet UITextView *diagnosisText;
+
+@property (weak, nonatomic) IBOutlet UILabel *diagnosisText;
+
 @property (strong, nonatomic) NSString* patientID;
+
+@property (weak, nonatomic) IBOutlet UITextView *prognosisTextView;
+
+
+@property (weak, nonatomic) IBOutlet UIImageView *diagnosisngSpecialistImageView;
+@property (weak, nonatomic) IBOutlet UILabel *contactPatientLabel;
+@property (weak, nonatomic) IBOutlet UIButton *contactPatientButton;
 
 
 

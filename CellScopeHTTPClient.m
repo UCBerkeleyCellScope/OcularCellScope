@@ -12,14 +12,13 @@
 
 //static NSString * const CellScopeAPIKey = @"PASTE YOUR API KEY HERE";
 static NSString * const CellScopeURLString = @"http://warm-dawn-6399.herokuapp.com/";
-static NSString * const CellScopeURLString2 = @"http://localhost:5000/";
 
 @implementation CellScopeHTTPClient
 
 @synthesize imagesToUpload;
 @synthesize mutableOperations;
+@synthesize uploadBannerView;
 
-/*
 + (CellScopeHTTPClient *)sharedCellScopeHTTPClient
 {
     static CellScopeHTTPClient *_sharedCellScopeHTTPClient = nil;
@@ -32,7 +31,7 @@ static NSString * const CellScopeURLString2 = @"http://localhost:5000/";
     
     return _sharedCellScopeHTTPClient;
 }
-*/
+
 
 //- (instancetype)initWithBaseURL:(NSURL *)url
 - (instancetype)initWithBaseURL:(NSURL *)url
@@ -65,9 +64,20 @@ static NSString * const CellScopeURLString2 = @"http://localhost:5000/";
     if ([imagesToUpload count]==0 && fired == FALSE){
         fired = TRUE;
         NSArray *operations = [AFURLConnectionOperation batchOfRequestOperations: mutableOperations progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
-            NSLog(@"%lu of %lu complete", (unsigned long)numberOfFinishedOperations, totalNumberOfOperations);
+            NSLog(@"%lu of %lu complete", (unsigned long)numberOfFinishedOperations,
+                  (unsigned long)totalNumberOfOperations);
+            uploadBannerView.uploadStatusLabel.text = [NSString stringWithFormat:
+                                                       @"%lu of %lu complete", (unsigned long)numberOfFinishedOperations, (unsigned long)totalNumberOfOperations];
+            
         } completionBlock:^(NSArray *operations) {
             NSLog(@"All operations in batch complete");
+            uploadBannerView.uploadStatusLabel.text = @"Upload Completed.";
+            NSTimer *keepBannerUp = [NSTimer scheduledTimerWithTimeInterval:(float)2.0 target:self selector:@selector(takeBannerDown) userInfo:nil repeats:NO];
+            
+            NSRunLoop *runner = [NSRunLoop currentRunLoop];
+            [runner addTimer: keepBannerUp forMode: NSDefaultRunLoopMode];
+            
+            
         }];
         [[NSOperationQueue mainQueue] addOperations:operations waitUntilFinished:NO];
     }
@@ -78,10 +88,21 @@ static NSString * const CellScopeURLString2 = @"http://localhost:5000/";
     
     //id poster = [note object];
     //NSString *name = [note name];
+    
+}
 
+-(void)takeBannerDown{
+    [self.uploadBannerView setAlpha:1.0];
+    [self.uploadBannerView setHidden:NO];
+    [UIView animateWithDuration:3.0 animations:^{
+        [self.uploadBannerView setAlpha:0.0];
+    }];
+    
+    [self.uploadBannerView setHidden:YES];
 }
 
 -(void)batch{
+    [self.uploadBannerView setHidden:NO];
     [self singleImage];
 }
 
@@ -92,7 +113,7 @@ static NSString * const CellScopeURLString2 = @"http://localhost:5000/";
     [self.imagesToUpload removeObjectAtIndex:0];
     
     NSURL *aURL = [NSURL URLWithString: ei.filePath];
-        
+    
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     [library assetForURL:aURL
              resultBlock:^(ALAsset *asset)
@@ -103,25 +124,25 @@ static NSString * const CellScopeURLString2 = @"http://localhost:5000/";
          NSMutableData *imageData = [NSMutableData dataWithLength:size];
          NSError *error;
          [rep getBytes:imageData.mutableBytes fromOffset:0 length:size error:&error];
-    
+         
          NSDictionary *parameters = @{  //@"date": [[[CellScopeContext sharedContext] currentExam] date],
-                                        @"json": @1};
-                                      //@"patientIndex": [[[CellScopeContext sharedContext] currentExam] patientIndex],
-                                    
+                                      @"json": @1};
+         //@"patientIndex": [[[CellScopeContext sharedContext] currentExam] patientIndex],
+         
          NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
          [formatter setDateStyle: NSDateFormatterLongStyle];
          
          NSString *stringFromDate = [formatter stringFromDate:ei.date];
          
          NSURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:[NSString stringWithFormat:@"%@uploader",self.baseURL] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
-         {
-             //[formData appendPartWithFileURL:fileURL name:@"images[]" error:nil];
-            [formData appendPartWithFileData: imageData name:@"file" fileName: stringFromDate mimeType: @"image/jpeg"];
-         }
-                                                                            error:nil];
+                                  {
+                                      //[formData appendPartWithFileURL:fileURL name:@"images[]" error:nil];
+                                      [formData appendPartWithFileData: imageData name:@"file" fileName: stringFromDate mimeType: @"image/jpeg"];
+                                  }
+                                                                                                error:nil];
          
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        [mutableOperations addObject:operation];
+         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+         [mutableOperations addObject:operation];
          
          NSNumber* obj = [NSNumber numberWithInteger:[imagesToUpload count]];
          
@@ -130,15 +151,11 @@ static NSString * const CellScopeURLString2 = @"http://localhost:5000/";
          [[NSNotificationCenter defaultCenter] postNotification: note];
      }
      
-     failureBlock:^(NSError *error)
+            failureBlock:^(NSError *error)
      {
-             NSLog(@"failure loading video/image from AssetLibrary");
+         NSLog(@"failure loading video/image from AssetLibrary");
      }];
 }
-
-
-
-
 
 - (void)updateDiagnosisForExam:(Exam *)exam
 {
@@ -187,9 +204,9 @@ static NSString * const CellScopeURLString2 = @"http://localhost:5000/";
          [formatter setDateStyle: NSDateFormatterLongStyle];
          
          NSString *stringFromDate = [formatter stringFromDate:ei.date];
-
-        // NSString *urlString = [[NSURL URLWithString:@"uploader" relativeToURL:self.baseURL] absoluteString];
-
+         
+         // NSString *urlString = [[NSURL URLWithString:@"uploader" relativeToURL:self.baseURL] absoluteString];
+         
          [self POST:@"uploader" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
              [formData appendPartWithFileData:imageData name:@"file" fileName:stringFromDate mimeType:@"image/jpeg"];
          } success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -198,35 +215,33 @@ static NSString * const CellScopeURLString2 = @"http://localhost:5000/";
              NSLog(@"Error: %@", error);
          }];
          
+         //         NSMutableURLRequest *request = [self.requestSerializer multipartFormRequestWithMethod:@"POST" URLString:urlString parameters:parameters constructingBodyWithBlock:^(id <AFMultipartFormData> formData) {
+         //             [formData appendPartWithFileData:imageData name:@"file" fileName:stringFromDate mimeType:@"image/jpeg"];
+         //         }];
+         //
+         //         NSURLSessionUploadTask *task = [self uploadTaskWithStreamedRequest:request progress:progress completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
+         //             if (error) {
+         //                 if (failure) failure(error);
+         //             } else {
+         //                 if (success) success(responseObject);
+         //             }
+         //         }];
+         //         [task resume];
          
-         
-//         NSMutableURLRequest *request = [self.requestSerializer multipartFormRequestWithMethod:@"POST" URLString:urlString parameters:parameters constructingBodyWithBlock:^(id <AFMultipartFormData> formData) {
-//             [formData appendPartWithFileData:imageData name:@"file" fileName:stringFromDate mimeType:@"image/jpeg"];
-//         }];
-//         
-//         NSURLSessionUploadTask *task = [self uploadTaskWithStreamedRequest:request progress:progress completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
-//             if (error) {
-//                 if (failure) failure(error);
-//             } else {
-//                 if (success) success(responseObject);
-//             }
-//         }];
-//         [task resume];
-         
-//        [self POST:@"uploader" parameters:parameters
-//            constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
-//              [formData appendPartWithFileData: imageData name:@"file" fileName: stringFromDate mimeType: @"image/jpeg"];
-//            }
-//            success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//               NSLog(@"Success: %@", responseObject);
-//            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//               NSLog(@"Error: %@", error);
-//            }
-//        ];
+         //        [self POST:@"uploader" parameters:parameters
+         //            constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
+         //              [formData appendPartWithFileData: imageData name:@"file" fileName: stringFromDate mimeType: @"image/jpeg"];
+         //            }
+         //            success:^(AFHTTPRequestOperation *operation, id responseObject) {
+         //               NSLog(@"Success: %@", responseObject);
+         //            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         //               NSLog(@"Error: %@", error);
+         //            }
+         //        ];
          
      }
-    
-    failureBlock:^(NSError *error)
+     
+            failureBlock:^(NSError *error)
      {
          NSLog(@"failure loading video/image from AssetLibrary");
      }];
@@ -234,69 +249,69 @@ static NSString * const CellScopeURLString2 = @"http://localhost:5000/";
 
 - (void)uploadEyeImagesFromArray:(NSArray *)images{
     for (EyeImage* ei in images){
-    
-    //UIImage* uim = [CoreDataController getUIImageFromCameraRoll:(NSString*)
-    //           eyeImage1.filePath];
-    
-    NSURL *aURL = [NSURL URLWithString: ei.filePath];
-    
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    [library assetForURL:aURL resultBlock:^(ALAsset *asset)
-     {
-         ALAssetRepresentation* rep = [asset defaultRepresentation];
-         
-         NSUInteger size = (NSUInteger)rep.size;
-         NSMutableData *imageData = [NSMutableData dataWithLength:size];
-         NSError *error;
-         [rep getBytes:imageData.mutableBytes fromOffset:0 length:size error:&error];
-         
-         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-         
-         NSDictionary *parameters = @{//@"mrn": [[[CellScopeContext sharedContext] currentExam] patientID],
-                                      @"date": [[[CellScopeContext sharedContext] currentExam] date],
-                                      @"json": @1};
-         
-         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-         [formatter setDateStyle: NSDateFormatterLongStyle];
-         
-         NSString *stringFromDate = [formatter stringFromDate:ei.date];
-         
-         //Uses RequestOperationManager
-         [manager POST:[NSString stringWithFormat:@"%@uploader",self.baseURL] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+        //UIImage* uim = [CoreDataController getUIImageFromCameraRoll:(NSString*)
+        //           eyeImage1.filePath];
+        
+        NSURL *aURL = [NSURL URLWithString: ei.filePath];
+        
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        [library assetForURL:aURL resultBlock:^(ALAsset *asset)
+         {
+             ALAssetRepresentation* rep = [asset defaultRepresentation];
              
-             [formData appendPartWithFileData: imageData name:@"file" fileName: stringFromDate mimeType: @"image/jpeg"];
-          
-             //[[NSURL URLWithString:@"uploader" relativeToURL:self.baseURL] absoluteString]
+             NSUInteger size = (NSUInteger)rep.size;
+             NSMutableData *imageData = [NSMutableData dataWithLength:size];
+             NSError *error;
+             [rep getBytes:imageData.mutableBytes fromOffset:0 length:size error:&error];
+             
+             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+             
+             NSDictionary *parameters = @{//@"mrn": [[[CellScopeContext sharedContext] currentExam] patientID],
+                                          @"date": [[[CellScopeContext sharedContext] currentExam] date],
+                                          @"json": @1};
+             
+             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+             [formatter setDateStyle: NSDateFormatterLongStyle];
+             
+             NSString *stringFromDate = [formatter stringFromDate:ei.date];
+             
+             //Uses RequestOperationManager
+             [manager POST:[NSString stringWithFormat:@"%@uploader",self.baseURL] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                 
+                 [formData appendPartWithFileData: imageData name:@"file" fileName: stringFromDate mimeType: @"image/jpeg"];
+                 
+                 //[[NSURL URLWithString:@"uploader" relativeToURL:self.baseURL] absoluteString]
+                 
+                 
+             } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 NSLog(@"Success: %@", responseObject);
+             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 NSLog(@"Error: %@", error);
+             }];
              
              
-         } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             NSLog(@"Success: %@", responseObject);
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             NSLog(@"Error: %@", error);
+             /**
+              Appends the HTTP header `Content-Disposition: file; filename=#{filename}; name=#{name}"` and `Content-Type: #{mimeType}`, followed by the encoded file data and the multipart form boundary.
+              
+              @param data The data to be encoded and appended to the form data.
+              @param name The name to be associated with the specified data. This parameter must not be `nil`.
+              @param fileName The filename to be associated with the specified data. This parameter must not be `nil`.
+              @param mimeType The MIME type of the specified data. (For example, the MIME type for a JPEG image is image/jpeg.) For a list of valid MIME types, see http://www.iana.org/assignments/media-types/. This parameter must not be `nil`.
+              */
+             
+             
+             //CGImageRef iref = [rep fullResolutionImage];
+             //UIImage* uim = [UIImage imageWithCGImage:iref];
+             
+             
+         }
+                failureBlock:^(NSError *error)
+         {
+             NSLog(@"failure loading video/image from AssetLibrary");
          }];
- 
-   
-         /**
-          Appends the HTTP header `Content-Disposition: file; filename=#{filename}; name=#{name}"` and `Content-Type: #{mimeType}`, followed by the encoded file data and the multipart form boundary.
-          
-          @param data The data to be encoded and appended to the form data.
-          @param name The name to be associated with the specified data. This parameter must not be `nil`.
-          @param fileName The filename to be associated with the specified data. This parameter must not be `nil`.
-          @param mimeType The MIME type of the specified data. (For example, the MIME type for a JPEG image is image/jpeg.) For a list of valid MIME types, see http://www.iana.org/assignments/media-types/. This parameter must not be `nil`.
-          */
-         
-         
-         //CGImageRef iref = [rep fullResolutionImage];
-         //UIImage* uim = [UIImage imageWithCGImage:iref];
-   
-         
-     }
-    failureBlock:^(NSError *error)
-     {
-         NSLog(@"failure loading video/image from AssetLibrary");
-     }];
     }
-
+    
 }
 
 

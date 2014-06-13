@@ -31,6 +31,8 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 //physicianField
 @synthesize e;
 
+@synthesize tapRecognizer;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -77,8 +79,9 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
     self.patientIDTextField.delegate=self;
        
    
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)];
-    [self.tableView addGestureRecognizer:gestureRecognizer];
+    tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapBackground:)];
+    [self.tableView addGestureRecognizer:tapRecognizer];
+    tapRecognizer.delegate = self;
     
     firstnameField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     lastnameField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
@@ -264,9 +267,33 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 }
 
 
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    CGPoint p = [gestureRecognizer locationInView:[self tableView]];
+    
+    NSIndexPath *indexPath = [[self tableView] indexPathForRowAtPoint:p];
+    
+    NSLog(@"ROW:%d",indexPath.row);
+    NSLog(@"TAG:%d",touch.view.tag);
+    
+    if([touch.view isKindOfClass:[UITableViewCell class]]){
+        if(touch.view.tag >0){
+            [[self tableView] endEditing:YES];
+            return YES;
+        }
+    }
+    return NO;
+    
+    /*
+     if(indexPath != nil && indexPath.row ==0 ) {
+     [[self tableView] endEditing:YES];
+     return YES;
+     }
+     else
+     return NO;
+     */
+}
 
-
-- (void)backgroundTapped {
+- (void)didTapBackground{
     NSLog(@"Background Tapped");
     
     [[self tableView] endEditing:YES];

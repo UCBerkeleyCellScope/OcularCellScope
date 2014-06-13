@@ -9,6 +9,7 @@
 #import "TabViewController.h"
 #import "UIColor+Custom.h"
 #import "CellScopeContext.h"
+#import "CoreDataController.h"
 
 @interface TabViewController ()
 
@@ -16,6 +17,7 @@
 
 @implementation TabViewController
 
+@synthesize uploadBanner;
 @synthesize managedObjectContext = _managedObjectContext;
 
 - (void)viewDidLoad
@@ -25,18 +27,25 @@
     // Do any additional setup after loading the view.
     
     self.managedObjectContext = [[CellScopeContext sharedContext] managedObjectContext];
+    
+    CGRect frame = CGRectMake(0.0,380.0,320.0,50.0);
+    uploadBanner = [[UploadBannerView alloc]initWithFrame:frame];
+    [uploadBanner setHidden:YES];
+    [self.view addSubview:uploadBanner];
+    
+    [CellScopeHTTPClient sharedCellScopeHTTPClient].uploadBannerView = uploadBanner;
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 - (IBAction)didPressSave:(id)sender {
     
@@ -44,7 +53,16 @@
     if (![[[CellScopeContext sharedContext] managedObjectContext] save:&error])
         NSLog(@"Failed to commit to core data: %@", [error domain]);
     
-    [self.navigationController popViewControllerAnimated:YES];
+    NSArray* filesToUpload = [CoreDataController getEyeImagesForExam:[[CellScopeContext sharedContext]currentExam] ];
+    
+    if([filesToUpload count ]>0){
+        [CellScopeHTTPClient sharedCellScopeHTTPClient].imagesToUpload = [NSMutableArray arrayWithArray:filesToUpload];
+        [[CellScopeHTTPClient sharedCellScopeHTTPClient] batch];
+    }
+    
+    
+    
+    //[self.navigationController popViewControllerAnimated:YES];
     
 }
 
@@ -55,7 +73,7 @@
                                                        delegate:self
                                               cancelButtonTitle:@"No"
                                               otherButtonTitles:@"Yes",nil];
-
+    
     [alertView show];
     
 }
