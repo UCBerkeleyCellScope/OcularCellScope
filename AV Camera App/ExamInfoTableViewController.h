@@ -11,6 +11,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 
 #import "Exam.h"
+#import "Exam+Methods.h"
 #import "CellScopeContext.h"
 #import "BSKeyboardControls.h"
 #import "TabViewController.h"

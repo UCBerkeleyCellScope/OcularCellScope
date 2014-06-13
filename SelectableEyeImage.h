@@ -19,6 +19,7 @@
 @property (nonatomic) int fixationLight;
 @property (nonatomic, weak) EyeImage *coreDataImage;
 @property (nonatomic, strong) UIImage * thumbnail;
+@property (nonatomic, strong) NSString * uuid;
 @property (assign, nonatomic, getter = isSelected) BOOL selected;
 
 -(id) initWithData:(NSData *)data

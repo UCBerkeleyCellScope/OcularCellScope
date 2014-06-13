@@ -325,6 +325,7 @@
     [[CellScopeContext sharedContext] setCurrentExam:newExam ];
     self.currentExam = newExam;
     newExam.patientIndex = 0;
+    newExam.uuid = [[NSUUID UUID] UUIDString];
     
     [self.patientsArray addObject:newExam];
     

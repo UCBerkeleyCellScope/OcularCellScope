@@ -9,6 +9,7 @@
 #import "CellScopeHTTPClient.h"
 #import "CoreDataController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "EyeImage+Methods.h"
 
 //static NSString * const CellScopeAPIKey = @"PASTE YOUR API KEY HERE";
 static NSString * const CellScopeURLString = @"http://warm-dawn-6399.herokuapp.com/";
@@ -103,9 +104,23 @@ static NSString * const CellScopeURLString = @"http://warm-dawn-6399.herokuapp.c
 
 -(void)batch{
     [self.uploadBannerView setHidden:NO];
+    [self postExam];
     [self singleImage];
 }
 
+- (void) postExam{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *params = @{
+                                 @"firstName":[[CellScopeContext sharedContext]currentExam].firstName,
+                                 @"lastName":[[CellScopeContext sharedContext]currentExam].lastName,
+                                 @"exam_uuid":[[CellScopeContext sharedContext]currentExam].uuid};
+                                 
+    [manager POST:[NSString stringWithFormat:@"%@exam",self.baseURL] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
 
 - (void)singleImage{
     
@@ -125,7 +140,14 @@ static NSString * const CellScopeURLString = @"http://warm-dawn-6399.herokuapp.c
          NSError *error;
          [rep getBytes:imageData.mutableBytes fromOffset:0 length:size error:&error];
          
-         NSDictionary *parameters = @{  //@"date": [[[CellScopeContext sharedContext] currentExam] date],
+         //[[CellScopeContext sharedContext]currentExam].firstName
+         
+         
+         NSDictionary *parameters = @{
+                                      @"eye": ei.eye,
+                                      @"fixationaLight": ei.fixationLight,
+                                      @"exam_uuid":[[CellScopeContext sharedContext]currentExam].uuid,
+                                      @"eyeImage_uuid":ei.uuid,
                                       @"json": @1};
          //@"patientIndex": [[[CellScopeContext sharedContext] currentExam] patientIndex],
          
@@ -137,7 +159,16 @@ static NSString * const CellScopeURLString = @"http://warm-dawn-6399.herokuapp.c
          NSURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:[NSString stringWithFormat:@"%@uploader",self.baseURL] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
                                   {
                                       //[formData appendPartWithFileURL:fileURL name:@"images[]" error:nil];
-                                      [formData appendPartWithFileData: imageData name:@"file" fileName: stringFromDate mimeType: @"image/jpeg"];
+                                      [formData appendPartWithFileData:imageData
+                                                                  name:@"file"
+                                                              fileName: ei.fileName
+                                                              mimeType: @"image/jpeg"];
+                                      
+                                      [formData appendPartWithFileData:ei.thumbnail
+                                                                  name:@"thumbnail"
+                                                              fileName: [ei.fileName stringByAppendingString:@"-thumbnail"]
+                                                              mimeType: @"image/jpeg"];
+                                      
                                   }
                                                                                                 error:nil];
          

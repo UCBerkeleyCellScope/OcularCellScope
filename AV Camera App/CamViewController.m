@@ -367,6 +367,9 @@
         image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
     }
     
+    image.uuid = [[NSUUID UUID] UUIDString];
+    
+    
     NSLog(@"Save fixation light %ld", self.selectedLight);
     NSLog(@"%@",[[CellScopeContext sharedContext]selectedEye]);
     
