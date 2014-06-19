@@ -171,12 +171,14 @@
 
     Exam *exam = (Exam *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    NSLog(@"Cell section: %ld row: %ld item: %ld", indexPath.section, indexPath.row, indexPath.item);
+    NSLog(@"Cell section: %ld row: %ld item: %ld", (long) indexPath.section, (long) indexPath.row, (long) indexPath.item);
     
     cell.nameLabel.text = [NSString stringWithFormat:@"%@, %@", exam.lastName, exam.firstName];
     cell.idLabel.text = [NSString stringWithFormat:@"ID: %@", exam.patientID];
-    
-    
+    if([exam.eyeImages count] > 0)
+        cell.eyeThumbnail.image = [UIImage imageWithData:[[exam.eyeImages firstObject] thumbnail]];
+    else
+        cell.eyeThumbnail.image = [UIImage imageNamed:@"fixation_icon_red.png"];
 }
 
 
