@@ -115,7 +115,7 @@
 -(IBAction)didPressAdd:(id)sender{
     
     //The Fixation ViewController will be either index 1 out of 0-2 or 1 out of 0-3.
-    [self.navigationController popToViewController:fixationVC animated:NO];
+    //[self.navigationController popToViewController:fixationVC animated:NO];
     
     CamViewController * cvc = [[CamViewController alloc] init];
     
