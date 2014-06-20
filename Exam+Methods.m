@@ -28,4 +28,13 @@
     return [self.eyeImages firstObject];
 }
 
+-(NSString*)dateString{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    NSString *textDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:self.date]];
+    NSLog(@"Date %@",textDate);
+    return textDate;
+}
+
+
 @end
