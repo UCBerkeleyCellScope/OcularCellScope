@@ -20,13 +20,14 @@
 @property(strong, nonatomic) UISegmentedControl *segControl;
 @property(strong, nonatomic) NSArray *leftImageFileNames;
 @property(strong, nonatomic) NSArray *rightImageFileNames;
+@property(strong, nonatomic) UIAlertView *fixationAlert;
 
 @end
 
 @implementation FixationViewController
 
 
-@synthesize selectedEye, selectedLight, imageArray, segControl;
+@synthesize selectedEye, selectedLight, imageArray, segControl, fixationAlert;
 
 //This is an EyeImage
 @synthesize currentEyeImage;
@@ -220,7 +221,13 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     if( [sender isSelected] == NO){
         //there are pictures!
-        [self performSegueWithIdentifier:@"CamViewSegue" sender:(id)sender];
+        self.fixationAlert = [[UIAlertView alloc] initWithTitle:@"Would you like to review existing images or add new ones?"
+                                                            message:@""
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Review"
+                                                  otherButtonTitles:@"Add",nil];
+        [self.fixationAlert show];
+        //[self performSegueWithIdentifier:@"CamViewSegue" sender:(id)sender];
     }
     
     else if([sender isSelected] == YES ){
@@ -229,6 +236,16 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView == self.fixationAlert){
+        if(buttonIndex == 1){
+            [self performSegueWithIdentifier:@"CamViewSegue" sender:self];
+        }
+        else{
+            [self performSegueWithIdentifier:@"ImageReviewSegue" sender:self];
+        }
+    }
+}
 
 - (void)didSegmentedValueChanged:(id)sender {
     

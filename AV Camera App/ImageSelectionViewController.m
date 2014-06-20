@@ -54,12 +54,16 @@
     //NSLog(@"There are %lu images", (unsigned long)[_eyeImages count]);
         
     if(reviewMode == YES){
+        
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.leftBarButtonItem =
+        [[UIBarButtonItem alloc] initWithTitle:@"Delete All" style:UIBarButtonItemStylePlain target: self action:@selector(didPressDeleteAll)];
+        
+        /*self.navigationItem.leftBarButtonItem =
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemDone target: self action:@selector(didPressSave:)];
         self.navigationItem.rightBarButtonItem =
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(didPressAdd:)];
-
+         */
     }
     
     NSMutableArray *imageViews = [[NSMutableArray alloc] init];
@@ -124,7 +128,7 @@
     SelectableEyeImage *firstImage = [self.images firstObject];
     cvc.selectedLight = firstImage.fixationLight;
     
-    [fixationVC.navigationController  pushViewController:cvc animated:YES];
+    [self.navigationController  pushViewController:cvc animated:YES];
     //[fixationVC performSegueWithIdentifier:@"CamViewSegue" sender:(id)sender];
 }
 
