@@ -11,9 +11,11 @@
 
 @interface TabViewController : UITabBarController
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *uploadButton;
 @property(nonatomic) UploadBannerView* uploadBanner;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-- (IBAction)didPressSave:(id)sender;
+@property  (nonatomic) NSArray *filesToUpload;
+- (IBAction)didPressUpload:(id)sender;
 - (IBAction)didPressCancel:(id)sender;
 
 @end

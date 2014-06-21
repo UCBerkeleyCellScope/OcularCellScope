@@ -18,7 +18,7 @@
     //self.exam.firstName
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"ddMMyyyy"];
+    [dateFormatter setDateFormat:@"yyyyMMdd"];
     NSString *textDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:self.date]];
     NSLog(@"Date %@",textDate);
 

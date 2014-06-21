@@ -2,7 +2,7 @@
 //  Exam.h
 //  OcularCellscope
 //
-//  Created by PJ Loury on 6/12/14.
+//  Created by PJ Loury on 6/19/14.
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
@@ -22,7 +22,9 @@
 @property (nonatomic, retain) NSString * patientName;
 @property (nonatomic, retain) NSString * phoneNumber;
 @property (nonatomic, retain) NSData * profilePicData;
+@property (nonatomic, retain) NSString * studyName;
 @property (nonatomic, retain) NSString * uuid;
+@property (nonatomic, retain) NSNumber * uploaded;
 @property (nonatomic, retain) NSOrderedSet *eyeImages;
 @end
 

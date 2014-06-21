@@ -134,7 +134,8 @@
                 coreDataObject.date = ei.date;
                 coreDataObject.eye = ei.eye;
                 coreDataObject.uuid = ei.uuid;
-            
+                coreDataObject.uploaded = [NSNumber numberWithBool:NO];
+                            
                 coreDataObject.fixationLight = [[NSNumber alloc] initWithInt: ei.fixationLight]; //[[NSNumber alloc ]initWithInteger: [[[CellScopeContext sharedContext]bleManager]selectedLight]];
             
                 NSLog(@"FIxATION LIGHT CORE DATA %@", coreDataObject.fixationLight);

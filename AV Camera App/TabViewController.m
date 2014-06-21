@@ -17,8 +17,10 @@
 
 @implementation TabViewController
 
+@synthesize uploadButton;
 @synthesize uploadBanner;
 @synthesize managedObjectContext = _managedObjectContext;
+@synthesize filesToUpload;
 
 - (void)viewDidLoad
 {
@@ -32,36 +34,39 @@
     uploadBanner = [[UploadBannerView alloc]initWithFrame:frame];
     [uploadBanner setHidden:YES];
     [self.view addSubview:uploadBanner];
-    
     [CellScopeHTTPClient sharedCellScopeHTTPClient].uploadBannerView = uploadBanner;
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+-(void)viewWillAppear:(BOOL)animated{
+    filesToUpload = [CoreDataController getEyeImagesToUploadForExam:[[CellScopeContext sharedContext]currentExam] ];
 
-- (IBAction)didPressSave:(id)sender {
+}
+
+- (IBAction)didPressUpload:(id)sender {
     
     NSError *error;
     if (![[[CellScopeContext sharedContext] managedObjectContext] save:&error])
         NSLog(@"Failed to commit to core data: %@", [error domain]);
     
-    NSArray* filesToUpload = [CoreDataController getEyeImagesForExam:[[CellScopeContext sharedContext]currentExam] ];
+    uploadButton.enabled = NO;
+    
+    filesToUpload = [CoreDataController getEyeImagesToUploadForExam:[[CellScopeContext sharedContext]currentExam] ];
     
     if([filesToUpload count ]>0){
         [CellScopeHTTPClient sharedCellScopeHTTPClient].imagesToUpload = [NSMutableArray arrayWithArray:filesToUpload];
         [[CellScopeHTTPClient sharedCellScopeHTTPClient] batch];
     }
-    
-    
-    
+    else{
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Images to Upload"
+                                                            message:@"Press the Images tab to begin capturing images."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        
+        [alertView show];
+    }
+    uploadButton.enabled = YES;
+
     //[self.navigationController popViewControllerAnimated:YES];
     
 }

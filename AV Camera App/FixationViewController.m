@@ -69,11 +69,9 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    [super viewWillAppear:(BOOL) animated];
+    //[super viewWillAppear:(BOOL) animated];
             
     //[_bleManager turnOffAllLights];
-    
-    
     
     [self setSelectedEye:  [[CellScopeContext sharedContext]selectedEye] ];
     

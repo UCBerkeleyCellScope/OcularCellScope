@@ -13,6 +13,7 @@
 #import "CellScopeHTTPClient.h"
 #import "DataGenerator.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "Exam+Methods.h"
 
 @interface PatientsTableViewController (){
     NSArray *content;
@@ -27,9 +28,6 @@
 @synthesize currentExam, patientsArray,client;
 @synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize managedObjectContext;
-
-
-
 
 - (void)viewDidLoad
 {
@@ -321,11 +319,18 @@
 - (IBAction)didPressAddExam:(id)sender {
     self.currentExam = nil;
     Exam* newExam = (Exam*)[NSEntityDescription insertNewObjectForEntityForName:@"Exam" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
-    newExam.date = [NSDate date];
-    [[CellScopeContext sharedContext] setCurrentExam:newExam ];
     self.currentExam = newExam;
+    [[CellScopeContext sharedContext] setCurrentExam:newExam ];
+    newExam.date = [NSDate date];
+    NSLog(@"Exam.dateString: %@",newExam.dateString);
+    NSLog(@"Exam.date: %@",newExam.date);
+
+
     newExam.patientIndex = 0;
     newExam.uuid = [[NSUUID UUID] UUIDString];
+    newExam.studyName = @"None";
+    newExam.uploaded = [NSNumber numberWithBool:NO];
+    
     
     [self.patientsArray addObject:newExam];
     
@@ -368,7 +373,6 @@
             break;
     }
 }
-
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
     

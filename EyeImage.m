@@ -2,7 +2,7 @@
 //  EyeImage.m
 //  OcularCellscope
 //
-//  Created by PJ Loury on 6/12/14.
+//  Created by PJ Loury on 6/19/14.
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
@@ -19,6 +19,7 @@
 @dynamic fixationLight;
 @dynamic thumbnail;
 @dynamic uuid;
+@dynamic uploaded;
 @dynamic exam;
 
 @end

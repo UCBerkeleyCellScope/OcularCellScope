@@ -10,7 +10,7 @@
         <scene sceneID="vJV-ry-ydo">
             <objects>
                 <tableViewController id="sUu-tn-JeZ" customClass="ExamInfoTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="static" style="plain" separatorStyle="none" sectionIndexMinimumDisplayRowCount="7" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="1F9-Bi-dYL">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="static" style="plain" separatorStyle="none" sectionIndexMinimumDisplayRowCount="7" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="1F9-Bi-dYL">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1031,7 +1031,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Upload" id="vYi-Iu-WDH">
                             <color key="tintColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="didPressSave:" destination="DM3-co-cGG" id="nbE-s6-nTt"/>
+                                <action selector="didPressUpload:" destination="DM3-co-cGG" id="ykD-ho-nNc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1043,6 +1043,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <outlet property="uploadButton" destination="vYi-Iu-WDH" id="l7A-Ii-ufb"/>
                         <segue destination="sUu-tn-JeZ" kind="relationship" relationship="viewControllers" id="Oln-Hv-Nka"/>
                         <segue destination="AGJ-xP-Dbn" kind="relationship" relationship="viewControllers" id="FBb-Dr-OXD"/>
                     </connections>

@@ -12,4 +12,6 @@
 @property(nonatomic) IBOutlet UILabel* uploadStatusLabel;
 @property(nonatomic) IBOutlet UIActivityIndicatorView* uploadingIndicator;
 
+-(void)takeBannerDownWithFade;
+
 @end

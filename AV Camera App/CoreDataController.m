@@ -77,6 +77,16 @@ failureBlock:^(NSError *error)
     return examImages;
 }
 
++(NSArray*)getEyeImagesToUploadForExam:(Exam*)exam{
+    
+    NSPredicate *p = [NSPredicate predicateWithFormat: @"exam == %@ AND uploaded == %@", exam, [NSNumber numberWithBool:NO]];
+    NSArray* examImages = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: p
+                                                          andSortKey: @"date" andSortAscending: YES
+                                                          andContext:   [[CellScopeContext sharedContext] managedObjectContext]];
+    return examImages;
+}
+
+
 // Fetch objects with a predicate
 +(NSMutableArray *)searchObjectsForEntity:(NSString*)entityName withPredicate:(NSPredicate *)predicate andSortKey:(NSString*)sortKey andSortAscending:(BOOL)sortAscending andContext:(NSManagedObjectContext *)managedObjectContext
 {

@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
 
-
 #import "Exam+Methods.h"
+#import "CellScopeContext.h"
 
 @implementation Exam (Methods)
 
@@ -30,10 +30,13 @@
 
 -(NSString*)dateString{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
-    NSString *textDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:self.date]];
-    NSLog(@"Date %@",textDate);
-    return textDate;
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString *formattedDateString = [dateFormatter stringFromDate: [[CellScopeContext sharedContext]currentExam].date];
+    NSLog(@"NewDateString %@",formattedDateString);
+    
+    return formattedDateString;
 }
 
 

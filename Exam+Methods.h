@@ -13,5 +13,6 @@
 - (void)addEyeImagesObject:(EyeImage *)image;
 - (NSString*)fullName;
 - (EyeImage*)getFirstImage;
+-(NSString*)dateString;
 
 @end

@@ -40,6 +40,19 @@
     return self;
 }
 
+-(void)takeBannerDownWithFade{
+    
+    [UIView transitionWithView:self
+                      duration:4.0
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:NULL
+                    completion:NULL];
+    
+    self.hidden = YES;
+    
+}
+
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

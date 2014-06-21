@@ -2,7 +2,7 @@
 //  Exam.m
 //  OcularCellscope
 //
-//  Created by PJ Loury on 6/12/14.
+//  Created by PJ Loury on 6/19/14.
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
@@ -21,7 +21,9 @@
 @dynamic patientName;
 @dynamic phoneNumber;
 @dynamic profilePicData;
+@dynamic studyName;
 @dynamic uuid;
+@dynamic uploaded;
 @dynamic eyeImages;
 
 @end
