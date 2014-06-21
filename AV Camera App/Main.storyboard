@@ -930,17 +930,23 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="436"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXb-en-8l0">
+                                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.5" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="LXb-en-8l0">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="436"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <subviews>
+                                                        <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default.png" translatesAutoresizingMaskIntoConstraints="NO" id="wt0-Y3-3bt">
+                                                            <rect key="frame" x="0.0" y="-22" width="320" height="480"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="436" id="Jth-tp-9dH"/>
+                                                        <constraint firstAttribute="width" constant="320" id="iVu-xB-bje"/>
+                                                    </constraints>
                                                     <connections>
                                                         <outlet property="delegate" destination="2qF-pw-3PT" id="Pg8-ZU-tTh"/>
                                                     </connections>
                                                 </scrollView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default.png" translatesAutoresizingMaskIntoConstraints="NO" id="wt0-Y3-3bt">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="436"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u7C-Tj-W2A">
                                                     <rect key="frame" x="260" y="376" width="40" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -968,17 +974,11 @@
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="u7C-Tj-W2A" secondAttribute="trailing" constant="20" id="0zN-hl-TAw"/>
-                                            <constraint firstAttribute="trailing" secondItem="LXb-en-8l0" secondAttribute="trailing" id="7iG-aV-k4v"/>
-                                            <constraint firstAttribute="bottom" secondItem="wt0-Y3-3bt" secondAttribute="bottom" id="DPc-6J-pBK"/>
-                                            <constraint firstItem="wt0-Y3-3bt" firstAttribute="top" secondItem="u5J-8w-IZO" secondAttribute="top" id="DVV-FF-ZIt"/>
-                                            <constraint firstItem="LXb-en-8l0" firstAttribute="leading" secondItem="u5J-8w-IZO" secondAttribute="leading" id="DzJ-kk-P8x"/>
+                                            <constraint firstAttribute="centerY" secondItem="LXb-en-8l0" secondAttribute="centerY" id="3nb-C6-3B7"/>
                                             <constraint firstItem="i6F-8E-lv7" firstAttribute="leading" secondItem="u5J-8w-IZO" secondAttribute="leading" constant="20" id="FqP-RG-aoE"/>
-                                            <constraint firstItem="wt0-Y3-3bt" firstAttribute="leading" secondItem="u5J-8w-IZO" secondAttribute="leading" id="MGS-7W-Ku3"/>
-                                            <constraint firstAttribute="bottom" secondItem="LXb-en-8l0" secondAttribute="bottom" id="OJl-B1-jUf"/>
+                                            <constraint firstAttribute="centerX" secondItem="LXb-en-8l0" secondAttribute="centerX" id="MgF-Rr-maG"/>
                                             <constraint firstAttribute="bottom" secondItem="u7C-Tj-W2A" secondAttribute="bottom" constant="20" id="PFt-54-WbE"/>
-                                            <constraint firstAttribute="trailing" secondItem="wt0-Y3-3bt" secondAttribute="trailing" id="ZGP-6g-TCO"/>
                                             <constraint firstItem="i6F-8E-lv7" firstAttribute="top" secondItem="u5J-8w-IZO" secondAttribute="top" constant="20" id="lXa-lt-qZH"/>
-                                            <constraint firstItem="LXb-en-8l0" firstAttribute="top" secondItem="u5J-8w-IZO" secondAttribute="top" id="sI4-en-pxX"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="eyeImageView" destination="wt0-Y3-3bt" id="nS3-DR-G1F"/>
@@ -1018,10 +1018,13 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="collectionView" destination="Y1m-Er-eNa" id="Siy-6m-jOL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Dp-ra-vEL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2565" y="-918"/>
+            <point key="canvasLocation" x="2205" y="-898"/>
         </scene>
         <!--Tab View Controller-->
         <scene sceneID="HBV-wj-Q0L">
@@ -1363,7 +1366,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="yZ8-bd-Ndx"/>
         <segue reference="TBr-4c-NTm"/>
+        <segue reference="yZ8-bd-Ndx"/>
     </inferredMetricsTieBreakers>
 </document>

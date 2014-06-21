@@ -17,6 +17,7 @@
 
 -(IBAction)didPressCancel:(id)sender;
 -(IBAction)didPressSave:(id)sender;
+-(IBAction)didPressAdd:(id)sender;
 -(void)didPressDeleteAll;
 
 

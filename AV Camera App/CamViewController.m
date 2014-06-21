@@ -332,6 +332,8 @@
     SelectableEyeImage *image;
     
     if(mirroredView){
+        
+        /*
         UIImage *sourceImage = [UIImage imageWithData:data];
         UIImage *flippedImage = [UIImage imageWithCGImage: sourceImage.CGImage
                                                     scale: sourceImage.scale
@@ -348,12 +350,14 @@
                                               fixationLight: (int) self.selectedLight
                                                   thumbnail: thumbnail];
         
+         */
+        
         image = [[SelectableEyeImage alloc] initWithData:data
                                                     date: [NSDate date]
                                                      eye: [[CellScopeContext sharedContext] selectedEye]
                                            fixationLight: (int) self.selectedLight];
         
-        scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
+        float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
         image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
     }
     
@@ -367,8 +371,11 @@
         image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
     }
     
-    image.uuid = [[NSUUID UUID] UUIDString];
+    NSLog(@"Date: %@",[image.date stringWithISO8061Format]);
+    [data writeToFile:[@"BaseDirectory/" stringByAppendingPathComponent:[image.date stringWithISO8061Format]]
+           atomically:YES];
     
+     
     
     NSLog(@"Save fixation light %ld", self.selectedLight);
     NSLog(@"%@",[[CellScopeContext sharedContext]selectedEye]);

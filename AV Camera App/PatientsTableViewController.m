@@ -167,14 +167,16 @@
 
 - (void)configureCell:(PatientTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 
-    Exam *exam = (Exam *)[self.patientsArray objectAtIndex:indexPath.row];
+    Exam *exam = (Exam *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    NSLog(@"Cell section: %ld row: %ld item: %ld", (long) indexPath.section, (long) indexPath.row, (long) indexPath.item);
     
     cell.nameLabel.text = [NSString stringWithFormat:@"%@, %@", exam.lastName, exam.firstName];
     cell.idLabel.text = [NSString stringWithFormat:@"ID: %@", exam.patientID];
-    
-    NSArray *array = self.patientsArray;
-    NSString *str = exam.lastName;
-    
+    if([exam.eyeImages count] > 0)
+        cell.eyeThumbnail.image = [UIImage imageWithData:[[exam.eyeImages firstObject] thumbnail]];
+    else
+        cell.eyeThumbnail.image = [UIImage imageNamed:@"fixation_icon_red.png"];
 }
 
 

@@ -18,14 +18,16 @@
 @interface FixationViewController ()
 
 @property(strong, nonatomic) UISegmentedControl *segControl;
-@property(strong, nonatomic) NSArray *imageFileNames;
+@property(strong, nonatomic) NSArray *leftImageFileNames;
+@property(strong, nonatomic) NSArray *rightImageFileNames;
+@property(strong, nonatomic) UIAlertView *fixationAlert;
 
 @end
 
 @implementation FixationViewController
 
 
-@synthesize selectedEye, selectedLight, imageArray, segControl;
+@synthesize selectedEye, selectedLight, imageArray, segControl, fixationAlert;
 
 //This is an EyeImage
 @synthesize currentEyeImage;
@@ -38,7 +40,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 @synthesize currentEImage, uim, passedImages;
 @synthesize eyeImages;
-@synthesize imageFileNames;
+@synthesize leftImageFileNames, rightImageFileNames;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -57,9 +59,14 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                                        bottomFixationButton, leftFixationButton, rightFixationButton, nil];
     
     
-    imageFileNames = [NSArray arrayWithObjects: @"retina_icon_center.png", @"retina_icon_center.png",
-                      @"retina_icon_top.png", @"retina_icon_bottom.png",
-                      @"retina_icon_left.png", @"retina_icon_right", nil];
+    leftImageFileNames = [NSArray arrayWithObjects: @"l_center.png", @"l_center.png",
+                          @"l_top.png", @"l_bottom.png",
+                          @"l_left.png", @"l_right", nil];
+    
+    
+    rightImageFileNames = [NSArray arrayWithObjects: @"r_center.png", @"r_center.png",
+                          @"r_top.png", @"r_bottom.png",
+                          @"r_left.png", @"r_right", nil];
     
    
     passedImages = [[NSMutableArray alloc]init];
@@ -185,7 +192,12 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                 [fixationButtons[i] setSelected: YES];
             }
             else{
-                UIImage* thumbImage = [UIImage imageNamed: [imageFileNames objectAtIndex:i]];
+                UIImage* thumbImage;
+                if([self.selectedEye  isEqual: LEFT_EYE])
+                    thumbImage = [UIImage imageNamed: [leftImageFileNames objectAtIndex:i]];
+                else
+                    thumbImage = [UIImage imageNamed: [rightImageFileNames objectAtIndex:i]];
+                
                 [fixationButtons[i] setImage: thumbImage forState: UIControlStateNormal];
                 [fixationButtons[i] setSelected: NO];
                 
@@ -207,7 +219,13 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     if( [sender isSelected] == NO){
         //there are pictures!
-        [self performSegueWithIdentifier:@"CamViewSegue" sender:(id)sender];
+        self.fixationAlert = [[UIAlertView alloc] initWithTitle:@"Would you like to review existing images or add new ones?"
+                                                            message:@""
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Review"
+                                                  otherButtonTitles:@"Add",nil];
+        [self.fixationAlert show];
+        //[self performSegueWithIdentifier:@"CamViewSegue" sender:(id)sender];
     }
     
     else if([sender isSelected] == YES ){
@@ -216,6 +234,16 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView == self.fixationAlert){
+        if(buttonIndex == 1){
+            [self performSegueWithIdentifier:@"CamViewSegue" sender:self];
+        }
+        else{
+            [self performSegueWithIdentifier:@"ImageReviewSegue" sender:self];
+        }
+    }
+}
 
 - (void)didSegmentedValueChanged:(id)sender {
     
@@ -355,6 +383,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
     }
 }
+
 
 
 @end
