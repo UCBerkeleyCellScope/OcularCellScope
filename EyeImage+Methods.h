@@ -10,6 +10,7 @@
 
 @interface EyeImage (Methods)
 
+-(NSString*)randomEyeImageString;
 -(NSString*)fileName;
 
 @end

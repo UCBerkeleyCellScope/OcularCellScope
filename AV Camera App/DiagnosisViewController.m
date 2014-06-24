@@ -43,6 +43,7 @@
     
     contactPatientLabel.layer.borderWidth=1.0f;
     contactPatientLabel.layer.borderColor=[[UIColor lightGrayColor] CGColor];
+    
 }
 
 

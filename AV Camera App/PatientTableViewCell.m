@@ -11,7 +11,8 @@
 @implementation PatientTableViewCell
 
 @synthesize eyeThumbnail = _eyeThumbnail;
-@synthesize idLabel = _idLabel;
+@synthesize dateLabel = _dateLabel;
+@synthesize patientIDLabel = _patientIDLabel;
 @synthesize nameLabel = _nameLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

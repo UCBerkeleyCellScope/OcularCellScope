@@ -30,6 +30,16 @@
     return mediumGreenColor;
 }
 
++ (UIColor *)brightGreenColor{
+    UIColor *brightGreenColor = [UIColor colorWithR:(CGFloat)87
+                                                  G:(CGFloat)175
+                                                  B:(CGFloat)161
+                                                  A:(CGFloat)1.0];
+    return brightGreenColor;
+}
+
+
+
 + (UIColor *)darkGreenColor{
     UIColor *darkGreenColor = [UIColor colorWithR:(CGFloat)99
                                                 G:(CGFloat)157

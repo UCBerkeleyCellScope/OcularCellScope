@@ -70,8 +70,9 @@
     // Set the preview layer to the bounds of the screen
     rootLayer = [self.view layer];
     [rootLayer setMasksToBounds:YES];
-    [self.previewLayer setFrame:CGRectMake(-80, 0, rootLayer.bounds.size.height, rootLayer.bounds.size.height)];
-    [self.previewLayer setVideoGravity: AVLayerVideoGravityResizeAspect];
+    //first number was -80
+    [self.previewLayer setFrame:CGRectMake(-50, 0, rootLayer.bounds.size.height, rootLayer.bounds.size.height)];
+    [self.previewLayer setVideoGravity: AVLayerVideoGravityResizeAspectFill];//AVLayerVideoGravityResizeAspect];
     [rootLayer insertSublayer:self.previewLayer atIndex:0];
     
     BOOL mirroredView = [[NSUserDefaults standardUserDefaults] boolForKey:@"mirroredView"];

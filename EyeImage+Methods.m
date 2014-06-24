@@ -13,6 +13,15 @@
 
 @implementation EyeImage (Methods)
 
+NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+
+-(NSString*)randomEyeImageString{
+    NSString* rs = [NSString stringWithFormat:@"%d", arc4random_uniform(7)];
+    return rs;
+}
+
+
 -(NSString*)fileName{
     
     //self.exam.firstName

@@ -17,9 +17,6 @@
 //static NSString * const BaseURLString = @"http://ec2-54-186-247-188.us-west-2.compute.amazonaws.com/";
 //This needs to be changed
 
-#define ACCESS_KEY_ID          @"AKIAIZJCDD43UTMHGLXQ"
-#define SECRET_KEY             @"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"
-
 // Constants for the Bucket and Object name.
 #define PICTURE_BUCKET         @"picture-bucket"
 #define PICTURE_NAME           @"NameOfThePicture"

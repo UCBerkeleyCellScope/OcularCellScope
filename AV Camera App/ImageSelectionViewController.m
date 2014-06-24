@@ -16,7 +16,8 @@
 #import "CamViewController.h"
 #import "EyePhotoCell.h"
 #import "Exam+Methods.h"
-
+#import "EyeImage+Methods.h"
+#import "Random.h"
 
 @interface ImageSelectionViewController ()
 
@@ -29,7 +30,8 @@
 
 @implementation ImageSelectionViewController
 
-@synthesize images, reviewMode, imageCollectionView;
+@synthesize images, reviewMode;
+//imageCollectionView;
 @synthesize fixationVC, deleteAllAlert;
 
 - (void)viewDidLoad
@@ -39,11 +41,12 @@
     self.navigationController.navigationBar.hidden = NO;
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
     NSArray* viewControllers = self.navigationController.viewControllers;
     fixationVC = [viewControllers objectAtIndex: 1 ];
     //self.imageView.layer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
-
     
 }
 
@@ -99,7 +102,6 @@
     [cell updateCell];
     
     return cell;
-    
 }
 
 - (void)collectionView:(UICollectionView *)collectionView
@@ -156,42 +158,34 @@
 }
 
 -(IBAction)didPressSave:(id)sender{
-    //if([EImage containsSelectedImageInArray:images]){
-        //save
-    
-    // GO THROUGH AND DELETE THE EyeImages MARKED FOR DELETEION
   
     if(!reviewMode){
             //NSMutableArray* eImagesToSave = [EImage selectedImagesFromArray:images];
         for( SelectableEyeImage* ei in images){//eImagesToSave){     //HACK TO SAVE ALL
             if(!ei.isSelected){
                 EyeImage* coreDataObject = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"EyeImage" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
+
+                coreDataObject.filePath=ei.filePath;
                 coreDataObject.date = ei.date;
                 coreDataObject.eye = ei.eye;
-                coreDataObject.uuid = ei.uuid;
                 coreDataObject.uploaded = [NSNumber numberWithBool:NO];
-                            
+                //coreDataObject.uuid = [[NSUUID UUID] UUIDString];
+                coreDataObject.uuid = [Random randomStringWithLength:5];
                 coreDataObject.fixationLight = [[NSNumber alloc] initWithInt: ei.fixationLight]; //[[NSNumber alloc ]initWithInteger: [[[CellScopeContext sharedContext]bleManager]selectedLight]];
             
-                NSLog(@"FIxATION LIGHT CORE DATA %@", coreDataObject.fixationLight);
+                NSLog(@"fixationLight %@", coreDataObject.fixationLight);
                 coreDataObject.exam = [[CellScopeContext sharedContext]currentExam];
-            
             
                 [self saveImageToCameraRoll:ei coreData: coreDataObject];
                 coreDataObject.thumbnail = UIImagePNGRepresentation(ei.thumbnail);
             
                 //NSNumber *myNum = [NSNumber numberWithInteger:ei.fixationLight];
                 //coreDataObject.fixationLight = myNum;
-                
             
                 Exam* e = [[CellScopeContext sharedContext ]currentExam ];
                 [e addEyeImagesObject:coreDataObject];
-                 
-                
             }
-            
         }
-
     }
     
     if(reviewMode){
@@ -204,6 +198,9 @@
     
     [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
     
+    //[fixationVC viewWillAppear:YES];
+    
+    //fixationVC.parentViewController.backFromReview=YES;
     [self.navigationController popToViewController:fixationVC animated:YES];
     
 }
@@ -225,9 +222,8 @@
             //NSLog(@"%@", myPath);
             
             NSLog(@"Added image to asset library");
-            
             cd.filePath = [assetURL absoluteString];
-            
+            NSLog(@"Asset Library Path %@", cd.filePath);
         }
     }]; // end of completion block
     //Consider an NSNotification that you may now Segue

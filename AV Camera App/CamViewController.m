@@ -358,7 +358,15 @@
                                            fixationLight: (int) self.selectedLight];
         
         float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
-        image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
+        //image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
+        
+        CGSize destinationSize = CGSizeMake(40, 40);
+        UIGraphicsBeginImageContext(destinationSize);
+        [image drawInRect:CGRectMake(0,0,destinationSize.width,destinationSize.height)];
+        image.thumbnail = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        
     }
     
     else{
@@ -368,14 +376,24 @@
                                            fixationLight: (int) self.selectedLight];
         
         float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
-        image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
+        //image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
+        
+        CGSize destinationSize = CGSizeMake(40, 40);
+        UIGraphicsBeginImageContext(destinationSize);
+        [image drawInRect:CGRectMake(0,0,destinationSize.width,destinationSize.height)];
+        image.thumbnail = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
     }
     
+    
+    
     NSLog(@"Date: %@",[image.date stringWithISO8061Format]);
+    
+    
+    NSString* path = [image.date stringWithISO8061Format];
+    
     [data writeToFile:[@"BaseDirectory/" stringByAppendingPathComponent:[image.date stringWithISO8061Format]]
            atomically:YES];
-    
-     
     
     NSLog(@"Save fixation light %ld", self.selectedLight);
     NSLog(@"%@",[[CellScopeContext sharedContext]selectedEye]);

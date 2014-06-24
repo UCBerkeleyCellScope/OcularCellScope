@@ -48,16 +48,11 @@ dispatch_queue_t backgroundQueue;
         //self.responseSerializer = [AFJSONResponseSerializer serializer];
         //self.requestSerializer = [AFJSONRequestSerializer serializer];
 
-        
-        
-        
-        
         self.responseSerializer = [AFHTTPResponseSerializer serializer];
         self.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/html"];
         
         //self.requestSerializer = [AFJSONRequestSerializer serializer];
         self.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
 
         //manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     }
@@ -122,6 +117,7 @@ dispatch_queue_t backgroundQueue;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     [[CellScopeContext sharedContext]currentExam].date= [NSDate date];
+    
     
     NSLog(@"CurrentExam beforePOST %@",[[CellScopeContext sharedContext]currentExam]);
     NSLog(@"DateString beforePOST %@",[[[CellScopeContext sharedContext]currentExam] dateString]);
@@ -226,6 +222,8 @@ dispatch_queue_t backgroundQueue;
     EyeImage* ei = [self.imagesToUpload objectAtIndex:0];
     NSURL *aURL = [NSURL URLWithString: ei.filePath];
     
+    NSLog(@"%@",ei.filePath);
+    
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     [library assetForURL:aURL
              resultBlock:^(ALAsset *asset)
@@ -242,12 +240,15 @@ dispatch_queue_t backgroundQueue;
          
          AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
          
+         
+         
          NSDictionary *params = @{
                                       @"eye": ei.eye,
                                       @"fixationLight": ei.fixationLight,
                                       @"eyeImage_uuid":ei.uuid,
                                       @"exam_uuid":[[CellScopeContext sharedContext]currentExam].uuid,
                                       };
+         
          
          //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
 

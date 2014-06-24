@@ -7,6 +7,7 @@
 //
 
 #import "TabViewController.h"
+#import "FixationViewController.h"
 #import "UIColor+Custom.h"
 #import "CellScopeContext.h"
 #import "CoreDataController.h"
@@ -21,14 +22,33 @@
 @synthesize uploadBanner;
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize filesToUpload;
+@synthesize backFromReview;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [ [UITabBar appearance] setTintColor: [UIColor lightGreenColor]];
+    [ [UITabBar appearance] setTintColor: [UIColor brightGreenColor]];
     // Do any additional setup after loading the view.
     
+    self.navigationController.navigationBar.barTintColor = [UIColor brightGreenColor];
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+
     self.managedObjectContext = [[CellScopeContext sharedContext] managedObjectContext];
+    
+    //[uploadButton setFont: [UIFont fontWithName:@"HelveticaNeue-Thin," size:14]];
+    
+    //FixationViewController *fix = (FixationViewController *)[self.tabBarController.viewControllers objectAtIndex:1];
+    //[fix viewWillAppear:YES];
+    
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
+     setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [UIFont fontWithName:@"HelveticaNeue-Light" size:17], NSFontAttributeName,
+      [UIColor whiteColor], NSForegroundColorAttributeName,
+      nil]
+     
+    forState:UIControlStateNormal];
     
     CGRect frame = CGRectMake(0.0,380.0,320.0,50.0);
     uploadBanner = [[UploadBannerView alloc]initWithFrame:frame];
@@ -39,7 +59,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     filesToUpload = [CoreDataController getEyeImagesToUploadForExam:[[CellScopeContext sharedContext]currentExam] ];
-
+    //self.navigationController.navigationBar.topItem.title = @"Exam";
 }
 
 - (IBAction)didPressUpload:(id)sender {

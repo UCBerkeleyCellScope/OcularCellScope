@@ -15,6 +15,7 @@
 @property(nonatomic) UploadBannerView* uploadBanner;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property  (nonatomic) NSArray *filesToUpload;
+@property (nonatomic) BOOL backFromReview;
 - (IBAction)didPressUpload:(id)sender;
 - (IBAction)didPressCancel:(id)sender;
 

@@ -31,6 +31,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *birthMonthTextField;
 @property (weak, nonatomic) IBOutlet UITextField *birthYearTextField;
 @property (weak, nonatomic) IBOutlet UITextField *patientIDTextField;
+@property (weak, nonatomic) IBOutlet UITableViewCell *nameCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *idCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *phoneCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *dobCell;
 
 @property (nonatomic) UIGestureRecognizer* tapRecognizer;
 
