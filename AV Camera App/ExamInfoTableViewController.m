@@ -331,9 +331,6 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
     } else if (textField == lastnameField) {
         [patientIDTextField becomeFirstResponder];
         return YES;
-    } else if (textField == patientIDTextField) {
-        [phoneNumberField becomeFirstResponder];
-        return YES;
     } else if (textField == phoneNumberField) {
         [birthDayTextField becomeFirstResponder];
         return YES;

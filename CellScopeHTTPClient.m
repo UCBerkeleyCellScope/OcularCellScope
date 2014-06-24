@@ -70,6 +70,7 @@ dispatch_queue_t backgroundQueue;
 
 -(void)batch{
     [self.uploadBannerView setHidden:NO];
+    
     [self postExam];
     
     //[self singleImageWithCallBack];
@@ -90,9 +91,9 @@ dispatch_queue_t backgroundQueue;
                                                        @"%lu of %lu complete", (unsigned long)numberOfFinishedOperations, (unsigned long)totalNumberOfOperations];
             
         } completionBlock:^(NSArray *operations) {
-            NSLog(@"All operations in batch complete");
-            uploadBannerView.uploadStatusLabel.text = @"Upload Completed.";
-            [self.uploadBannerView takeBannerDownWithFade];
+            NSLog(@"An Image has completed it's upload Process");
+            //uploadBannerView.uploadStatusLabel.text = @"Upload Completed.";
+            //[self.uploadBannerView takeBannerDownWithFade];
             
             
         }];
@@ -135,12 +136,22 @@ dispatch_queue_t backgroundQueue;
     [manager POST:[NSString stringWithFormat:@"%@exam",self.baseURL] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         
+        [[[CellScopeContext sharedContext]currentExam] setUploaded:@YES];
         
         //NOT UPDATING TO EXAM CREATED
         self.uploadBannerView.hidden=NO;
         self.uploadBannerView.uploadStatusLabel.text=[NSString stringWithFormat:@"%@",responseObject];
         [self.uploadBannerView takeBannerDownWithFade];
-        [self postImage2];
+        
+        
+        
+        /*
+        while([self.imagesToUpload count]>0){
+            [self postImage2];
+         }
+         */
+        
+        [self singleImage];
         //   responseObject["status"]
         
 
@@ -220,6 +231,8 @@ dispatch_queue_t backgroundQueue;
     
     
     EyeImage* ei = [self.imagesToUpload objectAtIndex:0];
+    [self.imagesToUpload removeObjectAtIndex:0];
+    
     NSURL *aURL = [NSURL URLWithString: ei.filePath];
     
     NSLog(@"%@",ei.filePath);
@@ -247,6 +260,7 @@ dispatch_queue_t backgroundQueue;
                                       @"fixationLight": ei.fixationLight,
                                       @"eyeImage_uuid":ei.uuid,
                                       @"exam_uuid":[[CellScopeContext sharedContext]currentExam].uuid,
+                                      @"date":[ei dateString]
                                       };
          
          
@@ -371,12 +385,13 @@ dispatch_queue_t backgroundQueue;
          
          //[[CellScopeContext sharedContext]currentExam].firstName
          
-         NSDictionary *parameters = @{
-                                      @"eye": ei.eye,
-                                      @"fixationLight": ei.fixationLight,
-                                      @"eyeImage_uuid":ei.uuid,
-                                      @"exam_uuid":[[CellScopeContext sharedContext]currentExam].uuid,
-                                      @"json": @1};
+         NSDictionary *params = @{
+                                  @"eye": ei.eye,
+                                  @"fixationLight": ei.fixationLight,
+                                  @"eyeImage_uuid":ei.uuid,
+                                  @"exam_uuid":[[CellScopeContext sharedContext]currentExam].uuid,
+                                  @"date":[ei dateString]
+                                  };
          //@"patientIndex": [[[CellScopeContext sharedContext] currentExam] patientIndex],
          
          NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -384,13 +399,14 @@ dispatch_queue_t backgroundQueue;
          
          //NSString *stringFromDate = [formatter stringFromDate:ei.date];
          
-         NSURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:[NSString stringWithFormat:@"%@uploader",self.baseURL] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
+         NSURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:[NSString stringWithFormat:@"%@uploader",self.baseURL] parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
                                   {
                                       //[formData appendPartWithFileURL:fileURL name:@"images[]" error:nil];
                                       [formData appendPartWithFileData:imageData
                                                                   name:@"file"
-                                                              fileName: ei.fileName
-                                                              mimeType: @"image/jpeg"];
+                                                              fileName:ei.fileName
+                                                              mimeType:@"image/jpeg"];
+
                                       
                                       /*
                                       [formData appendPartWithFileData:ei.thumbnail

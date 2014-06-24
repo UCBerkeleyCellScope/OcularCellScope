@@ -14,6 +14,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <QuartzCore/QuartzCore.h>
 #import "CellScopeContext.h"
+#import "TabViewController.h"
 
 @interface FixationViewController ()
 
@@ -68,7 +69,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                name:@"SelectableEyeImageCreated" //The notification that was sent is named ____
              object:nil]; //doesn't matter who sent the notification
 
-    
     [self setupFixationButtons];
     
 }
@@ -87,6 +87,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     [self loadImages: self.segControl.selectedSegmentIndex];
     
+    ((TabViewController*)self.parentViewController).filesToUpload = [CoreDataController getEyeImagesToUploadForExam:[[CellScopeContext sharedContext]currentExam] ];
 }
 
 -(void)viewDillAppear:(BOOL)animated{

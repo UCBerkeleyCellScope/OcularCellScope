@@ -25,14 +25,23 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 -(NSString*)fileName{
     
     //self.exam.firstName
-
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyyMMdd"];
     NSString *textDate = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:self.date]];
     NSLog(@"Date %@",textDate);
 
     return [NSString stringWithFormat:@"%@-%@-%@-%@",textDate,self.eye,self.fixationLight,self.uuid];
+}
+
+-(NSString*)dateString{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
+    NSString *formattedDateString = [dateFormatter stringFromDate: self.date];
+    NSLog(@"NewDateString %@",formattedDateString);
+    
+    return formattedDateString;
 }
 
 

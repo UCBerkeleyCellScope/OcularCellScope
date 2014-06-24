@@ -79,7 +79,6 @@
     longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedToCapture:)];
     [self.view addGestureRecognizer:longPressGestureRecognizer];
     
-    
     /// WHY IS THIS HERE>>>??? IN ORDER TO
     //GET TURN OFF/TURN ON TO WORK
     //[[self.bleManager whiteFlashLight]toggleLight];
@@ -131,7 +130,6 @@
     [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:whiteIntensity Red:redIntensity];
     [[[CellScopeContext sharedContext] bleManager] setFixationLight:self.selectedLight Intensity:fixationIntensity];
     
-    
     /*
     if(self.bleManager.isConnected== YES){
         //BLE disabled label needs to go away succesfully
@@ -163,7 +161,6 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 
-    
     [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:0 Red:0];
     [[[CellScopeContext sharedContext] bleManager] setFixationLight:FIXATION_LIGHT_NONE Intensity:0];
     
@@ -358,15 +355,7 @@
                                            fixationLight: (int) self.selectedLight];
         
         float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
-        //image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
-        
-        CGSize destinationSize = CGSizeMake(40, 40);
-        UIGraphicsBeginImageContext(destinationSize);
-        [image drawInRect:CGRectMake(0,0,destinationSize.width,destinationSize.height)];
-        image.thumbnail = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        
+        image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
     }
     
     else{
@@ -376,13 +365,7 @@
                                            fixationLight: (int) self.selectedLight];
         
         float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
-        //image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
-        
-        CGSize destinationSize = CGSizeMake(40, 40);
-        UIGraphicsBeginImageContext(destinationSize);
-        [image drawInRect:CGRectMake(0,0,destinationSize.width,destinationSize.height)];
-        image.thumbnail = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
     }
     
     
