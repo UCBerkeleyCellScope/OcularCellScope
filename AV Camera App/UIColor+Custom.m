@@ -48,4 +48,12 @@
     return darkGreenColor;
 }
 
++ (UIColor *)pinkColor{
+    UIColor *pinkColor = [UIColor colorWithR:(CGFloat)212
+                                                G:(CGFloat)104
+                                                B:(CGFloat)112
+                                                A:(CGFloat)1.0];
+    return pinkColor;
+}
+
 @end

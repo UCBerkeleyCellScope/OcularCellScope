@@ -15,12 +15,13 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CellScopeContext.h"
 #import "TabViewController.h"
+#import "UIColor+Custom.h"
 
 @interface FixationViewController ()
 
 @property(strong, nonatomic) UISegmentedControl *segControl;
-@property(strong, nonatomic) NSArray *leftImageFileNames;
-@property(strong, nonatomic) NSArray *rightImageFileNames;
+@property(strong, nonatomic) NSArray *oDImageFileNames;
+@property(strong, nonatomic) NSArray *oSImageFileNames;
 @property(strong, nonatomic) UIAlertView *fixationAlert;
 
 @end
@@ -41,7 +42,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 @synthesize currentEImage, uim, passedImages;
 @synthesize eyeImages;
-@synthesize leftImageFileNames, rightImageFileNames;
+@synthesize oDImageFileNames, oSImageFileNames;
 
 
 - (void)viewDidLoad
@@ -52,16 +53,14 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                                        bottomFixationButton, leftFixationButton, rightFixationButton, nil];
     
     
-    leftImageFileNames = [NSArray arrayWithObjects: @"l_center.png", @"l_center.png",
-                          @"l_top.png", @"l_bottom.png",
-                          @"l_left.png", @"l_right", nil];
+    oDImageFileNames = [NSArray arrayWithObjects: @"od_center.png", @"od_center.png",
+                          @"od_top.png", @"od_bottom.png",
+                          @"od_left.png", @"od_right", nil];
     
     
-    rightImageFileNames = [NSArray arrayWithObjects: @"r_center.png", @"r_center.png",
-                          @"r_top.png", @"r_bottom.png",
-                          @"r_left.png", @"r_right", nil];
-    
-   
+    oSImageFileNames = [NSArray arrayWithObjects: @"os_center.png", @"os_center.png",
+                          @"os_top.png", @"os_bottom.png",
+                          @"os_left.png", @"os_right", nil];
     
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver: self
@@ -98,7 +97,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 }
 
 -(void) initSegControl{
-    NSArray* segmentTitles = [[NSArray alloc ]initWithObjects:@"Right",@"Left", nil];
+    NSArray* segmentTitles = [[NSArray alloc ]initWithObjects:@"OD",@"OS", nil];
     self.segControl = [[UISegmentedControl alloc] initWithItems:segmentTitles];
     self.segControl.selectedSegmentIndex = 0;
     self.tabBarController.navigationItem.titleView = self.segControl;
@@ -106,13 +105,13 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                         action:@selector(didSegmentedValueChanged:) forControlEvents:UIControlEventValueChanged];
     
     if (self.selectedEye){
-        if ([self.selectedEye isEqualToString: RIGHT_EYE]) [self.segControl setSelectedSegmentIndex: 0];
-        else if([self.selectedEye isEqualToString: LEFT_EYE]) [self.segControl setSelectedSegmentIndex: 1];
+        if ([self.selectedEye isEqualToString: OS_EYE]) [self.segControl setSelectedSegmentIndex: 0];
+        else if([self.selectedEye isEqualToString: OD_EYE]) [self.segControl setSelectedSegmentIndex: 1];
     }
     else{
         [segControl setSelectedSegmentIndex: 0];
-        self.selectedEye = RIGHT_EYE;
-        [[CellScopeContext sharedContext]setSelectedEye: RIGHT_EYE];
+        self.selectedEye = OD_EYE;
+        [[CellScopeContext sharedContext]setSelectedEye: OD_EYE];
     }
 }
 
@@ -125,13 +124,13 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 -(void)loadImages:(NSInteger)segmentedIndex{
     
     if(self.segControl.selectedSegmentIndex == 0){
-        [[CellScopeContext sharedContext] setSelectedEye: RIGHT_EYE];
-        self.selectedEye = RIGHT_EYE;
+        [[CellScopeContext sharedContext] setSelectedEye: OD_EYE];
+        self.selectedEye = OD_EYE;
 
     }
     else{
-        [[CellScopeContext sharedContext] setSelectedEye: LEFT_EYE];
-        self.selectedEye = LEFT_EYE;
+        [[CellScopeContext sharedContext] setSelectedEye: OS_EYE];
+        self.selectedEye = OS_EYE;
     }
     
     //load the images
@@ -177,10 +176,10 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
             }
             else{
                 UIImage* thumbImage;
-                if([self.selectedEye  isEqual: LEFT_EYE])
-                    thumbImage = [UIImage imageNamed: [leftImageFileNames objectAtIndex:i]];
+                if([self.selectedEye  isEqual: OS_EYE])
+                    thumbImage = [UIImage imageNamed: [oSImageFileNames objectAtIndex:i]];
                 else
-                    thumbImage = [UIImage imageNamed: [rightImageFileNames objectAtIndex:i]];
+                    thumbImage = [UIImage imageNamed: [oDImageFileNames objectAtIndex:i]];
                 
                 [fixationButtons[i] setImage: thumbImage forState: UIControlStateNormal];
                 [fixationButtons[i] setSelected: NO];
@@ -451,7 +450,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         button.layer.cornerRadius = button.frame.size.width / 2;
         button.clipsToBounds = YES;
         button.layer.borderWidth = 2.0f;
-        button.layer.borderColor = [UIColor whiteColor].CGColor;
+        button.layer.borderColor = [UIColor pinkColor].CGColor;
         button.imageView.contentMode = UIViewContentModeScaleAspectFill;
     }
 }

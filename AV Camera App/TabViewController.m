@@ -37,7 +37,6 @@
     self.managedObjectContext = [[CellScopeContext sharedContext] managedObjectContext];
     
     //[uploadButton setFont: [UIFont fontWithName:@"HelveticaNeue-Thin," size:14]];
-    
     //FixationViewController *fix = (FixationViewController *)[self.tabBarController.viewControllers objectAtIndex:1];
     //[fix viewWillAppear:YES];
     

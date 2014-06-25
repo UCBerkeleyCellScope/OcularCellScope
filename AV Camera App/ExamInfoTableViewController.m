@@ -16,7 +16,6 @@ static NSString *const kClientID = @"1081725371247-qltk4n42c8j8fkciuct6qt9gn50n4
 static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 
 @interface ExamInfoTableViewController ()
-@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 
 @property Exam* e;
 
@@ -34,8 +33,6 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 //physicianField
 @synthesize e;
 
-@synthesize tapRecognizer;
-
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -52,25 +49,13 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
     if(indexPath) {
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
-    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    /*self.driveService = [[GTLServiceDrive alloc] init];
-    self.driveService.authorizer = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName
-                                                                                         clientID:kClientID
-                                                                                     clientSecret:kClientSecret];
-    */
-    
     self.s3manager = [[CellScopeContext sharedContext]s3manager];
-    
-    //self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    
-    //[self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:fields]];
-    //[self.keyboardControls setDelegate:self];
     
     self.firstnameField.delegate=self;
     self.lastnameField.delegate=self;
@@ -430,28 +415,6 @@ replacementString:(NSString *)string {
         }
     }
     return YES;
-}
-
-
-#pragma mark -
-#pragma mark Keyboard Controls Delegate
-
-- (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
-{
-    UIView *view;
-    
-    if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-        view = field.superview.superview;
-    } else {
-        view = field.superview.superview.superview;
-    }
-    
-    //[self.tableView scrollRectToVisible:view.frame animated:YES];
-}
-
-- (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControls
-{
-    [self.view endEditing:YES];
 }
 
 // Helper for showing a wait indicator in a popup
