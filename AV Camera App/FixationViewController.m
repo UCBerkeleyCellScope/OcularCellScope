@@ -78,22 +78,13 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     self.tabBarController.title = nil;
     
-    [self initSegControl];
-    
     //[_bleManager turnOffAllLights];
     
-    [self setSelectedEye:  [[CellScopeContext sharedContext]selectedEye] ];
-    
-    [self loadImages: self.segControl.selectedSegmentIndex];
+    NSLog(@"CSContext SelectedEye: %@",[[CellScopeContext sharedContext]selectedEye]);
+    [self initSegControl];
+    [self loadImages];
     
     ((TabViewController*)self.parentViewController).filesToUpload = [CoreDataController getEyeImagesToUploadForExam:[[CellScopeContext sharedContext]currentExam] ];
-}
-
--(void)viewDillAppear:(BOOL)animated{
-    [self initSegControl];
-    [self loadImages: self.segControl.selectedSegmentIndex];
-
-
 }
 
 -(void) initSegControl{
@@ -104,13 +95,17 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     [self.segControl addTarget:self
                         action:@selector(didSegmentedValueChanged:) forControlEvents:UIControlEventValueChanged];
     
-    if (self.selectedEye){
-        if ([self.selectedEye isEqualToString: OS_EYE]) [self.segControl setSelectedSegmentIndex: 0];
-        else if([self.selectedEye isEqualToString: OD_EYE]) [self.segControl setSelectedSegmentIndex: 1];
+    if ([[[CellScopeContext sharedContext]selectedEye] isEqualToString: OD_EYE])
+    {
+        [self.segControl setSelectedSegmentIndex: 0];
     }
-    else{
-        [segControl setSelectedSegmentIndex: 0];
-        self.selectedEye = OD_EYE;
+    else if([[[CellScopeContext sharedContext]selectedEye] isEqualToString: OS_EYE]){
+        [self.segControl setSelectedSegmentIndex: 1];
+    }
+    else if([[[CellScopeContext sharedContext]selectedEye] isEqualToString: nil])
+    {
+        NSLog(@"Selected Eye was previously nil");
+        [self.segControl setSelectedSegmentIndex: 0];
         [[CellScopeContext sharedContext]setSelectedEye: OD_EYE];
     }
 }
@@ -121,27 +116,11 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     self.tabBarController.navigationItem.titleView = nil;
 }
 
--(void)loadImages:(NSInteger)segmentedIndex{
+-(void)loadImages{
     
-    if(self.segControl.selectedSegmentIndex == 0){
-        [[CellScopeContext sharedContext] setSelectedEye: OD_EYE];
-        self.selectedEye = OD_EYE;
-
-    }
-    else{
-        [[CellScopeContext sharedContext] setSelectedEye: OS_EYE];
-        self.selectedEye = OS_EYE;
-    }
-    
-    //load the images
         for (int i = 0; i <= 5; i++)
         {
-            [fixationButtons[i] setImage: nil forState:UIControlStateNormal];
-            //Attempt 3
-            /*
-             self.eyeImages = [CoreDataController getObjectsForEntity:@"EyeImage" withSortKey:@"date" andSortAscending:YES andContext:self.managedObjectContext];
-            */
-            
+            //[fixationButtons[i] setImage: nil forState:UIControlStateNormal];
             
             NSPredicate *p = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == %d", [[CellScopeContext sharedContext]currentExam],
                               [[CellScopeContext sharedContext] selectedEye], i];
@@ -157,17 +136,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         
             NSLog(@"Images for Fixation %d : %d", i, (int)[eyeImages count]);
             
-            /*
-            if([imageArray count]>0){
-                NSLog(@"testing transition from image selection");
-                EImage *image = [imageArray objectAtIndex:0];
-                if(image.eye == selectedEye && image.fixationLight == i){
-                    [fixationButtons[i] setImage: image.thumbnail forState:UIControlStateNormal];
-                    [fixationButtons[i] setSelected: YES];
-                }
-            }
-            */
-            
             if([eyeImages count] != 0){
                 currentEyeImage = eyeImages[0];
                 UIImage* thumbImage = [UIImage imageWithData: currentEyeImage.thumbnail];
@@ -176,11 +144,17 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
             }
             else{
                 UIImage* thumbImage;
-                if([self.selectedEye  isEqual: OS_EYE])
-                    thumbImage = [UIImage imageNamed: [oSImageFileNames objectAtIndex:i]];
-                else
+                if([[[CellScopeContext sharedContext]selectedEye]  isEqualToString: OD_EYE] ||
+                   [[CellScopeContext sharedContext]selectedEye]  == nil ){
                     thumbImage = [UIImage imageNamed: [oDImageFileNames objectAtIndex:i]];
-                
+                }
+                else if([[[CellScopeContext sharedContext]selectedEye]  isEqualToString: OS_EYE]){
+                    thumbImage = [UIImage imageNamed: [oSImageFileNames objectAtIndex:i]];
+                }
+                else{
+                    NSLog(@"ERROR SHOULD NEVER HAPPEN");
+                    NSLog(@"%@",[[CellScopeContext sharedContext]selectedEye]);
+                }
                 [fixationButtons[i] setImage: thumbImage forState: UIControlStateNormal];
                 [fixationButtons[i] setSelected: NO];
             }
@@ -237,7 +211,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
     //[self.passedImages removeAllObjects];//assigned to ISVC
     
-    NSPredicate *p = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == %d", [[CellScopeContext sharedContext]currentExam], self.selectedEye,
+    NSPredicate *p = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == %d", [[CellScopeContext sharedContext]currentExam], [[CellScopeContext sharedContext]selectedEye],
                       self.selectedLight];
     
     NSArray *temp = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: p
@@ -310,18 +284,12 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 - (void)didSegmentedValueChanged:(id)sender {
     
-    /*
-    [UIView transitionFromView: self.fixView
-                        toView: self.fixView
-                      duration:1.0
-                       options: UIViewAnimationOptionTransitionFlipFromRight
-                    completion:^(BOOL finished){                      [self loadImages: self.segControl.selectedSegmentIndex];}
-                    ];
-     */
+    if(self.segControl.selectedSegmentIndex == 0)
+        [[CellScopeContext sharedContext]setSelectedEye:OD_EYE];
+    else if (self.segControl.selectedSegmentIndex == 1)
+        [[CellScopeContext sharedContext]setSelectedEye:OS_EYE];
     
-    //self.view.layer.affineTransform = CGAffineTransformInvert(CGAffineTransformMake(0,0,0,-1,0,0));
-    
-    [self loadImages: self.segControl.selectedSegmentIndex];
+    [self loadImages ];
     
 }
 
@@ -455,6 +423,8 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     }
 }
 
-
-
+- (IBAction)didPressBeginExam:(UIButton*)sender {
+    self.selectedLight = sender.tag;
+    [self performSegueWithIdentifier:@"FullScreeningSegue" sender:(id)sender];
+}
 @end

@@ -56,11 +56,13 @@
     [CellScopeHTTPClient sharedCellScopeHTTPClient].uploadBannerView = uploadBanner;
 }
 
+/*
 -(void)viewWillAppear:(BOOL)animated{
     filesToUpload = [CoreDataController getEyeImagesToUploadForExam:[[CellScopeContext sharedContext]currentExam] ];
     //self.navigationController.navigationBar.topItem.title = @"Exam";
 }
-
+*/
+ 
 - (IBAction)didPressUpload:(id)sender {
     
     NSError *error;

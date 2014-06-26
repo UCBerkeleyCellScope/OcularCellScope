@@ -153,7 +153,9 @@
         }
         [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
 
-        [self.navigationController popToViewController:fixationVC animated:YES];
+        //[self.navigationController popToViewController:fixationVC animated:YES];
+        
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
     }
 }
 

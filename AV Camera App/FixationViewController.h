@@ -34,5 +34,6 @@
 
 @property(nonatomic, readonly, retain) UIImage *uim;
 
+- (IBAction)didPressBeginExam:(id)sender;
 
 @end

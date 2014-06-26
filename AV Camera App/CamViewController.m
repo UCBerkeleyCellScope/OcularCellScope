@@ -68,8 +68,6 @@
         self.selectedLight = self.bleManager.selectedLight;
     */
     
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
-    
     self.captureManager = [[AVCaptureManager alloc] init];
     self.captureManager.delegate = self;
     self.currentImageCount = 0;
@@ -78,6 +76,8 @@
     tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didReceiveTapToFocus:)];
     [self.view addGestureRecognizer:tapGestureRecognizer];
 
+    
+    
     longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedToCapture:)];
     [self.view addGestureRecognizer:longPressGestureRecognizer];
     
@@ -93,7 +93,10 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
     [self.captureManager setupVideoForView:self.view];
+    NSLog(@"Self.selectedLight, %ld",self.selectedLight);
     [self updateFixationImageView];
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
@@ -506,6 +509,9 @@
 
 }
 
+
+
+
 - (IBAction)longPressedToCapture:(id)sender {
     if (self.longPressGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         NSLog(@"OMG LONG PRESS");
@@ -523,6 +529,7 @@
 
 -(void) updateFixationImageView{
     
+    NSLog(@"Self.selectedLight, %ld",self.selectedLight);
     switch(self.selectedLight){
             
         case FIXATION_LIGHT_CENTER:

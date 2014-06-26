@@ -145,14 +145,14 @@ dispatch_queue_t backgroundQueue;
         
         
         
-        /*
+        
         while([self.imagesToUpload count]>0){
             [self postImage2];
          }
-         */
         
-        [self singleImage];
-        //   responseObject["status"]
+        
+        //[self singleImage];
+        
         
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
