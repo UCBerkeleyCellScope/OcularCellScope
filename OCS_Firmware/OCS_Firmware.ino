@@ -5,7 +5,7 @@
 #define FIRMWARE_VERSION "0.9"
 
 //comment this out to use discrete LEDs (internal fixation)
-#define USE_OLED_DISPLAY
+//#define USE_OLED_DISPLAY
 
 //OLED definitions
 #define OLED_TX 10
@@ -158,50 +158,6 @@ void splashScreen()
   #endif
 }
 
-void selfTest()
-{
-    //TEST ILLUMINATION   
-    for (int i=0;i<20;i++)
-    {
-        setLights(i,0);
-        delay(100);
-    }
-    setLights(0,0);
-    
-    for (int i=0;i<20;i++)
-    {
-        setLights(0,i);
-        delay(100);
-    }
-    setLights(0,0);    
-    
-    //TEST FIXATION
-    setFixation(FIXATION_LIGHT_UP,0x255);
-    refreshDisplay();
-    delay(1000);
-    setFixation(FIXATION_LIGHT_DOWN,0x255);
-    refreshDisplay();
-    delay(1000);
-    setFixation(FIXATION_LIGHT_RIGHT,0x255);
-    refreshDisplay();
-    delay(1000);
-    setFixation(FIXATION_LIGHT_LEFT,0x255);
-    refreshDisplay();
-    delay(1000);
-    setFixation(FIXATION_LIGHT_CENTER,0x255);
-    refreshDisplay();
-    delay(1000);
-
-    //TEST INDICATORS
-    setBatteryIndicator(false);
-    delay(1000);
-    setBatteryIndicator(true);
-    delay(1000);
-    digitalWrite(BLUE_LED,LOW);
-    delay(1000);
-    digitalWrite(BLUE_LED,HIGH);
-}
-
 //TODO: currently no way to detect a broken connection...could do keepalive packets
 void checkBTLEState() {
  if (bleConnected)
@@ -251,7 +207,7 @@ void setFixation(byte fixationLight, byte intensity) //TODO: refactor the API so
   analogWrite(FIXATION_LIGHT_RIGHT,0);
   analogWrite(FIXATION_LIGHT_CENTER,0);
 
-  switch (fixationLight)
+  switch (fixationLight) {
     case 0:
       break;
     case 1:
@@ -268,7 +224,8 @@ void setFixation(byte fixationLight, byte intensity) //TODO: refactor the API so
       break; 
     case 5:
       analogWrite(FIXATION_LIGHT_RIGHT,intensity);
-      break;    
+      break;  
+  }  
 #endif
 
   currentFixationLight = fixationLight;
@@ -347,6 +304,50 @@ void refreshDisplay() {
     Display.gfx_CircleFilled(displayXCoordinate,displayYCoordinate,OLED_SPOT_RADIUS,OLED_SPOT_COLOR);
 
 #endif  
+}
+
+void selfTest()
+{
+    //TEST ILLUMINATION   
+    for (int i=0;i<20;i++)
+    {
+        setLights(i,0);
+        delay(100);
+    }
+    setLights(0,0);
+    
+    for (int i=0;i<20;i++)
+    {
+        setLights(0,i);
+        delay(100);
+    }
+    setLights(0,0);    
+    
+    //TEST FIXATION
+    setFixation(FIXATION_LIGHT_UP,0x255);
+    refreshDisplay();
+    delay(1000);
+    setFixation(FIXATION_LIGHT_DOWN,0x255);
+    refreshDisplay();
+    delay(1000);
+    setFixation(FIXATION_LIGHT_RIGHT,0x255);
+    refreshDisplay();
+    delay(1000);
+    setFixation(FIXATION_LIGHT_LEFT,0x255);
+    refreshDisplay();
+    delay(1000);
+    setFixation(FIXATION_LIGHT_CENTER,0x255);
+    refreshDisplay();
+    delay(1000);
+
+    //TEST INDICATORS
+    setBatteryIndicator(false);
+    delay(1000);
+    setBatteryIndicator(true);
+    delay(1000);
+    digitalWrite(BLUE_LED,LOW);
+    delay(1000);
+    digitalWrite(BLUE_LED,HIGH);
 }
 
 void checkForNewData() {
