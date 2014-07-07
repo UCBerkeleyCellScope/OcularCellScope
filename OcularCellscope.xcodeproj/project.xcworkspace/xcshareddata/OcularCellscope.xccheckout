@@ -5,15 +5,15 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>4D770938-BE00-4A85-BDF9-B8B22317D8F7</string>
+	<string>D3275784-FA3C-49B0-A4D5-38CFE4AADE87</string>
 	<key>IDESourceControlProjectName</key>
 	<string>OcularCellscope</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>372269EF-9FF3-459E-94A4-53712797ACC3</key>
 		<string>http://gtm-oauth2.googlecode.com/svn/trunk/Source</string>
-		<key>64BA2821-5768-4443-B86E-D0E7717C9497</key>
-		<string>https://github.com/UCBerkeleyCellScope/OcularCellScope.git</string>
+		<key>46FBE315-2A20-4148-98A3-A2FD9FA6BD25</key>
+		<string>ssh://github.com/UCBerkeleyCellScope/OcularCellScope.git</string>
 		<key>87512DE0-4D8A-460E-87E5-C8A10AEB6890</key>
 		<string>http://google-api-objectivec-client.googlecode.com/svn/trunk</string>
 		<key>94A8EAF7-032A-4B93-ABCE-3606EF14579B</key>
@@ -25,7 +25,7 @@
 	<dict>
 		<key>372269EF-9FF3-459E-94A4-53712797ACC3</key>
 		<string>../../../google-api-objectivec-client-read-only/Source/OAuth2</string>
-		<key>64BA2821-5768-4443-B86E-D0E7717C9497</key>
+		<key>46FBE315-2A20-4148-98A3-A2FD9FA6BD25</key>
 		<string>../..</string>
 		<key>87512DE0-4D8A-460E-87E5-C8A10AEB6890</key>
 		<string>../../../google-api-objectivec-client-read-only</string>
@@ -42,11 +42,11 @@
 		<string>http://gtm-http-fetcher.googlecode.com/svn</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/UCBerkeleyCellScope/OcularCellScope.git</string>
+	<string>ssh://github.com/UCBerkeleyCellScope/OcularCellScope.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>64BA2821-5768-4443-B86E-D0E7717C9497</string>
+	<string>46FBE315-2A20-4148-98A3-A2FD9FA6BD25</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -95,9 +95,9 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>64BA2821-5768-4443-B86E-D0E7717C9497</string>
+			<string>46FBE315-2A20-4148-98A3-A2FD9FA6BD25</string>
 			<key>IDESourceControlWCCName</key>
-			<string>OcularCellScope</string>
+			<string>OCS2014</string>
 		</dict>
 	</array>
 </dict>

@@ -28,5 +28,7 @@
 // For Fetching Images
 +(NSArray*)getEyeImagesForExam:(Exam*)exam;
 +(UIImage*)getUIImageFromCameraRoll:(NSString*)filePath;
++(NSArray*)flaggedEyeImagesForExam:(Exam*)exam;
++(NSArray*)getEyeImagesToUploadForExam:(Exam*)exam;
 
 @end

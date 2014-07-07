@@ -10,16 +10,17 @@
 #import "CellScopeContext.h"
 #import "CellScopeHTTPClient.h"
 
-@interface PatientsTableViewController : UITableViewController<CellScopeHTTPClientDelegate,  NSFetchedResultsControllerDelegate>
+@interface PatientsTableViewController : UIViewController<CellScopeHTTPClientDelegate,  NSFetchedResultsControllerDelegate, UITableViewDelegate>
 
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
 
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *patientsArray;
 
 @property (nonatomic, strong) Exam *currentExam;
-- (IBAction)didPressUpload:(id)sender;
 
+- (IBAction)didPressUpload:(id)sender;
 - (IBAction)didPressAddExam:(id)sender;
 
 @end

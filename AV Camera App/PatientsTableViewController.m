@@ -7,14 +7,17 @@
 //
 
 #import "PatientsTableViewController.h"
+#import "PatientTableViewCell.h"
 #import "CoreDataController.h"
 #import "DiagnosisViewController.h"
 #import "CellScopeHTTPClient.h"
 #import "DataGenerator.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import "Exam+Methods.h"
+#import "Random.h"
 
 @interface PatientsTableViewController (){
-    NSArray *content;
-    NSArray *indices;
+
 }
 @property CellScopeHTTPClient *client;
 
@@ -26,24 +29,29 @@
 @synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize managedObjectContext;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
     
+    [super viewDidLoad];
     client = [[CellScopeContext sharedContext] client];
     
     managedObjectContext = [[CellScopeContext sharedContext]managedObjectContext];
     
-    self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
+    //self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor mediumGreenColor];
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    
+    self.tableView.rowHeight = 80;
+    
+    NSDictionary *navbarTitleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                               [UIColor whiteColor],NSForegroundColorAttributeName,
+                                               [UIColor blackColor], NSShadowAttributeName,
+                                               nil];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:navbarTitleTextAttributes];
+    
     
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
@@ -52,26 +60,23 @@
 		exit(-1);  // Fail
 	}
     
-    //content = [DataGenerator wordsFromLetters]; //an array containing an A-word array, a B-word array
-    //indices = [content valueForKey:@"headerTitle"]; //all letters of the alphabet
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = NO;
+    self.navigationController.navigationBar.hidden = YES;
+    
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:animated];
     
     [[CellScopeContext sharedContext] setCurrentExam:nil ];
     [[CellScopeContext sharedContext] setSelectedEye:nil ];
+    
+}
 
-    self.patientsArray = [CoreDataController getObjectsForEntity:@"Exam" withSortKey:@"lastName" andSortAscending:YES andContext:[[CellScopeContext sharedContext] managedObjectContext]];
-    //  Force table refresh
-    [self.tableView reloadData];
-    
-    NSLog(@"PatientsArray: %lu", (unsigned long)[self.patientsArray count]);
-    //NSLog(@"NSResults: %lu", (unsigned long)[self.fetchedResultsController count]);
-    
-    
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = NO;
 }
 
 - (NSFetchedResultsController *)fetchedResultsController {
@@ -87,14 +92,14 @@
     
     //Sort Descriptors are needed
     NSSortDescriptor *sort = [[NSSortDescriptor alloc]
-                              initWithKey:@"lastName" ascending:YES];
+                              initWithKey:@"date" ascending:NO];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     
     [fetchRequest setFetchBatchSize:20];
     
     NSFetchedResultsController *theFetchedResultsController =
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                        managedObjectContext:managedObjectContext sectionNameKeyPath:@"lastName"
+                                        managedObjectContext:managedObjectContext sectionNameKeyPath:nil
                                                    //cacheName:@"NewGuy"];
                                                     cacheName:nil];
     //a fetchedResultsController takes the REQUEST, MANAGEOBJECTCONTEXT,
@@ -120,6 +125,7 @@
 
 #pragma mark - Table view data source
 
+/*
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     //From A-Z example
@@ -141,20 +147,7 @@
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
     
     //return [indices indexOfObject:title];
-    
     return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index];
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    //return [patientsArray count];
-    
-    //return [[[content objectAtIndex:section] objectForKey:@"rowValues"] count] ;
-    
-    id  sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
-    
 }
 
 - (NSString *)tableView:(UITableView *)aTableView titleForHeaderInSection:(NSInteger)section {
@@ -164,62 +157,70 @@
     else
         return @"?";
 }
+*/
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    Exam *exam = [_fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@, %@",
-                           exam.lastName, exam.firstName];
-    cell.textLabel.textColor = [UIColor lightGreenColor];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", exam.patientID];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    
+    id  sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
+    
 }
 
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
-    [self.tableView beginUpdates];
-}
+- (void)configureCell:(PatientTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 
+    Exam *exam = (Exam *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    NSString* fn, *ln;
+    
+    NSLog(@"Cell section: %ld row: %ld item: %ld", (long) indexPath.section, (long) indexPath.row, (long) indexPath.item);
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+
+    NSString *stringFromDate = [dateFormatter stringFromDate:exam.date];
+
+    if([exam.firstName isEqualToString: @""]){
+        fn = @"N/A";
+    }
+    else{   fn = exam.firstName;
+    }
+    
+    if([exam.lastName isEqualToString: @""]){
+        ln = @"N/A";
+    }
+    else{
+        ln = exam.lastName;
+    }
+    
+    if([exam.patientID isEqualToString: @""]){
+        cell.patientIDLabel.text = @"ID: N/A";
+    }
+    else{
+        cell.patientIDLabel.text = [NSString stringWithFormat:@"ID: %@", exam.patientID];
+    }
+    
+    cell.nameLabel.text = [NSString stringWithFormat:@"%@, %@",ln,fn];
+    cell.dateLabel.text = [NSString stringWithFormat:@"%@", stringFromDate];
+    if([exam.eyeImages count] > 0)
+        cell.eyeThumbnail.image = [UIImage imageWithData:[[exam.eyeImages firstObject] thumbnail]];
+    else
+        cell.eyeThumbnail.image = [UIImage imageNamed:@"fixation_icon_red.png"];
+}
 
 //INITIALIZE EXAM CELL
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"PatientCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    PatientTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[PatientTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    
-    //ORIGINAL CELLSCOPE CODE
- /*
-    // Set up the cell...
-    Exam *exam = (Exam *)[patientsArray objectAtIndex:indexPath.row];
-    
-    // Fill in the cell contents
-    cell.textLabel.text = [NSString stringWithFormat:@"%@, %@",
-                           exam.lastName, exam.firstName];
-    cell.textLabel.textColor = [UIColor lightGreenColor];
-    
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", exam.patientID];
-    //cell.detailTextLabel.textColor = [UIColor blackColor];
-    
-    //cell.imageView = ;
-    
-    return cell;
-    
-*/
-    
-    //A THROUGH Z CODE
-    /*
-    cell.textLabel.text = [[[content objectAtIndex:indexPath.section] objectForKey:@"rowValues"]
-                           objectAtIndex:indexPath.row];
-    cell.textLabel.textColor = [UIColor lightGreenColor];
-     */
-    
     
     //FETCH RESULTS CONTROLLER CODE
     [self configureCell:cell atIndexPath:indexPath];
-    
     
     return cell;
     
@@ -279,10 +280,9 @@
 
 - (IBAction)didPressUpload:(id)sender {
     
-    
+    /*
     //Exam* grabbedFirstExam = [patientsArray objectAtIndex:0];
     Exam* grabbedFirstExam = [_fetchedResultsController objectAtIndexPath:0];
-    
     
     [[CellScopeContext sharedContext] setCurrentExam:grabbedFirstExam ];
     
@@ -292,6 +292,46 @@
     
     //[client uploadEyeImagesPJ:images];
     [client uploadEyeImagesFromArray:images];
+    */
+    //[self uploadAllImages];
+    
+    NSArray* array = self.fetchedResultsController.fetchedObjects;
+    Exam* first = [array firstObject];
+    NSArray* filesToUpload = [CoreDataController getEyeImagesForExam:first];
+    if([filesToUpload count ]>0){
+        client.imagesToUpload = [NSMutableArray arrayWithArray:filesToUpload];
+        [client batch];
+    }
+}
+
+-(void)uploadAllImages{
+    
+    S3manager* s3manager = [[CellScopeContext sharedContext]s3manager];
+    for(Exam* exam in self.fetchedResultsController.fetchedObjects){
+        NSString* bucketName = [s3manager createBucketForExam: exam];
+        NSArray* eyeImages = [CoreDataController getEyeImagesForExam:exam];
+        
+        for(EyeImage *eyeImage in eyeImages){
+            NSURL *aURL = [NSURL URLWithString: eyeImage.filePath];
+            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+            [library assetForURL:aURL resultBlock:^(ALAsset *asset)
+             {
+                 ALAssetRepresentation* rep = [asset defaultRepresentation];
+                 NSUInteger size = (NSUInteger)rep.size;
+                 NSMutableData *imageData = [NSMutableData dataWithLength:size];
+                 NSError *error;
+                 [rep getBytes:imageData.mutableBytes fromOffset:0 length:size error:&error];
+                 
+                 NSString* imageName = [[eyeImage.eye stringByAppendingString: [eyeImage.fixationLight stringValue]]lowercaseString];
+                 
+                 [s3manager processGrandCentralDispatchUpload:imageData forExamBucket:bucketName andImageName:imageName];//imageName;
+                 
+             } failureBlock:^(NSError *error) {
+                 /* handle error */
+                 NSLog(@"There was an error in fetching form the Camera Roll");
+             }];
+        }
+    }
 }
 
 -(void)cellScopeHTTPClient:(CellScopeHTTPClient *)client didUploadEyeImage:(id)eyeImage{
@@ -299,24 +339,46 @@
 }
 
 - (IBAction)didPressAddExam:(id)sender {
+    
+    sender = [UIButton buttonWithType:UIButtonTypeCustom];
+    [sender setTitleColor:[UIColor redColor]forState:UIControlStateNormal];
+    
     self.currentExam = nil;
     Exam* newExam = (Exam*)[NSEntityDescription insertNewObjectForEntityForName:@"Exam" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
-    newExam.date = [NSDate date];
-    [[CellScopeContext sharedContext] setCurrentExam:newExam ];
     self.currentExam = newExam;
+    [[CellScopeContext sharedContext] setCurrentExam:newExam ];
+    newExam.date = [NSDate date];
+    NSLog(@"Exam.dateString: %@",newExam.dateString);
+    NSLog(@"Exam.date: %@",newExam.date);
+
+
     newExam.patientIndex = 0;
+    //newExam.uuid = [[NSUUID UUID] UUIDString];
+    newExam.uuid = [Random randomStringWithLength:5];
+    newExam.studyName = @"None";
+    newExam.uploaded = [NSNumber numberWithBool:NO];
     
-    [self.patientsArray addObject:newExam];
     
+    //[self.patientsArray addObject:newExam];
+    
+    /**
+     *  //////////////////
+     */
     //[self.fetchedResultsController addObject:newExam];
     
-    NSLog(@"Before Adding Exam, %lu patients in our database", (unsigned long)[self.patientsArray count]);
+    //NSLog(@"Before Adding Exam, %lu patients in our database", (unsigned long)[self.patientsArray count]);
 
     
     [self performSegueWithIdentifier: @"ExamInfoSegue" sender: self];
 }
 
+
 //ADDED FOR FETCHEDRESULTSCONTROLLER
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+    [self.tableView beginUpdates];
+}
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
     
@@ -333,7 +395,7 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            [self configureCell:(PatientTableViewCell*)[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             break;
             
         case NSFetchedResultsChangeMove:
@@ -344,7 +406,6 @@
             break;
     }
 }
-
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
     

@@ -75,9 +75,6 @@ BOOL capturing = NO;
         
 */
         
-
-        
-        
         /*
         NSMutableArray *lights = [[NSMutableArray alloc] init];
         for(int i = 0; i <= 5; ++i){
@@ -112,7 +109,7 @@ BOOL capturing = NO;
     {
         for (CBPeripheral* p in ble.peripherals)
         {
-            NSLog(p.identifier.UUIDString);
+            NSLog(@"%@",p.identifier.UUIDString);
             if ([p.identifier.UUIDString isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"CellScopeBTUUID"]])
             {
                 [ble connectPeripheral:p];

@@ -16,6 +16,7 @@
 #import "UIColor+Custom.h"
 #import "CellScopeHTTPClient.h"
 #import "S3manager.h"
+#import <CoreText/CoreText.h>
 
 @class BLEManager;
 @class CellScopeHTTPClient;

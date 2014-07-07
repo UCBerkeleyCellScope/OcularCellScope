@@ -10,6 +10,12 @@
 
 @interface Exam (Methods)
 
+//-(NSString*)randomExamStringWithLength:(int) len;
+-(NSString*)randomExamString;
+
 - (void)addEyeImagesObject:(EyeImage *)image;
+- (NSString*)fullName;
+- (EyeImage*)getFirstImage;
+-(NSString*)dateString;
 
 @end

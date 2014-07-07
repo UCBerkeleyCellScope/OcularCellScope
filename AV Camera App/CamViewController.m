@@ -76,9 +76,10 @@
     tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didReceiveTapToFocus:)];
     [self.view addGestureRecognizer:tapGestureRecognizer];
 
+    
+    
     longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedToCapture:)];
     [self.view addGestureRecognizer:longPressGestureRecognizer];
-    
     
     /// WHY IS THIS HERE>>>??? IN ORDER TO
     //GET TURN OFF/TURN ON TO WORK
@@ -92,7 +93,10 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
     [self.captureManager setupVideoForView:self.view];
+    NSLog(@"Self.selectedLight, %ld",self.selectedLight);
     [self updateFixationImageView];
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
@@ -131,7 +135,6 @@
     [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:whiteIntensity Red:redIntensity];
     [[[CellScopeContext sharedContext] bleManager] setFixationLight:self.selectedLight Intensity:fixationIntensity];
     
-    
     /*
     if(self.bleManager.isConnected== YES){
         //BLE disabled label needs to go away succesfully
@@ -163,7 +166,6 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 
-    
     [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:0 Red:0];
     [[[CellScopeContext sharedContext] bleManager] setFixationLight:FIXATION_LIGHT_NONE Intensity:0];
     
@@ -304,6 +306,9 @@
     
     if(self.currentImageCount <= totalNumberOfImages){
         [self updateCounterLabelText];
+        // Timed flash or ping back
+        
+        //BOOL timedFlash = [[NSUserDefaults standardUserDefaults] boolForKey:@"timedFlash"];
 
         //send flash signal
         [[[CellScopeContext sharedContext] bleManager] doFlashWithDuration:[[NSUserDefaults standardUserDefaults] integerForKey:@"flashDuration"]];
@@ -329,10 +334,14 @@
     SelectableEyeImage *image;
     
     if(mirroredView){
+        
+        /*
         UIImage *sourceImage = [UIImage imageWithData:data];
         UIImage *flippedImage = [UIImage imageWithCGImage: sourceImage.CGImage
                                                     scale: sourceImage.scale
-                                              orientation: UIImageOrientationLeft];
+                                              orientation: UIImageOrientationLeftMirrored];
+        
+        
         
         float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
         UIImage *thumbnail = [flippedImage resizedImageWithScaleFactor:scaleFactor];
@@ -342,6 +351,16 @@
                                                         eye: [[CellScopeContext sharedContext] selectedEye]
                                               fixationLight: (int) self.selectedLight
                                                   thumbnail: thumbnail];
+        
+         */
+        
+        image = [[SelectableEyeImage alloc] initWithData:data
+                                                    date: [NSDate date]
+                                                     eye: [[CellScopeContext sharedContext] selectedEye]
+                                           fixationLight: (int) self.selectedLight];
+        
+        float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
+        image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
     }
     
     else{
@@ -353,6 +372,16 @@
         float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
         image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
     }
+    
+    
+    
+    NSLog(@"Date: %@",[image.date stringWithISO8061Format]);
+    
+    
+    NSString* path = [image.date stringWithISO8061Format];
+    
+    [data writeToFile:[@"BaseDirectory/" stringByAppendingPathComponent:[image.date stringWithISO8061Format]]
+           atomically:YES];
     
     NSLog(@"Save fixation light %ld", self.selectedLight);
     NSLog(@"%@",[[CellScopeContext sharedContext]selectedEye]);
@@ -480,6 +509,9 @@
 
 }
 
+
+
+
 - (IBAction)longPressedToCapture:(id)sender {
     if (self.longPressGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         NSLog(@"OMG LONG PRESS");
@@ -497,6 +529,7 @@
 
 -(void) updateFixationImageView{
     
+    NSLog(@"Self.selectedLight, %ld",self.selectedLight);
     switch(self.selectedLight){
             
         case FIXATION_LIGHT_CENTER:

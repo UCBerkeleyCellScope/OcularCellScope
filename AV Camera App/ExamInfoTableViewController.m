@@ -7,15 +7,15 @@
 //
 
 #import "ExamInfoTableViewController.h"
+
+
 #define SYSTEM_VERSION_LESS_THAN(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
 static NSString *const kKeychainItemName = @"Google Drive Quickstart";
 static NSString *const kClientID = @"1081725371247-qltk4n42c8j8fkciuct6qt9gn50n4h21.apps.googleusercontent.com";
 static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 
-
 @interface ExamInfoTableViewController ()
-@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 
 @property Exam* e;
 
@@ -25,6 +25,8 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 
 @synthesize firstnameField, lastnameField, profilePicButton, patientIDLabel,  phoneNumberField, patientIDTextField;
 @synthesize birthDayTextField,birthMonthTextField,birthYearTextField;
+
+@synthesize nameCell,dobCell,phoneCell,idCell;
 //@synthesize driveService;
 @synthesize s3manager;
 
@@ -53,21 +55,7 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 {
     [super viewDidLoad];
     
-    /*self.driveService = [[GTLServiceDrive alloc] init];
-    self.driveService.authorizer = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName
-                                                                                         clientID:kClientID
-                                                                                     clientSecret:kClientSecret];
-    */
-    
     self.s3manager = [[CellScopeContext sharedContext]s3manager];
-    
-    NSArray *fields = @[ self.firstnameField, self.lastnameField,
-                         ];
-                         //,self.physicianField];
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    
-    //[self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:fields]];
-    //[self.keyboardControls setDelegate:self];
     
     self.firstnameField.delegate=self;
     self.lastnameField.delegate=self;
@@ -78,15 +66,10 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
     
     self.phoneNumberField.delegate=self;
     self.patientIDTextField.delegate=self;
-       
-   
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)];
-    [self.tableView addGestureRecognizer:gestureRecognizer];
     
     firstnameField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     lastnameField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     //physicianField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
-    
     
 }
 
@@ -102,27 +85,23 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
     
     e = [[CellScopeContext sharedContext]currentExam];
     
-    if(e.firstName != nil && e.lastName != nil)
-    {
-        self.tabBarController.title = [NSString stringWithFormat:@"%@ %@",
-                                       e.firstName,
-                                       e.lastName];
-    }
-    else{
-        self.tabBarController.title = @"New Exam";
-        
-    }
+    NSLog(@"PatientID %@",e.patientID);
     
     self.firstnameField.text = e.firstName;
     self.lastnameField.text = e.lastName;
     self.patientIDTextField.text = e.patientID;
     self.phoneNumberField.text = e.phoneNumber;
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:e.date];
     
-    self.birthDayTextField.text = [NSString stringWithFormat: @"%d", (int)[components day]];
-    self.birthMonthTextField.text = [NSString stringWithFormat: @"%d", (int)[components month]];
-    self.birthYearTextField.text = [NSString stringWithFormat: @"%d", (int)[components year]];
+    NSLog(@"On Appearance BirthDate %@",e.birthDate);
     
+    if(e.birthDate != nil){
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:e.birthDate];
+        NSLog(@"Day: %d", (int)[components day]);
+        self.birthDayTextField.text = [NSString stringWithFormat: @"%d", (int)[components day]];
+        self.birthMonthTextField.text = [NSString stringWithFormat: @"%d", (int)[components month]];
+        self.birthYearTextField.text = [NSString stringWithFormat: @"%d", (int)[components year]];
+    }
+       
     if(e.profilePicData){
         [self.profilePicButton setImage:[UIImage imageWithData:e.profilePicData] forState:UIControlStateNormal];
     }
@@ -146,21 +125,90 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
     }
 }
 
+
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    NSLog(@"Saving Exam Data");
+
+/*
+    if([firstnameField.text isEqualToString: @""]){
+        e.firstName = @"N/A";
+    }
+    else
+        e.firstName = firstnameField.text;
+    
+    if([lastnameField.text isEqualToString: @""]){
+        e.lastName = @"N/A";
+    }
+    else
+        e.lastName = lastnameField.text;
+    
+    if([patientIDTextField.text isEqualToString: @""]){
+        e.patientID = @"N/A";
+    }
+    else
+        e.patientID = patientIDTextField.text;
+*/
+    
+    
+    e.firstName = firstnameField.text;
+    e.lastName = lastnameField.text;
+    e.patientID = patientIDTextField.text;
+
+    e.phoneNumber = phoneNumberField.text;
+    
+    if(![self.birthDayTextField.text isEqualToString: @""] &&
+       ![self.birthMonthTextField.text isEqualToString: @""] &&
+       ![self.birthYearTextField.text isEqualToString: @""]){
+        NSArray *array = [NSArray arrayWithObjects:
+                      self.birthDayTextField.text,
+                      self.birthMonthTextField.text,
+                      self.birthYearTextField.text, nil
+                      ];
+        NSString * birthDateString = [[array valueForKey:@"description"] componentsJoinedByString:@""];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+
+        [dateFormatter setDateFormat:@"ddMMyyyy"];
+        NSLog(@"BD String %@",birthDateString);
+        
+        NSDate *bd = [dateFormatter dateFromString:birthDateString];
+        
+        NSLog(@"BD NSDate %@",bd);
+        e.birthDate = bd;
+    }
+    
+    // Commit to core data
+    NSError *error;
+    if (![[[CellScopeContext sharedContext] managedObjectContext] save:&error])
+        NSLog(@"Failed to commit to core data: %@", [error domain]);
+}
+
+
+//This method dismisses the keyboard when the background is tapped
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *theCellClicked = [self.tableView cellForRowAtIndexPath:indexPath];
+    if (theCellClicked == nameCell || theCellClicked == idCell ||
+        theCellClicked == phoneCell || theCellClicked == dobCell ) {
+        [[self tableView] endEditing:YES];
+
+    }
+}
+
+//This method allows the user to add a profile picture of the patient by
+//clicking on the OCS icon
 - (IBAction)didPressProfilePicture:(id)sender {
     
     [profilePicButton setHighlighted: YES];
     
     if([profilePicturePopover isPopoverVisible]){
-        //Because you're making a new popover you need to destroy the old one, mamke it not visible
         [profilePicturePopover dismissPopoverAnimated:YES];
         profilePicturePopover = nil;
         return;
-        
     }
     
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
-    
-    //[imagePicker setAllowsEditing: YES];
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         
@@ -174,45 +222,36 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
         [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     }
     
-    [imagePicker setDelegate:self];//5
+    [imagePicker setDelegate:self];
     
-    //This was the simple modal way, now we're going for a popover
-    //[self presentViewController: imagePicker animated:YES completion:nil];
-    //See, we presentedViewController as a modal transition
-    
-    
-    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad){
-        profilePicturePopover = [[UIPopoverController alloc]
-                                 initWithContentViewController:imagePicker ];
-        
-        NSLog(@"SHOULD ONLY SHOW ON IPAD)");
-        [profilePicturePopover setDelegate:self];
-        
-        [profilePicturePopover presentPopoverFromBarButtonItem: sender
-                                      permittedArrowDirections: UIPopoverArrowDirectionAny
-                                                      animated: YES];
-        
-        //BTW UIPopoverControllers only work on iPad
-    }
-    
-    else{
-        [self presentViewController:imagePicker animated:YES completion: nil];
-    }
+    [self presentViewController:imagePicker animated:YES completion: nil];
     
 }
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    /* Do what you need to do then */
+    [picker  dismissViewControllerAnimated:YES completion:NULL];
+    //[self dismissViewControllerAnimated:YES completion:nil];
+    //[profilePicturePopover dismissPopoverAnimated:YES];
+    //profilePicturePopover = nil;
+}
+
 
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     
-    //Now, what if it's a video? There's no UIVideo class.
-    //Video is written to disk in a temporary directory
-    //When user finalizes recording, the message is sent to the delegate (this file)
-    //The PATH of the video on disk is in the info dictionary
+    UIImage *image = [info objectForKey: UIImagePickerControllerOriginalImage];
+    [profilePicButton setImage:image forState:UIControlStateNormal];
+    
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    
+    /*
+    
     NSURL *mediaURL = [info objectForKey:UIImagePickerControllerMediaURL];
     //Temporary is not safe, it needs to be moved
     
     if(mediaURL){
-        //apparently NSURLs, not NSStrings, have paths
         if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum([mediaURL path]))
         {
             UISaveVideoAtPathToSavedPhotosAlbum([mediaURL path], nil, nil, nil);
@@ -220,7 +259,6 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
         }
     }
     
-    // // // // ///
     //e.profilePicPath= mediaURL;
     UIImage *image = [info objectForKey: UIImagePickerControllerOriginalImage];
     
@@ -243,14 +281,12 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
     NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
     e.profilePicData = imageData;
     
-    
-    //[self uploadPhoto:image];
-    
-    
-    
     [profilePicButton setImage:image forState:UIControlStateNormal];
     
-    [s3manager processGrandCentralDispatchUpload:imageData];
+    //[self uploadPhoto:image];
+    //NSString *bucketName = [[[Constants pictureBucket] stringByAppendingString:[e fullName]]lowercaseString];
+    //[s3manager processGrandCentralDispatchUpload:imageData forExamBucket:bucketName andImageName:PICTURE_NAME];
+    
     
     if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {
@@ -263,59 +299,13 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
         profilePicturePopover =nil;
     }
     [profilePicButton setHighlighted: NO];
-    
+    */
 }
-
-
-
-
-- (void)backgroundTapped {
-    NSLog(@"Background Tapped");
-    
-    [[self tableView] endEditing:YES];
-}
-
+ 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    NSLog(@"Saving Exam Data");
-    
-    if(![firstnameField.text isEqualToString: @""])
-        e.firstName = firstnameField.text;
-    else e.firstName =@"FIRST";
-    
-    if(![lastnameField.text isEqualToString: @""])
-        e.lastName = lastnameField.text;
-    else e.lastName = @"LAST";
-    
-    e.phoneNumber = phoneNumberField.text;
-    e.patientID = patientIDTextField.text;
-    
-    NSArray *array = [NSArray arrayWithObjects:
-    self.birthDayTextField.text,
-    self.birthMonthTextField.text,
-    self.birthYearTextField.text, nil
-                      ];
-    NSString * birthDateString = [[array valueForKey:@"description"] componentsJoinedByString:@""];
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    // this is imporant - we set our input date format to match our input string
-    // if format doesn't match you'll get nil from your string, so be careful
-    [dateFormatter setDateFormat:@"ddMMyyyy"];
-    e.date = [dateFormatter dateFromString:birthDateString];
-    NSLog(e.phoneNumber);
-    NSLog(e.date.description);
-    
-    // Commit to core data
-    NSError *error;
-    if (![[[CellScopeContext sharedContext] managedObjectContext] save:&error])
-        NSLog(@"Failed to commit to core data: %@", [error domain]);
-    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -324,6 +314,9 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
         [lastnameField becomeFirstResponder];
         return YES;
     } else if (textField == lastnameField) {
+        [patientIDTextField becomeFirstResponder];
+        return YES;
+    } else if (textField == phoneNumberField) {
         [birthDayTextField becomeFirstResponder];
         return YES;
     } else if (textField == birthDayTextField) {
@@ -331,12 +324,6 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
         return YES;
     } else if (textField == birthMonthTextField) {
         [birthYearTextField becomeFirstResponder];
-        return YES;
-    }else if (textField == birthYearTextField) {
-        [phoneNumberField becomeFirstResponder];
-        return YES;
-    } else if (textField == phoneNumberField) {
-        [patientIDTextField becomeFirstResponder];
         return YES;
     }
     else{
@@ -348,6 +335,7 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 #pragma mark -
 #pragma mark Text Field Delegate
 
+/*
 - (void) textFieldDidBeginEditing:(UITextField *)textField {
     
     [self.keyboardControls setActiveField:textField];
@@ -365,6 +353,7 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
     }
     [self.tableView scrollToRowAtIndexPath:[self.tableView indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
+*/
 
 // Restrict phone textField to format 123-456-7890
 - (BOOL)textField:(UITextField *)textField
@@ -381,13 +370,6 @@ replacementString:(NSString *)string {
         if (newLength > 2)
             [birthYearTextField becomeFirstResponder];
     }
-    if (textField == birthYearTextField){
-        NSUInteger newLength = [textField.text length] + [string length] - range.length;
-        if (newLength > 4)
-        [phoneNumberField becomeFirstResponder];
-    }
-
-    
     
     if (textField==phoneNumberField){
         // All digits entered
@@ -434,99 +416,6 @@ replacementString:(NSString *)string {
     }
     return YES;
 }
-
-
-#pragma mark -
-#pragma mark Keyboard Controls Delegate
-
-- (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
-{
-    UIView *view;
-    
-    if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-        view = field.superview.superview;
-    } else {
-        view = field.superview.superview.superview;
-    }
-    
-    //[self.tableView scrollRectToVisible:view.frame animated:YES];
-}
-
-- (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControls
-{
-    [self.view endEditing:YES];
-}
-/*
-- (BOOL)isAuthorized
-{
-    return [((GTMOAuth2Authentication *)self.driveService.authorizer) canAuthorize];
-}
-
-// Creates the auth controller for authorizing access to Google Drive.
-- (GTMOAuth2ViewControllerTouch *)createAuthController
-{
-    GTMOAuth2ViewControllerTouch *authController;
-    authController = [[GTMOAuth2ViewControllerTouch alloc] initWithScope:kGTLAuthScopeDriveFile
-                                                                clientID:kClientID
-                                                            clientSecret:kClientSecret
-                                                        keychainItemName:kKeychainItemName
-                                                                delegate:self
-                                                        finishedSelector:@selector(viewController:finishedWithAuth:error:)];
-    return authController;
-}
-
-// Handle completion of the authorization process, and updates the Drive service
-// with the new credentials.
-- (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController
-      finishedWithAuth:(GTMOAuth2Authentication *)authResult
-                 error:(NSError *)error
-{
-    if (error != nil)
-    {
-        [self showAlert:@"Authentication Error" message:error.localizedDescription];
-        self.driveService.authorizer = nil;
-    }
-    else
-    {
-        self.driveService.authorizer = authResult;
-    }
-}
-
-// Uploads a photo to Google Drive
-- (void)uploadPhoto:(UIImage*)image
-{
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"'Quickstart Uploaded File ('EEEE MMMM d, YYYY h:mm a, zzz')"];
-    
-    GTLDriveFile *file = [GTLDriveFile object];
-    file.title = [dateFormat stringFromDate:[NSDate date]];
-    file.descriptionProperty = @"Uploaded from the Google Drive iOS Quickstart";
-    file.mimeType = @"image/png";
-    
-    NSData *data = UIImagePNGRepresentation((UIImage *)image);
-    GTLUploadParameters *uploadParameters = [GTLUploadParameters uploadParametersWithData:data MIMEType:file.mimeType];
-    GTLQueryDrive *query = [GTLQueryDrive queryForFilesInsertWithObject:file
-                                                       uploadParameters:uploadParameters];
-    
-    UIAlertView *waitIndicator = [self showWaitIndicator:@"Uploading to Google Drive"];
-    
-    [self.driveService executeQuery:query
-                  completionHandler:^(GTLServiceTicket *ticket,
-                                      GTLDriveFile *insertedFile, NSError *error) {
-                      [waitIndicator dismissWithClickedButtonIndex:0 animated:YES];
-                      if (error == nil)
-                      {
-                          NSLog(@"File ID: %@", insertedFile.identifier);
-                          [self showAlert:@"Google Drive" message:@"File saved!"];
-                      }
-                      else
-                      {
-                          NSLog(@"An error occurred: %@", error);
-                          [self showAlert:@"Google Drive" message:@"Sorry, an error occurred!"];
-                      }
-                  }];
-}
-*/
 
 // Helper for showing a wait indicator in a popup
 - (UIAlertView*)showWaitIndicator:(NSString *)title

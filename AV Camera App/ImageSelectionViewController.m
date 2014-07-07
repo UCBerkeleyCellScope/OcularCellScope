@@ -13,20 +13,25 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "ImageCell.h"
 #import "CoreDataController.h"
+#import "CamViewController.h"
 #import "EyePhotoCell.h"
 #import "Exam+Methods.h"
-
+#import "EyeImage+Methods.h"
+#import "Random.h"
 
 @interface ImageSelectionViewController ()
 
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property(assign, nonatomic) int currentImageIndex;
 @property UIViewController *fixationVC;
 @property UIAlertView   *deleteAllAlert;
+@property EyePhotoCell *currentCell;
 @end
 
 @implementation ImageSelectionViewController
 
-@synthesize images, reviewMode, imageCollectionView;
+@synthesize images, reviewMode;
+//imageCollectionView;
 @synthesize fixationVC, deleteAllAlert;
 
 - (void)viewDidLoad
@@ -36,11 +41,12 @@
     self.navigationController.navigationBar.hidden = NO;
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
     NSArray* viewControllers = self.navigationController.viewControllers;
     fixationVC = [viewControllers objectAtIndex: 1 ];
     //self.imageView.layer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
-
     
 }
 
@@ -51,10 +57,16 @@
     //NSLog(@"There are %lu images", (unsigned long)[_eyeImages count]);
         
     if(reviewMode == YES){
+        
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.leftBarButtonItem =
         [[UIBarButtonItem alloc] initWithTitle:@"Delete All" style:UIBarButtonItemStylePlain target: self action:@selector(didPressDeleteAll)];
-
+        
+        /*self.navigationItem.leftBarButtonItem =
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemDone target: self action:@selector(didPressSave:)];
+        self.navigationItem.rightBarButtonItem =
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(didPressAdd:)];
+         */
     }
     
     NSMutableArray *imageViews = [[NSMutableArray alloc] init];
@@ -84,16 +96,42 @@
     cell.eyeImage = [self.images objectAtIndex:[indexPath row]];
     NSLog(@"Index path %ld", (long)[indexPath row]);
     
+    [self.collectionView addGestureRecognizer:cell.scrollView.pinchGestureRecognizer];
+    [self.collectionView addGestureRecognizer:cell.scrollView.panGestureRecognizer];
+    
     [cell updateCell];
     
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView
+  didEndDisplayingCell:(EyePhotoCell *)cell
+    forItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    [self.collectionView removeGestureRecognizer:cell.scrollView.pinchGestureRecognizer];
+    [self.collectionView removeGestureRecognizer:cell.scrollView.panGestureRecognizer];
 }
 
 -(IBAction)didPressCancel:(id)sender{
-
+    
     //The Fixation ViewController will be either index 1 out of 0-2 or 1 out of 0-3.
     [self.navigationController popToViewController:fixationVC animated:YES];
+}
+
+-(IBAction)didPressAdd:(id)sender{
+    
+    //The Fixation ViewController will be either index 1 out of 0-2 or 1 out of 0-3.
+    //[self.navigationController popToViewController:fixationVC animated:NO];
+    
+    CamViewController * cvc = [[CamViewController alloc] init];
+    
+    [[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
+    cvc.fullscreeningMode = NO;
+    SelectableEyeImage *firstImage = [self.images firstObject];
+    cvc.selectedLight = firstImage.fixationLight;
+    
+    [self.navigationController  pushViewController:cvc animated:YES];
+    //[fixationVC performSegueWithIdentifier:@"CamViewSegue" sender:(id)sender];
 }
 
 -(void) didPressDeleteAll{
@@ -115,45 +153,41 @@
         }
         [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
 
-        [self.navigationController popToViewController:fixationVC animated:YES];
+        //[self.navigationController popToViewController:fixationVC animated:YES];
+        
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
     }
 }
 
 -(IBAction)didPressSave:(id)sender{
-    //if([EImage containsSelectedImageInArray:images]){
-        //save
-    
-    // GO THROUGH AND DELETE THE EyeImages MARKED FOR DELETEION
   
     if(!reviewMode){
             //NSMutableArray* eImagesToSave = [EImage selectedImagesFromArray:images];
         for( SelectableEyeImage* ei in images){//eImagesToSave){     //HACK TO SAVE ALL
             if(!ei.isSelected){
                 EyeImage* coreDataObject = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"EyeImage" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
+
+                coreDataObject.filePath=ei.filePath;
                 coreDataObject.date = ei.date;
                 coreDataObject.eye = ei.eye;
-            
+                coreDataObject.uploaded = [NSNumber numberWithBool:NO];
+                //coreDataObject.uuid = [[NSUUID UUID] UUIDString];
+                coreDataObject.uuid = [Random randomStringWithLength:5];
                 coreDataObject.fixationLight = [[NSNumber alloc] initWithInt: ei.fixationLight]; //[[NSNumber alloc ]initWithInteger: [[[CellScopeContext sharedContext]bleManager]selectedLight]];
             
-                NSLog(@"FIxATION LIGHT CORE DATA %@", coreDataObject.fixationLight);
+                NSLog(@"fixationLight %@", coreDataObject.fixationLight);
                 coreDataObject.exam = [[CellScopeContext sharedContext]currentExam];
-            
             
                 [self saveImageToCameraRoll:ei coreData: coreDataObject];
                 coreDataObject.thumbnail = UIImagePNGRepresentation(ei.thumbnail);
             
                 //NSNumber *myNum = [NSNumber numberWithInteger:ei.fixationLight];
                 //coreDataObject.fixationLight = myNum;
-                
             
                 Exam* e = [[CellScopeContext sharedContext ]currentExam ];
                 [e addEyeImagesObject:coreDataObject];
-                 
-                
             }
-            
         }
-
     }
     
     if(reviewMode){
@@ -166,6 +200,9 @@
     
     [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
     
+    //[fixationVC viewWillAppear:YES];
+    
+    //fixationVC.parentViewController.backFromReview=YES;
     [self.navigationController popToViewController:fixationVC animated:YES];
     
 }
@@ -187,9 +224,8 @@
             //NSLog(@"%@", myPath);
             
             NSLog(@"Added image to asset library");
-            
             cd.filePath = [assetURL absoluteString];
-            
+            NSLog(@"Asset Library Path %@", cd.filePath);
         }
     }]; // end of completion block
     //Consider an NSNotification that you may now Segue
@@ -200,6 +236,5 @@
 {
     
 }
-
 
 @end

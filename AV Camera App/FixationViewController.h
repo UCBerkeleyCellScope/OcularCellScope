@@ -11,6 +11,7 @@
 #import "CameraAppDelegate.h"
 
 @interface FixationViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIButton *beginButton;
 @property (strong, nonatomic) IBOutlet UIView *fixView;
 @property (weak, nonatomic) IBOutlet UIButton *centerFixationButton;
 @property (weak, nonatomic) IBOutlet UIButton *leftFixationButton;
@@ -33,5 +34,6 @@
 
 @property(nonatomic, readonly, retain) UIImage *uim;
 
+- (IBAction)didPressBeginExam:(id)sender;
 
 @end

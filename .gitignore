@@ -1,4 +1,10 @@
-
+Constants.h
 OcularCellscope.xcodeproj/project.xcworkspace/xcuserdata/frankiemyers.xcuserdatad/UserInterfaceState.xcuserstate
+<<<<<<< HEAD
 
 *.xcuserstate
+=======
+Constants.h
+.gitignore
+OcularCellscope.xcodeproj/project.pbxproj
+>>>>>>> FETCH_HEAD

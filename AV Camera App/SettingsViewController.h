@@ -36,10 +36,10 @@
 @property (weak, nonatomic) NSString *multiText;
 
 @property (weak, nonatomic) IBOutlet UITextField *captureDelay;
-@property (weak, nonatomic) IBOutlet UITextField *flashDuration;
+//@property (weak, nonatomic) IBOutlet UITextField *flashDuration;
 @property (weak, nonatomic) IBOutlet UITextField *arduinoDelay;
 
-@property (weak, nonatomic) IBOutlet UISwitch *timedFlashSwitch;
+//@property (weak, nonatomic) IBOutlet UISwitch *timedFlashSwitch;
 
 @property(strong, nonatomic) BLEManager *bleManager;
 
@@ -53,9 +53,7 @@
 - (IBAction)redFlashSliderDidChange:(id)sender;
 
 - (IBAction)multiShotValueChanged:(id)sender;
-- (IBAction)timedFlashToggleDidChange:(id)sender;
-
-
+//- (IBAction)timedFlashToggleDidChange:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UISlider *remoteLightSlider;
 - (IBAction)remoteLightSliderDidChange:(id)sender;

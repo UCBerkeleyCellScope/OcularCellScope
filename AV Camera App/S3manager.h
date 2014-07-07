@@ -9,6 +9,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AWSS3/AWSS3.h>
+#import "Exam.h"
 
 typedef enum {
     GrandCentralDispatch,
@@ -27,6 +28,6 @@ typedef enum {
 -(void)uploadPhotoWithBackgroundThread:(id)sender;
 -(void)showInBrowser:(id)sender;
 */
-- (void)processGrandCentralDispatchUpload:(NSData *)imageData;
-
+- (void)processGrandCentralDispatchUpload:(NSData *)imageData forExamBucket:(NSString*)examBucket andImageName: (NSString*)imageName;
+-(NSString*)createBucketForExam:(Exam*)exam;
 @end

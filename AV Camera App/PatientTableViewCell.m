@@ -10,11 +10,20 @@
 
 @implementation PatientTableViewCell
 
+@synthesize eyeThumbnail = _eyeThumbnail;
+@synthesize dateLabel = _dateLabel;
+@synthesize patientIDLabel = _patientIDLabel;
+@synthesize nameLabel = _nameLabel;
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        _eyeThumbnail.layer.cornerRadius = _eyeThumbnail.frame.size.width / 2;
+        _eyeThumbnail.clipsToBounds = YES;
+        _eyeThumbnail.layer.borderWidth = 2.0f;
+        _eyeThumbnail.layer.borderColor = [UIColor whiteColor].CGColor;
     }
     return self;
 }
@@ -27,7 +36,7 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 

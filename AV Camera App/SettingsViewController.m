@@ -13,6 +13,7 @@
 
 @interface SettingsViewController ()
 
+@property(nonatomic) CGFloat initialTVHeight;
 @property(nonatomic, strong) NSUserDefaults *prefs;
 @property(nonatomic, strong)UIAlertView *flashTooLong;
 @property(nonatomic, strong)UIAlertView *bleDelayTooLong;
@@ -21,6 +22,8 @@
 
 @implementation SettingsViewController
 @synthesize prefs = _prefs;
+
+@synthesize initialTVHeight;
 
 @synthesize debugToggle;
 @synthesize mirrorToggle;
@@ -37,7 +40,8 @@
 
 @synthesize redFlashLabel, whiteFlashLabel, redFocusLabel, whiteFocusLabel;
 
-@synthesize multiText,bleDelay,captureDelay,flashDuration,multiShot, timedFlashSwitch, arduinoDelay;
+@synthesize multiText,bleDelay,captureDelay,multiShot, arduinoDelay;
+//flashDuration, //timedFlashSwitch,
 
 @synthesize remoteLightSlider, remoteLightLabel;
 @synthesize flashTooLong, bleDelayTooLong;
@@ -67,6 +71,11 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)];
     [self.tableView addGestureRecognizer:gestureRecognizer];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShown:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHidden:) name:UIKeyboardDidHideNotification object:nil];
+
+
     
 }
 
@@ -82,20 +91,22 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     mirroredView = [_prefs boolForKey: @"mirroredView"]; //gonna be yes
     [ mirrorToggle setOn: mirroredView animated: NO];
     
-    BOOL timedFlash = [_prefs boolForKey: @"timedFlash"];
-    [ timedFlashSwitch setOn: timedFlash animated: NO];
+    //BOOL timedFlash = [_prefs boolForKey: @"timedFlash"];
+    //[ timedFlashSwitch setOn: timedFlash animated: NO];
     
     if(debugMode == YES){
         //[timedFlashSwitch setEnabled:NO];
     }
     
+    /*
     if(timedFlash == NO){
         [flashDuration setEnabled: NO];
     }
     else{
         [flashDuration setEnabled:YES];
     }
-    
+    */
+     
     whiteFlashValue =  [_prefs integerForKey: @"whiteFlashValue"];
     redFocusValue =  [_prefs integerForKey: @"redFocusValue"];
 
@@ -115,25 +126,29 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     redFlashLabel.text = [NSString stringWithFormat: @"%d", (int)redFlashValue];
     whiteFocusLabel.text = [NSString stringWithFormat: @"%d", (int)whiteFocusValue];
 
-    NSString *bleText =  [ NSString stringWithFormat:@"%f",[_prefs floatForKey: @"bleDelay"]];
-    bleText = [bleText substringToIndex:4];
-    [bleDelay setText: bleText];
-
     NSString *captureText =  [ NSString stringWithFormat:@"%f",[_prefs floatForKey: @"captureDelay"]];
     captureText = [captureText substringToIndex:4];
     [captureDelay setText: captureText];
+    captureDelay.delegate = self;
     
+    NSString *bleText =  [ NSString stringWithFormat:@"%f",[_prefs floatForKey: @"bleDelay"]];
+    bleText = [bleText substringToIndex:4];
+    [bleDelay setText: bleText];
+    bleDelay.delegate = self;
+    
+    /*
     NSString *flashText =  [ NSString stringWithFormat:@"%f",[_prefs floatForKey: @"flashDuration"]];
     flashText = [flashText substringToIndex:4];
     [flashDuration setText: flashText];
-    
+    */
+     
     self.multiText =  [ NSString stringWithFormat:@"%ld",(long)[_prefs integerForKey: @"numberOfImages"]];
     [self selectUISegment: self.multiText];
 
     NSString *arduinoDelayText =  [ NSString stringWithFormat:@"%f",[_prefs floatForKey: @"arduinoDelay"]];
     arduinoDelayText = [arduinoDelayText substringToIndex:3];
     [arduinoDelay setText: arduinoDelayText];
-
+    arduinoDelay.delegate = self;
     
 }
 
@@ -164,11 +179,13 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     NSNumber *prefNum2 = [f2 numberFromString:captureDelay.text];
     [_prefs setObject: prefNum2 forKey:@"captureDelay"];
 
+    /*
     NSNumberFormatter * f3 = [[NSNumberFormatter alloc] init];
     [f3 setNumberStyle:NSNumberFormatterDecimalStyle];
     NSNumber *prefNum3 = [f3 numberFromString:flashDuration.text];
     [_prefs setObject: prefNum3 forKey:@"flashDuration"];
-
+     */
+     
     NSNumberFormatter * f4 = [[NSNumberFormatter alloc] init];
     [f4 setNumberStyle:NSNumberFormatterDecimalStyle];
     NSNumber *prefNum4 = [f4 numberFromString:self.multiText];
@@ -181,6 +198,34 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     
 }
 
+-(void) keyboardShown:(NSNotification*) notification {
+    initialTVHeight = self.tableView.frame.size.height;
+    
+    CGRect initialFrame = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect convertedFrame = [self.view convertRect:initialFrame fromView:nil];
+    CGRect tvFrame = self.tableView.frame;
+    tvFrame.size.height = convertedFrame.origin.y;
+    self.tableView.frame = tvFrame;
+}
+
+-(void) keyboardHidden:(NSNotification*) notification {
+    CGRect tvFrame = self.tableView.frame;
+    tvFrame.size.height = self.tableView.frame.size.height;
+    [UIView beginAnimations:@"TableViewDown" context:NULL];
+    [UIView setAnimationDuration:0.3f];
+    self.tableView.frame = tvFrame;
+    [UIView commitAnimations];
+}
+
+-(void) scrollToCell:(NSIndexPath*) path {
+    [self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];
+}
+
+-(void) textFieldDidBeginEditing:(UITextField *)textField {
+    NSIndexPath* path = [NSIndexPath indexPathForRow:6 inSection:1];
+    [self performSelector:@selector(scrollToCell:) withObject:path afterDelay:0.5f];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -190,6 +235,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
 - (void)backgroundTapped {
     NSLog(@"Background Tapped");
     
+    /*
     if(captureDelay.text.doubleValue<flashDuration.text.doubleValue){
         flashTooLong = [[UIAlertView alloc] initWithTitle:@"Flash Duration must be shorter than Capture Delay"
                                                             message:nil                                                           delegate:self
@@ -206,11 +252,15 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
                                                   otherButtonTitles:nil];
         [bleDelayTooLong show];
     }
-    
+    */
     
     [[self tableView] endEditing:YES];
+    
+    
 }
 
+
+/*
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     
@@ -221,7 +271,8 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
         [flashDuration becomeFirstResponder];
     }
 }
-
+*/
+ 
 /**
  *  <#Description#>
  *
@@ -304,6 +355,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     self.multiText = [multiShot titleForSegmentAtIndex:multiShot.selectedSegmentIndex];
 }
 
+/*
 - (IBAction)timedFlashToggleDidChange:(id)sender {
     if(timedFlashSwitch.on == YES){
         [_prefs setValue: @YES forKey:@"timedFlash" ];
@@ -316,7 +368,8 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     
     NSLog(@"ToggleChange to %d",timedFlashSwitch.on);
 }
-
+*/
+ 
 - (IBAction)mirrorToggleDidChange:(id)sender {
     
     if(mirrorToggle.on == YES){
@@ -341,6 +394,22 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     }
 }
 
-
+/*
+- (void) textFieldDidBeginEditing:(UITextField *)textField {
+    
+    UITableViewCell *cell;
+    
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        // Load resources for iOS 6.1 or earlier
+        cell = (UITableViewCell *) textField.superview.superview;
+        
+    } else {
+        // Load resources for iOS 7 or later
+        cell = (UITableViewCell *) textField.superview.superview.superview;
+        // TextField -> UITableVieCellContentView -> (in iOS 7!)ScrollView -> Cell!
+    }
+    [self.tableView scrollToRowAtIndexPath:[self.tableView indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+ */
 
 @end

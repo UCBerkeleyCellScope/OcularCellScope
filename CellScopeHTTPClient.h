@@ -8,18 +8,22 @@
 
 #import "AFHTTPSessionManager.h"
 #import "CellScopeContext.h"
+#import "UploadBannerView.h"
 
 @protocol CellScopeHTTPClientDelegate;
 
 @interface CellScopeHTTPClient : AFHTTPSessionManager
 @property (nonatomic, weak) id<CellScopeHTTPClientDelegate>delegate;
+@property NSMutableArray *imagesToUpload;
+@property NSMutableArray *mutableOperations;
+@property UploadBannerView *uploadBannerView;
 
-//+ (CellScopeHTTPClient *)sharedCellScopeHTTPClient;
++ (CellScopeHTTPClient *)sharedCellScopeHTTPClient;
 - (instancetype)initWithBaseURL:(NSURL *)url;
 - (void)updateDiagnosisForExam:(Exam *)exam;
 - (void)uploadEyeImagesPJ:(NSArray *)images;
 - (void)uploadEyeImagesFromArray:(NSArray *)images;
-
+- (void)batch;
 @end
 
 @protocol CellScopeHTTPClientDelegate <NSObject>
