@@ -80,7 +80,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     //[_bleManager turnOffAllLights];
     
-    NSLog(@"CSContext SelectedEye: %@",[[CellScopeContext sharedContext]selectedEye]);
+    NSLog(@"CSContext SelectedEye: %d",[[CellScopeContext sharedContext]selectedEye]);
     [self initSegControl];
     [self loadImages];
     
@@ -90,19 +90,20 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 -(void) initSegControl{
     NSArray* segmentTitles = [[NSArray alloc ]initWithObjects:@"OD",@"OS", nil];
     self.segControl = [[UISegmentedControl alloc] initWithItems:segmentTitles];
+    
     self.segControl.selectedSegmentIndex = 0;
     self.tabBarController.navigationItem.titleView = self.segControl;
     [self.segControl addTarget:self
                         action:@selector(didSegmentedValueChanged:) forControlEvents:UIControlEventValueChanged];
     
-    if ([[[CellScopeContext sharedContext]selectedEye] isEqualToString: OD_EYE])
+    if ([[CellScopeContext sharedContext] selectedEye] == OD_EYE)
     {
         [self.segControl setSelectedSegmentIndex: 0];
     }
-    else if([[[CellScopeContext sharedContext]selectedEye] isEqualToString: OS_EYE]){
+    else if([[CellScopeContext sharedContext]selectedEye] == OS_EYE){
         [self.segControl setSelectedSegmentIndex: 1];
     }
-    else if([[[CellScopeContext sharedContext]selectedEye] isEqualToString: nil])
+    else if([[CellScopeContext sharedContext]selectedEye] == 0)
     {
         NSLog(@"Selected Eye was previously nil");
         [self.segControl setSelectedSegmentIndex: 0];
@@ -118,14 +119,29 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 -(void)loadImages{
     
+    if ([[CellScopeContext sharedContext] selectedEye]==OD_EYE) {
+            self.leftLabel.text = @"Temporal";
+            self.rightLabel.text = @"Nasal";
+    }
+    else {
+        self.leftLabel.text = @"Nasal";
+        self.rightLabel.text = @"Temporal";
+    }
+    
         for (int i = 0; i <= 5; i++)
         {
             //[fixationButtons[i] setImage: nil forState:UIControlStateNormal];
             
+            NSString* eyeString;
+            if ([[CellScopeContext sharedContext] selectedEye] == 1)
+                eyeString = @"OD";
+            else
+                eyeString = @"OS";
+            
             NSPredicate *p = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == %d", [[CellScopeContext sharedContext]currentExam],
-                              [[CellScopeContext sharedContext] selectedEye], i];
+                              eyeString, i];
             if( i==0)
-                NSLog(@"%@",[[CellScopeContext sharedContext] selectedEye]);
+                NSLog(@"%d",[[CellScopeContext sharedContext] selectedEye]);
             
             
             NSArray *temp = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: p
@@ -138,23 +154,29 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
             
             if([eyeImages count] != 0){
                 currentEyeImage = eyeImages[0];
+                
                 UIImage* thumbImage = [UIImage imageWithData: currentEyeImage.thumbnail];
+                [fixationButtons[i] setImage: thumbImage forState:UIControlStateSelected];
                 [fixationButtons[i] setImage: thumbImage forState:UIControlStateNormal];
+                
                 [fixationButtons[i] setSelected: YES];
+                
+                [(UIButton*)fixationButtons[i] setTransform: CGAffineTransformMakeRotation(M_PI)]; //added to rotate thumbnails
             }
             else{
                 UIImage* thumbImage;
-                if([[[CellScopeContext sharedContext]selectedEye]  isEqualToString: OD_EYE] ||
-                   [[CellScopeContext sharedContext]selectedEye]  == nil ){
+                if([[CellScopeContext sharedContext]selectedEye]  == OD_EYE ||
+                   [[CellScopeContext sharedContext]selectedEye]  == 0 ){
                     thumbImage = [UIImage imageNamed: [oDImageFileNames objectAtIndex:i]];
                 }
-                else if([[[CellScopeContext sharedContext]selectedEye]  isEqualToString: OS_EYE]){
+                else if([[CellScopeContext sharedContext]selectedEye]  == OS_EYE){
                     thumbImage = [UIImage imageNamed: [oSImageFileNames objectAtIndex:i]];
                 }
                 else{
                     NSLog(@"ERROR SHOULD NEVER HAPPEN");
-                    NSLog(@"%@",[[CellScopeContext sharedContext]selectedEye]);
+                    NSLog(@"%d",[[CellScopeContext sharedContext]selectedEye]);
                 }
+                [fixationButtons[i] setImage: thumbImage forState:UIControlStateSelected];
                 [fixationButtons[i] setImage: thumbImage forState: UIControlStateNormal];
                 [fixationButtons[i] setSelected: NO];
             }
@@ -210,8 +232,13 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     self.passedImages = [[NSMutableArray alloc]init];
 
     //[self.passedImages removeAllObjects];//assigned to ISVC
+    NSString* eyeString;
+    if ([[CellScopeContext sharedContext] selectedEye] == 1)
+        eyeString = @"OD";
+    else
+        eyeString = @"OS";
     
-    NSPredicate *p = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == %d", [[CellScopeContext sharedContext]currentExam], [[CellScopeContext sharedContext]selectedEye],
+    NSPredicate *p = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == %d", [[CellScopeContext sharedContext]currentExam], eyeString,
                       self.selectedLight];
     
     NSArray *temp = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: p
@@ -220,12 +247,14 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     self.eyeImages = [NSMutableArray arrayWithArray:temp];
     
+    temp = nil;
+    
     [self createSelectableEyeImage];
 }
 
 -(void)createSelectableEyeImage{
     NSLog(@"eyeImages: %d",[self.eyeImages count]);
-    EyeImage* ei = [self.eyeImages objectAtIndex:0];
+    __block EyeImage* ei = [self.eyeImages objectAtIndex:0];
     [self.eyeImages removeObjectAtIndex:0];
     
     
@@ -236,11 +265,14 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     [library assetForURL:aURL resultBlock:^(ALAsset *asset)
      {
          NSLog(@"Does the inner block have access to EI?%@",ei.description);
-         
+        
          ALAssetRepresentation* rep = [asset defaultRepresentation];
          CGImageRef iref = [rep fullResolutionImage];
          uim = [UIImage imageWithCGImage:iref];
          
+         
+         if (uim!=nil) {
+
          NSLog(@"%@",[ei filePath]);
          NSLog(@"%@",[ei date]);
          NSLog(@"%@",[ei eye]);
@@ -255,12 +287,17 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
          image.coreDataImage = ei;
          [self.passedImages addObject: image];
+             th = nil;
+         }
          
          NSNumber* eyeImagesCount = [NSNumber numberWithInteger:[self.eyeImages count]];
-         
+  
          NSDictionary *extraInfo = [NSDictionary dictionaryWithObject:eyeImagesCount forKey:@"imagesLeft"];
          NSNotification *note = [NSNotification notificationWithName:@"SelectableEyeImageCreated" object:self userInfo:extraInfo];
          [[NSNotificationCenter defaultCenter] postNotification: note];
+         
+         ei = nil;
+         uim = nil;
          
      }
             failureBlock:^(NSError *error)
@@ -275,6 +312,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     if ([self.eyeImages count]==0 && fired == FALSE){
         fired = TRUE;
         NSLog(@"Segue to ImageReview");
+        
         [self performSegueWithIdentifier:@"ImageReviewSegue" sender:self];
     }
     else{
@@ -408,6 +446,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
          */
     
         isvc.images = self.passedImages;
+        self.passedImages = nil; //ugh
     }
 
 }

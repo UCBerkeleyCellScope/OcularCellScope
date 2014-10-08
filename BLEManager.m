@@ -263,12 +263,7 @@ BOOL capturing = NO;
         }
 }
 
-/*
--(void) bleDelay{
-    NSNumber *bleDelay = [[NSUserDefaults standardUserDefaults] objectForKey:@"bleDelay"];
-    [NSThread sleepForTimeInterval: [bleDelay doubleValue]];
-}
-*/
+
 
 - (void)bleDidDisconnect
 {
@@ -292,7 +287,7 @@ BOOL capturing = NO;
     [_BLECdelegate didReceiveConnectionConfirmation];
     
     [self setIlluminationWhite:0 Red:0];
-    [self setFixationLight:FIXATION_LIGHT_NONE Intensity:0];
+    [self setFixationLight:FIXATION_LIGHT_NONE forEye:1 withIntensity:0];
     
     
     /*
@@ -336,88 +331,7 @@ BOOL capturing = NO;
     
 }
 
-/*
--(void)turnOffAllLights{
-    debugMode = [_prefs boolForKey:@"debugMode" ];
-    if(debugMode==NO){
-        for(Light *l in self.fixationLights){
-            l.isOn = NO;
-        }
-        self.whiteFlashLight.isOn = NO;
-        self.redFocusLight.isOn = NO;
-        self.remoteLight.isOn = NO;
-        self.redFlashLight.isOn = NO;
-        self.whiteFocusLight.isOn = NO;
-        
-        UInt8 buf[] = {0xFF, 0x00, 0x00};
-        NSData *data = [[NSData alloc] initWithBytes:buf length:3];
-        [ble write:data];
-    }
-}
 
--(void)turnOffAllLightsExceptFixation{
-    debugMode = [_prefs boolForKey:@"debugMode" ];
-    if(debugMode==NO){
-        self.whiteFlashLight.isOn = NO;
-        self.redFocusLight.isOn = NO;
-        self.remoteLight.isOn = NO;
-        self.redFlashLight.isOn = NO;
-        self.whiteFocusLight.isOn = NO;
-        
-        UInt8 buf[] = {0xEE, 0x00, 0x00};
-        NSData *data = [[NSData alloc] initWithBytes:buf length:3];
-        [ble write:data];
-        
-        
-    }
-}
-
-
--(void)timedFlash{
-    if(debugMode == NO){
-        [self turnOffAllLights];
-        [self.whiteFlashLight turnOn];
-        [self.redFlashLight turnOn];
-        NSNumber *duration = [[NSUserDefaults standardUserDefaults] objectForKey:@"flashDuration"];
-        [NSTimer scheduledTimerWithTimeInterval:[duration doubleValue] target:self.whiteFlashLight selector:@selector(turnOff) userInfo:nil repeats:NO];
-        [NSTimer scheduledTimerWithTimeInterval:[duration doubleValue] target:self.redFlashLight selector:@selector(turnOff) userInfo:nil repeats:NO];
-    }
-}
-
--(void)arduinoFlash{
-    if(debugMode == NO){
-        [self turnOffAllLights];
-        [self.whiteFlashLight turnOnWithDelay];
-        [self.redFlashLight turnOnWithDelay];
-    }
-}
-
-
--(void)activatePinForLight:(Light *)light {
-    UInt8 buf[] = {light.pin, 0x01, light.intensity};
-    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
-    int i = 0;
-    NSLog(@"0x%02X, 0x%02X, 0x%02X", buf[i], buf[i+1], buf[i+2]);
-    [ble write:data];
-}
-
--(void)deactivatePinForLight:(Light *)light{
-    UInt8 buf[] = {light.pin, 0x00, 0x00};
-    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
-    int i = 0;
-    NSLog(@"0x%02X, 0x%02X, 0x%02X", buf[i], buf[i+1], buf[i+2]);
-    [ble write:data];
-}
-
--(void)activatePinForLightForDelay:(Light *)light{
-    UInt8 arduinoDelay = [[[NSUserDefaults standardUserDefaults] objectForKey:@"arduinoDelay"]intValue];
-    UInt8 buf[] = {light.pin, arduinoDelay, light.intensity};
-    NSData *data = [[NSData alloc] initWithBytes:buf length:3];
-    int i = 0;
-    NSLog(@"0x%02X, 0x%02X, 0x%02X", buf[i], buf[i+1], buf[i+2]);
-    [ble write:data];
-}
-*/
 
 //FBM
 -(void)setIlluminationWhite:(int)whiteIntensity Red:(int)redIntensity {
@@ -443,11 +357,58 @@ BOOL capturing = NO;
     [ble write:[NSData dataWithBytes:buf length:3]];
     //[NSThread sleepForTimeInterval:0.1];
 }
-
--(void)setFixationLight:(int)fixationLight Intensity:(int)intensity {
-    UInt8 buf[] = {0x05, fixationLight, intensity};
+//1: center, 2: top, 3:
+-(void)setFixationLight:(int)fixationLight forEye:(int)eye withIntensity:(int)intensity {
+    int lightCommand;
+    if (eye==OD_EYE) {
+        switch (fixationLight) {
+            case 1: //center
+                lightCommand = 1;
+                break;
+            case 2:
+                lightCommand = 3;
+                break;
+            case 3:
+                lightCommand = 2;
+                break;
+            case 4:
+                lightCommand = 4;
+                break;
+            case 5:
+                lightCommand = 5;
+                break;
+            default:
+                lightCommand = 0;
+                break;
+        }
+    }
+    else {
+        switch (fixationLight) {
+            case 1:
+                lightCommand = 1;
+                break;
+            case 2:
+                lightCommand = 2;
+                break;
+            case 3:
+                lightCommand = 3;
+                break;
+            case 4:
+                lightCommand = 5;
+                break;
+            case 5:
+                lightCommand = 4;
+                break;
+            default:
+                lightCommand = 0;
+                break;
+        }
+    }
+    
+    UInt8 buf[] = {0x05, lightCommand, intensity};
     [ble write:[NSData dataWithBytes:buf length:3]];
-    //[NSThread sleepForTimeInterval:0.1];
+
+    
 }
 
 -(void)setDisplayCoordinatesToX:(int)x Y:(int)y {

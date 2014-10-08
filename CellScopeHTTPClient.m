@@ -160,7 +160,7 @@ dispatch_queue_t backgroundQueue;
         self.uploadBannerView.hidden=NO;
         //self.uploadBannerView.uploadStatusLabel.text = [NSString stringWithFormat: @"Error: %@", error]; //
         //responseObject["status"]
-        self.uploadBannerView.uploadStatusLabel.text = @"Say something i'm giving up on you";
+        self.uploadBannerView.uploadStatusLabel.text = @"Connection Error";
         [self.uploadBannerView takeBannerDownWithFade];
     }];
 }

@@ -24,7 +24,7 @@
 @interface CellScopeContext : NSObject
 
 @property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
-@property (nonatomic, retain) NSString* selectedEye;
+@property (nonatomic) int selectedEye;
 //@property (nonatomic, strong) BLE* ble;
 @property (nonatomic, retain) Exam* currentExam;
 @property (nonatomic) BOOL connected;

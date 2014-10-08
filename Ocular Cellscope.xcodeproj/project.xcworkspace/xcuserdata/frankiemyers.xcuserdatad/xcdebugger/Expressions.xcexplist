@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[ExamInfoTableViewController viewWillDisappear:]:ExamInfoTableViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.birthDayTextField.text">
+            </PersistentString>
+            <PersistentString
+               value = "e.birthDate">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

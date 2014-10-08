@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:OcularCellscope.xcodeproj">
+      location = "self:Ocular Cellscope.xcodeproj">
    </FileRef>
 </Workspace>

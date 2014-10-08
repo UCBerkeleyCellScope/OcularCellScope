@@ -2,10 +2,10 @@
 
 #include <ble_mini.h>
 
-#define FIRMWARE_VERSION "0.9"
+#define FIRMWARE_VERSION "1.0"
 
 //comment this out to use discrete LEDs (internal fixation)
-//#define USE_OLED_DISPLAY
+#define USE_OLED_DISPLAY
 
 //OLED definitions
 #define OLED_TX 10
@@ -17,10 +17,12 @@
 #define OLED_SPOT_DOWN 128-OLED_SPOT_RADIUS,128-OLED_SPOT_RADIUS
 #define OLED_SPOT_LEFT 0+OLED_SPOT_RADIUS,128-OLED_SPOT_RADIUS
 #define OLED_SPOT_RIGHT 128-OLED_SPOT_RADIUS,0+OLED_SPOT_RADIUS
+#define OLED_LEFT_DETECT 5
+#define OLED_RIGHT_DETECT 6
 
 #define FIXATION_LIGHT_CENTER 5
-#define FIXATION_LIGHT_LEFT 6 // 9 if the same mapping
-#define FIXATION_LIGHT_RIGHT 9 // 6 if the same mapping as in free space
+#define FIXATION_LIGHT_LEFT 6 
+#define FIXATION_LIGHT_RIGHT 9 
 #define FIXATION_LIGHT_UP 10
 #define FIXATION_LIGHT_DOWN 3
 
@@ -61,6 +63,11 @@ byte currentFixationIntensity = 0;
 byte displayXCoordinate = 0;
 byte displayYCoordinate = 0;
 
+void setLights(byte whiteIntensity, byte redIntensity);
+void setFixation(byte fixationLight, byte intensity);
+void refreshDisplay();
+void setBatteryIndicator(boolean batteryOK);
+
 void setup()
 {
    
@@ -88,6 +95,8 @@ void setup()
 
   #ifdef USE_OLED_DISPLAY
     DisplaySerial.begin(9600); 
+    pinMode(OLED_LEFT_DETECT, INPUT_PULLUP);
+    pinMode(OLED_RIGHT_DETECT, INPUT_PULLUP);
   #else
     pinMode(FIXATION_LIGHT_UP, OUTPUT);
     pinMode(FIXATION_LIGHT_DOWN, OUTPUT);
@@ -158,6 +167,50 @@ void splashScreen()
   #endif
 }
 
+void selfTest()
+{
+    //TEST ILLUMINATION   
+    for (int i=0;i<20;i++)
+    {
+        setLights(i,0);
+        delay(100);
+    }
+    setLights(0,0);
+    
+    for (int i=0;i<20;i++)
+    {
+        setLights(0,i);
+        delay(100);
+    }
+    setLights(0,0);    
+    
+    //TEST FIXATION
+    setFixation(FIXATION_LIGHT_UP,0x255);
+    refreshDisplay();
+    delay(1000);
+    setFixation(FIXATION_LIGHT_DOWN,0x255);
+    refreshDisplay();
+    delay(1000);
+    setFixation(FIXATION_LIGHT_RIGHT,0x255);
+    refreshDisplay();
+    delay(1000);
+    setFixation(FIXATION_LIGHT_LEFT,0x255);
+    refreshDisplay();
+    delay(1000);
+    setFixation(FIXATION_LIGHT_CENTER,0x255);
+    refreshDisplay();
+    delay(1000);
+
+    //TEST INDICATORS
+    setBatteryIndicator(false);
+    delay(1000);
+    setBatteryIndicator(true);
+    delay(1000);
+    digitalWrite(BLUE_LED,LOW);
+    delay(1000);
+    digitalWrite(BLUE_LED,HIGH);
+}
+
 //TODO: currently no way to detect a broken connection...could do keepalive packets
 void checkBTLEState() {
  if (bleConnected)
@@ -207,7 +260,7 @@ void setFixation(byte fixationLight, byte intensity) //TODO: refactor the API so
   analogWrite(FIXATION_LIGHT_RIGHT,0);
   analogWrite(FIXATION_LIGHT_CENTER,0);
 
-  switch (fixationLight) {
+  switch (fixationLight)
     case 0:
       break;
     case 1:
@@ -224,8 +277,7 @@ void setFixation(byte fixationLight, byte intensity) //TODO: refactor the API so
       break; 
     case 5:
       analogWrite(FIXATION_LIGHT_RIGHT,intensity);
-      break;  
-  }  
+      break;    
 #endif
 
   currentFixationLight = fixationLight;
@@ -302,52 +354,8 @@ void refreshDisplay() {
 #ifdef USE_OLED_DISPLAY  
   if (currentFixationLight!=0)
     Display.gfx_CircleFilled(displayXCoordinate,displayYCoordinate,OLED_SPOT_RADIUS,OLED_SPOT_COLOR);
-
+ 
 #endif  
-}
-
-void selfTest()
-{
-    //TEST ILLUMINATION   
-    for (int i=0;i<20;i++)
-    {
-        setLights(i,0);
-        delay(100);
-    }
-    setLights(0,0);
-    
-    for (int i=0;i<20;i++)
-    {
-        setLights(0,i);
-        delay(100);
-    }
-    setLights(0,0);    
-    
-    //TEST FIXATION
-    setFixation(FIXATION_LIGHT_UP,0x255);
-    refreshDisplay();
-    delay(1000);
-    setFixation(FIXATION_LIGHT_DOWN,0x255);
-    refreshDisplay();
-    delay(1000);
-    setFixation(FIXATION_LIGHT_RIGHT,0x255);
-    refreshDisplay();
-    delay(1000);
-    setFixation(FIXATION_LIGHT_LEFT,0x255);
-    refreshDisplay();
-    delay(1000);
-    setFixation(FIXATION_LIGHT_CENTER,0x255);
-    refreshDisplay();
-    delay(1000);
-
-    //TEST INDICATORS
-    setBatteryIndicator(false);
-    delay(1000);
-    setBatteryIndicator(true);
-    delay(1000);
-    digitalWrite(BLUE_LED,LOW);
-    delay(1000);
-    digitalWrite(BLUE_LED,HIGH);
 }
 
 void checkForNewData() {
@@ -401,6 +409,9 @@ void checkForNewData() {
         analogWrite(WHITE_LIGHT_PWM,0);
       }
       break;
+    case 0xFD: //check display connection
+      checkIfDisplayAttached(false);
+      break;
     case 0xFE: //reset - when does this get used?
       digitalWrite(KILL, LOW);
       digitalWrite(BLE_RESET, LOW);
@@ -430,6 +441,38 @@ void checkForNewData() {
   }  
 }
 
+#define NONE 0
+#define LEFT 1
+#define RIGHT 2
+void checkIfDisplayAttached(boolean sendResultOnlyOnChange)
+{
+  static unsigned char display_attached = -1;
+  unsigned char display_attached_new;
+  
+  if (digitalRead(OLED_LEFT_DETECT)==0)
+    display_attached_new = LEFT;
+  else if (digitalRead(OLED_RIGHT_DETECT)==0)
+    display_attached_new = RIGHT;
+  else
+    display_attached_new = NONE;
+    
+  //if this was a change, clear the display  
+  if (display_attached_new!=display_attached) {
+    delay(3000);
+    Display.gfx_Cls();
+    delay(50);
+  }
+  
+   //if there was a change, or if this was a request for state, send the display state
+   if ((display_attached_new!=display_attached) || !sendResultOnlyOnChange) {
+    BLEMini_write(0xFD);
+    BLEMini_write(0xFD);
+    BLEMini_write(display_attached_new);
+   }
+    
+  display_attached = display_attached_new;
+}
+
 void loop()
 {
   delay(50); 
@@ -445,5 +488,5 @@ void loop()
   checkBTLEState();
   checkBatteryState();
   checkIfInactive();
-  
+  checkIfDisplayAttached(true); 
 }

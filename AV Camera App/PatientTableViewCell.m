@@ -19,11 +19,10 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
-        _eyeThumbnail.layer.cornerRadius = _eyeThumbnail.frame.size.width / 2;
-        _eyeThumbnail.clipsToBounds = YES;
-        _eyeThumbnail.layer.borderWidth = 2.0f;
-        _eyeThumbnail.layer.borderColor = [UIColor whiteColor].CGColor;
+        
+
+        
+
     }
     return self;
 }

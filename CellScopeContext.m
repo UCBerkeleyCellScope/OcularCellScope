@@ -16,7 +16,7 @@ static NSString * const CellScopeURLString = @"http://warm-dawn-6399.herokuapp.c
 
 @implementation CellScopeContext
 
-@synthesize selectedEye, currentExam, connected, bleManager, camViewLoaded, client, s3manager;
+@synthesize currentExam, connected, bleManager, camViewLoaded, client, s3manager;
 
 + (id)sharedContext {
     static CellScopeContext *newContext = nil;
@@ -36,7 +36,7 @@ static NSString * const CellScopeURLString = @"http://warm-dawn-6399.herokuapp.c
 - (id)init {
     if (self = [super init]) {
         NSLog(@"STARTED THE SINGLETON");
-        selectedEye = @"";
+        self.selectedEye = 1;
         connected = NO;
         camViewLoaded = NO;
         bleManager = [[BLEManager alloc]init];

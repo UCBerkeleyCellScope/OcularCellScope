@@ -7,7 +7,7 @@
 //
 
 #import "EyePhotoCell.h"
-#import "SelectableUIEyeImage.h"
+//#import "SelectableUIEyeImage.h"
 #import "SelectableEyeImage.h"
 #import "EyeImage.h"
 #import "CellScopeContext.h"
@@ -40,7 +40,8 @@
 
 -(void) setEyeImage:(SelectableEyeImage *)image{
     _eyeImage = image;
-    _eyeImageView.image = image;
+    //_eyeImageView.image = image;
+    //_eyeImageView.transform = CGAffineTransformMakeRotation(M_PI_2);
     [self setFixationImageViewWithEyeImage];
     [self updateCell];
     
@@ -52,7 +53,9 @@
 }
 
 - (void)updateCell{
-    self.eyeImageView.image = self.eyeImage;
+    
+    
+    self.eyeImageView.image = [UIImage imageWithCGImage:self.eyeImage.CGImage scale:1.0 orientation:UIImageOrientationLeft];
     [self changeImageIconToSelected:self.eyeImage.selected];
 }
 

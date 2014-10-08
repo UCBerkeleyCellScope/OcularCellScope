@@ -158,26 +158,23 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 
     e.phoneNumber = phoneNumberField.text;
     
-    if(![self.birthDayTextField.text isEqualToString: @""] &&
-       ![self.birthMonthTextField.text isEqualToString: @""] &&
-       ![self.birthYearTextField.text isEqualToString: @""]){
-        NSArray *array = [NSArray arrayWithObjects:
-                      self.birthDayTextField.text,
-                      self.birthMonthTextField.text,
-                      self.birthYearTextField.text, nil
-                      ];
-        NSString * birthDateString = [[array valueForKey:@"description"] componentsJoinedByString:@""];
+    
+        NSString * birthDateString = [NSString stringWithFormat:@"%@-%@-%@",self.birthDayTextField.text,self.birthMonthTextField.text,self.birthYearTextField.text];
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 
-        [dateFormatter setDateFormat:@"ddMMyyyy"];
+        [dateFormatter setLocale:[NSLocale currentLocale]];
+        [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    
         NSLog(@"BD String %@",birthDateString);
         
-        NSDate *bd = [dateFormatter dateFromString:birthDateString];
+        NSDate *bd = [[NSDate alloc] init];
+        bd = [dateFormatter dateFromString:birthDateString];
         
         NSLog(@"BD NSDate %@",bd);
         e.birthDate = bd;
-    }
+
     
     // Commit to core data
     NSError *error;

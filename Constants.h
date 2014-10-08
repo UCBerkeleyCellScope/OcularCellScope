@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#define OD_EYE @"OD"
-#define OS_EYE @"OS"
+#define OD_EYE 1
+#define OS_EYE 2
 #define farRedLight 9
 #define flashNumber 10
 

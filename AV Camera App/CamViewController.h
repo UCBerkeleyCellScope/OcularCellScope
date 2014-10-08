@@ -28,8 +28,7 @@
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *aiv;
 @property (weak, nonatomic) IBOutlet UIImageView *capturedImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *fixationImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *redOffIndicator;
-@property (weak, nonatomic) IBOutlet UIImageView *flashOffIndicator;
+
 
 @property (strong, nonatomic) IBOutlet UIButton *pauseButton;
 

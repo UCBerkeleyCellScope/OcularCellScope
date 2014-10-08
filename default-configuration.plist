@@ -3,31 +3,31 @@
 <plist version="1.0">
 <dict>
 	<key>autoExposureDelay</key>
-	<real>0.4</real>
+	<real>0.6</real>
 	<key>debugMode</key>
 	<false/>
 	<key>numberOfImages</key>
-	<integer>4</integer>
-	<key>bleDelay</key>
+	<integer>3</integer>
+	<key>flashDelay</key>
 	<real>0.2</real>
 	<key>flashDuration</key>
-	<integer>60</integer>
+	<integer>100</integer>
 	<key>captureDelay</key>
 	<real>1</real>
 	<key>redFlashValue</key>
 	<integer>0</integer>
 	<key>whiteFocusValue</key>
-	<integer>0</integer>
+	<integer>1</integer>
 	<key>whiteFlashValue</key>
-	<integer>12</integer>
+	<integer>5</integer>
 	<key>redFocusValue</key>
-	<integer>12</integer>
+	<integer>0</integer>
 	<key>ImageScaleFactor</key>
 	<string>10</string>
 	<key>ThumbnailSize</key>
 	<integer>160</integer>
 	<key>mirroredView</key>
-	<false/>
+	<true/>
 	<key>fixationLightValue</key>
 	<integer>255</integer>
 	<key>CellScopeBTUUID</key>

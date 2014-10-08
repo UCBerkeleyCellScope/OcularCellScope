@@ -41,9 +41,6 @@
 @synthesize nextFixationAlert = _nextFixationAlert;
 @synthesize fixationImageView = _fixationImageView;
 
-@synthesize redOffIndicator;
-@synthesize flashOffIndicator;
-
 @synthesize tapGestureRecognizer;
 @synthesize longPressGestureRecognizer;
 
@@ -104,7 +101,6 @@
     [self.captureManager unlockFocus];
     [self.captureManager unlockWhiteBalance];
     
-    [self setupIndicators];
     
     self.debugMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"debugMode"];
     self.mirroredView = [[NSUserDefaults standardUserDefaults] boolForKey:@"mirroredView"];
@@ -133,7 +129,8 @@
     int fixationIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"fixationLightValue"];
     
     [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:whiteIntensity Red:redIntensity];
-    [[[CellScopeContext sharedContext] bleManager] setFixationLight:self.selectedLight Intensity:fixationIntensity];
+    
+    [[[CellScopeContext sharedContext] bleManager] setFixationLight:self.selectedLight forEye:[[CellScopeContext sharedContext] selectedEye] withIntensity:fixationIntensity];
     
     /*
     if(self.bleManager.isConnected== YES){
@@ -167,28 +164,12 @@
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 
     [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:0 Red:0];
-    [[[CellScopeContext sharedContext] bleManager] setFixationLight:FIXATION_LIGHT_NONE Intensity:0];
+    [[[CellScopeContext sharedContext] bleManager] setFixationLight:FIXATION_LIGHT_NONE forEye:1 withIntensity:0];
     
     //[self.bleManager.fixationLights[self.bleManager.selectedLight] turnOff];
     [self.captureManager setExposureLock:NO];
     [self.captureManager unlockFocus];
     [self.captureManager unlockWhiteBalance];
-}
-
--(void) setupIndicators {
-    int redVal = [[[NSUserDefaults standardUserDefaults] objectForKey:@"redFocusValue"]intValue];
-    int flashVal =[[[NSUserDefaults standardUserDefaults] objectForKey:@"whiteFlashValue"]intValue];
-    
-    if (redVal==0){
-        [redOffIndicator setHidden:NO];
-    }
-    else
-        [redOffIndicator setHidden:YES];
-    if (flashVal==0){
-        [flashOffIndicator setHidden:NO];
-    }
-    else
-        [flashOffIndicator setHidden:YES];
 }
 
     
@@ -284,7 +265,7 @@
     int redFlashIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"redFlashValue"];
     int whiteFocusIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"whiteFocusValue"];
     int redFocusIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"redFocusValue"];
-    float autoExposureDelay = [[NSUserDefaults standardUserDefaults] integerForKey:@"autoExposureDelay"];
+    float autoExposureDelay = [[NSUserDefaults standardUserDefaults] floatForKey:@"autoExposureDelay"];
     
     //turn on the LED w/ flash intensity
     [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:whiteFlashIntensity Red:redFlashIntensity];
@@ -294,6 +275,9 @@
     
     //lock exposure
     [self.captureManager setExposureLock:YES];
+    [self.captureManager lockWhiteBalance];
+    
+    [NSThread sleepForTimeInterval:0.2];
     
     //turn off lights
     [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:whiteFocusIntensity Red:redFocusIntensity];
@@ -314,7 +298,7 @@
         [[[CellScopeContext sharedContext] bleManager] doFlashWithDuration:[[NSUserDefaults standardUserDefaults] integerForKey:@"flashDuration"]];
         
         //wait for ble command to be sent
-        [NSThread sleepForTimeInterval: [[NSUserDefaults standardUserDefaults] integerForKey:@"bleDelay"]];
+        [NSThread sleepForTimeInterval: [[NSUserDefaults standardUserDefaults] floatForKey:@"flashDelay"]];
         
         
         //turn off fixation light, snap a picture, turn fixation back on
@@ -329,9 +313,31 @@
     }
 }
 
+/*
+ * This delegate handler gets called by AVCaptureManager after an image
+ * is captured. data contains a JPEG image.
+ */
 -(void)didCaptureImageWithData:(NSData *)data{
     
+    //TODO: add metadata to JPEG
+    
+    //save this JPEG to Documents folder with filename = CSID-Patient#-eye-fxn-number.jpg
+    //where number is based on the files already in the dir (auto increment)
+    
+    //create an EyeImage CD object for this image and add it to the current exam object
+    //create/store thumbnail in EyeImage, along with date, file path, all metadata, set flagged=0
+    
+    //check if "next" button pressed/# images reached. if so, trigger segue to review/next light
+    
+    /////////////////////////////////////////
+    
     SelectableEyeImage *image;
+    
+    NSString* eyeString;
+    if ([[CellScopeContext sharedContext] selectedEye] == 1)
+        eyeString = @"OD";
+    else
+        eyeString = @"OS";
     
     if(mirroredView){
         
@@ -356,7 +362,7 @@
         
         image = [[SelectableEyeImage alloc] initWithData:data
                                                     date: [NSDate date]
-                                                     eye: [[CellScopeContext sharedContext] selectedEye]
+                                                     eye: eyeString
                                            fixationLight: (int) self.selectedLight];
         
         float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
@@ -366,7 +372,7 @@
     else{
         image = [[SelectableEyeImage alloc] initWithData:data
                                                     date: [NSDate date]
-                                                     eye: [[CellScopeContext sharedContext] selectedEye]
+                                                     eye: eyeString
                                            fixationLight: (int) self.selectedLight];
         
         float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
@@ -384,10 +390,9 @@
            atomically:YES];
     
     NSLog(@"Save fixation light %ld", self.selectedLight);
-    NSLog(@"%@",[[CellScopeContext sharedContext]selectedEye]);
-    
+ 
     self.capturedImageView.image = image;
-
+    self.capturedImageView.transform = CGAffineTransformMakeRotation(M_PI);
     // Add the capture image to the image array
     [self.imageArray addObject:image];
     

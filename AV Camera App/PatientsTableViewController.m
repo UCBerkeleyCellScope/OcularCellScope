@@ -177,7 +177,7 @@
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
 
     NSString *stringFromDate = [dateFormatter stringFromDate:exam.date];
 
@@ -195,10 +195,10 @@
     }
     
     if([exam.patientID isEqualToString: @""]){
-        cell.patientIDLabel.text = @"ID: N/A";
+        cell.patientIDLabel.text = @"N/A";
     }
     else{
-        cell.patientIDLabel.text = [NSString stringWithFormat:@"ID: %@", exam.patientID];
+        cell.patientIDLabel.text = [NSString stringWithFormat:@"%@", exam.patientID];
     }
     
     cell.nameLabel.text = [NSString stringWithFormat:@"%@, %@",ln,fn];
@@ -207,6 +207,14 @@
         cell.eyeThumbnail.image = [UIImage imageWithData:[[exam.eyeImages firstObject] thumbnail]];
     else
         cell.eyeThumbnail.image = [UIImage imageNamed:@"fixation_icon_red.png"];
+    
+    
+    cell.eyeThumbnail.transform = CGAffineTransformMakeRotation(M_PI);
+    cell.eyeThumbnail.layer.cornerRadius = cell.eyeThumbnail.frame.size.width / 2;
+    cell.eyeThumbnail.clipsToBounds = YES;
+    cell.eyeThumbnail.layer.borderWidth = 2.0f;
+    cell.eyeThumbnail.layer.borderColor = [UIColor grayColor].CGColor;
+    cell.eyeThumbnail.contentMode = UIViewContentModeScaleAspectFill;
 }
 
 //INITIALIZE EXAM CELL

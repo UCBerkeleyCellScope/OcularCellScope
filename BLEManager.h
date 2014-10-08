@@ -42,17 +42,6 @@
 @property (strong, nonatomic) BLE *ble;
 @property (weak, nonatomic) id <BLEConnectionDelegate> BLECdelegate;
 
-//@property (strong, nonatomic) Light *whitePing;
-
-/*
--(void)turnOffAllLights;
--(void)timedFlash;
--(void)arduinoFlash;
--(void)activatePinForLight:(Light *)light;
--(void)deactivatePinForLight:(Light *)light;
--(void) bleDelay;
--(void)activatePinForLightForDelay:(Light *)light;
-*/
 
 -(void)beginBLEScan;
 -(void)disconnect;
@@ -61,7 +50,7 @@
 -(void)setIlluminationWithCallbackWhite:(int)whiteIntensity Red:(int)redIntensity;
 -(void)setFlashIntensityWhite:(int)whiteIntensity Red:(int)redIntensity;
 -(void)doFlashWithDuration:(int)flashDuration;
--(void)setFixationLight:(int)fixationLight Intensity:(int)intensity;
+-(void)setFixationLight:(int)fixationLight forEye:(int)eye withIntensity:(int)intensity;
 -(void)setDisplayCoordinatesToX:(int)x Y:(int)y;
 -(void)doSelfTest;
 

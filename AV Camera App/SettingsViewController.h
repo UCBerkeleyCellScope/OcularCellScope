@@ -14,7 +14,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *debugToggle;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *multiShot;
 
-@property (weak, nonatomic) IBOutlet UITextField *bleDelay;
+
 @property (weak, nonatomic) IBOutlet UISwitch *mirrorToggle;
 
 @property (weak, nonatomic) IBOutlet UISlider *redFocusSlider;
@@ -33,13 +33,9 @@
 @property (nonatomic) NSInteger redFlashValue;
 @property (nonatomic) NSInteger whiteFocusValue;
 
-@property (weak, nonatomic) NSString *multiText;
-
 @property (weak, nonatomic) IBOutlet UITextField *captureDelay;
-//@property (weak, nonatomic) IBOutlet UITextField *flashDuration;
-@property (weak, nonatomic) IBOutlet UITextField *arduinoDelay;
-
-//@property (weak, nonatomic) IBOutlet UISwitch *timedFlashSwitch;
+@property (weak, nonatomic) IBOutlet UITextField *flashDuration;
+@property (weak, nonatomic) IBOutlet UITextField *flashDelay;
 
 @property(strong, nonatomic) BLEManager *bleManager;
 

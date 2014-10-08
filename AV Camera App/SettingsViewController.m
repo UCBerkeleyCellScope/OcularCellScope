@@ -40,7 +40,8 @@
 
 @synthesize redFlashLabel, whiteFlashLabel, redFocusLabel, whiteFocusLabel;
 
-@synthesize multiText,bleDelay,captureDelay,multiShot, arduinoDelay;
+@synthesize flashDelay,captureDelay,multiShot, flashDuration;
+
 //flashDuration, //timedFlashSwitch,
 
 @synthesize remoteLightSlider, remoteLightLabel;
@@ -68,14 +69,14 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     [super viewDidLoad];
     
     _bleManager = [[CellScopeContext sharedContext]bleManager];
-    
+    /*
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)];
     [self.tableView addGestureRecognizer:gestureRecognizer];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShown:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHidden:) name:UIKeyboardDidHideNotification object:nil];
 
-
+*/
     
 }
 
@@ -126,39 +127,17 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     redFlashLabel.text = [NSString stringWithFormat: @"%d", (int)redFlashValue];
     whiteFocusLabel.text = [NSString stringWithFormat: @"%d", (int)whiteFocusValue];
 
-    NSString *captureText =  [ NSString stringWithFormat:@"%f",[_prefs floatForKey: @"captureDelay"]];
-    captureText = [captureText substringToIndex:4];
-    [captureDelay setText: captureText];
-    captureDelay.delegate = self;
-    
-    NSString *bleText =  [ NSString stringWithFormat:@"%f",[_prefs floatForKey: @"bleDelay"]];
-    bleText = [bleText substringToIndex:4];
-    [bleDelay setText: bleText];
-    bleDelay.delegate = self;
-    
-    /*
-    NSString *flashText =  [ NSString stringWithFormat:@"%f",[_prefs floatForKey: @"flashDuration"]];
-    flashText = [flashText substringToIndex:4];
-    [flashDuration setText: flashText];
-    */
-     
-    self.multiText =  [ NSString stringWithFormat:@"%ld",(long)[_prefs integerForKey: @"numberOfImages"]];
-    [self selectUISegment: self.multiText];
+    flashDelay.text = [ NSString stringWithFormat:@"%3.2f",[_prefs floatForKey: @"flashDelay"]];
 
-    NSString *arduinoDelayText =  [ NSString stringWithFormat:@"%f",[_prefs floatForKey: @"arduinoDelay"]];
-    arduinoDelayText = [arduinoDelayText substringToIndex:3];
-    [arduinoDelay setText: arduinoDelayText];
-    arduinoDelay.delegate = self;
+    flashDuration.text =  [ NSString stringWithFormat:@"%ld",[_prefs integerForKey: @"flashDuration"]];
+    
+    captureDelay.text = [NSString stringWithFormat:@"%3.2f",[_prefs floatForKey:@"captureDelay"]];
+    
+    
     
 }
 
 -(void) viewWillDisappear:(BOOL)animated{
-    /*
-    if(debugMode == NO){
-        [_bleManager.whiteFlashLight turnOff];
-        [_bleManager.redFlashLight turnOff];
-    }
-     */
     
     [_prefs setInteger: whiteFlashSlider.value forKey:@"whiteFlashValue"];
     [_prefs setInteger: redFocusSlider.value forKey:@"redFocusValue"];
@@ -169,35 +148,15 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     [_prefs setInteger: remoteLightSlider.value forKey:@"fixationLightValue"];
     
     
-    NSNumberFormatter * f1 = [[NSNumberFormatter alloc] init];
-    [f1 setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSNumber *prefNum1 = [f1 numberFromString:bleDelay.text];
-    [_prefs setObject: prefNum1 forKey:@"bleDelay"];
-
-    NSNumberFormatter * f2 = [[NSNumberFormatter alloc] init];
-    [f2 setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSNumber *prefNum2 = [f2 numberFromString:captureDelay.text];
-    [_prefs setObject: prefNum2 forKey:@"captureDelay"];
-
-    /*
-    NSNumberFormatter * f3 = [[NSNumberFormatter alloc] init];
-    [f3 setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSNumber *prefNum3 = [f3 numberFromString:flashDuration.text];
-    [_prefs setObject: prefNum3 forKey:@"flashDuration"];
-     */
-     
-    NSNumberFormatter * f4 = [[NSNumberFormatter alloc] init];
-    [f4 setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSNumber *prefNum4 = [f4 numberFromString:self.multiText];
-    [_prefs setObject: prefNum4 forKey:@"numberOfImages"];
+    [_prefs setFloat: flashDelay.text.floatValue forKey:@"flashDelay"];
+       
+    [_prefs setInteger: flashDuration.text.intValue forKey:@"flashDuration"];
     
-    NSNumberFormatter * f5 = [[NSNumberFormatter alloc] init];
-    [f5 setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSNumber *prefNum5 = [f5 numberFromString:arduinoDelay.text];
-    [_prefs setObject: prefNum5 forKey:@"arduinoDelay"];
+    [_prefs setInteger: captureDelay.text.intValue forKey:@"captureDelay"];
     
 }
 
+/*
 -(void) keyboardShown:(NSNotification*) notification {
     initialTVHeight = self.tableView.frame.size.height;
     
@@ -216,7 +175,8 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     self.tableView.frame = tvFrame;
     [UIView commitAnimations];
 }
-
+*/
+/*
 -(void) scrollToCell:(NSIndexPath*) path {
     [self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];
 }
@@ -225,15 +185,16 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     NSIndexPath* path = [NSIndexPath indexPathForRow:6 inSection:1];
     [self performSelector:@selector(scrollToCell:) withObject:path afterDelay:0.5f];
 }
-
+*/
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)backgroundTapped {
-    NSLog(@"Background Tapped");
+
+//- (void)backgroundTapped {
+//    NSLog(@"Background Tapped");
     
     /*
     if(captureDelay.text.doubleValue<flashDuration.text.doubleValue){
@@ -254,10 +215,10 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     }
     */
     
-    [[self tableView] endEditing:YES];
+    //[[self tableView] endEditing:YES];
     
     
-}
+//}
 
 
 /*
@@ -352,7 +313,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
 
 
 - (IBAction)multiShotValueChanged:(id)sender {
-    self.multiText = [multiShot titleForSegmentAtIndex:multiShot.selectedSegmentIndex];
+    //self.multiText = [multiShot titleForSegmentAtIndex:multiShot.selectedSegmentIndex];
 }
 
 /*
@@ -384,7 +345,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
 }
 
 - (void)selectUISegment:(NSString *)segmentString{
-        
+        /*
     for (int i=0; i< multiShot.numberOfSegments; i++){
         
         if( [self.multiText isEqualToString:[multiShot titleForSegmentAtIndex:i]] ){
@@ -392,6 +353,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
             break;
         }
     }
+         */
 }
 
 /*

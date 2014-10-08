@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6D2D5DB218318D9F00A58A96"
-               BuildableName = "AV Camera App.app"
-               BlueprintName = "AV Camera App"
-               ReferencedContainer = "container:OcularCellscope.xcodeproj">
+               BuildableName = "Ocular CellScope.app"
+               BlueprintName = "Ocular CellScope"
+               ReferencedContainer = "container:Ocular Cellscope.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6D2D5DD318318D9F00A58A96"
-               BuildableName = "AV Camera AppTests.xctest"
-               BlueprintName = "AV Camera AppTests"
-               ReferencedContainer = "container:OcularCellscope.xcodeproj">
+               BuildableName = "Ocular CellScope AppTests.xctest"
+               BlueprintName = "Ocular CellScope AppTests"
+               ReferencedContainer = "container:Ocular Cellscope.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6D2D5DB218318D9F00A58A96"
-            BuildableName = "AV Camera App.app"
-            BlueprintName = "AV Camera App"
-            ReferencedContainer = "container:OcularCellscope.xcodeproj">
+            BuildableName = "Ocular CellScope.app"
+            BlueprintName = "Ocular CellScope"
+            ReferencedContainer = "container:Ocular Cellscope.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -54,7 +54,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6D2D5DB218318D9F00A58A96"
-            BuildableName = "AV Camera App.app"
-            BlueprintName = "AV Camera App"
-            ReferencedContainer = "container:OcularCellscope.xcodeproj">
+            BuildableName = "Ocular CellScope.app"
+            BlueprintName = "Ocular CellScope"
+            ReferencedContainer = "container:Ocular Cellscope.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6D2D5DB218318D9F00A58A96"
-            BuildableName = "AV Camera App.app"
-            BlueprintName = "AV Camera App"
-            ReferencedContainer = "container:OcularCellscope.xcodeproj">
+            BuildableName = "Ocular CellScope.app"
+            BlueprintName = "Ocular CellScope"
+            ReferencedContainer = "container:Ocular Cellscope.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

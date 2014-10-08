@@ -22,7 +22,7 @@
 @property NSMutableArray *fixationButtons;
 
 
-@property (copy,nonatomic) NSString *selectedEye;
+@property (nonatomic) int selectedEye;
 @property (nonatomic) int selectedLight;
 
 @property (strong, nonatomic) EyeImage * currentEyeImage;
@@ -33,6 +33,9 @@
 @property (strong, nonatomic) NSMutableArray *passedImages;
 
 @property(nonatomic, readonly, retain) UIImage *uim;
+
+@property (weak, nonatomic) IBOutlet UILabel *leftLabel;
+@property (weak, nonatomic) IBOutlet UILabel *rightLabel;
 
 - (IBAction)didPressBeginExam:(id)sender;
 

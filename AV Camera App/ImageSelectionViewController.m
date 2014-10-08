@@ -76,6 +76,13 @@
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    self.images = nil;
+    
+
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -95,6 +102,8 @@
     
     cell.eyeImage = [self.images objectAtIndex:[indexPath row]];
     NSLog(@"Index path %ld", (long)[indexPath row]);
+    
+    //cell.eyeImageView.transform = CGAffineTransformMakeRotation(-M_PI_2); //this works but seems to make gesture recognizers not work
     
     [self.collectionView addGestureRecognizer:cell.scrollView.pinchGestureRecognizer];
     [self.collectionView addGestureRecognizer:cell.scrollView.panGestureRecognizer];
@@ -211,7 +220,7 @@
 -(void)saveImageToCameraRoll:(UIImage*) image coreData: (EyeImage*) cd{
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     
-    [library writeImageToSavedPhotosAlbum:image.CGImage orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+    [library writeImageToSavedPhotosAlbum:image.CGImage orientation:ALAssetOrientationRight completionBlock:^(NSURL *assetURL, NSError *error){
         if (error) {
             NSLog(@"Error writing image to photo album");
         }
