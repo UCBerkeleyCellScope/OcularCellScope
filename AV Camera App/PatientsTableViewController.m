@@ -11,7 +11,6 @@
 #import "CoreDataController.h"
 #import "DiagnosisViewController.h"
 #import "CellScopeHTTPClient.h"
-#import "DataGenerator.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "Exam+Methods.h"
 #import "Random.h"
