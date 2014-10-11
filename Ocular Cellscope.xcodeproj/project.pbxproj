@@ -10,15 +10,12 @@
 		6000AC2A1947CA8B008D616C /* UploadBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6000AC291947CA8B008D616C /* UploadBannerView.m */; };
 		60068B0219394D8C003470B9 /* S3manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60068B0119394D8C003470B9 /* S3manager.m */; };
 		60240A0D195935C60004DCE8 /* Random.m in Sources */ = {isa = PBXBuildFile; fileRef = 60240A0C195935C60004DCE8 /* Random.m */; };
-		603B077318DCB8F1002179CD /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B076A18DCB8F1002179CD /* BSKeyboardControls.m */; };
-		603B077418DCB8F1002179CD /* BSKeyboardControls.strings in Resources */ = {isa = PBXBuildFile; fileRef = 603B076B18DCB8F1002179CD /* BSKeyboardControls.strings */; };
 		603B077A18DD26E2002179CD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B077918DD26E2002179CD /* SettingsViewController.m */; };
 		603B077D18DD810B002179CD /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B077C18DD810B002179CD /* TabViewController.m */; };
 		603C44FD18DAE72F00402AE1 /* ExamInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C44FC18DAE72F00402AE1 /* ExamInfoViewController.m */; };
 		60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60418F22189B3E780001D490 /* CoreBluetooth.framework */; };
 		6043BC871947CF5600C39A48 /* drOz.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6043BC861947CF5600C39A48 /* drOz.jpg */; };
 		6043BC9619498EED00C39A48 /* EyeImage+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043BC9519498EED00C39A48 /* EyeImage+Methods.m */; };
-		6043C8E81925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043C8E71925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
 		6043C8EE192B12F9007DFAFB /* CameraFocusSquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043C8ED192B12F9007DFAFB /* CameraFocusSquare.m */; };
 		60441CD1193728B1000A017C /* StudySelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60441CD0193728B1000A017C /* StudySelectionTableViewController.m */; };
 		60AECE6718D8CD1A00C4EA15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60AECE6618D8CD1A00C4EA15 /* Main.storyboard */; };
@@ -35,7 +32,6 @@
 		60B4233A190F0B7F005A9ABD /* UIColor+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B42339190F0B7F005A9ABD /* UIColor+Custom.m */; };
 		60B718A1192DD16900E0F40A /* beepbeep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 60B7189F192DD16900E0F40A /* beepbeep.wav */; };
 		60B718A2192DD16900E0F40A /* long-beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 60B718A0192DD16900E0F40A /* long-beep.wav */; };
-		60B718A5193067C100E0F40A /* DataGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B718A4193067C100E0F40A /* DataGenerator.m */; };
 		60B7A5C41936774000A1F9EB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5C31936774000A1F9EB /* Security.framework */; };
 		60B7A5C61936775200A1F9EB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */; };
 		60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0118F346E700902F28 /* DiagnosisViewController.m */; };
@@ -178,15 +174,6 @@
 		60068B0119394D8C003470B9 /* S3manager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = S3manager.m; path = "AV Camera App/S3manager.m"; sourceTree = "<group>"; };
 		60240A0B195935C60004DCE8 /* Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Random.h; sourceTree = "<group>"; };
 		60240A0C195935C60004DCE8 /* Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Random.m; sourceTree = "<group>"; };
-		603B076918DCB8F1002179CD /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
-		603B076A18DCB8F1002179CD /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
-		603B076C18DCB8F1002179CD /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
-		603B076D18DCB8F1002179CD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
-		603B076E18DCB8F1002179CD /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
-		603B076F18DCB8F1002179CD /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
-		603B077018DCB8F1002179CD /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/BSKeyboardControls.strings"; sourceTree = "<group>"; };
-		603B077118DCB8F1002179CD /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
-		603B077218DCB8F1002179CD /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
 		603B077818DD26E2002179CD /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SettingsViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		603B077918DD26E2002179CD /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SettingsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		603B077B18DD810B002179CD /* TabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController.h; sourceTree = "<group>"; };
@@ -202,8 +189,6 @@
 		6043BC861947CF5600C39A48 /* drOz.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = drOz.jpg; sourceTree = "<group>"; };
 		6043BC9419498EEC00C39A48 /* EyeImage+Methods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EyeImage+Methods.h"; sourceTree = "<group>"; };
 		6043BC9519498EED00C39A48 /* EyeImage+Methods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EyeImage+Methods.m"; sourceTree = "<group>"; };
-		6043C8E61925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
-		6043C8E71925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
 		6043C8EC192B12F9007DFAFB /* CameraFocusSquare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraFocusSquare.h; path = ../CameraFocusSquare.h; sourceTree = "<group>"; };
 		6043C8ED192B12F9007DFAFB /* CameraFocusSquare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CameraFocusSquare.m; path = ../CameraFocusSquare.m; sourceTree = "<group>"; };
 		60441CCF193728B1000A017C /* StudySelectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudySelectionTableViewController.h; sourceTree = "<group>"; };
@@ -226,8 +211,6 @@
 		60B42339190F0B7F005A9ABD /* UIColor+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Custom.m"; path = "AV Camera App/UIColor+Custom.m"; sourceTree = "<group>"; };
 		60B7189F192DD16900E0F40A /* beepbeep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beepbeep.wav; sourceTree = "<group>"; };
 		60B718A0192DD16900E0F40A /* long-beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "long-beep.wav"; sourceTree = "<group>"; };
-		60B718A3193067C100E0F40A /* DataGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataGenerator.h; path = "AV Camera App/DataGenerator.h"; sourceTree = "<group>"; };
-		60B718A4193067C100E0F40A /* DataGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataGenerator.m; path = "AV Camera App/DataGenerator.m"; sourceTree = "<group>"; };
 		60B7A5C31936774000A1F9EB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		60C1AE0018F346E700902F28 /* DiagnosisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiagnosisViewController.h; sourceTree = "<group>"; };
@@ -434,16 +417,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		603B076818DCB8F1002179CD /* BSKeyboardControls */ = {
-			isa = PBXGroup;
-			children = (
-				603B076918DCB8F1002179CD /* BSKeyboardControls.h */,
-				603B076A18DCB8F1002179CD /* BSKeyboardControls.m */,
-				603B076B18DCB8F1002179CD /* BSKeyboardControls.strings */,
-			);
-			path = BSKeyboardControls;
-			sourceTree = "<group>";
-		};
 		60418F24189B3ED50001D490 /* BLE */ = {
 			isa = PBXGroup;
 			children = (
@@ -452,15 +425,6 @@
 				60418F27189B3ED60001D490 /* BLEDefines.h */,
 			);
 			path = BLE;
-			sourceTree = "<group>";
-		};
-		6043C8E51925D960007DFAFB /* ALAssetsLibrary_CustomPhotoAlbum */ = {
-			isa = PBXGroup;
-			children = (
-				6043C8E61925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.h */,
-				6043C8E71925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m */,
-			);
-			path = ALAssetsLibrary_CustomPhotoAlbum;
 			sourceTree = "<group>";
 		};
 		60B4231C1908D27B005A9ABD /* NSMD_MetaData */ = {
@@ -551,9 +515,7 @@
 		6D2D5DAA18318D9E00A58A96 = {
 			isa = PBXGroup;
 			children = (
-				6043C8E51925D960007DFAFB /* ALAssetsLibrary_CustomPhotoAlbum */,
 				6DD89D211842666C00F3C7FC /* Core Data */,
-				60C1AE0618F3507E00902F28 /* AFNetworking */,
 				6D2D5DBC18318D9F00A58A96 /* AV Camera App */,
 				6D2D5DDB18318DA000A58A96 /* AV Camera AppTests */,
 				6D2D5DB518318D9F00A58A96 /* Frameworks */,
@@ -573,6 +535,7 @@
 		6D2D5DB518318D9F00A58A96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				60C1AE0618F3507E00902F28 /* AFNetworking */,
 				F3FCC97A193E78160093A1EB /* AWSRuntime.framework */,
 				F3FCC978193E77DB0093A1EB /* AWSS3.framework */,
 				60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */,
@@ -580,7 +543,6 @@
 				60B42323190AE512005A9ABD /* UIImage+Resize */,
 				60B4231C1908D27B005A9ABD /* NSMD_MetaData */,
 				60C1AE1A18F3507E00902F28 /* UIKit+AFNetworking */,
-				603B076818DCB8F1002179CD /* BSKeyboardControls */,
 				60418F24189B3ED50001D490 /* BLE */,
 				60B4231919089678005A9ABD /* MobileCoreServices.framework */,
 				60418F22189B3E780001D490 /* CoreBluetooth.framework */,
@@ -800,8 +762,6 @@
 				F3FCC97F194A885B0093A1EB /* Constants.h */,
 				60D8C7D018C6BF87007D26A7 /* Constants.h */,
 				60D8C7D118C6BF87007D26A7 /* Constants.m */,
-				60B718A3193067C100E0F40A /* DataGenerator.h */,
-				60B718A4193067C100E0F40A /* DataGenerator.m */,
 				60068B0019394D8C003470B9 /* S3manager.h */,
 				60068B0119394D8C003470B9 /* S3manager.m */,
 				F325703B18D366FE00FEA80E /* SelectableEyeImage.h */,
@@ -977,7 +937,6 @@
 				F358E318185A834500872304 /* capture.png in Resources */,
 				F38224B518F7BB3F00D861FE /* retina_icon_center.png in Resources */,
 				F325700F18CAA80000FEA80E /* check_button.png in Resources */,
-				603B077418DCB8F1002179CD /* BSKeyboardControls.strings in Resources */,
 				F325702618CC0D3300FEA80E /* notes_icon_small.png in Resources */,
 				A5C8E187197634B90072D99C /* od_center.png in Resources */,
 				F358E31B185A859900872304 /* Icon.png in Resources */,
@@ -1030,7 +989,6 @@
 				60B42337190F02FC005A9ABD /* ExamInfoTableViewController.m in Sources */,
 				60240A0D195935C60004DCE8 /* Random.m in Sources */,
 				60C1AE3C18F3507E00902F28 /* UIWebView+AFNetworking.m in Sources */,
-				60B718A5193067C100E0F40A /* DataGenerator.m in Sources */,
 				60C1AE2D18F3507E00902F28 /* AFHTTPRequestOperationManager.m in Sources */,
 				F385B3011900E66400A3F974 /* BLEManager.m in Sources */,
 				60D8C7BD18C69BB1007D26A7 /* CellScopeContext.m in Sources */,
@@ -1050,7 +1008,6 @@
 				60C1AE2C18F3507E00902F28 /* AFHTTPRequestOperation.m in Sources */,
 				60D8C7C518C69BB1007D26A7 /* ImageCell.m in Sources */,
 				60C1AE3218F3507E00902F28 /* AFURLRequestSerialization.m in Sources */,
-				6043C8E81925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				F325703118D1A9AE00FEA80E /* UIImage+Resize.m in Sources */,
 				60C1AE3B18F3507E00902F28 /* UIRefreshControl+AFNetworking.m in Sources */,
 				60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */,
@@ -1067,7 +1024,6 @@
 				60D8C7CA18C69BB1007D26A7 /* PatientsTableViewController.m in Sources */,
 				60C1AE2F18F3507E00902F28 /* AFNetworkReachabilityManager.m in Sources */,
 				F325703218D1A9AE00FEA80E /* UIImage+RoundedCorner.m in Sources */,
-				603B077318DCB8F1002179CD /* BSKeyboardControls.m in Sources */,
 				F3FCC96C19369BA10093A1EB /* SelectableUIEyeImage.m in Sources */,
 				60D8C7CC18C69BB1007D26A7 /* main.m in Sources */,
 				F385B30A1900F85B00A3F974 /* AVCaptureManager.m in Sources */,
@@ -1106,20 +1062,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		603B076B18DCB8F1002179CD /* BSKeyboardControls.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				603B076C18DCB8F1002179CD /* da */,
-				603B076D18DCB8F1002179CD /* en */,
-				603B076E18DCB8F1002179CD /* es */,
-				603B076F18DCB8F1002179CD /* pt */,
-				603B077018DCB8F1002179CD /* ru-RU */,
-				603B077118DCB8F1002179CD /* ru */,
-				603B077218DCB8F1002179CD /* sv */,
-			);
-			name = BSKeyboardControls.strings;
-			sourceTree = "<group>";
-		};
 		6D2D5DBF18318D9F00A58A96 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
