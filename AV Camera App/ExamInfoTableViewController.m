@@ -7,13 +7,9 @@
 //
 
 #import "ExamInfoTableViewController.h"
-
+#import <Parse/Parse.h>
 
 #define SYSTEM_VERSION_LESS_THAN(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
-
-static NSString *const kKeychainItemName = @"Google Drive Quickstart";
-static NSString *const kClientID = @"1081725371247-qltk4n42c8j8fkciuct6qt9gn50n4h21.apps.googleusercontent.com";
-static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 
 @interface ExamInfoTableViewController ()
 
@@ -42,6 +38,7 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
     return self;
 }
 
+# pragma mark - View Lifecycle
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
@@ -125,11 +122,10 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
     }
 }
 
-
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     NSLog(@"Saving Exam Data");
+
 
 /*
     if([firstnameField.text isEqualToString: @""]){
@@ -159,21 +155,28 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
     e.phoneNumber = phoneNumberField.text;
     
     
-        NSString * birthDateString = [NSString stringWithFormat:@"%@-%@-%@",self.birthDayTextField.text,self.birthMonthTextField.text,self.birthYearTextField.text];
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-
-        [dateFormatter setLocale:[NSLocale currentLocale]];
-        [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
-    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    NSString * birthDateString = [NSString stringWithFormat:@"%@-%@-%@",self.birthDayTextField.text,self.birthMonthTextField.text,self.birthYearTextField.text];
     
-        NSLog(@"BD String %@",birthDateString);
-        
-        NSDate *bd = [[NSDate alloc] init];
-        bd = [dateFormatter dateFromString:birthDateString];
-        
-        NSLog(@"BD NSDate %@",bd);
-        e.birthDate = bd;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+
+    [dateFormatter setLocale:[NSLocale currentLocale]];
+    [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+
+    NSLog(@"BD String %@",birthDateString);
+    
+    NSDate *bd = [[NSDate alloc] init];
+    bd = [dateFormatter dateFromString:birthDateString];
+    
+    NSLog(@"BD NSDate %@",bd);
+    e.birthDate = bd;
+
+    PFObject *patient = [PFObject objectWithClassName:@"Patient"];
+    patient[@"firstName"] = e.firstName;
+    patient[@"lastName"] = e.lastName;
+    patient[@"patientID"] = e.patientID;
+    patient[@"phoneNumber"] = e.phoneNumber;
+    [patient saveInBackground];
 
     
     // Commit to core data
@@ -182,7 +185,7 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
         NSLog(@"Failed to commit to core data: %@", [error domain]);
 }
 
-
+# pragma mark - UITableViewDelegate
 //This method dismisses the keyboard when the background is tapped
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *theCellClicked = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -351,6 +354,12 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
     [self.tableView scrollToRowAtIndexPath:[self.tableView indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 */
+
+- (void)savePatient
+{
+    PFObject *patient = [PFObject objectWithClassName:@"Patient"];
+    
+}
 
 // Restrict phone textField to format 123-456-7890
 - (BOOL)textField:(UITextField *)textField

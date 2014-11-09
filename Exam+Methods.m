@@ -19,7 +19,6 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
     return rs;
 }
 
-
 - (void)addEyeImagesObject:(EyeImage *)image {
     NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.eyeImages];
     [tempSet addObject:image];
