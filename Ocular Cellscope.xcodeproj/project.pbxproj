@@ -14,7 +14,6 @@
 		603B077D18DD810B002179CD /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B077C18DD810B002179CD /* TabViewController.m */; };
 		60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60418F22189B3E780001D490 /* CoreBluetooth.framework */; };
 		6043BC871947CF5600C39A48 /* drOz.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6043BC861947CF5600C39A48 /* drOz.jpg */; };
-		6043BC9619498EED00C39A48 /* EyeImage+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043BC9519498EED00C39A48 /* EyeImage+Methods.m */; };
 		6043C8EE192B12F9007DFAFB /* CameraFocusSquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043C8ED192B12F9007DFAFB /* CameraFocusSquare.m */; };
 		60441CD1193728B1000A017C /* StudySelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60441CD0193728B1000A017C /* StudySelectionTableViewController.m */; };
 		60AECE6718D8CD1A00C4EA15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60AECE6618D8CD1A00C4EA15 /* Main.storyboard */; };
@@ -63,7 +62,6 @@
 		60D8C7CC18C69BB1007D26A7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2D5DC218318D9F00A58A96 /* main.m */; };
 		60D8C7CE18C69BB2007D26A7 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 60418F26189B3ED60001D490 /* BLE.m */; };
 		60D8C7D218C6BF87007D26A7 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D8C7D118C6BF87007D26A7 /* Constants.m */; };
-		60F03E1819137F09008D729B /* Exam+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F03E1719137F09008D729B /* Exam+Methods.m */; };
 		60FC3EDF1955904A00025AD0 /* UIFont+OCSFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FC3EDE1955904A00025AD0 /* UIFont+OCSFont.m */; };
 		60FC3EE219560C8F00025AD0 /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FC3EE119560C8F00025AD0 /* EyeImage.m */; };
 		60FC3EE519560C9000025AD0 /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FC3EE419560C9000025AD0 /* Exam.m */; };
@@ -92,6 +90,8 @@
 		7D84716E19E8FCCD005BDCFF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D84716D19E8FCCD005BDCFF /* QuartzCore.framework */; };
 		7D84717019E8FCD7005BDCFF /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D84716F19E8FCD6005BDCFF /* StoreKit.framework */; };
 		7D84717319E900B2005BDCFF /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D84717219E900B2005BDCFF /* MBProgressHUD.m */; };
+		7DB118D71A0F418600F7AFEB /* Exam+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F03E1719137F09008D729B /* Exam+Methods.m */; };
+		7DB118D81A0F418A00F7AFEB /* EyeImage+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043BC9519498EED00C39A48 /* EyeImage+Methods.m */; };
 		7DD0A96819E902800064A413 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD0A96719E902800064A413 /* Social.framework */; };
 		7DD0A96A19E902850064A413 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD0A96919E902850064A413 /* Accounts.framework */; };
 		A52751CC199A742C00B68FDA /* settings_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A52751CB199A742C00B68FDA /* settings_icon@2x.png */; };
@@ -1023,6 +1023,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DB118D81A0F418A00F7AFEB /* EyeImage+Methods.m in Sources */,
+				7DB118D71A0F418600F7AFEB /* Exam+Methods.m in Sources */,
 				6043C8EE192B12F9007DFAFB /* CameraFocusSquare.m in Sources */,
 				60D8C7BC18C69BB1007D26A7 /* CameraAppDelegate.m in Sources */,
 				60C1AE0518F34DD400902F28 /* PatientTableViewCell.m in Sources */,
@@ -1034,7 +1036,6 @@
 				60D8C7BD18C69BB1007D26A7 /* CellScopeContext.m in Sources */,
 				60C1AE3518F3507E00902F28 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				60D8C7C018C69BB1007D26A7 /* CoreDataController.m in Sources */,
-				60F03E1819137F09008D729B /* Exam+Methods.m in Sources */,
 				60D8C7C118C69BB1007D26A7 /* FixationViewController.m in Sources */,
 				60D8C7C418C69BB1007D26A7 /* ImageSelectionViewController.m in Sources */,
 				60B4233A190F0B7F005A9ABD /* UIColor+Custom.m in Sources */,
@@ -1072,7 +1073,6 @@
 				60D8C7CE18C69BB2007D26A7 /* BLE.m in Sources */,
 				60D8C7D218C6BF87007D26A7 /* Constants.m in Sources */,
 				60068B0219394D8C003470B9 /* S3manager.m in Sources */,
-				6043BC9619498EED00C39A48 /* EyeImage+Methods.m in Sources */,
 				F3FCC97119369F180093A1EB /* EyePhotoCell.m in Sources */,
 				603B077A18DD26E2002179CD /* SettingsViewController.m in Sources */,
 				60C1AE3818F3507E00902F28 /* UIButton+AFNetworking.m in Sources */,

@@ -9,7 +9,6 @@
 #import "Exam+Methods.h"
 #import "CellScopeContext.h"
 
-
 @implementation Exam (Methods)
 
 NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
