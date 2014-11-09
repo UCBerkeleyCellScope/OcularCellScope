@@ -8,9 +8,15 @@
 
 #import "TabViewController.h"
 #import "FixationViewController.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+
 #import "UIColor+Custom.h"
 #import "CellScopeContext.h"
 #import "CoreDataController.h"
+
+
+
+#import <Parse/Parse.h>
 
 @interface TabViewController ()
 
@@ -74,8 +80,18 @@
     filesToUpload = [CoreDataController getEyeImagesToUploadForExam:[[CellScopeContext sharedContext]currentExam] ];
     
     if([filesToUpload count ]>0){
-        [CellScopeHTTPClient sharedCellScopeHTTPClient].imagesToUpload = [NSMutableArray arrayWithArray:filesToUpload];
-        [[CellScopeHTTPClient sharedCellScopeHTTPClient] batch];
+        
+        //OVERRIDE POINT: USE PARSE:
+        
+        for( EyeImage* ei in filesToUpload){
+            [self uploadImageUsingParse:ei];
+        }
+        
+        
+        
+        
+        //[CellScopeHTTPClient sharedCellScopeHTTPClient].imagesToUpload = [NSMutableArray arrayWithArray:filesToUpload];
+        //[[CellScopeHTTPClient sharedCellScopeHTTPClient] batch];
     }
     else{
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Images to Upload"
@@ -87,10 +103,101 @@
         [alertView show];
     }
     uploadButton.enabled = YES;
-
-    //[self.navigationController popViewControllerAnimated:YES];
     
 }
+
+- (void)uploadImageUsingParse:(EyeImage *)eyeImage
+{
+    NSURL *aURL = [NSURL URLWithString: eyeImage.filePath];
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    [library assetForURL:aURL
+             resultBlock:^(ALAsset *asset)
+     {
+         ALAssetRepresentation* rep = [asset defaultRepresentation];
+         
+         NSUInteger size = (NSUInteger)rep.size;
+         NSMutableData *imageData = [NSMutableData dataWithLength:size];
+         NSError *error;
+         [rep getBytes:imageData.mutableBytes fromOffset:0 length:size error:&error];
+         
+         [self uploadImage:imageData];
+         
+     }
+            failureBlock:^(NSError *error)
+     {
+         NSLog(@"failure loading video/image from AssetLibrary");
+     }
+     ];
+}
+
+
+- (void)uploadImage:(NSData *)imageData
+{
+    PFFile *imageFile = [PFFile fileWithName:[NSString stringWithFormat:@"Image%d.jpg",arc4random()] data:imageData];
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:HUD];
+    
+    // Set determinate mode
+    HUD.mode = MBProgressHUDModeDeterminate;
+    HUD.delegate = self;
+    HUD.labelText = @"Uploading";
+    [HUD show:YES];
+    
+    // Save PFFile
+    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            //Hide determinate HUD
+            [HUD hide:YES];
+            
+            // Show checkmark
+            HUD = [[MBProgressHUD alloc] initWithView:self.view];
+            [self.view addSubview:HUD];
+            
+            // The sample image is based on the work by http://www.pixelpressicons.com, http://creativecommons.org/licenses/by/2.5/ca/
+            // Make the customViews 37 by 37 pixels for best results (those are the bounds of the build-in progress indicators)
+            HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
+            
+            // Set custom view mode
+            HUD.mode = MBProgressHUDModeCustomView;
+            
+            HUD.delegate = self;
+            
+            NSString *url = imageFile.url;
+            NSLog(url);
+            
+            // Create a PFObject around a PFFile and associate it with the current user
+            PFObject *userPhoto = [PFObject objectWithClassName:@"UserPhoto"];
+            [userPhoto setObject:imageFile forKey:@"imageFile"];
+            
+            // Set the access control list to current user for security purposes
+            userPhoto.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
+            
+            PFUser *user = [PFUser currentUser];
+            [userPhoto setObject:user forKey:@"user"];
+            
+            [userPhoto saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    //[self refresh:nil];
+                }
+                else{
+                    // Log details of the failure
+                    NSLog(@"Error: %@ %@", error, [error userInfo]);
+                }
+            }];
+        }
+        else{
+            [HUD hide:YES];
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    } progressBlock:^(int percentDone) {
+        // Update your progress spinner here. percentDone will be between 0 and 100.
+        HUD.progress = (float)percentDone/100;
+        HUD.labelText = [NSString stringWithFormat:@"%2f%",HUD.progress];
+        
+    }];
+}
+
 
 - (IBAction)didPressCancel:(id)sender {
     

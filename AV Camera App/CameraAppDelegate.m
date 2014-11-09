@@ -7,6 +7,7 @@
 //
 
 #import "CameraAppDelegate.h"
+#import <Parse/Parse.h>
 #import <AWSRuntime/AWSRuntime.h>
 
 @import AVFoundation;
@@ -25,6 +26,37 @@
     NSString* defaultPrefsFile = [[NSBundle mainBundle] pathForResource:@"default-configuration" ofType:@"plist"];
     NSDictionary* defaultPreferences = [NSDictionary dictionaryWithContentsOfFile:defaultPrefsFile];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPreferences];
+    
+    [Parse setApplicationId:@"x53k5VwBiYm3PAjKgxbdgtX3yshVcrk9Mdfa608G"
+                  clientKey:@"qoJbAIr9snTDxVKwKqRib3wvjbFYvfo1lN46d2PK"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    // Wipe out old user defaults
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"objectIDArray"]){
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"objectIDArray"];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    // Simple way to create a user or log in the existing user
+    // For your app, you will probably want to present your own login screen
+    PFUser *currentUser = [PFUser currentUser];
+    
+    if (!currentUser) {
+        // Dummy username and password
+        PFUser *user = [PFUser user];
+        user.username = @"Hermione";
+        user.password = @"password";
+        user.email = @"PotterLuv@example.com";
+        
+        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error) {
+                // Assume the error is because the user already existed.
+                [PFUser logInWithUsername:@"Hermione" password:@"password"];
+            }
+        }];
+    }
+
+    
     
     // Logging Control - Do NOT use logging for non-development builds.
 #ifdef DEBUG

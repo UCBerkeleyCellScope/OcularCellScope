@@ -6,10 +6,15 @@
 //  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
 
+
 #import <UIKit/UIKit.h>
 #import "UploadBannerView.h"
+#import "MBProgressHUD.h"
 
-@interface TabViewController : UITabBarController
+@interface TabViewController : UITabBarController <MBProgressHUDDelegate>
+{
+    MBProgressHUD *HUD;
+}
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *uploadButton;
 @property(nonatomic) UploadBannerView* uploadBanner;
