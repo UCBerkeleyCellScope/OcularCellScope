@@ -29,11 +29,15 @@
 @property (weak, nonatomic) IBOutlet UIImageView *capturedImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *fixationImageView;
 
+@property (nonatomic) float currentFocusPosition;
+@property (nonatomic) float currentExposureDuration;
+
 
 @property (strong, nonatomic) IBOutlet UIButton *pauseButton;
 
 @property (strong, nonatomic) UILongPressGestureRecognizer *longPressGestureRecognizer;
 @property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
+@property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGestureRecognizer;
 
 @property (assign, nonatomic) BOOL debugMode;
 @property (assign, nonatomic) BOOL mirroredView;

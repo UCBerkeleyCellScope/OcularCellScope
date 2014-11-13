@@ -201,8 +201,33 @@
 
 
 
+- (void)setRedGain:(float)redGain
+         greenGain:(float)greenGain
+          blueGain:(float)blueGain
+{
+    
+    [self.device lockForConfiguration:nil];
+    AVCaptureWhiteBalanceGains gains;
+    gains.redGain = redGain;
+    gains.greenGain = greenGain;
+    gains.blueGain = blueGain;
+    [self.device setWhiteBalanceModeLockedWithDeviceWhiteBalanceGains:gains completionHandler:nil];
+    [self.device unlockForConfiguration];
+}
 
+- (void)setFocusPosition:(float)position
+{
+    [self.device lockForConfiguration:nil];
+    [self.device setFocusModeLockedWithLensPosition:position completionHandler:nil];
+    [self.device unlockForConfiguration];
+    
+}
 
-
+- (void)setExposureDuration:(float)durationMilliseconds ISO:(float)iso
+{
+    [self.device lockForConfiguration:nil];
+    [self.device setExposureModeCustomWithDuration:CMTimeMake(durationMilliseconds,1e3) ISO:iso completionHandler:nil];
+    [self.device unlockForConfiguration];
+}
 
 @end

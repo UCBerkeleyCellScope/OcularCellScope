@@ -2,6 +2,28 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>focusPosition</key>
+	<real>0.5</real>
+	<key>captureISO</key>
+	<integer>64</integer>
+	<key>captureExposureDuration</key>
+	<integer>10</integer>
+	<key>captureBlueGain</key>
+	<integer>2</integer>
+	<key>captureGreenGain</key>
+	<integer>1</integer>
+	<key>captureRedGain</key>
+	<integer>2</integer>
+	<key>previewISO</key>
+	<integer>64</integer>
+	<key>previewExposureDuration</key>
+	<integer>10</integer>
+	<key>previewBlueGain</key>
+	<integer>2</integer>
+	<key>previewGreenGain</key>
+	<integer>1</integer>
+	<key>previewRedGain</key>
+	<integer>2</integer>
 	<key>autoExposureDelay</key>
 	<real>0.6</real>
 	<key>debugMode</key>

@@ -70,13 +70,18 @@
     self.currentImageCount = 0;
     
     // Added gesture recognizer for taps to focus
+    /*
     tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didReceiveTapToFocus:)];
     [self.view addGestureRecognizer:tapGestureRecognizer];
-
+*/
     
-    
+    /*
     longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedToCapture:)];
     [self.view addGestureRecognizer:longPressGestureRecognizer];
+    */
+    
+    self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureHandler)];
+    [self.view addGestureRecognizer:self.panGestureRecognizer];
     
     /// WHY IS THIS HERE>>>??? IN ORDER TO
     //GET TURN OFF/TURN ON TO WORK
@@ -96,10 +101,22 @@
     NSLog(@"Self.selectedLight, %ld",self.selectedLight);
     [self updateFixationImageView];
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
-    
+    /*
     [self.captureManager setExposureLock:NO];
     [self.captureManager unlockFocus];
     [self.captureManager unlockWhiteBalance];
+    */
+    
+    [self.captureManager setRedGain:[[NSUserDefaults standardUserDefaults] floatForKey:@"previewRedGain"]
+                          greenGain:[[NSUserDefaults standardUserDefaults] floatForKey:@"previewGreenGain"]
+                           blueGain:[[NSUserDefaults standardUserDefaults] floatForKey:@"previewBlueGain"]];
+    
+    self.currentFocusPosition = [[NSUserDefaults standardUserDefaults] floatForKey:@"focusPosition"];
+    [self.captureManager setFocusPosition:self.currentFocusPosition];
+    
+    self.currentExposureDuration = [[NSUserDefaults standardUserDefaults] floatForKey:@"previewExposureDuration"];
+    [self.captureManager setExposureDuration:self.currentExposureDuration
+                                         ISO:[[NSUserDefaults standardUserDefaults] floatForKey:@"previewISO"]];
     
     
     self.debugMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"debugMode"];
@@ -167,9 +184,11 @@
     [[[CellScopeContext sharedContext] bleManager] setFixationLight:FIXATION_LIGHT_NONE forEye:1 withIntensity:0];
     
     //[self.bleManager.fixationLights[self.bleManager.selectedLight] turnOff];
+    /*
     [self.captureManager setExposureLock:NO];
     [self.captureManager unlockFocus];
     [self.captureManager unlockWhiteBalance];
+     */
 }
 
     
@@ -223,12 +242,15 @@
 
 - (IBAction)didPressCapture:(id)sender{
     NSLog(@"didPressCapture");
-    [self playSound:@"beepbeep.wav"];
+    //[self playSound:@"beepbeep.wav"];
     [self.captureButton setEnabled:NO];
+    
+    [self.navigationItem setHidesBackButton:YES animated:YES];
     
     //[self.bleManager.fixationLights[self.bleManager.selectedLight] turnOn];
     
     //set flash intensity
+    /*
     int whiteIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"whiteFlashValue"];
     int redIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"redFlashValue"];
     [[[CellScopeContext sharedContext] bleManager] setFlashIntensityWhite:whiteIntensity Red:redIntensity];
@@ -240,24 +262,19 @@
     //TODO: lock white balance should probably happen during exposure lock
     [self.captureManager lockWhiteBalance];
     
-    [self.navigationItem setHidesBackButton:YES animated:YES];
+     */
+
     
     //[self.bleManager turnOffAllLights];
     
     //set the exposure using the flash light
-    [self setExposureUsingLight];
+    //[self setExposureUsingLight];
 
     //start the capture sequence
-    [self beginImageCapture];
+    [self captureTimerFired];
     
 }
 
-- (void) beginImageCapture{
-    int interval = [[NSUserDefaults standardUserDefaults] integerForKey:@"captureDelay"];
-    
-    self.repeatingTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(captureTimerFired) userInfo:nil repeats:YES];
-
-}
 
 -(void) setExposureUsingLight {
 
@@ -305,12 +322,11 @@
         //[[[CellScopeContext sharedContext] bleManager] setFixationLight:FIXATION_LIGHT_NONE Intensity:0];
         [self.captureManager takePicture];
         //[[[CellScopeContext sharedContext] bleManager] setFixationLight:self.selectedLight Intensity:[[NSUserDefaults standardUserDefaults] integerForKey:@"fixationLightValue"]];
+        int interval = [[NSUserDefaults standardUserDefaults] integerForKey:@"captureDelay"];
+        self.repeatingTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(captureTimerFired) userInfo:nil repeats:NO];
+        
+    }
 
-    }
-    else{
-        [self.repeatingTimer invalidate];
-        self.repeatingTimer = nil;
-    }
 }
 
 /*
@@ -436,7 +452,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView == self.nextFixationAlert){
         if(buttonIndex == 1){
-            [self beginImageCapture];
+            [self captureTimerFired];
         }
         else{
             NSLog(@"About to segue to ImageSelectionSegue");
@@ -514,8 +530,43 @@
 
 }
 
+#define FOCUS_INCREMENT .01
+#define EXPOSURE_INCREMENT 1
 
-
+- (void)panGestureHandler
+{
+    
+    CGPoint v = [self.panGestureRecognizer velocityInView:self.view];
+    
+    if (abs(v.x)>abs(v.y)) { //we'll treat this as a focus command (x)
+        if (v.x>0)
+            self.currentFocusPosition += FOCUS_INCREMENT;
+        else if (v.x<0)
+            self.currentFocusPosition -= FOCUS_INCREMENT;
+        
+        if (self.currentFocusPosition>1.0)
+            self.currentFocusPosition = 1.0;
+        else if (self.currentFocusPosition<0.0)
+            self.currentFocusPosition = 0.0;
+        
+        [self.captureManager setFocusPosition:self.currentFocusPosition];
+    }
+    else if (abs(v.y)>abs(v.x)) { //treat as exposure command (y)
+        if (v.y>0)
+            self.currentExposureDuration -= EXPOSURE_INCREMENT;
+        else if (v.y<0)
+            self.currentExposureDuration += EXPOSURE_INCREMENT;
+        
+        if (self.currentExposureDuration>200)
+            self.currentExposureDuration = 200;
+        else if (self.currentExposureDuration<1)
+            self.currentExposureDuration = 1;
+        
+        [self.captureManager setExposureDuration:self.currentExposureDuration
+                                             ISO:[[NSUserDefaults standardUserDefaults] floatForKey:@"previewISO"]];
+    }
+    
+}
 
 - (IBAction)longPressedToCapture:(id)sender {
     if (self.longPressGestureRecognizer.state == UIGestureRecognizerStateEnded) {

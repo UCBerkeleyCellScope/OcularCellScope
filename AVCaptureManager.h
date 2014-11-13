@@ -38,4 +38,11 @@
 -(void)setFocusWithPoint:(CGPoint)focusPoint;
 -(void)setExposureLock:(BOOL)locked;
 
+- (void)setRedGain:(float)redGain
+         greenGain:(float)greenGain
+          blueGain:(float)blueGain;
+- (void)setFocusPosition:(float)position;
+- (void)setExposureDuration:(float)durationMilliseconds ISO:(float)iso;
+
+
 @end
