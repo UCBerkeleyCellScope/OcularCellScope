@@ -2,54 +2,54 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>redFocusValue</key>
+	<integer>10</integer>
+	<key>whiteFocusValue</key>
+	<integer>0</integer>
+	<key>redFlashValue</key>
+	<integer>0</integer>
+	<key>whiteFlashValue</key>
+	<integer>5</integer>
 	<key>focusPosition</key>
 	<real>0.5</real>
+	<key>previewExposureDuration</key>
+	<integer>50</integer>
+	<key>previewFlashRatio</key>
+	<real>5</real>
+	<key>previewISO</key>
+	<integer>64</integer>
 	<key>captureISO</key>
 	<integer>64</integer>
-	<key>captureExposureDuration</key>
-	<integer>10</integer>
-	<key>captureBlueGain</key>
+	<key>previewRedGain</key>
+	<integer>1</integer>
+	<key>previewGreenGain</key>
+	<real>2.5</real>
+	<key>previewBlueGain</key>
+	<integer>4</integer>
+	<key>captureRedGain</key>
 	<integer>2</integer>
 	<key>captureGreenGain</key>
 	<integer>1</integer>
-	<key>captureRedGain</key>
+	<key>captureBlueGain</key>
 	<integer>2</integer>
-	<key>previewISO</key>
-	<integer>64</integer>
-	<key>previewExposureDuration</key>
-	<integer>10</integer>
-	<key>previewBlueGain</key>
-	<integer>2</integer>
-	<key>previewGreenGain</key>
-	<integer>1</integer>
-	<key>previewRedGain</key>
-	<integer>2</integer>
+	<key>numberOfImages</key>
+	<integer>3</integer>
+	<key>captureInterval</key>
+	<real>1</real>
+	<key>flashDelay</key>
+	<integer>220</integer>
+	<key>flashDuration</key>
+	<integer>100</integer>
 	<key>autoExposureDelay</key>
 	<real>0.6</real>
 	<key>debugMode</key>
 	<false/>
-	<key>numberOfImages</key>
-	<integer>3</integer>
-	<key>flashDelay</key>
-	<real>0.2</real>
-	<key>flashDuration</key>
-	<integer>100</integer>
-	<key>captureDelay</key>
-	<real>1</real>
-	<key>redFlashValue</key>
-	<integer>0</integer>
-	<key>whiteFocusValue</key>
-	<integer>1</integer>
-	<key>whiteFlashValue</key>
-	<integer>5</integer>
-	<key>redFocusValue</key>
-	<integer>0</integer>
+	<key>mirroredView</key>
+	<true/>
 	<key>ImageScaleFactor</key>
 	<string>10</string>
 	<key>ThumbnailSize</key>
 	<integer>160</integer>
-	<key>mirroredView</key>
-	<true/>
 	<key>fixationLightValue</key>
 	<integer>255</integer>
 	<key>CellScopeBTUUID</key>

@@ -35,7 +35,6 @@
 @synthesize aiv = _aiv;
 @synthesize counterLabel = _counterLabel;
 @synthesize bleDisabledLabel = _bleDisabledLabel;
-@synthesize debugMode;
 @synthesize mirroredView;
 @synthesize fullscreeningMode = _fullscreeningMode;
 @synthesize nextFixationAlert = _nextFixationAlert;
@@ -118,8 +117,9 @@
     [self.captureManager setExposureDuration:self.currentExposureDuration
                                          ISO:[[NSUserDefaults standardUserDefaults] floatForKey:@"previewISO"]];
     
+    [self updateFocusExposureIndicators];
     
-    self.debugMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"debugMode"];
+    //todo: is this still meaningful?
     self.mirroredView = [[NSUserDefaults standardUserDefaults] boolForKey:@"mirroredView"];
 
     /*
@@ -141,38 +141,15 @@
     //TODO: handle connection
     
     //turn on focus light and fixation light
-    int whiteIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"whiteFocusValue"];
-    int redIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"redFocusValue"];
-    int fixationIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"fixationLightValue"];
+    int whiteIntensity = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"whiteFocusValue"];
+    int redIntensity = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"redFocusValue"];
+    int fixationIntensity = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"fixationLightValue"];
     
     [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:whiteIntensity Red:redIntensity];
     
-    [[[CellScopeContext sharedContext] bleManager] setFixationLight:self.selectedLight forEye:[[CellScopeContext sharedContext] selectedEye] withIntensity:fixationIntensity];
+    [[[CellScopeContext sharedContext] bleManager] setFixationLight:(int)self.selectedLight forEye:[[CellScopeContext sharedContext] selectedEye] withIntensity:fixationIntensity];
     
-    /*
-    if(self.bleManager.isConnected== YES){
-        //BLE disabled label needs to go away succesfully
-        [self.bleManager.redFocusLight turnOn];
-        [self.bleManager.whiteFocusLight turnOn];
-        
-        [[self.bleManager.fixationLights objectAtIndex: self.selectedLight]
-         changeIntensity:fixationLightValue];
-    }
-    
-    if (self.bleManager.isConnected == NO && self.debugMode == NO){
-        NSLog(@"No connection yet, going to WAIT");
-        [self.aiv startAnimating];
-        [self.captureButton setEnabled:NO];
-        //JUST WAIT FOR CONNECTION
-    }
-    else if (self.debugMode == YES){
-        [self.aiv stopAnimating];
-        [self.bleDisabledLabel setHidden:NO];
-    }
-    else{
-        NSLog(@"Device is in Standard Mode");
-    }
-     */
+
     
 
 }
@@ -183,21 +160,10 @@
     [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:0 Red:0];
     [[[CellScopeContext sharedContext] bleManager] setFixationLight:FIXATION_LIGHT_NONE forEye:1 withIntensity:0];
     
-    //[self.bleManager.fixationLights[self.bleManager.selectedLight] turnOff];
-    /*
-    [self.captureManager setExposureLock:NO];
-    [self.captureManager unlockFocus];
-    [self.captureManager unlockWhiteBalance];
-     */
-}
+    [[NSUserDefaults standardUserDefaults] setFloat:   self.focusValueLabel.text.floatValue  forKey:@"focusPosition"];
+    [[NSUserDefaults standardUserDefaults] setInteger: self.exposureValueLabel.text.intValue  forKey:@"previewExposureDuration"];
 
-    
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
 
 -(void) didReceiveConnectionConfirmation{
     NSLog(@"The Connection Delegate was told that a Connection did occur");
@@ -244,38 +210,30 @@
     NSLog(@"didPressCapture");
     //[self playSound:@"beepbeep.wav"];
     [self.captureButton setEnabled:NO];
-    
     [self.navigationItem setHidesBackButton:YES animated:YES];
     
-    //[self.bleManager.fixationLights[self.bleManager.selectedLight] turnOn];
-    
-    //set flash intensity
-    /*
+    //setup exposure, iso, white balance, and flash intensity settings for capture
     int whiteIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"whiteFlashValue"];
     int redIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"redFlashValue"];
     [[[CellScopeContext sharedContext] bleManager] setFlashIntensityWhite:whiteIntensity Red:redIntensity];
     
+    [self.captureManager setRedGain:[[NSUserDefaults standardUserDefaults] floatForKey:@"captureRedGain"]
+                          greenGain:[[NSUserDefaults standardUserDefaults] floatForKey:@"captureGreenGain"]
+                           blueGain:[[NSUserDefaults standardUserDefaults] floatForKey:@"captureBlueGain"]];
     
-    //TODO: lockFocus should happen every time you tap, not here
-    [self.captureManager lockFocus];
+    float previewFlashRatio = [[NSUserDefaults standardUserDefaults] floatForKey:@"previewFlashRatio"];
+    [self.captureManager setExposureDuration:(int)(self.currentExposureDuration / previewFlashRatio)
+                                         ISO:[[NSUserDefaults standardUserDefaults] floatForKey:@"captureISO"]];
     
-    //TODO: lock white balance should probably happen during exposure lock
-    [self.captureManager lockWhiteBalance];
+    //wait for the camera to set
+    [NSThread sleepForTimeInterval:0.3];
     
-     */
-
-    
-    //[self.bleManager turnOffAllLights];
-    
-    //set the exposure using the flash light
-    //[self setExposureUsingLight];
-
     //start the capture sequence
     [self captureTimerFired];
     
 }
 
-
+/*
 -(void) setExposureUsingLight {
 
     int whiteFlashIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"whiteFlashValue"];
@@ -300,7 +258,8 @@
     [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:whiteFocusIntensity Red:redFocusIntensity];
     
 }
-    
+    */
+
 -(void)captureTimerFired{
     self.currentImageCount++;
     int totalNumberOfImages = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfImages"];
@@ -315,14 +274,12 @@
         [[[CellScopeContext sharedContext] bleManager] doFlashWithDuration:[[NSUserDefaults standardUserDefaults] integerForKey:@"flashDuration"]];
         
         //wait for ble command to be sent
-        [NSThread sleepForTimeInterval: [[NSUserDefaults standardUserDefaults] floatForKey:@"flashDelay"]];
+        [NSThread sleepForTimeInterval: [[NSUserDefaults standardUserDefaults] floatForKey:@"flashDelay"]/1000];
         
         
-        //turn off fixation light, snap a picture, turn fixation back on
-        //[[[CellScopeContext sharedContext] bleManager] setFixationLight:FIXATION_LIGHT_NONE Intensity:0];
         [self.captureManager takePicture];
-        //[[[CellScopeContext sharedContext] bleManager] setFixationLight:self.selectedLight Intensity:[[NSUserDefaults standardUserDefaults] integerForKey:@"fixationLightValue"]];
-        int interval = [[NSUserDefaults standardUserDefaults] integerForKey:@"captureDelay"];
+
+        int interval = [[NSUserDefaults standardUserDefaults] integerForKey:@"captureInterval"];
         self.repeatingTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(captureTimerFired) userInfo:nil repeats:NO];
         
     }
@@ -532,39 +489,59 @@
 
 #define FOCUS_INCREMENT .01
 #define EXPOSURE_INCREMENT 1
+#define FOCUS_MIN 0.0
+#define FOCUS_MAX 1.0
+#define EXPOSURE_MIN 1
+#define EXPOSURE_MAX 200
 
 - (void)panGestureHandler
 {
     
     CGPoint v = [self.panGestureRecognizer velocityInView:self.view];
-    
+    NSLog(@"%f",v.x);
     if (abs(v.x)>abs(v.y)) { //we'll treat this as a focus command (x)
-        if (v.x>0)
-            self.currentFocusPosition += FOCUS_INCREMENT;
-        else if (v.x<0)
-            self.currentFocusPosition -= FOCUS_INCREMENT;
+        if (abs(v.x)>1)
+            self.currentFocusPosition += (v.x/100)*FOCUS_INCREMENT;
         
-        if (self.currentFocusPosition>1.0)
-            self.currentFocusPosition = 1.0;
-        else if (self.currentFocusPosition<0.0)
-            self.currentFocusPosition = 0.0;
+        if (self.currentFocusPosition>FOCUS_MAX)
+            self.currentFocusPosition = FOCUS_MAX;
+        else if (self.currentFocusPosition<FOCUS_MIN)
+            self.currentFocusPosition = FOCUS_MIN;
+        
         
         [self.captureManager setFocusPosition:self.currentFocusPosition];
     }
     else if (abs(v.y)>abs(v.x)) { //treat as exposure command (y)
-        if (v.y>0)
-            self.currentExposureDuration -= EXPOSURE_INCREMENT;
-        else if (v.y<0)
-            self.currentExposureDuration += EXPOSURE_INCREMENT;
+        if (abs(v.y)>1)
+            self.currentExposureDuration -= (v.y/100)*EXPOSURE_INCREMENT;
         
-        if (self.currentExposureDuration>200)
-            self.currentExposureDuration = 200;
-        else if (self.currentExposureDuration<1)
-            self.currentExposureDuration = 1;
+        if (self.currentExposureDuration>EXPOSURE_MAX)
+            self.currentExposureDuration = EXPOSURE_MAX;
+        else if (self.currentExposureDuration<EXPOSURE_MIN)
+            self.currentExposureDuration = EXPOSURE_MIN;
         
         [self.captureManager setExposureDuration:self.currentExposureDuration
                                              ISO:[[NSUserDefaults standardUserDefaults] floatForKey:@"previewISO"]];
     }
+    
+
+    [self updateFocusExposureIndicators];
+    
+    
+}
+
+- (void)updateFocusExposureIndicators
+{
+    CGFloat pos;
+    pos = round(self.focusBarView.center.x + self.focusBarView.bounds.size.width*(self.currentFocusPosition/(FOCUS_MAX-FOCUS_MIN) - 0.5));
+    [self.focusBarIndicator setCenter:CGPointMake(pos,self.focusBarIndicator.center.y)];
+    
+    pos = round(self.exposureBarView.center.y - self.exposureBarView.bounds.size.height*( self.currentExposureDuration/(EXPOSURE_MAX-EXPOSURE_MIN) - 0.5));
+    [self.exposureBarIndicator setCenter:CGPointMake(self.exposureBarIndicator.center.x,pos)];
+    
+    
+    self.focusValueLabel.text = [NSString stringWithFormat:@"%1.2f",self.currentFocusPosition];
+    self.exposureValueLabel.text = [NSString stringWithFormat:@"%1.0f",self.currentExposureDuration];
     
 }
 

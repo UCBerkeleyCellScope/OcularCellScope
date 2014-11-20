@@ -32,14 +32,19 @@
 @property (nonatomic) float currentFocusPosition;
 @property (nonatomic) float currentExposureDuration;
 
+@property (weak, nonatomic) IBOutlet UIView *exposureBarView;
+@property (weak, nonatomic) IBOutlet UIImageView *exposureBarIndicator;
+@property (weak, nonatomic) IBOutlet UIView *focusBarView;
+@property (weak, nonatomic) IBOutlet UIImageView *focusBarIndicator;
+@property (weak, nonatomic) IBOutlet UILabel *focusValueLabel;
+@property (weak, nonatomic) IBOutlet UILabel *exposureValueLabel;
 
 @property (strong, nonatomic) IBOutlet UIButton *pauseButton;
 
 @property (strong, nonatomic) UILongPressGestureRecognizer *longPressGestureRecognizer;
 @property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
-@property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGestureRecognizer;
+@property (strong, nonatomic)  UIPanGestureRecognizer *panGestureRecognizer;
 
-@property (assign, nonatomic) BOOL debugMode;
 @property (assign, nonatomic) BOOL mirroredView;
 @property (assign, nonatomic) BOOL fullscreeningMode;
 

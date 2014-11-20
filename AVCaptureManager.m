@@ -225,8 +225,15 @@
 
 - (void)setExposureDuration:(float)durationMilliseconds ISO:(float)iso
 {
+    CMTime exposureDurationTime = CMTimeMake(durationMilliseconds,1e3);
+    
+    if (iso<self.device.activeFormat.minISO)
+        iso = self.device.activeFormat.minISO;
+    else if (iso>self.device.activeFormat.maxISO)
+        iso = self.device.activeFormat.maxISO;
+    
     [self.device lockForConfiguration:nil];
-    [self.device setExposureModeCustomWithDuration:CMTimeMake(durationMilliseconds,1e3) ISO:iso completionHandler:nil];
+    [self.device setExposureModeCustomWithDuration:exposureDurationTime ISO:iso completionHandler:nil];
     [self.device unlockForConfiguration];
 }
 
