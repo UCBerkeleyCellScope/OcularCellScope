@@ -15,8 +15,8 @@
 #import "BLEManager.h"
 #import "UIColor+Custom.h"
 #import "CellScopeHTTPClient.h"
-#import "S3manager.h"
 #import <CoreText/CoreText.h>
+#import <Parse/Parse.h>
 
 @class BLEManager;
 @class CellScopeHTTPClient;
@@ -31,7 +31,7 @@
 @property(nonatomic,strong) BLEManager* bleManager;
 @property (nonatomic) BOOL camViewLoaded;
 @property (nonatomic) CellScopeHTTPClient* client;
-@property (nonatomic) S3manager *s3manager;
+@property (nonatomic) PFObject *parsePatient;
 
 + (id)sharedContext;
 

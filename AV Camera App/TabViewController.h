@@ -9,11 +9,11 @@
 
 #import <UIKit/UIKit.h>
 #import "UploadBannerView.h"
-#import "MBProgressHUD.h"
 
-@interface TabViewController : UITabBarController <MBProgressHUDDelegate>
+
+@interface TabViewController : UITabBarController
 {
-    MBProgressHUD *HUD;
+
 }
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *uploadButton;

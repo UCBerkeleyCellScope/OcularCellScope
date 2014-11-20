@@ -8,7 +8,6 @@
 
 #import "CameraAppDelegate.h"
 #import <Parse/Parse.h>
-#import <AWSRuntime/AWSRuntime.h>
 
 @import AVFoundation;
 
@@ -27,8 +26,8 @@
     NSDictionary* defaultPreferences = [NSDictionary dictionaryWithContentsOfFile:defaultPrefsFile];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPreferences];
     
-    [Parse setApplicationId:@"x53k5VwBiYm3PAjKgxbdgtX3yshVcrk9Mdfa608G"
-                  clientKey:@"qoJbAIr9snTDxVKwKqRib3wvjbFYvfo1lN46d2PK"];
+    [Parse setApplicationId:@"kj1p0NcAg3KwmTebw5N4MtbZCkx2WASRWSxTWuto"
+                  clientKey:@"Pf88GrjkeE9rp7QJulrKxxOc7sDDOnQmOIw8WMpO"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     // Wipe out old user defaults
@@ -55,31 +54,10 @@
             }
         }];
     }
-
-    
-    
-    // Logging Control - Do NOT use logging for non-development builds.
-#ifdef DEBUG
-    [AmazonLogger verboseLogging];
-#else
-    [AmazonLogger turnLoggingOff];
-#endif
-    
-    [AmazonErrorHandler shouldNotThrowExceptions];
-    
-    
     
     [[CellScopeContext sharedContext] setManagedObjectContext:self.managedObjectContext];
     
     [[[CellScopeContext sharedContext] bleManager] beginBLEScan];
-    
-    /*
-    UIStoryboard *storyboard = [ UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    self.window.rootViewController = [storyboard instantiateInitialViewController];
-    
-    [self.window makeKeyAndVisible];
-    */
-     
     return YES;
 }
 

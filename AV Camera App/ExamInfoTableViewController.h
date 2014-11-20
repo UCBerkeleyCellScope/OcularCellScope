@@ -37,7 +37,5 @@
 
 @property (nonatomic) UIGestureRecognizer* tapRecognizer;
 
-@property (nonatomic) S3manager *s3manager;
-
 @end
 
