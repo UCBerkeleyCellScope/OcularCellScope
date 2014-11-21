@@ -126,14 +126,14 @@ BOOL capturing = NO;
         [alert show];
     }
     
-    else if(attempts < 3 && capturing == NO)
+    else //if(attempts < 3 && capturing == NO)
     {
-        NSLog(@"No peripherals found, initiaiting attempt number %d", attempts);
+        //NSLog(@"No peripherals found, initiaiting attempt number %d", attempts);
         [self beginBLEScan];
-        attempts++;
+        //attempts++;
     }
 
-    
+    /*
     else
     {
         UIAlertView *disableAlertView = [[UIAlertView alloc] initWithTitle:@"Bluetooth could not connect."
@@ -146,25 +146,8 @@ BOOL capturing = NO;
         
         
         
-        /*
-        
-        //try connecting again
-        if (ble.activePeripheral)
-            if(ble.activePeripheral.isConnected)
-            {
-                [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
-                return;
-            }
-        
-        if (ble.peripherals)
-            ble.peripherals = nil;
-        
-        [ble findBLEPeripherals:2];
-        [NSTimer scheduledTimerWithTimeInterval:(float)1.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
-        */
     }
-
-    
+    */
     
     
     
@@ -268,13 +251,16 @@ BOOL capturing = NO;
 - (void)bleDidDisconnect
 {
     NSLog(@"->Disconnected");
+    [self beginBLEScan];
     //[self btnScanForPeripherals];
     _isConnected = NO;
     debugMode = [_prefs boolForKey:@"debugMode" ];
     if(debugMode==NO){
-        [self beginBLEScan];
+
     }
     NSLog(@"Connected set back to NO");
+    
+    
     
 }
 

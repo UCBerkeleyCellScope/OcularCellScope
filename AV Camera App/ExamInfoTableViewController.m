@@ -28,7 +28,6 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 
 @synthesize nameCell,dobCell,phoneCell,idCell;
 //@synthesize driveService;
-@synthesize s3manager;
 
 //physicianField
 @synthesize e;
@@ -54,8 +53,6 @@ static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.s3manager = [[CellScopeContext sharedContext]s3manager];
     
     self.firstnameField.delegate=self;
     self.lastnameField.delegate=self;

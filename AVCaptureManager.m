@@ -71,8 +71,10 @@
     rootLayer = [self.view layer];
     [rootLayer setMasksToBounds:YES];
     //first number was -80
-    [self.previewLayer setFrame:CGRectMake(-50, 0, rootLayer.bounds.size.height, rootLayer.bounds.size.height)];
+    [self.previewLayer setFrame:CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)];
+    //[self.previewLayer setFrame:view.frame];
     [self.previewLayer setVideoGravity: AVLayerVideoGravityResizeAspectFill];//AVLayerVideoGravityResizeAspect];
+    
     [rootLayer insertSublayer:self.previewLayer atIndex:0];
     
     BOOL mirroredView = [[NSUserDefaults standardUserDefaults] boolForKey:@"mirroredView"];
@@ -86,7 +88,7 @@
     }
     
     [self.session startRunning];
-    [self unlockFocus];
+    //[self unlockFocus];
 }
 
 -(AVCaptureConnection*)getVideoConnection{
@@ -201,8 +203,40 @@
 
 
 
+- (void)setRedGain:(float)redGain
+         greenGain:(float)greenGain
+          blueGain:(float)blueGain
+{
+    
+    [self.device lockForConfiguration:nil];
+    AVCaptureWhiteBalanceGains gains;
+    gains.redGain = redGain;
+    gains.greenGain = greenGain;
+    gains.blueGain = blueGain;
+    [self.device setWhiteBalanceModeLockedWithDeviceWhiteBalanceGains:gains completionHandler:nil];
+    [self.device unlockForConfiguration];
+}
 
+- (void)setFocusPosition:(float)position
+{
+    [self.device lockForConfiguration:nil];
+    [self.device setFocusModeLockedWithLensPosition:position completionHandler:nil];
+    [self.device unlockForConfiguration];
+    
+}
 
-
+- (void)setExposureDuration:(float)durationMilliseconds ISO:(float)iso
+{
+    CMTime exposureDurationTime = CMTimeMake(durationMilliseconds,1e3);
+    
+    if (iso<self.device.activeFormat.minISO)
+        iso = self.device.activeFormat.minISO;
+    else if (iso>self.device.activeFormat.maxISO)
+        iso = self.device.activeFormat.maxISO;
+    
+    [self.device lockForConfiguration:nil];
+    [self.device setExposureModeCustomWithDuration:exposureDurationTime ISO:iso completionHandler:nil];
+    [self.device unlockForConfiguration];
+}
 
 @end

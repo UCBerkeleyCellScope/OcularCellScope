@@ -13,232 +13,122 @@
 
 @interface SettingsViewController ()
 
-@property(nonatomic) CGFloat initialTVHeight;
-@property(nonatomic, strong) NSUserDefaults *prefs;
-@property(nonatomic, strong)UIAlertView *flashTooLong;
-@property(nonatomic, strong)UIAlertView *bleDelayTooLong;
-
 @end
 
 @implementation SettingsViewController
-@synthesize prefs = _prefs;
 
-@synthesize initialTVHeight;
-
-@synthesize debugToggle;
-@synthesize mirrorToggle;
-
-@synthesize whiteFlashSlider;
-@synthesize whiteFlashValue;
-@synthesize redFlashSlider;
-@synthesize redFlashValue;
-
-@synthesize redFocusSlider;
-@synthesize redFocusValue;
-@synthesize whiteFocusSlider;
-@synthesize whiteFocusValue;
-
-@synthesize redFlashLabel, whiteFlashLabel, redFocusLabel, whiteFocusLabel;
-
-@synthesize flashDelay,captureDelay,multiShot, flashDuration;
-
-//flashDuration, //timedFlashSwitch,
-
-@synthesize remoteLightSlider, remoteLightLabel;
-@synthesize flashTooLong, bleDelayTooLong;
-@synthesize bleManager = _bleManager;
-
-BOOL debugMode;
-BOOL mirroredView;
-
-double whiteFlashStart,whiteFlashEnd,redFocusStart,redFocusEnd, remoteLightStart, remoteLightEnd;
+double whiteFlashStart,whiteFlashEnd,redFocusStart,redFocusEnd;
 double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-        
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     _bleManager = [[CellScopeContext sharedContext]bleManager];
-    /*
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)];
-    [self.tableView addGestureRecognizer:gestureRecognizer];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShown:) name:UIKeyboardDidShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHidden:) name:UIKeyboardDidHideNotification object:nil];
-
-*/
     
 }
 
 -(void) viewWillAppear:(BOOL)animated{
     
-    _prefs = [NSUserDefaults standardUserDefaults];
-    
-    //[[_bleManager whiteFlashLight]toggleLight];
-    
-    debugMode = [_prefs boolForKey: @"debugMode"];
-    [ debugToggle setOn: debugMode animated: NO];
-    
-    mirroredView = [_prefs boolForKey: @"mirroredView"]; //gonna be yes
-    [ mirrorToggle setOn: mirroredView animated: NO];
-    
-    //BOOL timedFlash = [_prefs boolForKey: @"timedFlash"];
-    //[ timedFlashSwitch setOn: timedFlash animated: NO];
-    
-    if(debugMode == YES){
-        //[timedFlashSwitch setEnabled:NO];
-    }
-    
-    /*
-    if(timedFlash == NO){
-        [flashDuration setEnabled: NO];
-    }
-    else{
-        [flashDuration setEnabled:YES];
-    }
-    */
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
      
-    whiteFlashValue =  [_prefs integerForKey: @"whiteFlashValue"];
-    redFocusValue =  [_prefs integerForKey: @"redFocusValue"];
+    int whiteFlashValue =  [prefs integerForKey: @"whiteFlashValue"];
+    int redFocusValue =  [prefs integerForKey: @"redFocusValue"] / 2;
+    int whiteFocusValue =  [prefs integerForKey: @"whiteFocusValue"];
+    int redFlashValue =  [prefs integerForKey: @"redFlashValue"] / 2;
+    
+    self.whiteFlashSlider.value = whiteFlashValue;
+    self.redFocusSlider.value = redFocusValue;
+    self.whiteFocusSlider.value = whiteFocusValue;
+    self.redFlashSlider.value = redFlashValue;
+    self.whiteFlashLabel.text = [NSString stringWithFormat: @"%d", whiteFlashValue];
+    self.redFocusLabel.text = [NSString stringWithFormat: @"%d", redFocusValue];
+    self.redFlashLabel.text = [NSString stringWithFormat: @"%d", redFlashValue];
+    self.whiteFocusLabel.text = [NSString stringWithFormat: @"%d", whiteFocusValue];
 
-    whiteFocusValue =  [_prefs integerForKey: @"whiteFocusValue"];
-    redFlashValue =  [_prefs integerForKey: @"redFlashValue"];
     
+    self.focalPositionTextField.text = [NSString stringWithFormat:@"%1.2f",[prefs floatForKey:@"focusPosition"]];
+    self.previewExposureTextField.text = [NSString stringWithFormat:@"%ld",[prefs integerForKey:@"previewExposureDuration"]];
+    self.previewFlashRatioTextField.text = [NSString stringWithFormat:@"%1.1f",[prefs floatForKey:@"previewFlashRatio"]];
+    self.previewISOTextField.text = [NSString stringWithFormat:@"%ld",[prefs integerForKey:@"previewISO"]];
+    self.flashISOTextField.text = [NSString stringWithFormat:@"%ld",[prefs integerForKey:@"captureISO"]];
+    self.previewWBRedTextField.text = [NSString stringWithFormat:@"%1.2f",[prefs floatForKey:@"previewRedGain"]];
+    self.previewWBGreenTextField.text = [NSString stringWithFormat:@"%1.2f",[prefs floatForKey:@"previewGreenGain"]];
+    self.previewWBBlueTextField.text = [NSString stringWithFormat:@"%1.2f",[prefs floatForKey:@"previewBlueGain"]];
+    self.flashWBRedTextField.text = [NSString stringWithFormat:@"%1.2f",[prefs floatForKey:@"captureRedGain"]];
+    self.flashWBGreenTextField.text = [NSString stringWithFormat:@"%1.2f",[prefs floatForKey:@"captureGreenGain"]];
+    self.flashWBBlueTextField.text = [NSString stringWithFormat:@"%1.2f",[prefs floatForKey:@"captureBlueGain"]];
+    self.flashDelay.text = [ NSString stringWithFormat:@"%ld",[prefs integerForKey: @"flashDelay"]];
+    self.flashDuration.text =  [ NSString stringWithFormat:@"%ld",[prefs integerForKey: @"flashDuration"]];
+    self.captureInterval.text = [NSString stringWithFormat:@"%3.2f",[prefs floatForKey:@"captureInterval"]];
     
-    whiteFlashSlider.value = whiteFlashValue;
-    redFocusSlider.value = redFocusValue;
-    
-    whiteFocusSlider.value = whiteFocusValue;
-    redFlashSlider.value = redFlashValue;
-    
-    whiteFlashLabel.text = [NSString stringWithFormat: @"%d", (int)whiteFlashValue];
-    redFocusLabel.text = [NSString stringWithFormat: @"%d", (int)redFocusValue];
-    
-    redFlashLabel.text = [NSString stringWithFormat: @"%d", (int)redFlashValue];
-    whiteFocusLabel.text = [NSString stringWithFormat: @"%d", (int)whiteFocusValue];
-
-    flashDelay.text = [ NSString stringWithFormat:@"%3.2f",[_prefs floatForKey: @"flashDelay"]];
-
-    flashDuration.text =  [ NSString stringWithFormat:@"%ld",[_prefs integerForKey: @"flashDuration"]];
-    
-    captureDelay.text = [NSString stringWithFormat:@"%3.2f",[_prefs floatForKey:@"captureDelay"]];
-    
-    
-    
+    self.multiShot.selectedSegmentIndex = [prefs integerForKey:@"numberOfImages"]-1;
 }
 
--(void) viewWillDisappear:(BOOL)animated{
-    
-    [_prefs setInteger: whiteFlashSlider.value forKey:@"whiteFlashValue"];
-    [_prefs setInteger: redFocusSlider.value forKey:@"redFocusValue"];
+-(void) viewWillDisappear:(BOOL)animated {
 
-    [_prefs setInteger: redFlashSlider.value forKey:@"redFlashValue"];
-    [_prefs setInteger: whiteFocusSlider.value forKey:@"whiteFocusValue"];
+    //validation
+    if (self.focalPositionTextField.text.floatValue<0.0)    self.focalPositionTextField.text = @"0.0";
+    if (self.focalPositionTextField.text.floatValue>1.0)    self.focalPositionTextField.text = @"1.0";
     
-    [_prefs setInteger: remoteLightSlider.value forKey:@"fixationLightValue"];
+    if (self.previewExposureTextField.text.intValue<1)      self.previewExposureTextField.text = @"1";
+    if (self.previewExposureTextField.text.intValue>200)    self.previewExposureTextField.text = @"200";
+    if (self.previewFlashRatioTextField.text.floatValue<1.0)  self.previewFlashRatioTextField.text = @"1.0";
+    if (self.previewFlashRatioTextField.text.floatValue>10.0) self.previewFlashRatioTextField.text = @"10.0";
     
+    if (self.previewISOTextField.text.intValue<64)          self.previewISOTextField.text = @"64";
+    if (self.previewISOTextField.text.intValue>400)         self.previewISOTextField.text = @"400";
+    if (self.flashISOTextField.text.intValue<64)            self.flashISOTextField.text = @"64";
+    if (self.flashISOTextField.text.intValue>400)           self.flashISOTextField.text = @"400";
     
-    [_prefs setFloat: flashDelay.text.floatValue forKey:@"flashDelay"];
-       
-    [_prefs setInteger: flashDuration.text.intValue forKey:@"flashDuration"];
+    if (self.previewWBRedTextField.text.floatValue<1.0)       self.previewWBRedTextField.text = @"1.0";
+    if (self.previewWBRedTextField.text.floatValue>4.0)       self.previewWBRedTextField.text = @"4.0";
+    if (self.previewWBGreenTextField.text.floatValue<1.0)           self.previewWBGreenTextField.text = @"1.0";
+    if (self.previewWBGreenTextField.text.floatValue>4.0)           self.previewWBGreenTextField.text = @"4.0";
+    if (self.previewWBBlueTextField.text.floatValue<1.0)           self.previewWBBlueTextField.text = @"1.0";
+    if (self.previewWBBlueTextField.text.floatValue>4.0)           self.previewWBBlueTextField.text = @"4.0";
+    if (self.flashWBRedTextField.text.floatValue<1.0)           self.flashWBRedTextField.text = @"1.0";
+    if (self.flashWBRedTextField.text.floatValue>4.0)           self.flashWBRedTextField.text = @"4.0";
+    if (self.flashWBGreenTextField.text.floatValue<1.0)           self.flashWBGreenTextField.text = @"1.0";
+    if (self.flashWBGreenTextField.text.floatValue>4.0)           self.flashWBGreenTextField.text = @"4.0";
+    if (self.flashWBBlueTextField.text.floatValue<1.0)           self.flashWBBlueTextField.text = @"1.0";
+    if (self.flashWBBlueTextField.text.floatValue>4.0)           self.flashWBBlueTextField.text = @"4.0";
     
-    [_prefs setInteger: captureDelay.text.intValue forKey:@"captureDelay"];
+    if (self.flashDelay.text.intValue<1)           self.flashDelay.text = @"1";
+    if (self.flashDelay.text.intValue>500)           self.flashDelay.text = @"500";
     
+    if (self.flashDuration.text.intValue<1)           self.flashDuration.text = @"1";
+    if (self.flashDuration.text.intValue>500)           self.flashDuration.text = @"500";
+    
+    if (self.captureInterval.text.floatValue<0.2)           self.flashDuration.text = @"0.2";
+    if (self.captureInterval.text.floatValue>10.0)           self.flashDuration.text = @"10.0";
+
+    //store settings
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    [prefs setInteger: self.whiteFlashSlider.value      forKey:@"whiteFlashValue"];
+    [prefs setInteger: self.redFocusSlider.value * 2    forKey:@"redFocusValue"];
+    [prefs setInteger: self.redFlashSlider.value * 2    forKey:@"redFlashValue"];
+    [prefs setInteger: self.whiteFocusSlider.value      forKey:@"whiteFocusValue"];
+    [prefs setFloat:   self.focalPositionTextField.text.floatValue  forKey:@"focusPosition"];
+    [prefs setInteger: self.previewExposureTextField.text.intValue  forKey:@"previewExposureDuration"];
+    [prefs setFloat:   self.previewFlashRatioTextField.text.floatValue  forKey:@"previewFlashRatio"];
+    [prefs setInteger: self.previewISOTextField.text.intValue  forKey:@"previewISO"];
+    [prefs setInteger: self.flashISOTextField.text.intValue  forKey:@"captureISO"];
+    [prefs setFloat:   self.previewWBRedTextField.text.floatValue  forKey:@"previewRedGain"];
+    [prefs setFloat:   self.previewWBGreenTextField.text.floatValue  forKey:@"previewGreenGain"];
+    [prefs setFloat:   self.previewWBBlueTextField.text.floatValue  forKey:@"previewBlueGain"];
+    [prefs setFloat:   self.flashWBRedTextField.text.floatValue  forKey:@"captureRedGain"];
+    [prefs setFloat:   self.flashWBGreenTextField.text.floatValue  forKey:@"captureGreenGain"];
+    [prefs setFloat:   self.flashWBBlueTextField.text.floatValue  forKey:@"captureBlueGain"];
+    [prefs setInteger: self.flashDelay.text.intValue  forKey:@"flashDelay"];
+    [prefs setInteger: self.flashDuration.text.intValue  forKey:@"flashDuration"];
+    [prefs setFloat:   self.captureInterval.text.floatValue  forKey:@"captureInterval"];
+    
+    [prefs setInteger: self.multiShot.selectedSegmentIndex+1 forKey:@"numberOfImages"];
 }
 
 /*
--(void) keyboardShown:(NSNotification*) notification {
-    initialTVHeight = self.tableView.frame.size.height;
-    
-    CGRect initialFrame = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGRect convertedFrame = [self.view convertRect:initialFrame fromView:nil];
-    CGRect tvFrame = self.tableView.frame;
-    tvFrame.size.height = convertedFrame.origin.y;
-    self.tableView.frame = tvFrame;
-}
-
--(void) keyboardHidden:(NSNotification*) notification {
-    CGRect tvFrame = self.tableView.frame;
-    tvFrame.size.height = self.tableView.frame.size.height;
-    [UIView beginAnimations:@"TableViewDown" context:NULL];
-    [UIView setAnimationDuration:0.3f];
-    self.tableView.frame = tvFrame;
-    [UIView commitAnimations];
-}
-*/
-/*
--(void) scrollToCell:(NSIndexPath*) path {
-    [self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];
-}
-
--(void) textFieldDidBeginEditing:(UITextField *)textField {
-    NSIndexPath* path = [NSIndexPath indexPathForRow:6 inSection:1];
-    [self performSelector:@selector(scrollToCell:) withObject:path afterDelay:0.5f];
-}
-*/
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-//- (void)backgroundTapped {
-//    NSLog(@"Background Tapped");
-    
-    /*
-    if(captureDelay.text.doubleValue<flashDuration.text.doubleValue){
-        flashTooLong = [[UIAlertView alloc] initWithTitle:@"Flash Duration must be shorter than Capture Delay"
-                                                            message:nil                                                           delegate:self
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles:nil];
-        [flashTooLong show];
-    }
-    
-    if(captureDelay.text.doubleValue<bleDelay.text.doubleValue){
-        bleDelayTooLong = [[UIAlertView alloc] initWithTitle:@"BLE Delay must be shorter than Capture Delay"
-                                                            message:nil
-                                                           delegate:self
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles:nil];
-        [bleDelayTooLong show];
-    }
-    */
-    
-    //[[self tableView] endEditing:YES];
-    
-    
-//}
-
-
-/*
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    
-    if (alertView == bleDelayTooLong && buttonIndex == 0){
-        [bleDelay becomeFirstResponder];
-    }
-    if (alertView == flashTooLong && buttonIndex == 0){
-        [flashDuration becomeFirstResponder];
-    }
-}
-*/
- 
-/**
- *  <#Description#>
- *
- *  @param sender <#sender description#>
- */
 - (IBAction)toggleDidChange:(id)sender {
 
     if(debugToggle.on == YES){
@@ -255,11 +145,12 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
         [_bleManager beginBLEScan];
     }
     NSLog(@"ToggleChange to %d",debugToggle.on);
-}
 
+}
+*/
 
 - (IBAction)whiteFlashSliderDidChange:(id)sender {
-    whiteFlashLabel.text = [NSString stringWithFormat: @"%d", (int)whiteFlashSlider.value];
+    self.whiteFlashLabel.text = [NSString stringWithFormat: @"%d", (int)self.whiteFlashSlider.value];
     whiteFlashStart = CACurrentMediaTime();
     if(whiteFlashStart-whiteFlashEnd>=.05){
         //[[_bleManager whiteFlashLight] changeIntensity:whiteFlashSlider.value];
@@ -270,7 +161,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
 
 
 - (IBAction)redFocusSliderDidChange:(id)sender {
-    redFocusLabel.text = [NSString stringWithFormat: @"%d", (int)redFocusSlider.value];
+    self.redFocusLabel.text = [NSString stringWithFormat: @"%d", (int)self.redFocusSlider.value];
     redFocusStart = CACurrentMediaTime();
     if(redFocusStart-redFocusEnd>=.05){
         //[[_bleManager redFocusLight] changeIntensity:redFocusSlider.value];
@@ -280,7 +171,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
 }
 
 - (IBAction)whiteFocusSliderDidChange:(id)sender {
-    whiteFocusLabel.text = [NSString stringWithFormat: @"%d", (int)whiteFocusSlider.value];
+    self.whiteFocusLabel.text = [NSString stringWithFormat: @"%d", (int)self.whiteFocusSlider.value];
     whiteFocusStart = CACurrentMediaTime();
     if(whiteFocusStart-whiteFocusEnd>=.05){
         //[[_bleManager whiteFocusLight] changeIntensity:whiteFocusSlider.value];
@@ -291,7 +182,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
 }
 
 - (IBAction)redFlashSliderDidChange:(id)sender {
-    redFlashLabel.text = [NSString stringWithFormat: @"%d", (int)redFlashSlider.value];
+    self.redFlashLabel.text = [NSString stringWithFormat: @"%d", (int)self.redFlashSlider.value];
     redFlashStart = CACurrentMediaTime();
     if(redFlashStart-redFlashEnd>=.05){
         //[[_bleManager redFlashLight] changeIntensity:redFlashSlider.value];
@@ -300,78 +191,5 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     }
 }
 
-- (IBAction)remoteLightSliderDidChange:(id)sender {
-    remoteLightLabel.text = [NSString stringWithFormat: @"%d", (int)remoteLightSlider.value];
-    remoteLightStart = CACurrentMediaTime();
-    if(remoteLightStart-remoteLightEnd>=.05){
-        //[[[_bleManager fixationLights]objectAtIndex:[_bleManager selectedLight]]changeIntensity:remoteLightSlider.value];
-        
-        //[[_bleManager remoteLight] changeIntensity:remoteLightSlider.value];
-        remoteLightEnd = remoteLightStart;
-    }
-}
-
-
-- (IBAction)multiShotValueChanged:(id)sender {
-    //self.multiText = [multiShot titleForSegmentAtIndex:multiShot.selectedSegmentIndex];
-}
-
-/*
-- (IBAction)timedFlashToggleDidChange:(id)sender {
-    if(timedFlashSwitch.on == YES){
-        [_prefs setValue: @YES forKey:@"timedFlash" ];
-        [flashDuration setEnabled:YES];
-    }
-    else if(timedFlashSwitch.on == NO){
-        [_prefs setValue: @NO forKey:@"timedFlash" ];
-        [flashDuration setEnabled:NO];
-    }
-    
-    NSLog(@"ToggleChange to %d",timedFlashSwitch.on);
-}
-*/
- 
-- (IBAction)mirrorToggleDidChange:(id)sender {
-    
-    if(mirrorToggle.on == YES){
-        [_prefs setValue: @YES forKey:@"mirroredView" ];
-    }
-    else if(mirrorToggle.on == NO){
-        [_prefs setValue: @NO forKey:@"mirroredView" ];
-    }
-    
-    
-    NSLog(@"MirrorToggle changed to %d",mirrorToggle.on);
-}
-
-- (void)selectUISegment:(NSString *)segmentString{
-        /*
-    for (int i=0; i< multiShot.numberOfSegments; i++){
-        
-        if( [self.multiText isEqualToString:[multiShot titleForSegmentAtIndex:i]] ){
-            [multiShot setSelectedSegmentIndex:i];
-            break;
-        }
-    }
-         */
-}
-
-/*
-- (void) textFieldDidBeginEditing:(UITextField *)textField {
-    
-    UITableViewCell *cell;
-    
-    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-        // Load resources for iOS 6.1 or earlier
-        cell = (UITableViewCell *) textField.superview.superview;
-        
-    } else {
-        // Load resources for iOS 7 or later
-        cell = (UITableViewCell *) textField.superview.superview.superview;
-        // TextField -> UITableVieCellContentView -> (in iOS 7!)ScrollView -> Cell!
-    }
-    [self.tableView scrollToRowAtIndexPath:[self.tableView indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-}
- */
 
 @end
