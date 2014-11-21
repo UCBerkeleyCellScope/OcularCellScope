@@ -9,15 +9,11 @@
 /* Begin PBXBuildFile section */
 		6000AC2A1947CA8B008D616C /* UploadBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6000AC291947CA8B008D616C /* UploadBannerView.m */; };
 		60240A0D195935C60004DCE8 /* Random.m in Sources */ = {isa = PBXBuildFile; fileRef = 60240A0C195935C60004DCE8 /* Random.m */; };
-		603B077318DCB8F1002179CD /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B076A18DCB8F1002179CD /* BSKeyboardControls.m */; };
-		603B077418DCB8F1002179CD /* BSKeyboardControls.strings in Resources */ = {isa = PBXBuildFile; fileRef = 603B076B18DCB8F1002179CD /* BSKeyboardControls.strings */; };
 		603B077A18DD26E2002179CD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B077918DD26E2002179CD /* SettingsViewController.m */; };
 		603B077D18DD810B002179CD /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B077C18DD810B002179CD /* TabViewController.m */; };
-		603C44FD18DAE72F00402AE1 /* ExamInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C44FC18DAE72F00402AE1 /* ExamInfoViewController.m */; };
 		60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60418F22189B3E780001D490 /* CoreBluetooth.framework */; };
 		6043BC871947CF5600C39A48 /* drOz.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6043BC861947CF5600C39A48 /* drOz.jpg */; };
 		6043BC9619498EED00C39A48 /* EyeImage+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043BC9519498EED00C39A48 /* EyeImage+Methods.m */; };
-		6043C8E81925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043C8E71925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
 		6043C8EE192B12F9007DFAFB /* CameraFocusSquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043C8ED192B12F9007DFAFB /* CameraFocusSquare.m */; };
 		60441CD1193728B1000A017C /* StudySelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60441CD0193728B1000A017C /* StudySelectionTableViewController.m */; };
 		60AECE6718D8CD1A00C4EA15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60AECE6618D8CD1A00C4EA15 /* Main.storyboard */; };
@@ -34,7 +30,6 @@
 		60B4233A190F0B7F005A9ABD /* UIColor+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B42339190F0B7F005A9ABD /* UIColor+Custom.m */; };
 		60B718A1192DD16900E0F40A /* beepbeep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 60B7189F192DD16900E0F40A /* beepbeep.wav */; };
 		60B718A2192DD16900E0F40A /* long-beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 60B718A0192DD16900E0F40A /* long-beep.wav */; };
-		60B718A5193067C100E0F40A /* DataGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B718A4193067C100E0F40A /* DataGenerator.m */; };
 		60B7A5C41936774000A1F9EB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5C31936774000A1F9EB /* Security.framework */; };
 		60B7A5C61936775200A1F9EB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */; };
 		60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AE0118F346E700902F28 /* DiagnosisViewController.m */; };
@@ -63,7 +58,6 @@
 		60D8C7C118C69BB1007D26A7 /* FixationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A0865E18C069C900A2667D /* FixationViewController.m */; };
 		60D8C7C418C69BB1007D26A7 /* ImageSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */; };
 		60D8C7C518C69BB1007D26A7 /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60418F2D189BB2ED0001D490 /* ImageCell.m */; };
-		60D8C7C618C69BB1007D26A7 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */; };
 		60D8C7CA18C69BB1007D26A7 /* PatientsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3260FD184BBD6200E34428 /* PatientsTableViewController.m */; };
 		60D8C7CC18C69BB1007D26A7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2D5DC218318D9F00A58A96 /* main.m */; };
 		60D8C7CE18C69BB2007D26A7 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 60418F26189B3ED60001D490 /* BLE.m */; };
@@ -169,6 +163,7 @@
 /* Begin PBXFileReference section */
 		6000AC281947CA8B008D616C /* UploadBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadBannerView.h; sourceTree = "<group>"; };
 		6000AC291947CA8B008D616C /* UploadBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadBannerView.m; sourceTree = "<group>"; };
+<<<<<<< Updated upstream
 		60240A0B195935C60004DCE8 /* Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Random.h; sourceTree = "<group>"; };
 		60240A0C195935C60004DCE8 /* Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Random.m; sourceTree = "<group>"; };
 		603B076918DCB8F1002179CD /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
@@ -180,12 +175,16 @@
 		603B077018DCB8F1002179CD /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/BSKeyboardControls.strings"; sourceTree = "<group>"; };
 		603B077118DCB8F1002179CD /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
 		603B077218DCB8F1002179CD /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
+=======
+		60068B0019394D8C003470B9 /* S3manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = S3manager.h; path = "AV Camera App/S3manager.h"; sourceTree = "<group>"; };
+		60068B0119394D8C003470B9 /* S3manager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = S3manager.m; path = "AV Camera App/S3manager.m"; sourceTree = "<group>"; };
+		60240A0B195935C60004DCE8 /* Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Random.h; path = "AV Camera App/Random.h"; sourceTree = "<group>"; };
+		60240A0C195935C60004DCE8 /* Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Random.m; path = "AV Camera App/Random.m"; sourceTree = "<group>"; };
+>>>>>>> Stashed changes
 		603B077818DD26E2002179CD /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SettingsViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		603B077918DD26E2002179CD /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SettingsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		603B077B18DD810B002179CD /* TabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController.h; sourceTree = "<group>"; };
 		603B077C18DD810B002179CD /* TabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController.m; sourceTree = "<group>"; };
-		603C44FB18DAE72F00402AE1 /* ExamInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExamInfoViewController.h; path = ../ExamInfoViewController.h; sourceTree = "<group>"; };
-		603C44FC18DAE72F00402AE1 /* ExamInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExamInfoViewController.m; path = ../ExamInfoViewController.m; sourceTree = "<group>"; };
 		60418F22189B3E780001D490 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		60418F25189B3ED60001D490 /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
 		60418F26189B3ED60001D490 /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
@@ -195,8 +194,6 @@
 		6043BC861947CF5600C39A48 /* drOz.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = drOz.jpg; sourceTree = "<group>"; };
 		6043BC9419498EEC00C39A48 /* EyeImage+Methods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EyeImage+Methods.h"; sourceTree = "<group>"; };
 		6043BC9519498EED00C39A48 /* EyeImage+Methods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EyeImage+Methods.m"; sourceTree = "<group>"; };
-		6043C8E61925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
-		6043C8E71925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
 		6043C8EC192B12F9007DFAFB /* CameraFocusSquare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraFocusSquare.h; path = ../CameraFocusSquare.h; sourceTree = "<group>"; };
 		6043C8ED192B12F9007DFAFB /* CameraFocusSquare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CameraFocusSquare.m; path = ../CameraFocusSquare.m; sourceTree = "<group>"; };
 		60441CCF193728B1000A017C /* StudySelectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudySelectionTableViewController.h; sourceTree = "<group>"; };
@@ -219,8 +216,6 @@
 		60B42339190F0B7F005A9ABD /* UIColor+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Custom.m"; path = "AV Camera App/UIColor+Custom.m"; sourceTree = "<group>"; };
 		60B7189F192DD16900E0F40A /* beepbeep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beepbeep.wav; sourceTree = "<group>"; };
 		60B718A0192DD16900E0F40A /* long-beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "long-beep.wav"; sourceTree = "<group>"; };
-		60B718A3193067C100E0F40A /* DataGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataGenerator.h; path = "AV Camera App/DataGenerator.h"; sourceTree = "<group>"; };
-		60B718A4193067C100E0F40A /* DataGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataGenerator.m; path = "AV Camera App/DataGenerator.m"; sourceTree = "<group>"; };
 		60B7A5C31936774000A1F9EB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		60C1AE0018F346E700902F28 /* DiagnosisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiagnosisViewController.h; sourceTree = "<group>"; };
@@ -305,8 +300,6 @@
 		6DD89D7C18426AD400F3C7FC /* CoreDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataController.m; path = "AV Camera App/CoreDataController.m"; sourceTree = "<group>"; };
 		6DD89D7E18426AFF00F3C7FC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6DD89D8018426B0700F3C7FC /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
-		6DD89D8B1842862F00F3C7FC /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
-		6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
 		A52751CB199A742C00B68FDA /* settings_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_icon@2x.png"; sourceTree = "<group>"; };
 		A5C8E17C197634B90072D99C /* od_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = od_bottom.png; sourceTree = "<group>"; };
 		A5C8E17D197634B90072D99C /* od_center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = od_center.png; sourceTree = "<group>"; };
@@ -419,16 +412,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		603B076818DCB8F1002179CD /* BSKeyboardControls */ = {
-			isa = PBXGroup;
-			children = (
-				603B076918DCB8F1002179CD /* BSKeyboardControls.h */,
-				603B076A18DCB8F1002179CD /* BSKeyboardControls.m */,
-				603B076B18DCB8F1002179CD /* BSKeyboardControls.strings */,
-			);
-			path = BSKeyboardControls;
-			sourceTree = "<group>";
-		};
 		60418F24189B3ED50001D490 /* BLE */ = {
 			isa = PBXGroup;
 			children = (
@@ -437,15 +420,6 @@
 				60418F27189B3ED60001D490 /* BLEDefines.h */,
 			);
 			path = BLE;
-			sourceTree = "<group>";
-		};
-		6043C8E51925D960007DFAFB /* ALAssetsLibrary_CustomPhotoAlbum */ = {
-			isa = PBXGroup;
-			children = (
-				6043C8E61925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.h */,
-				6043C8E71925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m */,
-			);
-			path = ALAssetsLibrary_CustomPhotoAlbum;
 			sourceTree = "<group>";
 		};
 		60B4231C1908D27B005A9ABD /* NSMD_MetaData */ = {
@@ -536,9 +510,7 @@
 		6D2D5DAA18318D9E00A58A96 = {
 			isa = PBXGroup;
 			children = (
-				6043C8E51925D960007DFAFB /* ALAssetsLibrary_CustomPhotoAlbum */,
 				6DD89D211842666C00F3C7FC /* Core Data */,
-				60C1AE0618F3507E00902F28 /* AFNetworking */,
 				6D2D5DBC18318D9F00A58A96 /* AV Camera App */,
 				6D2D5DDB18318DA000A58A96 /* AV Camera AppTests */,
 				6D2D5DB518318D9F00A58A96 /* Frameworks */,
@@ -558,12 +530,17 @@
 		6D2D5DB518318D9F00A58A96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< Updated upstream
+=======
+				60C1AE0618F3507E00902F28 /* AFNetworking */,
+				F3FCC97A193E78160093A1EB /* AWSRuntime.framework */,
+				F3FCC978193E77DB0093A1EB /* AWSS3.framework */,
+>>>>>>> Stashed changes
 				60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */,
 				60B7A5C31936774000A1F9EB /* Security.framework */,
 				60B42323190AE512005A9ABD /* UIImage+Resize */,
 				60B4231C1908D27B005A9ABD /* NSMD_MetaData */,
 				60C1AE1A18F3507E00902F28 /* UIKit+AFNetworking */,
-				603B076818DCB8F1002179CD /* BSKeyboardControls */,
 				60418F24189B3ED50001D490 /* BLE */,
 				60B4231919089678005A9ABD /* MobileCoreServices.framework */,
 				60418F22189B3E780001D490 /* CoreBluetooth.framework */,
@@ -604,7 +581,6 @@
 				6D2D5DCE18318D9F00A58A96 /* Images.xcassets */,
 				F356909418559CCA00DBB4BE /* Images */,
 				6D2D5DBF18318D9F00A58A96 /* InfoPlist.strings */,
-				F385B2FB1900E20F00A3F974 /* Old View Controllers */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -643,6 +619,19 @@
 				6DD89D7C18426AD400F3C7FC /* CoreDataController.m */,
 			);
 			name = "Core Data";
+			sourceTree = "<group>";
+		};
+		7D84716019E8FA12005BDCFF /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				60B42332190EF236005A9ABD /* CellScopeHTTPClient.h */,
+				60B42333190EF236005A9ABD /* CellScopeHTTPClient.m */,
+				F385B2FF1900E66400A3F974 /* BLEManager.h */,
+				F385B3001900E66400A3F974 /* BLEManager.m */,
+				60068B0019394D8C003470B9 /* S3manager.h */,
+				60068B0119394D8C003470B9 /* S3manager.m */,
+			);
+			name = Managers;
 			sourceTree = "<group>";
 		};
 		F356909418559CCA00DBB4BE /* Images */ = {
@@ -707,17 +696,6 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
-		F385B2FB1900E20F00A3F974 /* Old View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				603C44FB18DAE72F00402AE1 /* ExamInfoViewController.h */,
-				603C44FC18DAE72F00402AE1 /* ExamInfoViewController.m */,
-				6DD89D8B1842862F00F3C7FC /* MainMenuViewController.h */,
-				6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */,
-			);
-			name = "Old View Controllers";
-			sourceTree = "<group>";
-		};
 		F3FA32BB18B5D607000FACF4 /* test_images */ = {
 			isa = PBXGroup;
 			children = (
@@ -744,8 +722,6 @@
 				F3FA32C518B5D6BF000FACF4 /* ImageSelectionViewController.m */,
 				6D3260FC184BBD6200E34428 /* PatientsTableViewController.h */,
 				6D3260FD184BBD6200E34428 /* PatientsTableViewController.m */,
-				60240A0B195935C60004DCE8 /* Random.h */,
-				60240A0C195935C60004DCE8 /* Random.m */,
 				603B077818DD26E2002179CD /* SettingsViewController.h */,
 				603B077918DD26E2002179CD /* SettingsViewController.m */,
 				60441CCF193728B1000A017C /* StudySelectionTableViewController.h */,
@@ -772,19 +748,21 @@
 		F3FCC97E1940378B0093A1EB /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				7D84716019E8FA12005BDCFF /* Managers */,
+				60240A0B195935C60004DCE8 /* Random.h */,
+				60240A0C195935C60004DCE8 /* Random.m */,
 				6000AC281947CA8B008D616C /* UploadBannerView.h */,
 				6000AC291947CA8B008D616C /* UploadBannerView.m */,
-				F385B2FF1900E66400A3F974 /* BLEManager.h */,
-				F385B3001900E66400A3F974 /* BLEManager.m */,
 				60C2A51B18C19F2800021510 /* CellScopeContext.h */,
 				60C2A51C18C19F2800021510 /* CellScopeContext.m */,
-				60B42332190EF236005A9ABD /* CellScopeHTTPClient.h */,
-				60B42333190EF236005A9ABD /* CellScopeHTTPClient.m */,
 				F3FCC97F194A885B0093A1EB /* Constants.h */,
 				60D8C7D018C6BF87007D26A7 /* Constants.h */,
 				60D8C7D118C6BF87007D26A7 /* Constants.m */,
+<<<<<<< Updated upstream
 				60B718A3193067C100E0F40A /* DataGenerator.h */,
 				60B718A4193067C100E0F40A /* DataGenerator.m */,
+=======
+>>>>>>> Stashed changes
 				F325703B18D366FE00FEA80E /* SelectableEyeImage.h */,
 				F325703C18D366FE00FEA80E /* SelectableEyeImage.m */,
 				F3FCC95819369BA10093A1EB /* SelectableUIEyeImage.h */,
@@ -865,7 +843,10 @@
 				ORGANIZATIONNAME = "UC Berkeley Fletcher Lab";
 				TargetAttributes = {
 					6D2D5DB218318D9F00A58A96 = {
-						DevelopmentTeam = NPZGJ9L3C2;
+						DevelopmentTeam = D2GRT69L42;
+					};
+					6D2D5DD318318D9F00A58A96 = {
+						DevelopmentTeam = D2GRT69L42;
 					};
 				};
 			};
@@ -958,7 +939,6 @@
 				F358E318185A834500872304 /* capture.png in Resources */,
 				F38224B518F7BB3F00D861FE /* retina_icon_center.png in Resources */,
 				F325700F18CAA80000FEA80E /* check_button.png in Resources */,
-				603B077418DCB8F1002179CD /* BSKeyboardControls.strings in Resources */,
 				F325702618CC0D3300FEA80E /* notes_icon_small.png in Resources */,
 				A5C8E187197634B90072D99C /* od_center.png in Resources */,
 				F358E31B185A859900872304 /* Icon.png in Resources */,
@@ -1011,7 +991,6 @@
 				60B42337190F02FC005A9ABD /* ExamInfoTableViewController.m in Sources */,
 				60240A0D195935C60004DCE8 /* Random.m in Sources */,
 				60C1AE3C18F3507E00902F28 /* UIWebView+AFNetworking.m in Sources */,
-				60B718A5193067C100E0F40A /* DataGenerator.m in Sources */,
 				60C1AE2D18F3507E00902F28 /* AFHTTPRequestOperationManager.m in Sources */,
 				F385B3011900E66400A3F974 /* BLEManager.m in Sources */,
 				60D8C7BD18C69BB1007D26A7 /* CellScopeContext.m in Sources */,
@@ -1031,13 +1010,11 @@
 				60C1AE2C18F3507E00902F28 /* AFHTTPRequestOperation.m in Sources */,
 				60D8C7C518C69BB1007D26A7 /* ImageCell.m in Sources */,
 				60C1AE3218F3507E00902F28 /* AFURLRequestSerialization.m in Sources */,
-				6043C8E81925D960007DFAFB /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				F325703118D1A9AE00FEA80E /* UIImage+Resize.m in Sources */,
 				60C1AE3B18F3507E00902F28 /* UIRefreshControl+AFNetworking.m in Sources */,
 				60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */,
 				60C1AE3918F3507E00902F28 /* UIImageView+AFNetworking.m in Sources */,
 				F3FCC96B19369BA10093A1EB /* CameraModel.xcdatamodeld in Sources */,
-				60D8C7C618C69BB1007D26A7 /* MainMenuViewController.m in Sources */,
 				F325703D18D366FE00FEA80E /* SelectableEyeImage.m in Sources */,
 				60C1AE3A18F3507E00902F28 /* UIProgressView+AFNetworking.m in Sources */,
 				F385B2FE1900E31E00A3F974 /* CamViewController.m in Sources */,
@@ -1048,7 +1025,6 @@
 				60D8C7CA18C69BB1007D26A7 /* PatientsTableViewController.m in Sources */,
 				60C1AE2F18F3507E00902F28 /* AFNetworkReachabilityManager.m in Sources */,
 				F325703218D1A9AE00FEA80E /* UIImage+RoundedCorner.m in Sources */,
-				603B077318DCB8F1002179CD /* BSKeyboardControls.m in Sources */,
 				F3FCC96C19369BA10093A1EB /* SelectableUIEyeImage.m in Sources */,
 				60D8C7CC18C69BB1007D26A7 /* main.m in Sources */,
 				F385B30A1900F85B00A3F974 /* AVCaptureManager.m in Sources */,
@@ -1056,7 +1032,6 @@
 				60441CD1193728B1000A017C /* StudySelectionTableViewController.m in Sources */,
 				60FC3EDF1955904A00025AD0 /* UIFont+OCSFont.m in Sources */,
 				60D8C7CE18C69BB2007D26A7 /* BLE.m in Sources */,
-				603C44FD18DAE72F00402AE1 /* ExamInfoViewController.m in Sources */,
 				60D8C7D218C6BF87007D26A7 /* Constants.m in Sources */,
 				6043BC9619498EED00C39A48 /* EyeImage+Methods.m in Sources */,
 				F3FCC97119369F180093A1EB /* EyePhotoCell.m in Sources */,
@@ -1086,20 +1061,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		603B076B18DCB8F1002179CD /* BSKeyboardControls.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				603B076C18DCB8F1002179CD /* da */,
-				603B076D18DCB8F1002179CD /* en */,
-				603B076E18DCB8F1002179CD /* es */,
-				603B076F18DCB8F1002179CD /* pt */,
-				603B077018DCB8F1002179CD /* ru-RU */,
-				603B077118DCB8F1002179CD /* ru */,
-				603B077218DCB8F1002179CD /* sv */,
-			);
-			name = BSKeyboardControls.strings;
-			sourceTree = "<group>";
-		};
 		6D2D5DBF18318D9F00A58A96 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1254,6 +1215,8 @@
 		6D2D5DE918318DA000A58A96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1267,6 +1230,7 @@
 				);
 				INFOPLIST_FILE = "AV Camera AppTests/AV Camera AppTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -1274,6 +1238,8 @@
 		6D2D5DEA18318DA000A58A96 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1283,6 +1249,7 @@
 				GCC_PREFIX_HEADER = "AV Camera App/AV Camera App-Prefix.pch";
 				INFOPLIST_FILE = "AV Camera AppTests/AV Camera AppTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
