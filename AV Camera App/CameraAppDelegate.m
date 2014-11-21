@@ -7,7 +7,6 @@
 //
 
 #import "CameraAppDelegate.h"
-#import <AWSRuntime/AWSRuntime.h>
 
 @import AVFoundation;
 
@@ -28,12 +27,12 @@
     
     // Logging Control - Do NOT use logging for non-development builds.
 #ifdef DEBUG
-    [AmazonLogger verboseLogging];
+    //[AmazonLogger verboseLogging];
 #else
-    [AmazonLogger turnLoggingOff];
+    //[AmazonLogger turnLoggingOff];
 #endif
     
-    [AmazonErrorHandler shouldNotThrowExceptions];
+    //[AmazonErrorHandler shouldNotThrowExceptions];
     
     
     

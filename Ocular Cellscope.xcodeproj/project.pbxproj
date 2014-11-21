@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6000AC2A1947CA8B008D616C /* UploadBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6000AC291947CA8B008D616C /* UploadBannerView.m */; };
-		60068B0219394D8C003470B9 /* S3manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60068B0119394D8C003470B9 /* S3manager.m */; };
 		60240A0D195935C60004DCE8 /* Random.m in Sources */ = {isa = PBXBuildFile; fileRef = 60240A0C195935C60004DCE8 /* Random.m */; };
 		603B077318DCB8F1002179CD /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 603B076A18DCB8F1002179CD /* BSKeyboardControls.m */; };
 		603B077418DCB8F1002179CD /* BSKeyboardControls.strings in Resources */ = {isa = PBXBuildFile; fileRef = 603B076B18DCB8F1002179CD /* BSKeyboardControls.strings */; };
@@ -90,8 +89,6 @@
 		6DD89D7F18426AFF00F3C7FC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD89D7E18426AFF00F3C7FC /* CoreData.framework */; };
 		6DD89D8118426B0700F3C7FC /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD89D8018426B0700F3C7FC /* CoreImage.framework */; };
 		A52751CC199A742C00B68FDA /* settings_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A52751CB199A742C00B68FDA /* settings_icon@2x.png */; };
-		A5B768171939955E001A9C8D /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B768151939955E001A9C8D /* AWSRuntime.framework */; };
-		A5B768181939955E001A9C8D /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B768161939955E001A9C8D /* AWSS3.framework */; };
 		A5C8E186197634B90072D99C /* od_bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C8E17C197634B90072D99C /* od_bottom.png */; };
 		A5C8E187197634B90072D99C /* od_center.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C8E17D197634B90072D99C /* od_center.png */; };
 		A5C8E188197634B90072D99C /* od_left.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C8E17E197634B90072D99C /* od_left.png */; };
@@ -156,8 +153,6 @@
 		F3FCC96C19369BA10093A1EB /* SelectableUIEyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F3FCC95919369BA10093A1EB /* SelectableUIEyeImage.m */; };
 		F3FCC97119369F180093A1EB /* EyePhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3FCC96E19369F180093A1EB /* EyePhotoCell.m */; };
 		F3FCC977193E72FF0093A1EB /* unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC976193E72FF0093A1EB /* unselected.png */; };
-		F3FCC979193E77DB0093A1EB /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3FCC978193E77DB0093A1EB /* AWSS3.framework */; };
-		F3FCC97B193E78160093A1EB /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3FCC97A193E78160093A1EB /* AWSRuntime.framework */; };
 		F3FCC9961952A8200093A1EB /* fixation_icon_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3FCC9951952A8200093A1EB /* fixation_icon_red@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -174,8 +169,6 @@
 /* Begin PBXFileReference section */
 		6000AC281947CA8B008D616C /* UploadBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadBannerView.h; sourceTree = "<group>"; };
 		6000AC291947CA8B008D616C /* UploadBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadBannerView.m; sourceTree = "<group>"; };
-		60068B0019394D8C003470B9 /* S3manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = S3manager.h; path = "AV Camera App/S3manager.h"; sourceTree = "<group>"; };
-		60068B0119394D8C003470B9 /* S3manager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = S3manager.m; path = "AV Camera App/S3manager.m"; sourceTree = "<group>"; };
 		60240A0B195935C60004DCE8 /* Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Random.h; sourceTree = "<group>"; };
 		60240A0C195935C60004DCE8 /* Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Random.m; sourceTree = "<group>"; };
 		603B076918DCB8F1002179CD /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
@@ -315,8 +308,6 @@
 		6DD89D8B1842862F00F3C7FC /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		6DD89D8C1842862F00F3C7FC /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
 		A52751CB199A742C00B68FDA /* settings_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_icon@2x.png"; sourceTree = "<group>"; };
-		A5B768151939955E001A9C8D /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSRuntime.framework; path = ../../../Desktop/AWSRuntime.framework; sourceTree = "<group>"; };
-		A5B768161939955E001A9C8D /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSS3.framework; path = ../../../Desktop/AWSS3.framework; sourceTree = "<group>"; };
 		A5C8E17C197634B90072D99C /* od_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = od_bottom.png; sourceTree = "<group>"; };
 		A5C8E17D197634B90072D99C /* od_center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = od_center.png; sourceTree = "<group>"; };
 		A5C8E17E197634B90072D99C /* od_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = od_left.png; sourceTree = "<group>"; };
@@ -392,8 +383,6 @@
 		F3FCC96D19369F180093A1EB /* EyePhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyePhotoCell.h; sourceTree = "<group>"; };
 		F3FCC96E19369F180093A1EB /* EyePhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyePhotoCell.m; sourceTree = "<group>"; };
 		F3FCC976193E72FF0093A1EB /* unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselected.png; sourceTree = "<group>"; };
-		F3FCC978193E77DB0093A1EB /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSS3.framework; sourceTree = "<group>"; };
-		F3FCC97A193E78160093A1EB /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
 		F3FCC97F194A885B0093A1EB /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		F3FCC9951952A8200093A1EB /* fixation_icon_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fixation_icon_red@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -403,18 +392,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5B768171939955E001A9C8D /* AWSRuntime.framework in Frameworks */,
-				A5B768181939955E001A9C8D /* AWSS3.framework in Frameworks */,
 				60B7A5C61936775200A1F9EB /* SystemConfiguration.framework in Frameworks */,
 				60B7A5C41936774000A1F9EB /* Security.framework in Frameworks */,
-				F3FCC97B193E78160093A1EB /* AWSRuntime.framework in Frameworks */,
 				60B4231A19089678005A9ABD /* MobileCoreServices.framework in Frameworks */,
 				60418F23189B3E780001D490 /* CoreBluetooth.framework in Frameworks */,
 				6DD89D8118426B0700F3C7FC /* CoreImage.framework in Frameworks */,
 				6DD89D7F18426AFF00F3C7FC /* CoreData.framework in Frameworks */,
 				6D393A2A1831D0D2004F2EC7 /* AssetsLibrary.framework in Frameworks */,
 				6D393A281831CAD0004F2EC7 /* AVFoundation.framework in Frameworks */,
-				F3FCC979193E77DB0093A1EB /* AWSS3.framework in Frameworks */,
 				6D2D5DB918318D9F00A58A96 /* CoreGraphics.framework in Frameworks */,
 				6D2D5DBB18318D9F00A58A96 /* UIKit.framework in Frameworks */,
 				6D2D5DB718318D9F00A58A96 /* Foundation.framework in Frameworks */,
@@ -573,8 +558,6 @@
 		6D2D5DB518318D9F00A58A96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F3FCC97A193E78160093A1EB /* AWSRuntime.framework */,
-				F3FCC978193E77DB0093A1EB /* AWSS3.framework */,
 				60B7A5C51936775200A1F9EB /* SystemConfiguration.framework */,
 				60B7A5C31936774000A1F9EB /* Security.framework */,
 				60B42323190AE512005A9ABD /* UIImage+Resize */,
@@ -802,8 +785,6 @@
 				60D8C7D118C6BF87007D26A7 /* Constants.m */,
 				60B718A3193067C100E0F40A /* DataGenerator.h */,
 				60B718A4193067C100E0F40A /* DataGenerator.m */,
-				60068B0019394D8C003470B9 /* S3manager.h */,
-				60068B0119394D8C003470B9 /* S3manager.m */,
 				F325703B18D366FE00FEA80E /* SelectableEyeImage.h */,
 				F325703C18D366FE00FEA80E /* SelectableEyeImage.m */,
 				F3FCC95819369BA10093A1EB /* SelectableUIEyeImage.h */,
@@ -1077,7 +1058,6 @@
 				60D8C7CE18C69BB2007D26A7 /* BLE.m in Sources */,
 				603C44FD18DAE72F00402AE1 /* ExamInfoViewController.m in Sources */,
 				60D8C7D218C6BF87007D26A7 /* Constants.m in Sources */,
-				60068B0219394D8C003470B9 /* S3manager.m in Sources */,
 				6043BC9619498EED00C39A48 /* EyeImage+Methods.m in Sources */,
 				F3FCC97119369F180093A1EB /* EyePhotoCell.m in Sources */,
 				603B077A18DD26E2002179CD /* SettingsViewController.m in Sources */,

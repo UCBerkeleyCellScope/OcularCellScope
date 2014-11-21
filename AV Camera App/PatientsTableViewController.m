@@ -312,6 +312,7 @@
     }
 }
 
+/*
 -(void)uploadAllImages{
     
     S3manager* s3manager = [[CellScopeContext sharedContext]s3manager];
@@ -335,12 +336,13 @@
                  [s3manager processGrandCentralDispatchUpload:imageData forExamBucket:bucketName andImageName:imageName];//imageName;
                  
              } failureBlock:^(NSError *error) {
-                 /* handle error */
+                 // handle error
                  NSLog(@"There was an error in fetching form the Camera Roll");
              }];
         }
     }
 }
+*/
 
 -(void)cellScopeHTTPClient:(CellScopeHTTPClient *)client didUploadEyeImage:(id)eyeImage{
     

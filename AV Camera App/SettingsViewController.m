@@ -33,9 +33,9 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
      
     int whiteFlashValue =  [prefs integerForKey: @"whiteFlashValue"];
-    int redFocusValue =  [prefs integerForKey: @"redFocusValue"];
+    int redFocusValue =  [prefs integerForKey: @"redFocusValue"] / 2;
     int whiteFocusValue =  [prefs integerForKey: @"whiteFocusValue"];
-    int redFlashValue =  [prefs integerForKey: @"redFlashValue"];
+    int redFlashValue =  [prefs integerForKey: @"redFlashValue"] / 2;
     
     self.whiteFlashSlider.value = whiteFlashValue;
     self.redFocusSlider.value = redFocusValue;
@@ -107,8 +107,8 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     [prefs setInteger: self.whiteFlashSlider.value      forKey:@"whiteFlashValue"];
-    [prefs setInteger: self.redFocusSlider.value        forKey:@"redFocusValue"];
-    [prefs setInteger: self.redFlashSlider.value        forKey:@"redFlashValue"];
+    [prefs setInteger: self.redFocusSlider.value * 2    forKey:@"redFocusValue"];
+    [prefs setInteger: self.redFlashSlider.value * 2    forKey:@"redFlashValue"];
     [prefs setInteger: self.whiteFocusSlider.value      forKey:@"whiteFocusValue"];
     [prefs setFloat:   self.focalPositionTextField.text.floatValue  forKey:@"focusPosition"];
     [prefs setInteger: self.previewExposureTextField.text.intValue  forKey:@"previewExposureDuration"];

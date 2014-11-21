@@ -97,6 +97,7 @@
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     [self.captureManager setupVideoForView:self.view];
+    
     NSLog(@"Self.selectedLight, %ld",self.selectedLight);
     [self updateFixationImageView];
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
@@ -353,7 +354,7 @@
     }
     
     
-    
+    /*
     NSLog(@"Date: %@",[image.date stringWithISO8061Format]);
     
     
@@ -363,7 +364,8 @@
            atomically:YES];
     
     NSLog(@"Save fixation light %ld", self.selectedLight);
- 
+ */
+    
     self.capturedImageView.image = image;
     self.capturedImageView.transform = CGAffineTransformMakeRotation(M_PI);
     // Add the capture image to the image array

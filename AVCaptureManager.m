@@ -71,8 +71,10 @@
     rootLayer = [self.view layer];
     [rootLayer setMasksToBounds:YES];
     //first number was -80
-    [self.previewLayer setFrame:CGRectMake(-50, 0, rootLayer.bounds.size.height, rootLayer.bounds.size.height)];
+    [self.previewLayer setFrame:CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)];
+    //[self.previewLayer setFrame:view.frame];
     [self.previewLayer setVideoGravity: AVLayerVideoGravityResizeAspectFill];//AVLayerVideoGravityResizeAspect];
+    
     [rootLayer insertSublayer:self.previewLayer atIndex:0];
     
     BOOL mirroredView = [[NSUserDefaults standardUserDefaults] boolForKey:@"mirroredView"];
@@ -86,7 +88,7 @@
     }
     
     [self.session startRunning];
-    [self unlockFocus];
+    //[self unlockFocus];
 }
 
 -(AVCaptureConnection*)getVideoConnection{
