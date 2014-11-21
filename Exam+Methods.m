@@ -9,7 +9,6 @@
 #import "Exam+Methods.h"
 #import "CellScopeContext.h"
 
-
 @implementation Exam (Methods)
 
 NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -18,7 +17,6 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
     NSString* rs = [NSString stringWithFormat:@"%d", arc4random_uniform(7)];
     return rs;
 }
-
 
 - (void)addEyeImagesObject:(EyeImage *)image {
     NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.eyeImages];

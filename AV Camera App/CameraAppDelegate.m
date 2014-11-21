@@ -7,6 +7,7 @@
 //
 
 #import "CameraAppDelegate.h"
+#import <Parse/Parse.h>
 
 @import AVFoundation;
 
@@ -25,28 +26,39 @@
     NSDictionary* defaultPreferences = [NSDictionary dictionaryWithContentsOfFile:defaultPrefsFile];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPreferences];
     
-    // Logging Control - Do NOT use logging for non-development builds.
-#ifdef DEBUG
-    //[AmazonLogger verboseLogging];
-#else
-    //[AmazonLogger turnLoggingOff];
-#endif
+
+    [Parse setApplicationId:@"kj1p0NcAg3KwmTebw5N4MtbZCkx2WASRWSxTWuto"
+                  clientKey:@"Pf88GrjkeE9rp7QJulrKxxOc7sDDOnQmOIw8WMpO"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    //[AmazonErrorHandler shouldNotThrowExceptions];
+    // Wipe out old user defaults
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"objectIDArray"]){
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"objectIDArray"];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
+    // Simple way to create a user or log in the existing user
+    // For your app, you will probably want to present your own login screen
+    PFUser *currentUser = [PFUser currentUser];
     
+    if (!currentUser) {
+        // Dummy username and password
+        PFUser *user = [PFUser user];
+        user.username = @"Hermione";
+        user.password = @"password";
+        user.email = @"PotterLuv@example.com";
+        
+        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error) {
+                // Assume the error is because the user already existed.
+                [PFUser logInWithUsername:@"Hermione" password:@"password"];
+            }
+        }];
+    }
     
     [[CellScopeContext sharedContext] setManagedObjectContext:self.managedObjectContext];
     
     [[[CellScopeContext sharedContext] bleManager] beginBLEScan];
-    
-    /*
-    UIStoryboard *storyboard = [ UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    self.window.rootViewController = [storyboard instantiateInitialViewController];
-    
-    [self.window makeKeyAndVisible];
-    */
-     
     return YES;
 }
 

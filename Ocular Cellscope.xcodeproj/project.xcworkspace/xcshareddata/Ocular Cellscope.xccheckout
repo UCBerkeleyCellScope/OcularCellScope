@@ -5,13 +5,13 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>80EE97C0-5E4A-4C31-98FC-BDCA7FC44320</string>
+	<string>0A771B28-BDAE-4CEE-8D0F-3B1D63F71CBB</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Ocular Cellscope</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>2E5537096CBA3DEE0C584520DD86C4D787CCB125</key>
-		<string>https://github.com/UCBerkeleyCellScope/OcularCellScope.git</string>
+		<string>github.com:UCBerkeleyCellScope/OcularCellScope.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Ocular Cellscope.xcodeproj</string>
@@ -21,7 +21,7 @@
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/UCBerkeleyCellScope/OcularCellScope.git</string>
+	<string>github.com:UCBerkeleyCellScope/OcularCellScope.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
