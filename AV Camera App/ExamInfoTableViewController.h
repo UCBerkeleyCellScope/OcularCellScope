@@ -37,6 +37,9 @@
 
 @property (nonatomic) UIGestureRecognizer* tapRecognizer;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop_parse
 @end
 

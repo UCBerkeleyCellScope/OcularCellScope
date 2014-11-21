@@ -14,6 +14,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "Exam+Methods.h"
 #import "Random.h"
+#import <Parse/Parse.h>
 
 @interface PatientsTableViewController (){
 
@@ -36,14 +37,11 @@
     
     managedObjectContext = [[CellScopeContext sharedContext]managedObjectContext];
     
-    //self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
-    
     self.navigationController.navigationBar.barTintColor = [UIColor mediumGreenColor];
     self.navigationController.navigationBar.translucent = NO;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
     self.tableView.rowHeight = 80;
-    
     NSDictionary *navbarTitleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                                [UIColor whiteColor],NSForegroundColorAttributeName,
                                                [UIColor blackColor], NSShadowAttributeName,
@@ -68,8 +66,9 @@
     
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:animated];
     
-    [[CellScopeContext sharedContext] setCurrentExam:nil ];
-    [[CellScopeContext sharedContext] setSelectedEye:nil ];
+    [[CellScopeContext sharedContext] setCurrentExam:nil];
+    [[CellScopeContext sharedContext] setSelectedEye:0];
+    [[CellScopeContext sharedContext] setParsePatient:nil];
     
 }
 
@@ -160,10 +159,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
     id  sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
     return [sectionInfo numberOfObjects];
-    
 }
 
 - (void)configureCell:(PatientTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -207,7 +204,6 @@
     else
         cell.eyeThumbnail.image = [UIImage imageNamed:@"fixation_icon_red.png"];
     
-    
     cell.eyeThumbnail.transform = CGAffineTransformMakeRotation(M_PI);
     cell.eyeThumbnail.layer.cornerRadius = cell.eyeThumbnail.frame.size.width / 2;
     cell.eyeThumbnail.clipsToBounds = YES;
@@ -240,8 +236,23 @@
     //[[CellScopeContext sharedContext] setCurrentExam: (Exam *)[patientsArray objectAtIndex:indexPath.row]];
     
     //This is the New Way
-    [[CellScopeContext sharedContext] setCurrentExam: (Exam *)[_fetchedResultsController objectAtIndexPath:indexPath]];
     
+    Exam *e = (Exam *)[_fetchedResultsController objectAtIndexPath:indexPath];
+    [[CellScopeContext sharedContext] setCurrentExam: e];
+    
+    if(!e.uuid)
+    {
+    NSLog(@"ERROR: patient objectId is nil!");
+    }
+    
+    if(e.uuid)
+    {
+        PFQuery *query = [PFQuery queryWithClassName:@"Patient"];
+        [query getObjectInBackgroundWithId:e.uuid block:^(PFObject *patient, NSError *error) {
+            // Do something with the returned PFObject in the gameScore variable.
+            [[CellScopeContext sharedContext] setParsePatient: patient];
+        }];
+    }
     
     [self performSegueWithIdentifier: @"ExamInfoSegue" sender: self];
 }
@@ -300,7 +311,6 @@
     //[client uploadEyeImagesPJ:images];
     [client uploadEyeImagesFromArray:images];
     */
-    //[self uploadAllImages];
     
     NSArray* array = self.fetchedResultsController.fetchedObjects;
     Exam* first = [array firstObject];
@@ -311,6 +321,7 @@
     }
 }
 
+<<<<<<< HEAD
 /*
 -(void)uploadAllImages{
     
@@ -342,6 +353,8 @@
     }
 }
 */
+=======
+>>>>>>> develop_parse
 
 -(void)cellScopeHTTPClient:(CellScopeHTTPClient *)client didUploadEyeImage:(id)eyeImage{
     
@@ -362,17 +375,11 @@
 
 
     newExam.patientIndex = 0;
-    //newExam.uuid = [[NSUUID UUID] UUIDString];
-    newExam.uuid = [Random randomStringWithLength:5];
     newExam.studyName = @"None";
     newExam.uploaded = [NSNumber numberWithBool:NO];
     
-    
     //[self.patientsArray addObject:newExam];
     
-    /**
-     *  //////////////////
-     */
     //[self.fetchedResultsController addObject:newExam];
     
     //NSLog(@"Before Adding Exam, %lu patients in our database", (unsigned long)[self.patientsArray count]);

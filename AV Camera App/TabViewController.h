@@ -6,10 +6,15 @@
 //  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
 
+
 #import <UIKit/UIKit.h>
 #import "UploadBannerView.h"
 
+
 @interface TabViewController : UITabBarController
+{
+
+}
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *uploadButton;
 @property(nonatomic) UploadBannerView* uploadBanner;

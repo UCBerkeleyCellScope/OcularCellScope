@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="igk-Rv-cre">
     <dependencies>
@@ -7,6 +8,11 @@
     <dependencies>
         <deployment identifier="iOS"/>
 >>>>>>> Stashed changes
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A361c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="igk-Rv-cre">
+    <dependencies>
+        <deployment identifier="iOS"/>
+>>>>>>> develop_parse
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
@@ -458,7 +464,10 @@
                                                 </label>
                                                 <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="12" minValue="0.0" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="2c0-aO-0LK" userLabel="RedFocusSlider">
                                                     <rect key="frame" x="119" y="9" width="149" height="31"/>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> develop_parse
                                                     <connections>
                                                         <action selector="redFocusSliderDidChange:" destination="x8V-KE-hAE" eventType="valueChanged" id="Rcg-gk-TJj"/>
                                                     </connections>
@@ -526,7 +535,10 @@
                                                 </label>
                                                 <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="0.0" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="b1q-2M-H9T" userLabel="WhiteFlashSlider">
                                                     <rect key="frame" x="119" y="12" width="151" height="31"/>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> develop_parse
                                                     <connections>
                                                         <action selector="whiteFlashSliderDidChange:" destination="x8V-KE-hAE" eventType="valueChanged" id="9sZ-vW-m1i"/>
                                                     </connections>
@@ -538,7 +550,10 @@
 =======
                                                 <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="BZh-Z4-KZP" userLabel="RedFlashSlider">
                                                     <rect key="frame" x="119" y="47" width="151" height="31"/>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> develop_parse
                                                     <connections>
                                                         <action selector="redFlashSliderDidChange:" destination="x8V-KE-hAE" eventType="valueChanged" id="NVr-Fg-1JZ"/>
                                                     </connections>
@@ -561,7 +576,10 @@
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ihe-Fn-t6D" userLabel="RedFlashValue">
                                                     <rect key="frame" x="286" y="56" width="57" height="21"/>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> develop_parse
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -847,7 +865,10 @@
 =======
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Capture Interval" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ay8-yq-7SV">
                                                     <rect key="frame" x="20" y="13" width="122" height="21"/>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> develop_parse
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -873,7 +894,10 @@
 =======
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Flash Delay" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dsm-pO-fDk">
                                                     <rect key="frame" x="20" y="13" width="89" height="21"/>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> develop_parse
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -899,7 +923,10 @@
 =======
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Flash Duration" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qsh-ZW-cJG">
                                                     <rect key="frame" x="20" y="13" width="146" height="21"/>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> develop_parse
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -992,9 +1019,12 @@
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 01" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e2k-xh-50U">
                                 <rect key="frame" x="260" y="73" width="40" height="40"/>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
 =======
+=======
+>>>>>>> develop_parse
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="j3h-fc-yq4"/>
                                     <constraint firstAttribute="height" constant="40" id="kaE-4u-4Zs"/>
@@ -1011,7 +1041,10 @@
 =======
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sNF-jn-SCo" userLabel="Capture Button">
                                 <rect key="frame" x="130" y="385" width="60" height="60"/>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> develop_parse
                                 <accessibility key="accessibilityConfiguration">
                                     <bool key="isElement" value="NO"/>
                                 </accessibility>
@@ -1029,7 +1062,10 @@
 =======
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="snc-u5-e2J">
                                 <rect key="frame" x="142" y="222" width="37" height="37"/>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> develop_parse
                             </activityIndicatorView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BLE Disabled" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="J3z-M8-0M9">
                                 <rect key="frame" x="114" y="84" width="93" height="18"/>
@@ -1119,10 +1155,13 @@
                         <subviews>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="2" dataMode="prototypes" id="Y1m-Er-eNa">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> develop_parse
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="p4t-JP-2ws">
                                     <size key="itemSize" width="320" height="436"/>
@@ -1140,17 +1179,23 @@
                                             <subviews>
                                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.5" maximumZoomScale="3" id="LXb-en-8l0">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="436"/>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> develop_parse
                                                     <subviews>
                                                         <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default.png" id="wt0-Y3-3bt">
                                                             <rect key="frame" x="0.0" y="-22" width="320" height="480"/>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> develop_parse
                                                         </imageView>
                                                     </subviews>
                                                     <connections>
@@ -1388,6 +1433,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="MRA-6x-GPk">
                                 <rect key="frame" x="0.0" y="69" width="320" height="362"/>
@@ -1396,6 +1442,10 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="MRA-6x-GPk">
                                 <rect key="frame" x="0.0" y="69" width="320" height="311"/>
 >>>>>>> Stashed changes
+=======
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="MRA-6x-GPk">
+                                <rect key="frame" x="0.0" y="69" width="320" height="311"/>
+>>>>>>> develop_parse
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PatientCell" rowHeight="80" id="uR4-OE-fVh" customClass="PatientTableViewCell">
@@ -1407,10 +1457,13 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fixation_icon_red.png" id="SZ3-qU-pte">
                                                     <rect key="frame" x="20" y="10" width="59" height="59"/>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> develop_parse
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="V9n-HB-ILM">
                                                     <rect key="frame" x="99" y="5" width="168" height="24"/>
@@ -1463,7 +1516,10 @@
 =======
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aq1-vn-OgS">
                                 <rect key="frame" x="0.0" y="381" width="320" height="50"/>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> develop_parse
                                 <color key="backgroundColor" red="0.34509803919999998" green="0.68627450980000004" blue="0.62745098040000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="21"/>
                                 <color key="tintColor" red="0.098039215690000001" green="0.1843137255" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
