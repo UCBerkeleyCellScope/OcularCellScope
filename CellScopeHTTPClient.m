@@ -143,6 +143,9 @@ dispatch_queue_t backgroundQueue;
         self.uploadBannerView.uploadStatusLabel.text=[NSString stringWithFormat:@"%@",responseObject];
         [self.uploadBannerView takeBannerDownWithFade];
         
+        
+        
+        
         while([self.imagesToUpload count]>0){
             [self postImage2];
          }

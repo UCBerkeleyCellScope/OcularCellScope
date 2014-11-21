@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
 
+@class Exam;
+
 #import "Exam.h"
 #import "EyeImage+Methods.h"
 

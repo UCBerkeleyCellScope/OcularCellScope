@@ -16,11 +16,7 @@ static NSString * const CellScopeURLString = @"http://warm-dawn-6399.herokuapp.c
 
 @implementation CellScopeContext
 
-<<<<<<< HEAD
 @synthesize currentExam, connected, bleManager, camViewLoaded, client;
-=======
-@synthesize currentExam, parsePatient, connected, bleManager, camViewLoaded, client;
->>>>>>> develop_parse
 
 + (id)sharedContext {
     static CellScopeContext *newContext = nil;
@@ -45,7 +41,6 @@ static NSString * const CellScopeURLString = @"http://warm-dawn-6399.herokuapp.c
         camViewLoaded = NO;
         bleManager = [[BLEManager alloc]init];
         client = [[CellScopeHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:CellScopeURLString]];
-        parsePatient = nil;
         NSLog(@"MADE THE SINGLETON");
         
     }

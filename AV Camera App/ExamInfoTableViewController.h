@@ -13,9 +13,10 @@
 #import "Exam.h"
 #import "Exam+Methods.h"
 #import "CellScopeContext.h"
+#import "BSKeyboardControls.h"
 #import "TabViewController.h"
 
-@interface ExamInfoTableViewController : UITableViewController<UITextFieldDelegate, UITextViewDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate,
+@interface ExamInfoTableViewController : UITableViewController<UITextFieldDelegate, UITextViewDelegate, BSKeyboardControlsDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate,
     UINavigationControllerDelegate,UIGestureRecognizerDelegate
 >
 {
@@ -37,9 +38,6 @@
 
 @property (nonatomic) UIGestureRecognizer* tapRecognizer;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> develop_parse
 @end
 

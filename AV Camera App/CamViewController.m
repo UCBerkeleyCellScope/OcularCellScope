@@ -354,17 +354,13 @@
     }
     
     
-<<<<<<< HEAD
     /*
     NSLog(@"Date: %@",[image.date stringWithISO8061Format]);
-=======
     
-    NSLog(@"Date: %@",image.date.description);
->>>>>>> develop_parse
     
-    NSString* path = image.date.description;
+    NSString* path = [image.date stringWithISO8061Format];
     
-    [data writeToFile:[@"BaseDirectory/" stringByAppendingPathComponent:path]
+    [data writeToFile:[@"BaseDirectory/" stringByAppendingPathComponent:[image.date stringWithISO8061Format]]
            atomically:YES];
     
     NSLog(@"Save fixation light %ld", self.selectedLight);

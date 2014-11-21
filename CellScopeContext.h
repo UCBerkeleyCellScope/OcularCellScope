@@ -16,7 +16,6 @@
 #import "UIColor+Custom.h"
 #import "CellScopeHTTPClient.h"
 #import <CoreText/CoreText.h>
-#import <Parse/Parse.h>
 
 @class BLEManager;
 @class CellScopeHTTPClient;
@@ -31,10 +30,6 @@
 @property(nonatomic,strong) BLEManager* bleManager;
 @property (nonatomic) BOOL camViewLoaded;
 @property (nonatomic) CellScopeHTTPClient* client;
-<<<<<<< HEAD
-=======
-@property (nonatomic) PFObject *parsePatient;
->>>>>>> develop_parse
 
 + (id)sharedContext;
 

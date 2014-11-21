@@ -7,9 +7,13 @@
 //
 
 #import "ExamInfoTableViewController.h"
-#import <Parse/Parse.h>
+
 
 #define SYSTEM_VERSION_LESS_THAN(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+
+static NSString *const kKeychainItemName = @"Google Drive Quickstart";
+static NSString *const kClientID = @"1081725371247-qltk4n42c8j8fkciuct6qt9gn50n4h21.apps.googleusercontent.com";
+static NSString *const kClientSecret = @"xU778b5pej9hfVdMXioH416j";
 
 @interface ExamInfoTableViewController ()
 
@@ -24,12 +28,9 @@
 
 @synthesize nameCell,dobCell,phoneCell,idCell;
 //@synthesize driveService;
-<<<<<<< HEAD
 
 //physicianField
 @synthesize e;
-=======
->>>>>>> develop_parse
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -40,7 +41,6 @@
     return self;
 }
 
-# pragma mark - View Lifecycle
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
@@ -54,10 +54,6 @@
 {
     [super viewDidLoad];
     
-<<<<<<< HEAD
-=======
-   
->>>>>>> develop_parse
     self.firstnameField.delegate=self;
     self.lastnameField.delegate=self;
     
@@ -84,131 +80,98 @@
         [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
     
-    self.e = [[CellScopeContext sharedContext]currentExam];
+    e = [[CellScopeContext sharedContext]currentExam];
     
-    NSLog(@"PatientID %@",self.e.patientID);
+    NSLog(@"PatientID %@",e.patientID);
     
-    self.firstnameField.text = self.e.firstName;
-    self.lastnameField.text = self.e.lastName;
-    self.patientIDTextField.text = self.e.patientID;
-    self.phoneNumberField.text = self.e.phoneNumber;
+    self.firstnameField.text = e.firstName;
+    self.lastnameField.text = e.lastName;
+    self.patientIDTextField.text = e.patientID;
+    self.phoneNumberField.text = e.phoneNumber;
     
-    NSLog(@"On Appearance BirthDate %@",self.e.birthDate);
+    NSLog(@"On Appearance BirthDate %@",e.birthDate);
     
-    if(self.e.birthDate != nil){
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self.e.birthDate];
+    if(e.birthDate != nil){
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:e.birthDate];
         NSLog(@"Day: %d", (int)[components day]);
         self.birthDayTextField.text = [NSString stringWithFormat: @"%d", (int)[components day]];
         self.birthMonthTextField.text = [NSString stringWithFormat: @"%d", (int)[components month]];
         self.birthYearTextField.text = [NSString stringWithFormat: @"%d", (int)[components year]];
     }
        
-    if(self.e.profilePicData){
-        [self.profilePicButton setImage:[UIImage imageWithData:self.e.profilePicData] forState:UIControlStateNormal];
+    if(e.profilePicData){
+        [self.profilePicButton setImage:[UIImage imageWithData:e.profilePicData] forState:UIControlStateNormal];
     }
     
-    if( self.e.patientIndex == 0){ // indicates a new exam
-        self.e.patientIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"patientNumberIndex"];
-        int value = [self.e.patientIndex intValue];
+    if( e.patientIndex == 0){ // indicates a new exam
+        e.patientIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"patientNumberIndex"];
+        int value = [e.patientIndex intValue];
         value=value+1;
         
         [[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithInt:value] forKey:@"patientNumberIndex" ];
         NSLog(@"%d",value);
         
-        self.e.patientIndex = [NSNumber numberWithInt: value];
-        //self.patientIDField.text = [self.e.patientID stringValue];
-        self.patientIDLabel.text = [self.e.patientIndex stringValue];
+        e.patientIndex = [NSNumber numberWithInt: value];
+        //self.patientIDField.text = [e.patientID stringValue];
+        self.patientIDLabel.text = [e.patientIndex stringValue];
     }
     else{
-        //self.patientIDField.text = [self.e.patientID stringValue];
-        self.patientIDLabel.text = [self.e.patientIndex stringValue];
+        //self.patientIDField.text = [e.patientID stringValue];
+        self.patientIDLabel.text = [e.patientIndex stringValue];
         
     }
 }
+
+
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     NSLog(@"Saving Exam Data");
 
-
 /*
     if([firstnameField.text isEqualToString: @""]){
-        self.e.firstName = @"N/A";
+        e.firstName = @"N/A";
     }
     else
-        self.e.firstName = firstnameField.text;
+        e.firstName = firstnameField.text;
     
     if([lastnameField.text isEqualToString: @""]){
-        self.e.lastName = @"N/A";
+        e.lastName = @"N/A";
     }
     else
-        self.e.lastName = lastnameField.text;
+        e.lastName = lastnameField.text;
     
     if([patientIDTextField.text isEqualToString: @""]){
-        self.e.patientID = @"N/A";
+        e.patientID = @"N/A";
     }
     else
-        self.e.patientID = patientIDTextField.text;
+        e.patientID = patientIDTextField.text;
 */
     
     
-    self.e.firstName = firstnameField.text;
-    self.e.lastName = lastnameField.text;
-    self.e.patientID = patientIDTextField.text;
-    self.e.phoneNumber = phoneNumberField.text;
-    
-    
-    NSString * birthDateString = [NSString stringWithFormat:@"%@-%@-%@",self.birthDayTextField.text,self.birthMonthTextField.text,self.birthYearTextField.text];
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    e.firstName = firstnameField.text;
+    e.lastName = lastnameField.text;
+    e.patientID = patientIDTextField.text;
 
-    [dateFormatter setLocale:[NSLocale currentLocale]];
-    [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+    e.phoneNumber = phoneNumberField.text;
+    
+    
+        NSString * birthDateString = [NSString stringWithFormat:@"%@-%@-%@",self.birthDayTextField.text,self.birthMonthTextField.text,self.birthYearTextField.text];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+
+        [dateFormatter setLocale:[NSLocale currentLocale]];
+        [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
     [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    
+        NSLog(@"BD String %@",birthDateString);
+        
+        NSDate *bd = [[NSDate alloc] init];
+        bd = [dateFormatter dateFromString:birthDateString];
+        
+        NSLog(@"BD NSDate %@",bd);
+        e.birthDate = bd;
 
-    NSLog(@"BD String %@",birthDateString);
-    
-    NSDate *bd = [[NSDate alloc] init];
-    bd = [dateFormatter dateFromString:birthDateString];
-    
-    NSLog(@"BD NSDate %@",bd);
-    self.e.birthDate = bd;
-    
-    // Dealing with a new exam, let's make a new Parse Patient
-    if(![self.e.firstName isEqualToString:@""]&& ![self.e.lastName isEqualToString:@""] && ![[CellScopeContext sharedContext] parsePatient]){
-        PFObject *patient = [PFObject objectWithClassName:@"Patient"];
-        patient[@"firstName"] = self.e.firstName;
-        patient[@"lastName"] = self.e.lastName;
-        patient[@"patientID"] = self.e.patientID;
-        patient[@"phoneNumber"] = self.e.phoneNumber;
-        [[CellScopeContext sharedContext] setParsePatient:patient];
-        [patient saveEventually:^(BOOL succeeded, NSError *error){
-          if(succeeded)
-          {
-              //TODO: Find out if this reference only needs to hit core data when app is backgrounded
-              self.e.uuid = [patient objectId];
-          }
-          else
-          {
-              NSLog(@"Error: %@", error);
-          }
-        }
-        ];
-    }
-    
-    // TODO: Potential Race condition here if async query for parsePatient hasn't returned
-    // and parsePatient hasn't been set yet
-    // A Parse Patient currently exists for this exam, let's update it
-    // Should only really make this call if patient info has changed
-    else if(self.e.firstName && self.e.lastName && [[CellScopeContext sharedContext] parsePatient]){
-        PFObject *patient = [[CellScopeContext sharedContext] parsePatient];
-        NSLog(@"Updating Parse Patient with Id: %@",patient.objectId);
-        patient[@"firstName"] = self.e.firstName;
-        patient[@"lastName"] = self.e.lastName;
-        patient[@"patientID"] = self.e.patientID;
-        patient[@"phoneNumber"] = self.e.phoneNumber;
-        [patient saveEventually];
-    }
     
     // Commit to core data
     NSError *error;
@@ -216,7 +179,7 @@
         NSLog(@"Failed to commit to core data: %@", [error domain]);
 }
 
-# pragma mark - UITableViewDelegate
+
 //This method dismisses the keyboard when the background is tapped
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *theCellClicked = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -290,7 +253,7 @@
         }
     }
     
-    //self.e.profilePicPath= mediaURL;
+    //e.profilePicPath= mediaURL;
     UIImage *image = [info objectForKey: UIImagePickerControllerOriginalImage];
     
     //Crop the image to a square
@@ -310,7 +273,7 @@
     }
     
     NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
-    self.e.profilePicData = imageData;
+    e.profilePicData = imageData;
     
     [profilePicButton setImage:image forState:UIControlStateNormal];
     
@@ -385,7 +348,6 @@
     [self.tableView scrollToRowAtIndexPath:[self.tableView indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 */
-
 
 // Restrict phone textField to format 123-456-7890
 - (BOOL)textField:(UITextField *)textField
