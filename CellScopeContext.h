@@ -15,11 +15,13 @@
 #import "BLEManager.h"
 #import "UIColor+Custom.h"
 #import "CellScopeHTTPClient.h"
+#import "ParseUploadManager.h"
 #import <CoreText/CoreText.h>
 #import <Parse/Parse.h>
 
 @class BLEManager;
 @class CellScopeHTTPClient;
+@class ParseUploadManager;
 
 @interface CellScopeContext : NSObject
 
@@ -31,7 +33,8 @@
 @property(nonatomic,strong) BLEManager* bleManager;
 @property (nonatomic) BOOL camViewLoaded;
 @property (nonatomic) CellScopeHTTPClient* client;
-@property (nonatomic) PFObject *parsePatient;
+
+@property (nonatomic) ParseUploadManager *uploadManager;
 
 + (id)sharedContext;
 

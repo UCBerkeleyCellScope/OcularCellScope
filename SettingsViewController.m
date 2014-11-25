@@ -98,7 +98,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     if (self.flashDelay.text.intValue>800)           self.flashDelay.text = @"800";
 
     if (self.flashDuration.text.floatValue<1)           self.flashDuration.text = @"1";
-    if (self.flashDuration.text.floatValue>255)           self.flashDuration.text = @"255";
+    if (self.flashDuration.text.floatValue>500)           self.flashDuration.text = @"500";
     
     if (self.captureInterval.text.floatValue<0.2)           self.captureInterval.text = @"0.2";
     if (self.captureInterval.text.floatValue>10.0)           self.captureInterval.text = @"10.0";

@@ -17,5 +17,6 @@
 - (NSString*)fullName;
 - (EyeImage*)getFirstImage;
 -(NSString*)dateString;
+- (int) numberOfImagesUploaded;
 
 @end

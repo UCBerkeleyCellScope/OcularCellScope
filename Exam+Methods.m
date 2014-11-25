@@ -26,7 +26,8 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 
 -(NSString*)fullName{
     NSString* fullName = [self.firstName stringByAppendingString:self.lastName];
-    
+    if ([fullName length]==0)
+        fullName = @"";
     return fullName;
 }
 
@@ -45,5 +46,14 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
     return formattedDateString;
 }
 
+- (int) numberOfImagesUploaded
+{
+    int numUploaded = 0;
+    for (EyeImage* ei in self.eyeImages) {
+        if (ei.uploaded.intValue==2)
+            numUploaded++;
+    }
+    return numUploaded;
+}
 
 @end

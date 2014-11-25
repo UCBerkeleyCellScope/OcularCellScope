@@ -91,6 +91,16 @@
     //[self unlockFocus];
 }
 
+-(void)takeDownCamera {
+    [self.session removeInput:self.deviceInput];
+    [self.session removeOutput:self.stillOutput];
+    [self.previewLayer removeFromSuperlayer];
+    self.session = nil;
+    self.deviceInput = nil;
+    self.stillOutput = nil;
+    
+}
+
 -(AVCaptureConnection*)getVideoConnection{
     AVCaptureConnection *videoConnection = nil;
 	for (AVCaptureConnection *connection in self.stillOutput.connections)
