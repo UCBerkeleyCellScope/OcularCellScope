@@ -96,7 +96,7 @@
 -(void) viewWillAppear:(BOOL)animated{
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
     
-    [self.captureManager setupVideoForView:self.view];
+    [self.captureManager setupCameraWithPreview:self.view];
     
     NSLog(@"Self.selectedLight, %ld",self.selectedLight);
     [self updateFixationImageView];

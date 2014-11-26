@@ -25,7 +25,7 @@
 @synthesize debugMode;
 @synthesize isConnected = _isConnected;
 //@synthesize selectedLight = _selectedLight;
-@synthesize BLECdelegate = _BLECdelegate;
+
 
 //@synthesize whitePing = _whitePing;
 
@@ -199,7 +199,7 @@ BOOL capturing = NO;
         else { //TODO: might not be necessary
             _prefs = [NSUserDefaults standardUserDefaults];
             [_prefs setValue: @YES forKey:@"debugMode" ];
-            [_BLECdelegate didReceiveNoBLEConfirmation];
+            //[_BLECdelegate didReceiveNoBLEConfirmation];
         }
     }
 }
@@ -270,7 +270,7 @@ BOOL capturing = NO;
     //[self turnOffAllLights];
     
     _isConnected = YES;
-    [_BLECdelegate didReceiveConnectionConfirmation];
+    [self.BLECdelegate didReceiveConnectionConfirmation];
     
     [self setIlluminationWhite:0 Red:0];
     [self setFixationLight:FIXATION_LIGHT_NONE forEye:1 withIntensity:0];
@@ -297,23 +297,32 @@ BOOL capturing = NO;
     {
         NSLog(@"RECEIVED: 0x%02X, 0x%02X, 0x%02X", data[i], data[i+1], data[i+2]);
         
-        if (data[i] == 0x0A)
-        {
-
-        }
-        else if (data[i] == 0x0B)
-        {
-            UInt16 Value;
-            Value = data[i+2] | data[i+1] << 8;
-        }
+         //display attached/detached message
+         if(data[0]==0xFD && data[1]==0xFD){
+             NSDictionary* state;
+             switch (data[2]) {
+                 case 0:
+                     //display removed
+                     state = @{@"displayState":@"NONE"};
+                     break;
+                 case 1:
+                     //display inserted for OD (right eye imaging, display on left eye)
+                     state = @{@"displayState":@"OD"};
+                     break;
+                 case 2:
+                     //display inserted for OS (imaging left eye, display on right)
+                     state = @{@"displayState":@"OS"};
+                     break;
+                 default:
+                     break;
+             }
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"FixationDisplayChangeNotification" object:self userInfo:state];
+         }
+        
+        
     }
     
-    /*
-    if(data[0]==0xFF && data[1]==0xFF){
-        //id<BLEConnectionDelegate> strongDelegate = self.BLECdelegate;
-        [_BLECdelegate didReceiveFlashConfirmation];
-    }
-     */
+
     
 }
 

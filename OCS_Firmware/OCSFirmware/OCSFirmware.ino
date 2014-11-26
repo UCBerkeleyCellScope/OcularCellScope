@@ -232,8 +232,10 @@ void setBatteryIndicator(boolean batteryOK) {
 
 void setFixation(byte fixationLight, byte intensity) //TODO: refactor the API so cmd is "fixation" param1 is 0(none),1,2,3,4,5, and param2 is intensity
 {
+  currentFixationLight = fixationLight;
+  currentFixationIntensity = intensity;
+  
 #ifdef USE_OLED_DISPLAY
-  Display.gfx_Cls();
   switch (fixationLight) {
     case 1:
       setOLEDCoordinates(OLED_SPOT_CENTER);
@@ -251,7 +253,6 @@ void setFixation(byte fixationLight, byte intensity) //TODO: refactor the API so
       setOLEDCoordinates(OLED_SPOT_RIGHT);
       break;
   }
-  
 #else
   //clear all
   analogWrite(FIXATION_LIGHT_UP,0);
@@ -280,17 +281,16 @@ void setFixation(byte fixationLight, byte intensity) //TODO: refactor the API so
       break;    
 #endif
 
-  currentFixationLight = fixationLight;
-  currentFixationIntensity = intensity;
+
 }
 
 void setOLEDCoordinates(byte x, byte y)
 {
 #ifdef USE_OLED_DISPLAY
-  Display.gfx_Cls();
   displayXCoordinate = x;
   displayYCoordinate = y;
   currentFixationLight = 99;
+  refreshDisplay();
 #endif
 }
 
@@ -352,9 +352,13 @@ void checkIfInactive(){
 
 void refreshDisplay() {
 #ifdef USE_OLED_DISPLAY  
-  if (currentFixationLight!=0)
+
+  if (currentFixationLight==0)
+    Display.gfx_Cls();  
+  else
     Display.gfx_CircleFilled(displayXCoordinate,displayYCoordinate,OLED_SPOT_RADIUS,OLED_SPOT_COLOR);
- 
+   
+   delay(50);  
 #endif  
 }
 
@@ -362,7 +366,7 @@ void checkForNewData() {
   //if buffer does not have a multiple of 3 bytes, flush it b/c something went wrong
   if ((BLEMini_available()%3)!=0)  
     while (BLEMini_available())
-      BLEMini_read();        
+      BLEMini_read(); //flush...
   
   while (BLEMini_available()) 
   {    
@@ -456,19 +460,19 @@ void checkIfDisplayAttached(boolean sendResultOnlyOnChange)
   else
     display_attached_new = NONE;
     
-  //if this was a change, clear the display  
-  if (display_attached_new!=display_attached) {
-    delay(3000);
-    Display.gfx_Cls();
-    delay(50);
-  }
-  
    //if there was a change, or if this was a request for state, send the display state
    if ((display_attached_new!=display_attached) || !sendResultOnlyOnChange) {
     BLEMini_write(0xFD);
     BLEMini_write(0xFD);
     BLEMini_write(display_attached_new);
    }
+   
+  //if they just inserted the display, introduce a 3s delay to allow the display to startup
+  if (display_attached_new!=NONE && display_attached==NONE) {
+    delay(3000);
+  }
+  
+
     
   display_attached = display_attached_new;
 }
@@ -477,6 +481,8 @@ void loop()
 {
   delay(50); 
   
+  //changing the way we update the display
+  /*
    #ifdef USE_OLED_DISPLAY
     if (millis()<7000)
       splashScreen();   
@@ -484,9 +490,16 @@ void loop()
       refreshDisplay();
   #endif
   
+  */
+  
+
   checkForNewData();   
   checkBTLEState();
   checkBatteryState();
   checkIfInactive();
   checkIfDisplayAttached(true); 
+  
+  //it's important to continue refreshing the display because (annoyingly) it will start scrolling if we dont
+  refreshDisplay();
+    
 }

@@ -28,7 +28,7 @@
 
 @property (strong,atomic) NSMutableDictionary* lastImageMetadata;
 
--(void)setupVideoForView:(UIView*)view;
+-(void)setupCameraWithPreview:(UIView*)view;
 -(void)takeDownCamera;
 
 -(void)takePicture;

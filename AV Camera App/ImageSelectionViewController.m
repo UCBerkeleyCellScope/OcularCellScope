@@ -141,7 +141,7 @@
     
     CamViewController * cvc = [[CamViewController alloc] init];
     
-    [[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
+    //[[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
     cvc.fullscreeningMode = NO;
     SelectableEyeImage *firstImage = [self.images firstObject];
     cvc.selectedLight = firstImage.fixationLight;
