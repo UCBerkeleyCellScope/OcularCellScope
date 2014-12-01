@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[SettingsViewController viewWillDisappear:]:SettingsViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.flashDuration.text">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[ExamInfoTableViewController viewWillDisappear:]:ExamInfoTableViewController.m">
          <PersistentStrings>
             <PersistentString

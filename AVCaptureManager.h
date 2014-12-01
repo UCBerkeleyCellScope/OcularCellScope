@@ -28,7 +28,9 @@
 
 @property (strong,atomic) NSMutableDictionary* lastImageMetadata;
 
--(void)setupVideoForView:(UIView*)view;
+-(void)setupCameraWithPreview:(UIView*)view;
+-(void)takeDownCamera;
+
 -(void)takePicture;
 -(void)lockFocus;
 -(void)unlockFocus;
@@ -37,5 +39,12 @@
 
 -(void)setFocusWithPoint:(CGPoint)focusPoint;
 -(void)setExposureLock:(BOOL)locked;
+
+- (void)setRedGain:(float)redGain
+         greenGain:(float)greenGain
+          blueGain:(float)blueGain;
+- (void)setFocusPosition:(float)position;
+- (void)setExposureDuration:(float)durationMilliseconds ISO:(float)iso;
+
 
 @end

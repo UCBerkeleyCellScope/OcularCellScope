@@ -27,13 +27,27 @@
 @property (weak, nonatomic) IBOutlet UISlider *redFlashSlider;
 @property (weak, nonatomic) IBOutlet UILabel *redFlashLabel;
 
-@property (nonatomic) NSInteger whiteFlashValue;
-@property (nonatomic) NSInteger redFocusValue;
+@property (weak, nonatomic) IBOutlet UILabel *focalPositionLabel;
+@property (weak, nonatomic) IBOutlet UITextField *focalPositionTextField;
+@property (weak, nonatomic) IBOutlet UILabel *previewExposureLabel;
+@property (weak, nonatomic) IBOutlet UITextField *previewExposureTextField;
+@property (weak, nonatomic) IBOutlet UILabel *previewFlashRatioLabel;
+@property (weak, nonatomic) IBOutlet UITextField *previewFlashRatioTextField;
+@property (weak, nonatomic) IBOutlet UILabel *previewISOLabel;
+@property (weak, nonatomic) IBOutlet UITextField *previewISOTextField;
+@property (weak, nonatomic) IBOutlet UILabel *flashISOLabel;
+@property (weak, nonatomic) IBOutlet UITextField *flashISOTextField;
+@property (weak, nonatomic) IBOutlet UILabel *previewWBLabel;
+@property (weak, nonatomic) IBOutlet UITextField *previewWBRedTextField;
+@property (weak, nonatomic) IBOutlet UITextField *previewWBGreenTextField;
+@property (weak, nonatomic) IBOutlet UITextField *previewWBBlueTextField;
+@property (weak, nonatomic) IBOutlet UILabel *flashWBLabel;
+@property (weak, nonatomic) IBOutlet UITextField *flashWBRedTextField;
+@property (weak, nonatomic) IBOutlet UITextField *flashWBGreenTextField;
+@property (weak, nonatomic) IBOutlet UITextField *flashWBBlueTextField;
 
-@property (nonatomic) NSInteger redFlashValue;
-@property (nonatomic) NSInteger whiteFocusValue;
 
-@property (weak, nonatomic) IBOutlet UITextField *captureDelay;
+@property (weak, nonatomic) IBOutlet UITextField *captureInterval;
 @property (weak, nonatomic) IBOutlet UITextField *flashDuration;
 @property (weak, nonatomic) IBOutlet UITextField *flashDelay;
 
@@ -49,10 +63,5 @@
 - (IBAction)redFlashSliderDidChange:(id)sender;
 
 - (IBAction)multiShotValueChanged:(id)sender;
-//- (IBAction)timedFlashToggleDidChange:(id)sender;
-
-@property (weak, nonatomic) IBOutlet UISlider *remoteLightSlider;
-- (IBAction)remoteLightSliderDidChange:(id)sender;
-@property (weak, nonatomic) IBOutlet UILabel *remoteLightLabel;
 
 @end

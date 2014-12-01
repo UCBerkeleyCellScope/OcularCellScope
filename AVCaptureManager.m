@@ -35,44 +35,42 @@
     self = [super init];
     
     if(self){
-        self.isCapturingImages = NO;
-        
-        // Create a new photo session
-        self.session = [[AVCaptureSession alloc] init];
-        [self.session setSessionPreset:AVCaptureSessionPresetPhoto];
-        
-        // Set device to video
-        self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-        
-        // Add device to session
-        self.deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:self.device error:Nil];
-        if ( [self.session canAddInput:self.deviceInput] )
-            [self.session addInput:self.deviceInput];
-        
-        // Add still image output
-        self.stillOutput = [[AVCaptureStillImageOutput alloc] init];
-        NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
-        [self.stillOutput setOutputSettings:outputSettings];
-        [self.session addOutput:self.stillOutput];
-        
-        // Set preview layer
-        self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
-        //[self.previewLayer setVideoGravity: AVLayerVideoGravityResizeAspectFill];
-        //AVLayerVideoGravityResizeAspectFill];
+        self.isCapturingImages = NO; //TODO: is this used?
     }
     
     return self;
 }
 
--(void)setupVideoForView:(UIView*)view{
+-(void)setupCameraWithPreview:(UIView*)view{
     self.view = view;
     
+    // Create a new photo session
+    self.session = [[AVCaptureSession alloc] init];
+    [self.session setSessionPreset:AVCaptureSessionPresetPhoto];
+    
+    // Set device to video
+    self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    
+    // Add device to session
+    self.deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:self.device error:Nil];
+    if ( [self.session canAddInput:self.deviceInput] )
+        [self.session addInput:self.deviceInput];
+    
+    // Add still image output
+    self.stillOutput = [[AVCaptureStillImageOutput alloc] init];
+    NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
+    [self.stillOutput setOutputSettings:outputSettings];
+    [self.session addOutput:self.stillOutput];
+    
+    // Set preview layer
+    self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
+
     // Set the preview layer to the bounds of the screen
     rootLayer = [self.view layer];
     [rootLayer setMasksToBounds:YES];
-    //first number was -80
-    [self.previewLayer setFrame:CGRectMake(-50, 0, rootLayer.bounds.size.height, rootLayer.bounds.size.height)];
+    [self.previewLayer setFrame:CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)];
     [self.previewLayer setVideoGravity: AVLayerVideoGravityResizeAspectFill];//AVLayerVideoGravityResizeAspect];
+    
     [rootLayer insertSublayer:self.previewLayer atIndex:0];
     
     BOOL mirroredView = [[NSUserDefaults standardUserDefaults] boolForKey:@"mirroredView"];
@@ -86,7 +84,16 @@
     }
     
     [self.session startRunning];
-    [self unlockFocus];
+}
+
+-(void)takeDownCamera {
+    [self.session removeInput:self.deviceInput];
+    [self.session removeOutput:self.stillOutput];
+    [self.previewLayer removeFromSuperlayer];
+    self.session = nil;
+    self.deviceInput = nil;
+    self.stillOutput = nil;
+    
 }
 
 -(AVCaptureConnection*)getVideoConnection{
@@ -110,7 +117,7 @@
 -(void)takePicture{
     
     // Set boolean for capturing images
-    self.isCapturingImages = YES;
+    self.isCapturingImages = YES; //TODO: is this used? it never gets reset
     
     AVCaptureConnection *videoConnection = [self getVideoConnection];
     
@@ -201,8 +208,40 @@
 
 
 
+- (void)setRedGain:(float)redGain
+         greenGain:(float)greenGain
+          blueGain:(float)blueGain
+{
+    
+    [self.device lockForConfiguration:nil];
+    AVCaptureWhiteBalanceGains gains;
+    gains.redGain = redGain;
+    gains.greenGain = greenGain;
+    gains.blueGain = blueGain;
+    [self.device setWhiteBalanceModeLockedWithDeviceWhiteBalanceGains:gains completionHandler:nil];
+    [self.device unlockForConfiguration];
+}
 
+- (void)setFocusPosition:(float)position
+{
+    [self.device lockForConfiguration:nil];
+    [self.device setFocusModeLockedWithLensPosition:position completionHandler:nil];
+    [self.device unlockForConfiguration];
+    
+}
 
-
+- (void)setExposureDuration:(float)durationMilliseconds ISO:(float)iso
+{
+    CMTime exposureDurationTime = CMTimeMake(durationMilliseconds,1e3);
+    
+    if (iso<self.device.activeFormat.minISO)
+        iso = self.device.activeFormat.minISO;
+    else if (iso>self.device.activeFormat.maxISO)
+        iso = self.device.activeFormat.maxISO;
+    
+    [self.device lockForConfiguration:nil];
+    [self.device setExposureModeCustomWithDuration:exposureDurationTime ISO:iso completionHandler:nil];
+    [self.device unlockForConfiguration];
+}
 
 @end

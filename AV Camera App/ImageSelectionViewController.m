@@ -48,6 +48,7 @@
     fixationVC = [viewControllers objectAtIndex: 1 ];
     //self.imageView.layer.affineTransform = CGAffineTransformInvert(CGAffineTransformMakeRotation(M_PI));
     
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -74,11 +75,14 @@
         [imageViews addObject:[[UIImageView alloc] initWithImage: im]];
     }
     
+    //self.collectionView.frame = self.view.window.frame;
+    ((UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout).itemSize = self.collectionView.frame.size;
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    self.images = nil;
+    //self.images = nil;
     
 
 }
@@ -96,9 +100,12 @@
     return [self.images count];
 }
 
+
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     EyePhotoCell *cell = (EyePhotoCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
+    
+    
     
     cell.eyeImage = [self.images objectAtIndex:[indexPath row]];
     NSLog(@"Index path %ld", (long)[indexPath row]);
@@ -134,7 +141,7 @@
     
     CamViewController * cvc = [[CamViewController alloc] init];
     
-    [[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
+    //[[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
     cvc.fullscreeningMode = NO;
     SelectableEyeImage *firstImage = [self.images firstObject];
     cvc.selectedLight = firstImage.fixationLight;
@@ -168,10 +175,30 @@
     }
 }
 
+/* this needs to be re-written
+ * do away with SelectableEyeImage, use an array to keep track of which images have been selected for deletion.
+ * load one image at a time. do away with array of images.
+ * save images to local directory so they can be deleted. save them when they are acquired, rather than holding them in memory here.
+ * save metadata (including focus, exposure, WB, patient info, etc.) to image file
+ */
 -(IBAction)didPressSave:(id)sender{
-  
+    __block int savePhotosCounter = 0;
+    
+    //[self.navigationController setNavigationBarHidden:YES];
+    
+    UIView *grayScreen = [[UIView alloc] initWithFrame:self.view.window.frame];
+    grayScreen.backgroundColor = [UIColor blackColor];
+    grayScreen.alpha = 0.3;
+    
+    UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activity.center = self.view.window.center;
+    [activity startAnimating];
+    [self.view.window addSubview:grayScreen];
+    [self.view.window addSubview:activity];
+    
     if(!reviewMode){
-            //NSMutableArray* eImagesToSave = [EImage selectedImagesFromArray:images];
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        
         for( SelectableEyeImage* ei in images){//eImagesToSave){     //HACK TO SAVE ALL
             if(!ei.isSelected){
                 EyeImage* coreDataObject = (EyeImage*)[NSEntityDescription insertNewObjectForEntityForName:@"EyeImage" inManagedObjectContext:[[CellScopeContext sharedContext] managedObjectContext]];
@@ -187,14 +214,26 @@
                 NSLog(@"fixationLight %@", coreDataObject.fixationLight);
                 coreDataObject.exam = [[CellScopeContext sharedContext]currentExam];
             
-                [self saveImageToCameraRoll:ei coreData: coreDataObject];
+
+                //TODO: add metadata.
+                savePhotosCounter++;
+                
+                [library writeImageToSavedPhotosAlbum:ei.CGImage orientation:ALAssetOrientationRight completionBlock:^(NSURL *assetURL, NSError *error){
+                    if (error) {
+                        NSLog(@"Error writing image to photo album");
+                    }
+                    else {
+                        NSLog(@"Added image to asset library");
+                        coreDataObject.filePath = [assetURL absoluteString];
+                        [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
+                    }
+                    savePhotosCounter--;
+                }];
+                
                 coreDataObject.thumbnail = UIImagePNGRepresentation(ei.thumbnail);
-            
-                //NSNumber *myNum = [NSNumber numberWithInteger:ei.fixationLight];
-                //coreDataObject.fixationLight = myNum;
-            
                 Exam* e = [[CellScopeContext sharedContext ]currentExam ];
                 [e addEyeImagesObject:coreDataObject];
+                [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
             }
         }
     }
@@ -203,47 +242,21 @@
         for( SelectableEyeImage* ei in images){
             if(ei.isSelected){
                 [[[CellScopeContext sharedContext] managedObjectContext] deleteObject: ei.coreDataImage];
+                [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
             }
         }
     }
     
-    [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
-    
-    //[fixationVC viewWillAppear:YES];
-    
-    //fixationVC.parentViewController.backFromReview=YES;
-    [self.navigationController popToViewController:fixationVC animated:YES];
-    
-}
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        while (savePhotosCounter!=0) { [NSThread sleepForTimeInterval:0.1]; }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [activity stopAnimating];
+            [grayScreen removeFromSuperview];
+            [activity removeFromSuperview];
+            [self.navigationController popToViewController:fixationVC animated:YES];
+        });
+    });
 
-
--(void)saveImageToCameraRoll:(UIImage*) image coreData: (EyeImage*) cd{
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    
-    [library writeImageToSavedPhotosAlbum:image.CGImage orientation:ALAssetOrientationRight completionBlock:^(NSURL *assetURL, NSError *error){
-        if (error) {
-            NSLog(@"Error writing image to photo album");
-        }
-        else {
-            
-            //NSString *myString = [assetURL absoluteString];
-            //NSString *myPath = [assetURL path];
-            //NSLog(@"Super important! This is the file path!");
-            //NSLog(@"%@", myString);
-            //NSLog(@"%@", myPath);
-            
-            NSLog(@"Added image to asset library");
-            cd.filePath = [assetURL absoluteString];
-            NSLog(@"Asset Library Path %@", cd.filePath);
-        }
-    }]; // end of completion block
-    //Consider an NSNotification that you may now Segue
-    
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    
 }
 
 @end

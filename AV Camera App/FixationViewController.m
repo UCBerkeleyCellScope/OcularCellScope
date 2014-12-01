@@ -84,12 +84,15 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     [self initSegControl];
     [self loadImages];
     
-    ((TabViewController*)self.parentViewController).filesToUpload = [CoreDataController getEyeImagesToUploadForExam:[[CellScopeContext sharedContext]currentExam] ];
 }
 
 -(void) initSegControl{
     NSArray* segmentTitles = [[NSArray alloc ]initWithObjects:@"OD",@"OS", nil];
     self.segControl = [[UISegmentedControl alloc] initWithItems:segmentTitles];
+    CGRect f = self.segControl.frame;
+    f.size.width = f.size.width*2; //make it wider so it's easier to tap
+    
+    self.segControl.frame = f;
     
     self.segControl.selectedSegmentIndex = 0;
     self.tabBarController.navigationItem.titleView = self.segControl;
@@ -339,7 +342,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         
         NSLog(@"Preparing for CamViewSegue");
         CamViewController* cvc = (CamViewController*)[segue destinationViewController];
-        [[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
+        //[[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
         cvc.fullscreeningMode = NO;
         cvc.selectedLight = self.selectedLight;
         
@@ -349,7 +352,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         
         NSLog(@"Preparing for FullScreeningSegue");
         CamViewController* cvc = (CamViewController*)[segue destinationViewController];
-        [[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
+        //[[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
         cvc.fullscreeningMode = YES;
         cvc.selectedLight = self.selectedLight;
     }

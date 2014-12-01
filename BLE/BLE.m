@@ -244,9 +244,9 @@ static int rssi = 0;
 - (void) scanTimer:(NSTimer *)timer
 {
     [self.CM stopScan];
-    NSLog(@"Stopped Scanning");
-    NSLog(@"Known peripherals : %lu", (unsigned long)[self.peripherals count]);
-    [self printKnownPeripherals];
+    //NSLog(@"Stopped Scanning");
+    //NSLog(@"Known peripherals : %lu", (unsigned long)[self.peripherals count]);
+    //[self printKnownPeripherals];
 }
 
 - (void) printKnownPeripherals
@@ -444,7 +444,7 @@ static int rssi = 0;
         NSLog(@"New UUID, adding");
     }
     
-    NSLog(@"didDiscoverPeripheral");
+    //NSLog(@"didDiscoverPeripheral");
 }
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral

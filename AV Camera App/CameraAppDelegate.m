@@ -7,7 +7,7 @@
 //
 
 #import "CameraAppDelegate.h"
-#import <AWSRuntime/AWSRuntime.h>
+#import <Parse/Parse.h>
 
 @import AVFoundation;
 
@@ -26,29 +26,99 @@
     NSDictionary* defaultPreferences = [NSDictionary dictionaryWithContentsOfFile:defaultPrefsFile];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPreferences];
     
-    // Logging Control - Do NOT use logging for non-development builds.
-#ifdef DEBUG
-    [AmazonLogger verboseLogging];
-#else
-    [AmazonLogger turnLoggingOff];
-#endif
+
+    [Parse setApplicationId:@"kj1p0NcAg3KwmTebw5N4MtbZCkx2WASRWSxTWuto"
+                  clientKey:@"Pf88GrjkeE9rp7QJulrKxxOc7sDDOnQmOIw8WMpO"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    [AmazonErrorHandler shouldNotThrowExceptions];
+    // Wipe out old user defaults
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"objectIDArray"]){
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"objectIDArray"];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
+    // Simple way to create a user or log in the existing user
+    // For your app, you will probably want to present your own login screen
+    PFUser *currentUser = [PFUser currentUser];
     
+    if (!currentUser) {
+        // Dummy username and password
+        PFUser *user = [PFUser user];
+        user.username = @"Hermione";
+        user.password = @"password";
+        user.email = @"PotterLuv@example.com";
+        
+        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error) {
+                // Assume the error is because the user already existed.
+                [PFUser logInWithUsername:@"Hermione" password:@"password"];
+            }
+        }];
+    }
     
     [[CellScopeContext sharedContext] setManagedObjectContext:self.managedObjectContext];
     
     [[[CellScopeContext sharedContext] bleManager] beginBLEScan];
     
-    /*
-    UIStoryboard *storyboard = [ UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    self.window.rootViewController = [storyboard instantiateInitialViewController];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fixationDisplayChange:) name:@"FixationDisplayChangeNotification" object:nil];
     
-    [self.window makeKeyAndVisible];
-    */
-     
     return YES;
+}
+
+- (void)fixationDisplayChange:(NSNotification *)notification
+{
+    
+    NSDictionary *ui = [notification userInfo];
+    NSString* newDisplayState = ui[@"displayState"];
+    NSString* alertString;
+    NSLog(@"%@",newDisplayState);
+    
+    if ([newDisplayState isEqualToString:@"NONE"]) {
+        alertString = @"Display Removed";
+    }
+    else if ([newDisplayState isEqualToString:@"OD"]) {
+        alertString = @"Display Attached (OD)";
+    }
+    else if ([newDisplayState isEqualToString:@"OS"]) {
+        alertString = @"Display Attached (OS)";
+    }
+    
+    //todo: move this to a generic UI class
+    UIWindow* window = self.window;
+    
+    UITextView* alertPopup = [[UITextView alloc] init];
+    CGRect frame;
+    frame.size.height = 40;
+    frame.size.width = 280;
+    alertPopup.frame = frame;
+    alertPopup.center = window.center;
+    alertPopup.text = alertString;
+    [alertPopup setTextAlignment:NSTextAlignmentCenter];
+    
+    [alertPopup setTextColor:[UIColor whiteColor]];
+    [alertPopup setFont:[UIFont boldSystemFontOfSize:20]];
+    alertPopup.backgroundColor = [UIColor grayColor];
+    alertPopup.layer.cornerRadius = 20;
+    alertPopup.clipsToBounds = YES;
+    alertPopup.layer.borderWidth = 2.0f;
+    alertPopup.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    alertPopup.alpha = 0.9f;
+    alertPopup.hidden = NO;
+    [window addSubview:alertPopup];
+    [window bringSubviewToFront:alertPopup];
+    
+    // Then fades it away after 2 seconds (the cross-fade animation will take 0.5s)
+    [UIView animateWithDuration:0.5 delay:2.0 options:0 animations:^{
+        // Animate the alpha value of your imageView from 1.0 to 0.0 here
+        alertPopup.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        // Once the animation is completed and the alpha has gone to 0.0, hide the view for good
+        alertPopup.hidden = YES;
+        [alertPopup removeFromSuperview];
+    }];
+    
+    
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
