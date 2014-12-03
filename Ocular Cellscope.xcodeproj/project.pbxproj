@@ -104,6 +104,7 @@
 		A5C8E18E197634B90072D99C /* os_right.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C8E184197634B90072D99C /* os_right.png */; };
 		A5C8E18F197634B90072D99C /* os_top.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C8E185197634B90072D99C /* os_top.png */; };
 		A5D3CAAF1A23FB9300D376E7 /* ParseUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D3CAAE1A23FB9300D376E7 /* ParseUploadManager.m */; };
+		A5FDDFDD1A2EE86C00500237 /* PopupMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = A5FDDFDC1A2EE86C00500237 /* PopupMessage.m */; };
 		F325700C18CAA04600FEA80E /* capture_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F325700B18CAA04600FEA80E /* capture_button.png */; };
 		F325700F18CAA80000FEA80E /* check_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F325700D18CAA80000FEA80E /* check_button.png */; };
 		F325701218CAA87200FEA80E /* x_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F325701118CAA87200FEA80E /* x_button.png */; };
@@ -320,6 +321,8 @@
 		A5C8E185197634B90072D99C /* os_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = os_top.png; sourceTree = "<group>"; };
 		A5D3CAAD1A23FB9300D376E7 /* ParseUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseUploadManager.h; sourceTree = "<group>"; };
 		A5D3CAAE1A23FB9300D376E7 /* ParseUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseUploadManager.m; sourceTree = "<group>"; };
+		A5FDDFDB1A2EE86C00500237 /* PopupMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupMessage.h; sourceTree = "<group>"; };
+		A5FDDFDC1A2EE86C00500237 /* PopupMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupMessage.m; sourceTree = "<group>"; };
 		F325700B18CAA04600FEA80E /* capture_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = capture_button.png; sourceTree = "<group>"; };
 		F325700D18CAA80000FEA80E /* check_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check_button.png; sourceTree = "<group>"; };
 		F325701118CAA87200FEA80E /* x_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = x_button.png; sourceTree = "<group>"; };
@@ -775,6 +778,8 @@
 				60C2A51C18C19F2800021510 /* CellScopeContext.m */,
 				F3FCC97F194A885B0093A1EB /* Constants.h */,
 				60D8C7D118C6BF87007D26A7 /* Constants.m */,
+				A5FDDFDB1A2EE86C00500237 /* PopupMessage.h */,
+				A5FDDFDC1A2EE86C00500237 /* PopupMessage.m */,
 				7D84716019E8FA12005BDCFF /* Managers */,
 				60240A0B195935C60004DCE8 /* Random.h */,
 				60240A0C195935C60004DCE8 /* Random.m */,
@@ -1041,6 +1046,7 @@
 				60C1AE0218F346E700902F28 /* DiagnosisViewController.m in Sources */,
 				60C1AE3918F3507E00902F28 /* UIImageView+AFNetworking.m in Sources */,
 				F3FCC96B19369BA10093A1EB /* CameraModel.xcdatamodeld in Sources */,
+				A5FDDFDD1A2EE86C00500237 /* PopupMessage.m in Sources */,
 				F325703D18D366FE00FEA80E /* SelectableEyeImage.m in Sources */,
 				60C1AE3A18F3507E00902F28 /* UIProgressView+AFNetworking.m in Sources */,
 				F385B2FE1900E31E00A3F974 /* CamViewController.m in Sources */,
@@ -1188,7 +1194,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Frankie Myers (NPZGJ9L3C2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Frankie Myers (4G3LRZJ5QU)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1216,7 +1222,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Frankie Myers (NPZGJ9L3C2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Frankie Myers (4G3LRZJ5QU)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -2,10 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>batteryOKThreshold</key>
+	<real>3.5</real>
+	<key>batteryWarningThreshold</key>
+	<real>3.3</real>
 	<key>redFocusValue</key>
-	<integer>20</integer>
-	<key>whiteFocusValue</key>
 	<integer>0</integer>
+	<key>whiteFocusValue</key>
+	<integer>1</integer>
 	<key>redFlashValue</key>
 	<integer>0</integer>
 	<key>whiteFlashValue</key>
@@ -23,9 +27,9 @@
 	<key>previewRedGain</key>
 	<integer>1</integer>
 	<key>previewGreenGain</key>
-	<real>2.5</real>
+	<integer>1</integer>
 	<key>previewBlueGain</key>
-	<integer>4</integer>
+	<real>1.5</real>
 	<key>captureRedGain</key>
 	<integer>1</integer>
 	<key>captureGreenGain</key>
@@ -37,9 +41,9 @@
 	<key>captureInterval</key>
 	<real>1</real>
 	<key>flashDelay</key>
-	<integer>300</integer>
-	<key>flashDuration</key>
-	<integer>200</integer>
+	<integer>0</integer>
+	<key>flashDurationMultiplier</key>
+	<real>2.5</real>
 	<key>debugMode</key>
 	<false/>
 	<key>mirroredView</key>

@@ -822,13 +822,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flash Duration (ms)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qsh-ZW-cJG">
-                                                    <rect key="frame" x="20" y="13" width="148" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flash/Exp Duration Ratio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qsh-ZW-cJG">
+                                                    <rect key="frame" x="20" y="13" width="191" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="40" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" id="ARh-il-rPW" userLabel="Text Field Flash Duration">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2.5" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" id="ARh-il-rPW" userLabel="Text Field Flash Duration">
                                                     <rect key="frame" x="250" y="9" width="61" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -857,7 +857,7 @@
                     <connections>
                         <outlet property="captureInterval" destination="cZH-AH-8NY" id="3m4-om-10N"/>
                         <outlet property="flashDelay" destination="rhu-hc-e33" id="098-9Y-7sO"/>
-                        <outlet property="flashDuration" destination="ARh-il-rPW" id="7WL-ZD-rVb"/>
+                        <outlet property="flashDurationMultiplier" destination="ARh-il-rPW" id="d4Y-EA-ej3"/>
                         <outlet property="flashISOLabel" destination="R23-Fd-SAk" id="asy-XX-4BY"/>
                         <outlet property="flashISOTextField" destination="NpS-ZJ-hwT" id="bc6-JY-eJI"/>
                         <outlet property="flashWBBlueTextField" destination="CGF-wS-N3w" id="upO-xu-4pk"/>

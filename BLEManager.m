@@ -82,10 +82,21 @@ BOOL capturing = NO;
         }
         _fixationLights = lights;
          */
+        
+        self.batteryQueryTimer = [NSTimer scheduledTimerWithTimeInterval:(float)1.0 target:self selector:@selector(checkBattery) userInfo:nil repeats:YES];
     }
     return self;
 }
 
+//send battery voltage request
+- (void)checkBattery
+{
+    if (ble.activePeripheral)
+        if(ble.activePeripheral.state == CBPeripheralStateConnected) {
+            UInt8 buf[] = {0xFC, 0x00, 0x00};
+            [ble write:[NSData dataWithBytes:buf length:3]];
+        }
+}
 
 - (void)beginBLEScan
 {
@@ -298,7 +309,7 @@ BOOL capturing = NO;
         NSLog(@"RECEIVED: 0x%02X, 0x%02X, 0x%02X", data[i], data[i+1], data[i+2]);
         
          //display attached/detached message
-         if(data[0]==0xFD && data[1]==0xFD){
+         if(data[0]==0xFD){
              NSDictionary* state;
              switch (data[2]) {
                  case 0:
@@ -318,6 +329,13 @@ BOOL capturing = NO;
              }
              [[NSNotificationCenter defaultCenter] postNotificationName:@"FixationDisplayChangeNotification" object:self userInfo:state];
          }
+         else if (data[0]==0xFC) {
+             unsigned int digitalVoltage = ((((UInt16)data[i+1])<<8) | data[i+2]);
+             float analogVoltage = digitalVoltage*5.0/1024;
+             NSLog(@"voltage = %f",analogVoltage);
+             NSDictionary* state = [NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:analogVoltage] forKey:@"voltage"];
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"CellScopeVoltageNotification" object:self userInfo:state];
+         }
         
         
     }
@@ -329,26 +347,42 @@ BOOL capturing = NO;
 
 
 //FBM
--(void)setIlluminationWhite:(int)whiteIntensity Red:(int)redIntensity {
+-(void)setIlluminationWhite:(UInt8)whiteIntensity Red:(UInt8)redIntensity {
     UInt8 buf[] = {0x01, whiteIntensity, redIntensity};
     [ble write:[NSData dataWithBytes:buf length:3]];
     //[NSThread sleepForTimeInterval:0.1];
 }
 
--(void)setIlluminationWithCallbackWhite:(int)whiteIntensity Red:(int)redIntensity {
+-(void)setIlluminationWithCallbackWhite:(UInt8)whiteIntensity Red:(UInt8)redIntensity {
     UInt8 buf[] = {0x02, whiteIntensity, redIntensity};
     [ble write:[NSData dataWithBytes:buf length:3]];
     //[NSThread sleepForTimeInterval:0.1];
 }
 
--(void)setFlashIntensityWhite:(int)whiteIntensity Red:(int)redIntensity {
+-(void)setFlashIntensityWhite:(UInt8)whiteIntensity Red:(UInt8)redIntensity {
     UInt8 buf[] = {0x03, whiteIntensity, redIntensity};
     [ble write:[NSData dataWithBytes:buf length:3]];
     //[NSThread sleepForTimeInterval:0.1];
 }
 
--(void)doFlashWithDuration:(int)flashDuration {
-    UInt8 buf[] = {0x04, flashDuration, 0x00};
+-(void)setFlashTimingDelay:(UInt16)flashDelay Duration:(UInt16)flashDuration {
+
+    UInt8 upperByte; UInt8 lowerByte;
+    
+    upperByte = ((flashDelay & 0xFF00) >> 8);
+    lowerByte = (flashDelay & 0x00FF);
+    UInt8 buf1[] = {0x07, upperByte, lowerByte};
+    [ble write:[NSData dataWithBytes:buf1 length:3]];
+    
+    upperByte = ((flashDuration & 0xFF00) >> 8);
+    lowerByte = (flashDuration & 0x00FF);
+    UInt8 buf2[] = {0x08, upperByte, lowerByte};
+    [ble write:[NSData dataWithBytes:buf2 length:3]];
+    //[NSThread sleepForTimeInterval:0.1];
+}
+
+-(void)doFlash {
+    UInt8 buf[] = {0x04, 0x00, 0x00};
     [ble write:[NSData dataWithBytes:buf length:3]];
     //[NSThread sleepForTimeInterval:0.1];
 }

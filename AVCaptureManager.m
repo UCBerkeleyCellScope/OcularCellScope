@@ -91,6 +91,7 @@
     [self.session removeOutput:self.stillOutput];
     [self.previewLayer removeFromSuperlayer];
     self.session = nil;
+    self.device = nil;
     self.deviceInput = nil;
     self.stillOutput = nil;
     
@@ -131,7 +132,9 @@
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
          
          // Call to delegate to do something with this image data
+         dispatch_async(dispatch_get_main_queue(), ^{
          [self.delegate didCaptureImageWithData:imageData];
+         });
      }];
 }
 

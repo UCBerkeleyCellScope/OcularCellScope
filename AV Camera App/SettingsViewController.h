@@ -48,7 +48,7 @@
 
 
 @property (weak, nonatomic) IBOutlet UITextField *captureInterval;
-@property (weak, nonatomic) IBOutlet UITextField *flashDuration;
+@property (weak, nonatomic) IBOutlet UITextField *flashDurationMultiplier;
 @property (weak, nonatomic) IBOutlet UITextField *flashDelay;
 
 @property(strong, nonatomic) BLEManager *bleManager;

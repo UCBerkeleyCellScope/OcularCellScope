@@ -8,6 +8,7 @@
 
 #import "CameraAppDelegate.h"
 #import <Parse/Parse.h>
+#import "PopupMessage.h"
 
 @import AVFoundation;
 
@@ -62,6 +63,9 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fixationDisplayChange:) name:@"FixationDisplayChangeNotification" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(voltageNotification:) name:@"CellScopeVoltageNotification" object:nil];
+    
+    
     return YES;
 }
 
@@ -83,43 +87,29 @@
         alertString = @"Display Attached (OS)";
     }
     
-    //todo: move this to a generic UI class
-    UIWindow* window = self.window;
     
-    UITextView* alertPopup = [[UITextView alloc] init];
-    CGRect frame;
-    frame.size.height = 40;
-    frame.size.width = 280;
-    alertPopup.frame = frame;
-    alertPopup.center = window.center;
-    alertPopup.text = alertString;
-    [alertPopup setTextAlignment:NSTextAlignmentCenter];
-    
-    [alertPopup setTextColor:[UIColor whiteColor]];
-    [alertPopup setFont:[UIFont boldSystemFontOfSize:20]];
-    alertPopup.backgroundColor = [UIColor grayColor];
-    alertPopup.layer.cornerRadius = 20;
-    alertPopup.clipsToBounds = YES;
-    alertPopup.layer.borderWidth = 2.0f;
-    alertPopup.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    alertPopup.alpha = 0.9f;
-    alertPopup.hidden = NO;
-    [window addSubview:alertPopup];
-    [window bringSubviewToFront:alertPopup];
-    
-    // Then fades it away after 2 seconds (the cross-fade animation will take 0.5s)
-    [UIView animateWithDuration:0.5 delay:2.0 options:0 animations:^{
-        // Animate the alpha value of your imageView from 1.0 to 0.0 here
-        alertPopup.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-        // Once the animation is completed and the alpha has gone to 0.0, hide the view for good
-        alertPopup.hidden = YES;
-        [alertPopup removeFromSuperview];
-    }];
-    
+    [PopupMessage showPopup:alertString];
     
 
 }
+
+- (void)voltageNotification:(NSNotification *)notification
+{
+    NSDictionary *ui = [notification userInfo];
+    float newVoltage = ((NSNumber*)ui[@"voltage"]).floatValue;
+    
+    static BOOL lowBatteryWarning = NO;
+    
+    if (lowBatteryWarning==NO && (newVoltage<[[NSUserDefaults standardUserDefaults] floatForKey:@"batteryWarningThreshold"])) {
+        lowBatteryWarning = YES;
+        [PopupMessage showPopup:@"CellScope Low Battery"];
+    }
+    else if (lowBatteryWarning==YES && (newVoltage<[[NSUserDefaults standardUserDefaults] floatForKey:@"batteryOKThreshold"]) ){
+        lowBatteryWarning = NO;
+    }
+    
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
