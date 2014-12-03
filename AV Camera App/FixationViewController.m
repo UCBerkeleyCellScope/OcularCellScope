@@ -68,7 +68,10 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                name:@"SelectableEyeImageCreated" //The notification that was sent is named ____
              object:nil]; //doesn't matter who sent the notification
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fixationDisplayChange:) name:@"FixationDisplayChangeNotification" object:nil];
+    
     [self setupFixationButtons];
+    
     
 }
 
@@ -84,6 +87,24 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     [self initSegControl];
     [self loadImages];
     
+}
+
+- (void)fixationDisplayChange:(NSNotification *)notification
+{
+    
+    NSDictionary *ui = [notification userInfo];
+    NSString* newDisplayState = ui[@"displayState"];
+    
+    if ([newDisplayState isEqualToString:@"NONE"]) {
+    }
+    else if ([newDisplayState isEqualToString:@"OD"]) {
+        [self.segControl setSelectedSegmentIndex:0];
+    }
+    else if ([newDisplayState isEqualToString:@"OS"]) {
+        [self.segControl setSelectedSegmentIndex:1];
+    }
+    
+    [self didSegmentedValueChanged:nil];
 }
 
 -(void) initSegControl{
