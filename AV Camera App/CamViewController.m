@@ -248,7 +248,7 @@
                                          ISO:[[NSUserDefaults standardUserDefaults] floatForKey:@"captureISO"]];
     
     //wait for the camera to set
-    [NSThread sleepForTimeInterval:0.4];
+    [NSThread sleepForTimeInterval:0.6];
     
     //start the capture sequence
     [self captureTimerFired];

@@ -21,5 +21,13 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "__76-[ParseUploadManager uploadImageDataToParse:fromEyeImage:completionHandler:]_block_invoke:ParseUploadManager.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "ei">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

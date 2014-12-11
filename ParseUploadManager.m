@@ -126,6 +126,7 @@ BOOL _queueIsProcessing = NO;
          [rep getBytes:imageData.mutableBytes fromOffset:0 length:size error:&error];
          
          [self uploadImageDataToParse:imageData
+                         fromEyeImage:eyeImage
                     completionHandler:^(BOOL success, NSError* err) {
                         NSLog(@"image upload complete");
                         if (success)
@@ -151,7 +152,7 @@ BOOL _queueIsProcessing = NO;
 }
 
 
-- (void)uploadImageDataToParse:(NSData *)imageData completionHandler:(void(^)(BOOL,NSError*))completionBlock//add completion block
+- (void)uploadImageDataToParse:(NSData *)imageData fromEyeImage:(EyeImage*)ei completionHandler:(void(^)(BOOL,NSError*))completionBlock//add completion block
 {
     PFFile *imageFile = [PFFile fileWithName:[NSString stringWithFormat:@"Image-%d.jpg",arc4random()] data:imageData];
     
@@ -161,7 +162,45 @@ BOOL _queueIsProcessing = NO;
             // Create a PFObject around a PFFile and associate it with the current user
             PFObject *eyeImage = [PFObject objectWithClassName:@"EyeImage"];
             [eyeImage setObject:imageFile forKey:@"Image"];
-            eyeImage[@"Eye"] = @"OD";
+            
+            NSLog(@"eye: %@",ei.eye);
+            NSLog(@"fix: %d",ei.fixationLight.intValue);
+            NSString* position;
+            
+            switch (ei.fixationLight.intValue) {
+                case 1:
+                    position = @"Center";
+                    break;
+                case 2:
+                    position = @"Superior";
+                    break;
+                case 3:
+                    position = @"Inferior";
+                    break;
+                case 4:
+                    position = [ei.eye isEqualToString:@"OD"]?@"Temporal":@"Nasal";
+                    break;
+                case 5:
+                    position = @"Nasal";
+                    break;
+                default:
+                    position = @"None";
+                    break;
+            }
+            
+            eyeImage[@"Eye"] = ei.eye;
+            eyeImage[@"Position"] = position;
+            eyeImage[@"appVersion"] = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
+            //eyeImage[@"illumination"] =
+            //eyeImage[@"focus"] =
+            //eyeImage[@"exposure"] =
+            //eyeImage[@"iso"] =
+            //eyeImage[@"whiteBalance"] =
+            //eyeImage[@"flashDuration"] =
+            //eyeImage[@"flashDelay"] =
+            
+            //...
+            
             
             // Set the access control list to current user for security purposes
             //eyeImage.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
@@ -191,7 +230,12 @@ BOOL _queueIsProcessing = NO;
                          parseExam[@"lastName"] = self.currentExam.lastName;
                          parseExam[@"patientID"] = self.currentExam.patientID;
                          parseExam[@"phoneNumber"] = self.currentExam.phoneNumber;
-                         //...
+                         parseExam[@"cellscope"] = [[NSUserDefaults standardUserDefaults] stringForKey:@"cellscopeID"];
+                         parseExam[@"user"] = @"user";
+                         parseExam[@"study"] = @"nostudy";
+                         parseExam[@"examDate"] = self.currentExam.date;
+                         parseExam[@"notes"] = @"";
+                         
                          
                          self.currentParseExam = parseExam;
                      }

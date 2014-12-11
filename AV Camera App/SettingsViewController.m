@@ -68,6 +68,9 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     self.captureInterval.text = [NSString stringWithFormat:@"%3.2f",[prefs floatForKey:@"captureInterval"]];
     
     self.multiShot.selectedSegmentIndex = [prefs integerForKey:@"numberOfImages"]-1;
+    
+    self.cellscopeIDTextField.text = [prefs stringForKey:@"cellscopeID"];
+    
 }
 
 -(void) viewWillDisappear:(BOOL)animated {
@@ -131,6 +134,9 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     [prefs setFloat:   self.captureInterval.text.floatValue  forKey:@"captureInterval"];
     
     [prefs setInteger: self.multiShot.selectedSegmentIndex+1 forKey:@"numberOfImages"];
+    
+    [prefs setObject: self.cellscopeIDTextField.text forKey:@"cellscopeID"];
+    
 }
 
 - (void)keyboardWasShown:(NSNotification *)sender {

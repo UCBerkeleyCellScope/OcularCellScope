@@ -52,6 +52,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *flashDelay;
 
 @property(strong, nonatomic) BLEManager *bleManager;
+@property (weak, nonatomic) IBOutlet UITextField *cellscopeIDTextField;
 
 
 - (IBAction)toggleDidChange:(id)sender;
