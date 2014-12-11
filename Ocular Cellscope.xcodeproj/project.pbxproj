@@ -309,6 +309,7 @@
 		7DD0A96719E902800064A413 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		7DD0A96919E902850064A413 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		A52751CB199A742C00B68FDA /* settings_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_icon@2x.png"; sourceTree = "<group>"; };
+		A570184A1A3A4D2F00B9BE25 /* CameraModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CameraModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		A5C8E17C197634B90072D99C /* od_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = od_bottom.png; sourceTree = "<group>"; };
 		A5C8E17D197634B90072D99C /* od_center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = od_center.png; sourceTree = "<group>"; };
 		A5C8E17E197634B90072D99C /* od_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = od_left.png; sourceTree = "<group>"; };
@@ -1323,9 +1324,10 @@
 		6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				A570184A1A3A4D2F00B9BE25 /* CameraModel 2.xcdatamodel */,
 				6DD89D1F1842629600F3C7FC /* CameraModel.xcdatamodel */,
 			);
-			currentVersion = 6DD89D1F1842629600F3C7FC /* CameraModel.xcdatamodel */;
+			currentVersion = A570184A1A3A4D2F00B9BE25 /* CameraModel 2.xcdatamodel */;
 			path = CameraModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

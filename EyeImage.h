@@ -21,6 +21,15 @@
 @property (nonatomic, retain) NSData * thumbnail;
 @property (nonatomic, retain) NSNumber * uploaded;
 @property (nonatomic, retain) NSString * uuid;
+@property (nonatomic, retain) NSString * illumination;
+@property (nonatomic, retain) NSString * focus;
+@property (nonatomic, retain) NSString * exposure;
+@property (nonatomic, retain) NSString * iso;
+@property (nonatomic, retain) NSString * whiteBalance;
+@property (nonatomic, retain) NSString * flashDuration;
+@property (nonatomic, retain) NSString * flashDelay;
+@property (nonatomic, retain) NSString * appVersion;
+
 @property (nonatomic, retain) Exam *exam;
 
 @end

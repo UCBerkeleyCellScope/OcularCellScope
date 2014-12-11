@@ -34,7 +34,7 @@ BOOL _queueIsProcessing = NO;
     
 
     //this gets all the EyeImage objects for this exam from CD which have not been uploaded yet
-    NSArray* eyeImagesToAdd = [CoreDataController getEyeImagesToUploadForExam:exam];
+    NSArray* eyeImagesToAdd = [CoreDataController getEyeImagesForExam:exam];
     
     if (eyeImagesToAdd.count>0)
         exam.uploaded = @1; //upload "pending"
@@ -154,7 +154,13 @@ BOOL _queueIsProcessing = NO;
 
 - (void)uploadImageDataToParse:(NSData *)imageData fromEyeImage:(EyeImage*)ei completionHandler:(void(^)(BOOL,NSError*))completionBlock//add completion block
 {
-    PFFile *imageFile = [PFFile fileWithName:[NSString stringWithFormat:@"Image-%d.jpg",arc4random()] data:imageData];
+    PFFile *imageFile = [PFFile fileWithName:[NSString stringWithFormat:@"Image-%@-%d-%@-%d-%05d.jpg",
+                                                [[NSUserDefaults standardUserDefaults] stringForKey:@"cellscopeID"],
+                                                ei.exam.patientIndex.intValue,
+                                                ei.eye,
+                                                ei.fixationLight.intValue,
+                                                arc4random_uniform(99999)]
+                                        data:imageData];
     
     // Save PFFile
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -163,13 +169,11 @@ BOOL _queueIsProcessing = NO;
             PFObject *eyeImage = [PFObject objectWithClassName:@"EyeImage"];
             [eyeImage setObject:imageFile forKey:@"Image"];
             
-            NSLog(@"eye: %@",ei.eye);
-            NSLog(@"fix: %d",ei.fixationLight.intValue);
             NSString* position;
             
             switch (ei.fixationLight.intValue) {
                 case 1:
-                    position = @"Center";
+                    position = @"Central";
                     break;
                 case 2:
                     position = @"Superior";
@@ -190,14 +194,14 @@ BOOL _queueIsProcessing = NO;
             
             eyeImage[@"Eye"] = ei.eye;
             eyeImage[@"Position"] = position;
-            eyeImage[@"appVersion"] = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
-            //eyeImage[@"illumination"] =
-            //eyeImage[@"focus"] =
-            //eyeImage[@"exposure"] =
-            //eyeImage[@"iso"] =
-            //eyeImage[@"whiteBalance"] =
-            //eyeImage[@"flashDuration"] =
-            //eyeImage[@"flashDelay"] =
+            eyeImage[@"appVersion"] = ei.appVersion;
+            eyeImage[@"illumination"] = ei.illumination;
+            eyeImage[@"focus"] = ei.focus;
+            eyeImage[@"exposure"] = ei.exposure;
+            eyeImage[@"iso"] = ei.iso;
+            eyeImage[@"whiteBalance"] = ei.whiteBalance;
+            eyeImage[@"flashDuration"] = ei.flashDuration;
+            eyeImage[@"flashDelay"] = ei.flashDelay;
             
             //...
             
@@ -230,11 +234,12 @@ BOOL _queueIsProcessing = NO;
                          parseExam[@"lastName"] = self.currentExam.lastName;
                          parseExam[@"patientID"] = self.currentExam.patientID;
                          parseExam[@"phoneNumber"] = self.currentExam.phoneNumber;
+                         parseExam[@"patientDOB"] = self.currentExam.birthDate;
                          parseExam[@"cellscope"] = [[NSUserDefaults standardUserDefaults] stringForKey:@"cellscopeID"];
-                         parseExam[@"user"] = @"user";
-                         parseExam[@"study"] = @"nostudy";
+                         parseExam[@"user"] = @"nouser";
+                         parseExam[@"study"] = self.currentExam.studyName;
                          parseExam[@"examDate"] = self.currentExam.date;
-                         parseExam[@"notes"] = @"";
+                         parseExam[@"notes"] = self.currentExam.notes;
                          
                          
                          self.currentParseExam = parseExam;

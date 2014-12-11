@@ -211,7 +211,33 @@
                 coreDataObject.uuid = [Random randomStringWithLength:5];
                 coreDataObject.fixationLight = [[NSNumber alloc] initWithInt: ei.fixationLight]; //[[NSNumber alloc ]initWithInteger: [[[CellScopeContext sharedContext]bleManager]selectedLight]];
             
-                NSLog(@"fixationLight %@", coreDataObject.fixationLight);
+                coreDataObject.appVersion = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
+                
+                NSUserDefaults* prefs = [NSUserDefaults standardUserDefaults];
+                coreDataObject.illumination = [NSString stringWithFormat:@"PR=%ld PW=%ld FR=%ld FW=%ld",
+                                               [prefs integerForKey:@"redFocusValue"],
+                                               [prefs integerForKey:@"whiteFocusValue"],
+                                               [prefs integerForKey:@"redFlashValue"],
+                                               [prefs integerForKey:@"whiteFlashValue"]];
+                coreDataObject.focus = [NSString stringWithFormat:@"%ld",[prefs integerForKey:@"focusPosition"]];
+                coreDataObject.exposure = [NSString stringWithFormat:@"P=%ld F=%ld",
+                                                [prefs integerForKey:@"previewExposureDuration"],
+                                                [prefs integerForKey:@"previewExposureDuration"]/[prefs integerForKey:@"previewFlashRatio"]];
+                coreDataObject.iso = [NSString stringWithFormat:@"P=%ld F=%ld",
+                                           [prefs integerForKey:@"previewISO"],
+                                           [prefs integerForKey:@"captureISO"]];
+                coreDataObject.flashDuration = [NSString stringWithFormat:@"%ld",
+                                                [prefs integerForKey:@"flashDurationMultiplier"]*[prefs integerForKey:@"previewExposureDuration"]/[prefs integerForKey:@"previewFlashRatio"]];
+                coreDataObject.flashDelay = [NSString stringWithFormat:@"%ld",[prefs integerForKey:@"flashDelay"]];
+                coreDataObject.whiteBalance = [NSString stringWithFormat:@"P=%1.2f/%1.2f/%1.2f F=%1.2f/%1.2f/%1.2f",
+                                               [prefs floatForKey:@"previewRedGain"],
+                                               [prefs floatForKey:@"previewGreenGain"],
+                                               [prefs floatForKey:@"previewBlueGain"],
+                                               [prefs floatForKey:@"captureRedGain"],
+                                               [prefs floatForKey:@"captureGreenGain"],
+                                               [prefs floatForKey:@"captureBlueGain"]];
+                
+                
                 coreDataObject.exam = [[CellScopeContext sharedContext]currentExam];
             
 

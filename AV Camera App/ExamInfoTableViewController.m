@@ -83,6 +83,9 @@
     self.lastnameField.text = self.e.lastName;
     self.patientIDTextField.text = self.e.patientID;
     self.phoneNumberField.text = self.e.phoneNumber;
+    self.notesTextArea.text = self.e.notes;
+    self.researchStudyTextField.text = self.e.studyName;
+    
     
     self.uploadStatusIcon.layer.cornerRadius = self.uploadStatusIcon.frame.size.width / 2;
     self.uploadStatusIcon.clipsToBounds = YES;
@@ -116,7 +119,8 @@
         
         self.e.patientIndex = [NSNumber numberWithInt: value];
         //self.patientIDField.text = [self.e.patientID stringValue];
-        self.patientIDLabel.text = [self.e.patientIndex stringValue];
+        self.patientIDLabel.text = [self.e.patientIndex stringValue]; //TODO: confusing nomenclature: IDLabel/IDField
+        self.researchStudyTextField.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"defaultStudy"];
     }
     else{
         //self.patientIDField.text = [self.e.patientID stringValue];
@@ -155,7 +159,8 @@
     self.e.lastName = lastnameField.text;
     self.e.patientID = patientIDTextField.text;
     self.e.phoneNumber = phoneNumberField.text;
-    
+    self.e.studyName = self.researchStudyTextField.text;
+    self.e.notes = self.notesTextArea.text;
     
     NSString * birthDateString = [NSString stringWithFormat:@"%@-%@-%@",self.birthDayTextField.text,self.birthMonthTextField.text,self.birthYearTextField.text];
     
@@ -173,6 +178,7 @@
     NSLog(@"BD NSDate %@",bd);
     self.e.birthDate = bd;
     
+    [[NSUserDefaults standardUserDefaults] setObject:self.researchStudyTextField.text forKey:@"defaultStudy"];
 
     // Commit to core data
     NSError *error;
