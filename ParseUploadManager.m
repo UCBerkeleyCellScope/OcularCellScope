@@ -234,7 +234,9 @@ BOOL _queueIsProcessing = NO;
                          parseExam[@"lastName"] = self.currentExam.lastName;
                          parseExam[@"patientID"] = self.currentExam.patientID;
                          parseExam[@"phoneNumber"] = self.currentExam.phoneNumber;
-                         parseExam[@"patientDOB"] = self.currentExam.birthDate;
+                         if (self.currentExam.birthDate) {
+                            parseExam[@"patientDOB"] = self.currentExam.birthDate;
+                         }
                          parseExam[@"cellscope"] = [[NSUserDefaults standardUserDefaults] stringForKey:@"cellscopeID"];
                          parseExam[@"user"] = @"nouser";
                          parseExam[@"study"] = self.currentExam.studyName;
