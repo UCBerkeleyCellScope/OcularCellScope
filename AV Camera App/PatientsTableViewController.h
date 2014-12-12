@@ -17,6 +17,8 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *patientsArray;
+@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *cellscopeIDLabel;
 
 @property (nonatomic, strong) Exam *currentExam;
 

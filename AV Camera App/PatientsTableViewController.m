@@ -77,6 +77,8 @@
     [[CellScopeContext sharedContext] setCurrentExam:nil];
     [[CellScopeContext sharedContext] setSelectedEye:0];
     
+    self.versionLabel.text = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
+    self.cellscopeIDLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"cellscopeID"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
