@@ -8,6 +8,7 @@
 
 #import "ExamInfoTableViewController.h"
 #import <Parse/Parse.h>
+#import "TabViewController.h"
 
 #define SYSTEM_VERSION_LESS_THAN(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
@@ -97,6 +98,17 @@
     else
         self.uploadStatusIcon.backgroundColor = [UIColor clearColor];
 
+    //may not be the best place for this (in TVC instead?)
+    TabViewController* tvc = (TabViewController*)self.tabBarController;
+    if (self.e.eyeImages.count>0) {
+        tvc.uploadButton.enabled = YES;
+        tvc.uploadButton.title = @"Upload";
+    }
+    else {
+        tvc.uploadButton.enabled = NO;
+        tvc.uploadButton.title = @"";
+    }
+    
     if(self.e.birthDate != nil){
         NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self.e.birthDate];
         NSLog(@"Day: %d", (int)[components day]);
@@ -131,8 +143,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    NSLog(@"Saving Exam Data");
-
 
 /*
     if([firstnameField.text isEqualToString: @""]){

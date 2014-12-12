@@ -14,6 +14,7 @@
 #import "Exam+Methods.h"
 #import "CoreDataController.h"
 #import "CellScopeContext.h"
+#import "Reachability.h"
 
 @interface ParseUploadManager : NSObject
 
@@ -22,6 +23,8 @@
 @property (nonatomic) float currentExamProgress;
 @property (strong,nonatomic) Exam* currentExam;
 @property (strong,nonatomic) PFObject* currentParseExam;
+
+@property (strong, nonatomic) Reachability* reachability;
 
 - (void) addExamToUploadQueue:(Exam*)exam;
 

@@ -58,7 +58,37 @@
     [uploadBanner setHidden:YES];
     [self.view addSubview:uploadBanner];
     [CellScopeHTTPClient sharedCellScopeHTTPClient].uploadBannerView = uploadBanner;
+    
+    
+    //[self.navigationController.navigationItem.backBarButtonItem setAction:@selector(didPressBack:)];
+    
+
 }
+
+//this isn't working to catch the back button
+/*
+-(void) didPressBack:(id)sender {
+    
+    //do your saving and such here
+    
+    Exam* ex = [[CellScopeContext sharedContext] currentExam];
+    
+    if ([ex.firstName isEqualToString:@""] &&
+     [ex.lastName isEqualToString:@""] &&
+     [ex.patientID isEqualToString:@""] &&
+     [ex.notes isEqualToString:@""] &&
+     ex.eyeImages.count==0) {
+        
+        [[[CellScopeContext sharedContext] managedObjectContext] rollback];
+     }
+    else {
+        [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+*/
 
 /*
 -(void)viewWillAppear:(BOOL)animated{

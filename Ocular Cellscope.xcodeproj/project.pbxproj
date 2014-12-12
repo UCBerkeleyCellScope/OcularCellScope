@@ -93,6 +93,7 @@
 		7DD0A96819E902800064A413 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD0A96719E902800064A413 /* Social.framework */; };
 		7DD0A96A19E902850064A413 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD0A96919E902850064A413 /* Accounts.framework */; };
 		A52751CC199A742C00B68FDA /* settings_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A52751CB199A742C00B68FDA /* settings_icon@2x.png */; };
+		A570184E1A3B94CE00B9BE25 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = A570184D1A3B94CE00B9BE25 /* Reachability.m */; };
 		A5C8E186197634B90072D99C /* od_bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C8E17C197634B90072D99C /* od_bottom.png */; };
 		A5C8E187197634B90072D99C /* od_center.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C8E17D197634B90072D99C /* od_center.png */; };
 		A5C8E188197634B90072D99C /* od_left.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C8E17E197634B90072D99C /* od_left.png */; };
@@ -310,6 +311,8 @@
 		7DD0A96919E902850064A413 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		A52751CB199A742C00B68FDA /* settings_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_icon@2x.png"; sourceTree = "<group>"; };
 		A570184A1A3A4D2F00B9BE25 /* CameraModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CameraModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		A570184C1A3B94CE00B9BE25 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		A570184D1A3B94CE00B9BE25 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		A5C8E17C197634B90072D99C /* od_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = od_bottom.png; sourceTree = "<group>"; };
 		A5C8E17D197634B90072D99C /* od_center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = od_center.png; sourceTree = "<group>"; };
 		A5C8E17E197634B90072D99C /* od_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = od_left.png; sourceTree = "<group>"; };
@@ -657,6 +660,8 @@
 				F385B3001900E66400A3F974 /* BLEManager.m */,
 				A5D3CAAD1A23FB9300D376E7 /* ParseUploadManager.h */,
 				A5D3CAAE1A23FB9300D376E7 /* ParseUploadManager.m */,
+				A570184C1A3B94CE00B9BE25 /* Reachability.h */,
+				A570184D1A3B94CE00B9BE25 /* Reachability.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -1040,6 +1045,7 @@
 				60C1AE3318F3507E00902F28 /* AFURLResponseSerialization.m in Sources */,
 				60B42334190EF236005A9ABD /* CellScopeHTTPClient.m in Sources */,
 				60C1AE2C18F3507E00902F28 /* AFHTTPRequestOperation.m in Sources */,
+				A570184E1A3B94CE00B9BE25 /* Reachability.m in Sources */,
 				60D8C7C518C69BB1007D26A7 /* ImageCell.m in Sources */,
 				60C1AE3218F3507E00902F28 /* AFURLRequestSerialization.m in Sources */,
 				F325703118D1A9AE00FEA80E /* UIImage+Resize.m in Sources */,

@@ -8,7 +8,7 @@
 
 
 #import "ParseUploadManager.h"
-
+#import "PopupMessage.h"
 
 @implementation ParseUploadManager
 
@@ -19,6 +19,12 @@ BOOL _queueIsProcessing = NO;
 {
     self = [super init];
     if(self){
+        
+        
+        self.reachability = [Reachability reachabilityForInternetConnection];
+        [self.reachability startNotifier];
+        
+        
         self.imagesToUpload = [[NSMutableArray alloc] init];
     }
     return self;
@@ -26,10 +32,21 @@ BOOL _queueIsProcessing = NO;
 
 - (void) addExamToUploadQueue:(Exam*)exam
 {
-
+    
+    if (self.reachability.currentReachabilityStatus==NotReachable) {
+        [PopupMessage showPopup:@"Not Connected"];
+        return;
+    }
+    
     if (exam.uploaded.intValue!=0) {
         //TODO: handle this exam differently (it's already been uploaded/partially uploaded)
         //load the parseExam from Parse
+        
+        //for now, this just resets the uploaded flags on the exam and its images. eventually, we
+        //want to have it associate these new exam updates + potentially new images with an existing record
+        exam.uploaded = 0;
+        for (EyeImage* ei in exam.eyeImages)
+            ei.uploaded = 0;
     }
     
 
@@ -39,7 +56,7 @@ BOOL _queueIsProcessing = NO;
     if (eyeImagesToAdd.count>0)
         exam.uploaded = @1; //upload "pending"
     else
-        exam.uploaded = @2; //nothing to upload (note: this won't update the exam info in Parse)
+        return;
     
     NSLog(@"adding exam: %@ to upload queue with %d images",exam.patientIndex,eyeImagesToAdd.count);
     
@@ -51,6 +68,9 @@ BOOL _queueIsProcessing = NO;
         [self processUploadQueue];
 
 }
+
+//upload timeout in seconds
+#define UPLOAD_TIMEOUT 30
 
 - (void) processUploadQueue
 {
@@ -75,10 +95,24 @@ BOOL _queueIsProcessing = NO;
             //trigger the upload. when it's done, it will set uploaded to 2 if success or 0 if fail
             [self uploadImage:nextImage];
             
-            //wait for upload to complete
-            while (nextImage.uploaded.intValue==1)
-                [NSThread sleepForTimeInterval:0.1];
+            double startTimestamp = [[NSDate date] timeIntervalSince1970];
             
+            //wait for upload to complete (need a timeout)
+            while (nextImage.uploaded.intValue==1) {
+                [NSThread sleepForTimeInterval:0.1];
+                
+                //timeout. if image never uploads, stop the queue
+                if (([[NSDate date] timeIntervalSince1970] - startTimestamp)>UPLOAD_TIMEOUT) {
+                    [PopupMessage showPopup:@"Network Timeout"];
+                    [self.imagesToUpload removeAllObjects];
+                    self.currentExam = nil;
+                    self.currentParseExam = nil;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
+                    });
+                    return;
+                }
+            }
             //dequeue this image
             [self.imagesToUpload removeObject:nextImage];
             
@@ -202,8 +236,6 @@ BOOL _queueIsProcessing = NO;
             eyeImage[@"whiteBalance"] = ei.whiteBalance;
             eyeImage[@"flashDuration"] = ei.flashDuration;
             eyeImage[@"flashDelay"] = ei.flashDelay;
-            
-            //...
             
             
             // Set the access control list to current user for security purposes

@@ -78,6 +78,8 @@
     //self.collectionView.frame = self.view.window.frame;
     ((UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout).itemSize = self.collectionView.frame.size;
     
+
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated

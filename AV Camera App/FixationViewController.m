@@ -87,6 +87,16 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     [self initSegControl];
     [self loadImages];
     
+    //not best place for this
+    TabViewController* tvc = (TabViewController*)self.tabBarController;
+    if ([[CellScopeContext sharedContext] currentExam].eyeImages.count>0) {
+        tvc.uploadButton.enabled = YES;
+        tvc.uploadButton.title = @"Upload";
+    }
+    else {
+        tvc.uploadButton.enabled = NO;
+        tvc.uploadButton.title = @"";
+    }
 }
 
 - (void)fixationDisplayChange:(NSNotification *)notification
@@ -176,6 +186,8 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         
             NSLog(@"Images for Fixation %d : %d", i, (int)[eyeImages count]);
             
+
+            
             if([eyeImages count] != 0){
                 currentEyeImage = eyeImages[0];
                 
@@ -186,6 +198,8 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                 [fixationButtons[i] setSelected: YES];
                 
                 [(UIButton*)fixationButtons[i] setTransform: CGAffineTransformMakeRotation(M_PI)]; //added to rotate thumbnails
+
+
             }
             else{
                 UIImage* thumbImage;
@@ -203,6 +217,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
                 [fixationButtons[i] setImage: thumbImage forState:UIControlStateSelected];
                 [fixationButtons[i] setImage: thumbImage forState: UIControlStateNormal];
                 [fixationButtons[i] setSelected: NO];
+                
             }
         }
 }
