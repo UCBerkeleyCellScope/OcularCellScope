@@ -94,6 +94,8 @@
 		7DD0A96A19E902850064A413 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD0A96919E902850064A413 /* Accounts.framework */; };
 		A52751CC199A742C00B68FDA /* settings_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A52751CB199A742C00B68FDA /* settings_icon@2x.png */; };
 		A570184E1A3B94CE00B9BE25 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = A570184D1A3B94CE00B9BE25 /* Reachability.m */; };
+		A57018521A3F928C00B9BE25 /* Logs.m in Sources */ = {isa = PBXBuildFile; fileRef = A57018511A3F928C00B9BE25 /* Logs.m */; };
+		A57018551A3F935F00B9BE25 /* LoggingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A57018541A3F935F00B9BE25 /* LoggingManager.m */; };
 		A5C8E186197634B90072D99C /* od_bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C8E17C197634B90072D99C /* od_bottom.png */; };
 		A5C8E187197634B90072D99C /* od_center.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C8E17D197634B90072D99C /* od_center.png */; };
 		A5C8E188197634B90072D99C /* od_left.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C8E17E197634B90072D99C /* od_left.png */; };
@@ -313,6 +315,11 @@
 		A570184A1A3A4D2F00B9BE25 /* CameraModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CameraModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		A570184C1A3B94CE00B9BE25 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		A570184D1A3B94CE00B9BE25 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		A570184F1A3F922900B9BE25 /* CameraModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CameraModel 3.xcdatamodel"; sourceTree = "<group>"; };
+		A57018501A3F928C00B9BE25 /* Logs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logs.h; sourceTree = "<group>"; };
+		A57018511A3F928C00B9BE25 /* Logs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Logs.m; sourceTree = "<group>"; };
+		A57018531A3F935F00B9BE25 /* LoggingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggingManager.h; sourceTree = "<group>"; };
+		A57018541A3F935F00B9BE25 /* LoggingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggingManager.m; sourceTree = "<group>"; };
 		A5C8E17C197634B90072D99C /* od_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = od_bottom.png; sourceTree = "<group>"; };
 		A5C8E17D197634B90072D99C /* od_center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = od_center.png; sourceTree = "<group>"; };
 		A5C8E17E197634B90072D99C /* od_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = od_left.png; sourceTree = "<group>"; };
@@ -647,6 +654,8 @@
 				6DD89D1E1842629600F3C7FC /* CameraModel.xcdatamodeld */,
 				6DD89D7B18426AD400F3C7FC /* CoreDataController.h */,
 				6DD89D7C18426AD400F3C7FC /* CoreDataController.m */,
+				A57018501A3F928C00B9BE25 /* Logs.h */,
+				A57018511A3F928C00B9BE25 /* Logs.m */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";
@@ -782,6 +791,8 @@
 			children = (
 				60C2A51B18C19F2800021510 /* CellScopeContext.h */,
 				60C2A51C18C19F2800021510 /* CellScopeContext.m */,
+				A57018531A3F935F00B9BE25 /* LoggingManager.h */,
+				A57018541A3F935F00B9BE25 /* LoggingManager.m */,
 				F3FCC97F194A885B0093A1EB /* Constants.h */,
 				60D8C7D118C6BF87007D26A7 /* Constants.m */,
 				A5FDDFDB1A2EE86C00500237 /* PopupMessage.h */,
@@ -1023,6 +1034,7 @@
 			files = (
 				7DB118D81A0F418A00F7AFEB /* EyeImage+Methods.m in Sources */,
 				7DB118D71A0F418600F7AFEB /* Exam+Methods.m in Sources */,
+				A57018521A3F928C00B9BE25 /* Logs.m in Sources */,
 				6043C8EE192B12F9007DFAFB /* CameraFocusSquare.m in Sources */,
 				60D8C7BC18C69BB1007D26A7 /* CameraAppDelegate.m in Sources */,
 				60C1AE0518F34DD400902F28 /* PatientTableViewCell.m in Sources */,
@@ -1037,6 +1049,7 @@
 				60D8C7C118C69BB1007D26A7 /* FixationViewController.m in Sources */,
 				60D8C7C418C69BB1007D26A7 /* ImageSelectionViewController.m in Sources */,
 				60B4233A190F0B7F005A9ABD /* UIColor+Custom.m in Sources */,
+				A57018551A3F935F00B9BE25 /* LoggingManager.m in Sources */,
 				60FC3EE219560C8F00025AD0 /* EyeImage.m in Sources */,
 				60C1AE3418F3507E00902F28 /* AFURLSessionManager.m in Sources */,
 				603B077D18DD810B002179CD /* TabViewController.m in Sources */,
@@ -1331,9 +1344,10 @@
 			isa = XCVersionGroup;
 			children = (
 				A570184A1A3A4D2F00B9BE25 /* CameraModel 2.xcdatamodel */,
+				A570184F1A3F922900B9BE25 /* CameraModel 3.xcdatamodel */,
 				6DD89D1F1842629600F3C7FC /* CameraModel.xcdatamodel */,
 			);
-			currentVersion = A570184A1A3A4D2F00B9BE25 /* CameraModel 2.xcdatamodel */;
+			currentVersion = A570184F1A3F922900B9BE25 /* CameraModel 3.xcdatamodel */;
 			path = CameraModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

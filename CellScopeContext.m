@@ -42,11 +42,16 @@ static NSString * const CellScopeURLString = @"http://warm-dawn-6399.herokuapp.c
         bleManager = [[BLEManager alloc]init];
         client = [[CellScopeHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:CellScopeURLString]];
         self.uploadManager = [[ParseUploadManager alloc] init];
+        self.loggingManager = [[LoggingManager alloc] init];
+        
         NSLog(@"MADE THE SINGLETON");
         
     }
     return self;
 }
+
+
+
 
 @end
 

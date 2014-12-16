@@ -97,6 +97,9 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         tvc.uploadButton.enabled = NO;
         tvc.uploadButton.title = @"";
     }
+    
+    CSLog(@"Fixation view presented", @"USER");
+    
 }
 
 - (void)fixationDisplayChange:(NSNotification *)notification
@@ -232,6 +235,9 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     self.selectedLight = (int)[sender tag];
     //[_bleManager setSelectedLight: self.selectedLight];
+    NSString* logmsg = [NSString stringWithFormat:@"Selected fixation light %d",self.selectedLight];
+    CSLog(logmsg, @"USER");
+    
     
     if( [sender isSelected] == NO){
 
@@ -276,6 +282,10 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         eyeString = @"OD";
     else
         eyeString = @"OS";
+    
+    NSString* logmsg = [NSString stringWithFormat:@"Reviewing images for eye %@ and region %d",eyeString,self.selectedLight];
+    CSLog(logmsg, @"USER");
+    
     
     NSPredicate *p = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == %d", [[CellScopeContext sharedContext]currentExam], eyeString,
                       self.selectedLight];
@@ -342,7 +352,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
             failureBlock:^(NSError *error)
      {
          
-         NSLog(@"failure loading video/image from AssetLibrary");
+         CSLog(@"failure loading video/image from AssetLibrary",@"ERROR");
      }];
 }
 
@@ -350,7 +360,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     bool fired = FALSE;
     if ([self.eyeImages count]==0 && fired == FALSE){
         fired = TRUE;
-        NSLog(@"Segue to ImageReview");
         
         [self performSegueWithIdentifier:@"ImageReviewSegue" sender:self];
     }
@@ -361,10 +370,14 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 - (void)didSegmentedValueChanged:(id)sender {
     
-    if(self.segControl.selectedSegmentIndex == 0)
+    if(self.segControl.selectedSegmentIndex == 0) {
         [[CellScopeContext sharedContext]setSelectedEye:OD_EYE];
-    else if (self.segControl.selectedSegmentIndex == 1)
+        CSLog(@"OD Selected",@"USER");
+    }
+    else if (self.segControl.selectedSegmentIndex == 1) {
         [[CellScopeContext sharedContext]setSelectedEye:OS_EYE];
+        CSLog(@"OS Selected",@"USER");
+    }
     
     [self loadImages ];
     
@@ -376,7 +389,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     if ([[segue identifier] isEqualToString:@"CamViewSegue"])
     {
         
-        NSLog(@"Preparing for CamViewSegue");
         CamViewController* cvc = (CamViewController*)[segue destinationViewController];
         //[[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
         cvc.fullscreeningMode = NO;
@@ -386,7 +398,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     if ([[segue identifier] isEqualToString:@"FullScreeningSegue"]) //TODO: when is this used?
     {
         
-        NSLog(@"Preparing for FullScreeningSegue");
         CamViewController* cvc = (CamViewController*)[segue destinationViewController];
         //[[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
         cvc.fullscreeningMode = YES;
@@ -395,7 +406,6 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     else if ([[segue identifier] isEqualToString:@"ImageReviewSegue"])
     {
-        NSLog(@"Segue to ImageReview");
         ImageSelectionViewController * isvc = (ImageSelectionViewController*)[segue destinationViewController];
         
         isvc.reviewMode = YES;

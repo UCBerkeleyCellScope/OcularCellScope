@@ -241,7 +241,9 @@ BOOL capturing = NO;
         
         [ble connectPeripheral:[ble.peripherals objectAtIndex:0]];
         
-        NSLog(@"now paired with %@",newUUID);
+        NSString* logstr = [NSString stringWithFormat:@"Bluetooth now paired with %@",newUUID];
+        CSLog(logstr, @"HARDWARE");
+        
     }
     
 }
@@ -261,7 +263,7 @@ BOOL capturing = NO;
 
 - (void)bleDidDisconnect
 {
-    NSLog(@"->Disconnected");
+    CSLog(@"Bluetooth disconnected.", @"HARDWARE");
     [self beginBLEScan];
     //[self btnScanForPeripherals];
     _isConnected = NO;
@@ -269,7 +271,6 @@ BOOL capturing = NO;
     if(debugMode==NO){
 
     }
-    NSLog(@"Connected set back to NO");
     
     
     
@@ -277,7 +278,7 @@ BOOL capturing = NO;
 
 -(void) bleDidConnect
 {
-    NSLog(@"BLE has succesfully connected");
+    CSLog(@"Bluetooth connected.", @"HARDWARE");
     //[self turnOffAllLights];
     
     _isConnected = YES;

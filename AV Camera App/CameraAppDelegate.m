@@ -20,8 +20,25 @@
 @synthesize prefs = _prefs;
 @synthesize debugMode;
 
+void onUncaughtException(NSException* exception)
+{
+    [[[CellScopeContext sharedContext] loggingManager] CSLog:[exception description] inCategory:@"CRASH"];
+    [[[CellScopeContext sharedContext] loggingManager] CSLog:[[NSThread callStackSymbols] description] inCategory:@"CRASH"];
+    [[[[CellScopeContext sharedContext] loggingManager] logMOC] save:nil];
+    
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    NSSetUncaughtExceptionHandler(&onUncaughtException);
+    
+    //kind of kludgy to set the PSC this way...
+    [[[CellScopeContext sharedContext] loggingManager] setPersistentStoreCoordinator:[self persistentStoreCoordinator]];
+    
+    NSString* logstr = [NSString stringWithFormat:@"App started (version %@)",[NSBundle mainBundle].infoDictionary[@"CFBundleVersion"]];
+    
+    CSLog(logstr,@"SYSTEM");
 
     NSString* defaultPrefsFile = [[NSBundle mainBundle] pathForResource:@"default-configuration" ofType:@"plist"];
     NSDictionary* defaultPreferences = [NSDictionary dictionaryWithContentsOfFile:defaultPrefsFile];
@@ -49,10 +66,15 @@
         user.password = @"password";
         user.email = @"PotterLuv@example.com";
         
+        NSString* logmsg = [NSString stringWithFormat:@"Attempting Parse login with username: %@ ",user.username];
+        CSLog(logmsg, @"UPLOAD");
+        
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (error) {
                 // Assume the error is because the user already existed.
                 [PFUser logInWithUsername:@"Hermione" password:@"password"];
+                NSString* logmsg = [NSString stringWithFormat:@"Parse login failed with error: %@",error.description];
+                CSLog(logmsg, @"UPLOAD");
             }
         }];
     }
@@ -87,6 +109,7 @@
         alertString = @"Display Attached (OS)";
     }
     
+    CSLog(alertString, @"HARDWARE");
     
     [PopupMessage showPopup:alertString];
     
@@ -102,10 +125,13 @@
     
     if (lowBatteryWarning==NO && (newVoltage<[[NSUserDefaults standardUserDefaults] floatForKey:@"batteryWarningThreshold"])) {
         lowBatteryWarning = YES;
+        
+        CSLog(@"Low battery warning", @"HARDWARE");
         [PopupMessage showPopup:@"CellScope Low Battery"];
     }
     else if (lowBatteryWarning==YES && (newVoltage<[[NSUserDefaults standardUserDefaults] floatForKey:@"batteryOKThreshold"]) ){
         lowBatteryWarning = NO;
+        CSLog(@"Battery state OK", @"HARDWARE");
     }
     
 }

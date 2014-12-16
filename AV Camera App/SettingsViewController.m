@@ -71,6 +71,8 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     
     self.cellscopeIDTextField.text = [prefs stringForKey:@"cellscopeID"];
     
+    CSLog(@"Settings view presented", @"USER");
+    
 }
 
 -(void) viewWillDisappear:(BOOL)animated {

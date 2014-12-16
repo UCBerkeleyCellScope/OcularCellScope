@@ -1019,11 +1019,11 @@
             <objects>
                 <viewController title="Image Selection" id="2qF-pw-3PT" userLabel="Image Selection View Controller" customClass="ImageSelectionViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yIH-7h-k7d">
-                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="2" dataMode="prototypes" id="Y1m-Er-eNa">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="p4t-JP-2ws">
@@ -1438,7 +1438,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="f5C-PG-GoX"/>
-        <segue reference="yZ8-bd-Ndx"/>
+        <segue reference="bxS-mp-ayJ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.10196078431372549" green="0.73725490196078436" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
 </document>

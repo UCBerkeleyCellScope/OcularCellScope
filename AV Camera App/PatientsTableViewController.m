@@ -79,6 +79,9 @@
     
     self.versionLabel.text = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
     self.cellscopeIDLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"cellscopeID"];
+    
+    CSLog(@"Exam list view presented", @"USER");
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -187,8 +190,7 @@
     
     NSString* fn, *ln;
     
-    NSLog(@"Cell section: %ld row: %ld item: %ld", (long) indexPath.section, (long) indexPath.row, (long) indexPath.item);
-    
+
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];

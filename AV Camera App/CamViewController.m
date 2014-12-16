@@ -145,6 +145,8 @@
         [NSThread sleepForTimeInterval:0.1];
     });
 
+    CSLog(@"Camera view presented", @"USER");
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -210,7 +212,8 @@
 
 
 - (IBAction)didPressCapture:(id)sender{
-    NSLog(@"didPressCapture");
+    CSLog(@"Capture button pressed", @"USER");
+
     //[self playSound:@"beepbeep.wav"];
     [self.captureButton setEnabled:NO];
     [self.navigationItem setHidesBackButton:YES animated:YES];
@@ -246,6 +249,22 @@
 
     [self.captureManager setExposureDuration:flashExposureDuration
                                          ISO:[[NSUserDefaults standardUserDefaults] floatForKey:@"captureISO"]];
+    
+    NSString* logmsg = [NSString stringWithFormat:@"Capture sequence has begin with Focus=%3.2f, PrevExp=%3.2f, White=%d, Red=%d, FlashExp=%d, FlashDur=%d, FlashDelay=%3.2d, ISO=%3.2f, WB=%3.2f/%3.2f/%3.2f, Interval=%3.2f",
+                        self.currentFocusPosition,
+                        self.currentExposureDuration,
+                        whiteIntensity,
+                        redIntensity,
+                        flashExposureDuration,
+                        flashDuration,
+                        flashDelay,
+                        [[NSUserDefaults standardUserDefaults] floatForKey:@"captureISO"],
+                        [[NSUserDefaults standardUserDefaults] floatForKey:@"captureRedGain"],
+                        [[NSUserDefaults standardUserDefaults] floatForKey:@"captureGreenGain"],
+                        [[NSUserDefaults standardUserDefaults] floatForKey:@"captureBlueGain"],
+                        [[NSUserDefaults standardUserDefaults] floatForKey:@"captureInterval"]
+                        ];
+    CSLog(logmsg, @"HARDWARE");
     
     //wait for the camera to set
     [NSThread sleepForTimeInterval:0.6];
@@ -315,6 +334,8 @@
  * is captured. data contains a JPEG image.
  */
 -(void)didCaptureImageWithData:(NSData *)data{
+    
+    CSLog(@"Image captured.", @"HARDWARE");
     
     //TODO: add metadata to JPEG
     
@@ -552,6 +573,10 @@
 
     [self updateFocusExposureIndicators];
     
+    if (self.panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        NSString* logmsg = [NSString stringWithFormat:@"Focus=%3.2f, Exposure=%3.2f",self.currentFocusPosition,self.currentExposureDuration];
+        CSLog(logmsg, @"USER");
+    }
     
 }
 
@@ -572,7 +597,6 @@
 
 - (IBAction)longPressedToCapture:(id)sender {
     if (self.longPressGestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        NSLog(@"OMG LONG PRESS");
         [self.longPressGestureRecognizer setEnabled:NO];
         [self didPressCapture:sender];
     }
@@ -587,7 +611,6 @@
 
 -(void) updateFixationImageView{
     
-    NSLog(@"Self.selectedLight, %ld",self.selectedLight);
     switch(self.selectedLight){
             
         case FIXATION_LIGHT_CENTER:

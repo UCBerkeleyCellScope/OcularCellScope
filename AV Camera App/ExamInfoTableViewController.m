@@ -133,12 +133,17 @@
         //self.patientIDField.text = [self.e.patientID stringValue];
         self.patientIDLabel.text = [self.e.patientIndex stringValue]; //TODO: confusing nomenclature: IDLabel/IDField
         self.researchStudyTextField.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"defaultStudy"];
+        
+        CSLog(@"New exam entry created", @"USER");
     }
     else{
         //self.patientIDField.text = [self.e.patientID stringValue];
         self.patientIDLabel.text = [self.e.patientIndex stringValue];
         
     }
+    
+    CSLog(@"Exam info view presented", @"USER");
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated

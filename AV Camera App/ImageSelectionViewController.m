@@ -78,7 +78,8 @@
     //self.collectionView.frame = self.view.window.frame;
     ((UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout).itemSize = self.collectionView.frame.size;
     
-
+    CSLog(@"Image selection view presented", @"USER");
+    
     
 }
 
@@ -110,7 +111,6 @@
     
     
     cell.eyeImage = [self.images objectAtIndex:[indexPath row]];
-    NSLog(@"Index path %ld", (long)[indexPath row]);
     
     //cell.eyeImageView.transform = CGAffineTransformMakeRotation(-M_PI_2); //this works but seems to make gesture recognizers not work
     
@@ -164,6 +164,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView == deleteAllAlert && buttonIndex == 1){
+        CSLog(@"Delete all confirmed", @"USER");
         
         for (SelectableEyeImage* img in self.images)
         {
@@ -185,6 +186,8 @@
  */
 -(IBAction)didPressSave:(id)sender{
     __block int savePhotosCounter = 0;
+    
+    CSLog(@"Save button pressed", @"USER");
     
     //[self.navigationController setNavigationBarHidden:YES];
     
@@ -246,12 +249,15 @@
                 //TODO: add metadata.
                 savePhotosCounter++;
                 
+                NSString* logmsg = [NSString stringWithFormat:@"Saving image with UUID %@",coreDataObject.uuid];
+                CSLog(logmsg,@"DATA");
+                
                 [library writeImageToSavedPhotosAlbum:ei.CGImage orientation:ALAssetOrientationRight completionBlock:^(NSURL *assetURL, NSError *error){
                     if (error) {
-                        NSLog(@"Error writing image to photo album");
+                        CSLog(@"Error writing image to photo album",@"DATA");
                     }
                     else {
-                        NSLog(@"Added image to asset library");
+                        CSLog(@"Added image to asset library",@"DATA");
                         coreDataObject.filePath = [assetURL absoluteString];
                         [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
                     }
@@ -269,6 +275,7 @@
     if(reviewMode){
         for( SelectableEyeImage* ei in images){
             if(ei.isSelected){
+                CSLog(@"Deleting single image",@"DATA");
                 [[[CellScopeContext sharedContext] managedObjectContext] deleteObject: ei.coreDataImage];
                 [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
             }
