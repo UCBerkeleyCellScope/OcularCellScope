@@ -19,7 +19,6 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
     return rs;
 }
 
-
 -(NSString*)fileName{
     
     //self.exam.firstName
@@ -42,5 +41,33 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
     return formattedDateString;
 }
 
+-(NSString*)position{
+    
+    NSString* position;
+    
+    switch (self.fixationLight.intValue) {
+        case 1:
+            position = @"Central";
+            break;
+        case 2:
+            position = @"Superior";
+            break;
+        case 3:
+            position = @"Inferior";
+            break;
+        case 4:
+            position = [self.eye isEqualToString:@"OD"]?@"Temporal":@"Nasal";
+            break;
+        case 5:
+            position = [self.eye isEqualToString:@"OD"]?@"Nasal":@"Temporal";
+            break;
+        default:
+            position = @"None";
+            break;
+    }
+    
+    return position;
+
+}
 
 @end

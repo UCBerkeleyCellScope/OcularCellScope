@@ -13,4 +13,5 @@
 -(NSString*)randomEyeImageString;
 -(NSString*)fileName;
 -(NSString*)dateString;
+-(NSString*)position;
 @end
