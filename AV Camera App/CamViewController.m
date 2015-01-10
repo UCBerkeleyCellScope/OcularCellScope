@@ -43,26 +43,18 @@
 @synthesize tapGestureRecognizer;
 @synthesize longPressGestureRecognizer;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    /*
-    self.bleManager = [[CellScopeContext sharedContext] bleManager];
+
+-(void) viewWillAppear:(BOOL)animated{
     
-    if(self.fullscreeningMode)
-        self.selectedLight = CENTER_LIGHT;
-    else
-        self.selectedLight = self.bleManager.selectedLight;
-    */
+    /*
+     self.bleManager = [[CellScopeContext sharedContext] bleManager];
+     
+     if(self.fullscreeningMode)
+     self.selectedLight = CENTER_LIGHT;
+     else
+     self.selectedLight = self.bleManager.selectedLight;
+     */
     
     self.captureManager = [[AVCaptureManager alloc] init];
     self.captureManager.delegate = self;
@@ -70,14 +62,14 @@
     
     // Added gesture recognizer for taps to focus
     /*
-    tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didReceiveTapToFocus:)];
-    [self.view addGestureRecognizer:tapGestureRecognizer];
-*/
+     tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didReceiveTapToFocus:)];
+     [self.view addGestureRecognizer:tapGestureRecognizer];
+     */
     
     /*
-    longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedToCapture:)];
-    [self.view addGestureRecognizer:longPressGestureRecognizer];
-    */
+     longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedToCapture:)];
+     [self.view addGestureRecognizer:longPressGestureRecognizer];
+     */
     
     self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureHandler)];
     [self.view addGestureRecognizer:self.panGestureRecognizer];
@@ -91,9 +83,6 @@
     [[CellScopeContext sharedContext] setCamViewLoaded:YES];
     
     
-}
-
--(void) viewWillAppear:(BOOL)animated{
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     [self.captureManager setupCameraWithPreview:self.view];
@@ -146,13 +135,18 @@
     int redIntensity = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"redFocusValue"];
     int fixationIntensity = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"fixationLightValue"];
     
-    [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:whiteIntensity Red:redIntensity];
-    
-    [[[CellScopeContext sharedContext] bleManager] setFixationLight:(int)self.selectedLight forEye:[[CellScopeContext sharedContext] selectedEye] withIntensity:fixationIntensity];
-    
+    //this is ugly, but getting this to work reliably has been insanely frustrating. seems that sending BLE commands on a BG thread is best. and send it twice just to make sure.
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:whiteIntensity Red:redIntensity];
+        [[[CellScopeContext sharedContext] bleManager] setFixationLight:(int)self.selectedLight forEye:[[CellScopeContext sharedContext] selectedEye] withIntensity:fixationIntensity];
+        [NSThread sleepForTimeInterval:0.1];
+        [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:whiteIntensity Red:redIntensity];
+        [[[CellScopeContext sharedContext] bleManager] setFixationLight:(int)self.selectedLight forEye:[[CellScopeContext sharedContext] selectedEye] withIntensity:fixationIntensity];
+        [NSThread sleepForTimeInterval:0.1];
+    });
 
+    CSLog(@"Camera view presented", @"USER");
     
-
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -162,8 +156,14 @@
     
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 
-    [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:0 Red:0];
-    [[[CellScopeContext sharedContext] bleManager] setFixationLight:FIXATION_LIGHT_NONE forEye:1 withIntensity:0];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:0 Red:0];
+        [[[CellScopeContext sharedContext] bleManager] setFixationLight:FIXATION_LIGHT_NONE forEye:1 withIntensity:0];
+        [NSThread sleepForTimeInterval:0.1];
+        [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:0 Red:0];
+        [[[CellScopeContext sharedContext] bleManager] setFixationLight:FIXATION_LIGHT_NONE forEye:1 withIntensity:0];
+        [NSThread sleepForTimeInterval:0.1];
+    });
     
     [[NSUserDefaults standardUserDefaults] setFloat:   self.focusValueLabel.text.floatValue  forKey:@"focusPosition"];
     [[NSUserDefaults standardUserDefaults] setInteger: self.exposureValueLabel.text.intValue  forKey:@"previewExposureDuration"];
@@ -212,7 +212,8 @@
 
 
 - (IBAction)didPressCapture:(id)sender{
-    NSLog(@"didPressCapture");
+    CSLog(@"Capture button pressed", @"USER");
+
     //[self playSound:@"beepbeep.wav"];
     [self.captureButton setEnabled:NO];
     [self.navigationItem setHidesBackButton:YES animated:YES];
@@ -223,18 +224,50 @@
     //setup exposure, iso, white balance, and flash intensity settings for capture
     int whiteIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"whiteFlashValue"];
     int redIntensity = [[NSUserDefaults standardUserDefaults] integerForKey:@"redFlashValue"];
-    [[[CellScopeContext sharedContext] bleManager] setFlashIntensityWhite:whiteIntensity Red:redIntensity];
+    
+    float previewFlashRatio = [[NSUserDefaults standardUserDefaults] floatForKey:@"previewFlashRatio"];
+    float flashDurationMultiplier = [[NSUserDefaults standardUserDefaults] floatForKey:@"flashDurationMultiplier"];
+    int flashExposureDuration = (int)(self.currentExposureDuration / previewFlashRatio);
+    int flashDelay = [[NSUserDefaults standardUserDefaults] integerForKey:@"flashDelay"];
+    int flashDuration = (int)round(flashExposureDuration*flashDurationMultiplier);
+    
+    //why this works better in a BG thread, i don't know...
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [[[CellScopeContext sharedContext] bleManager] setFlashIntensityWhite:whiteIntensity
+                                                                          Red:redIntensity];
+        [NSThread sleepForTimeInterval:0.1];
+        [[[CellScopeContext sharedContext] bleManager] setFlashTimingDelay: flashDelay
+                                                                  Duration: flashDuration];
+        [NSThread sleepForTimeInterval:0.1];
+    });
+
     
     [self.captureManager setRedGain:[[NSUserDefaults standardUserDefaults] floatForKey:@"captureRedGain"]
                           greenGain:[[NSUserDefaults standardUserDefaults] floatForKey:@"captureGreenGain"]
                            blueGain:[[NSUserDefaults standardUserDefaults] floatForKey:@"captureBlueGain"]];
     
-    float previewFlashRatio = [[NSUserDefaults standardUserDefaults] floatForKey:@"previewFlashRatio"];
-    [self.captureManager setExposureDuration:(int)(self.currentExposureDuration / previewFlashRatio)
+
+    [self.captureManager setExposureDuration:flashExposureDuration
                                          ISO:[[NSUserDefaults standardUserDefaults] floatForKey:@"captureISO"]];
     
+    NSString* logmsg = [NSString stringWithFormat:@"Capture sequence has begin with Focus=%3.2f, PrevExp=%3.2f, White=%d, Red=%d, FlashExp=%d, FlashDur=%d, FlashDelay=%3.2d, ISO=%3.2f, WB=%3.2f/%3.2f/%3.2f, Interval=%3.2f",
+                        self.currentFocusPosition,
+                        self.currentExposureDuration,
+                        whiteIntensity,
+                        redIntensity,
+                        flashExposureDuration,
+                        flashDuration,
+                        flashDelay,
+                        [[NSUserDefaults standardUserDefaults] floatForKey:@"captureISO"],
+                        [[NSUserDefaults standardUserDefaults] floatForKey:@"captureRedGain"],
+                        [[NSUserDefaults standardUserDefaults] floatForKey:@"captureGreenGain"],
+                        [[NSUserDefaults standardUserDefaults] floatForKey:@"captureBlueGain"],
+                        [[NSUserDefaults standardUserDefaults] floatForKey:@"captureInterval"]
+                        ];
+    CSLog(logmsg, @"HARDWARE");
+    
     //wait for the camera to set
-    [NSThread sleepForTimeInterval:0.3];
+    [NSThread sleepForTimeInterval:0.6];
     
     //start the capture sequence
     [self captureTimerFired];
@@ -279,14 +312,16 @@
         //BOOL timedFlash = [[NSUserDefaults standardUserDefaults] boolForKey:@"timedFlash"];
 
         //send flash signal
-        [[[CellScopeContext sharedContext] bleManager] doFlashWithDuration:[[NSUserDefaults standardUserDefaults] integerForKey:@"flashDuration"]];
+        dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        [[[CellScopeContext sharedContext] bleManager] doFlash];
         
         //wait for ble command to be sent
-        [NSThread sleepForTimeInterval: [[NSUserDefaults standardUserDefaults] floatForKey:@"flashDelay"]/1000];
+        //[NSThread sleepForTimeInterval: [[NSUserDefaults standardUserDefaults] floatForKey:@"flashDelay"]/1000];
         
         
         [self.captureManager takePicture];
-
+        });
+        
         int interval = [[NSUserDefaults standardUserDefaults] integerForKey:@"captureInterval"];
         self.repeatingTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(captureTimerFired) userInfo:nil repeats:NO];
         
@@ -299,6 +334,8 @@
  * is captured. data contains a JPEG image.
  */
 -(void)didCaptureImageWithData:(NSData *)data{
+    
+    CSLog(@"Image captured.", @"HARDWARE");
     
     //TODO: add metadata to JPEG
     
@@ -500,7 +537,7 @@
 #define EXPOSURE_INCREMENT 1
 #define FOCUS_MIN 0.0
 #define FOCUS_MAX 1.0
-#define EXPOSURE_MIN 1
+#define EXPOSURE_MIN 25
 #define EXPOSURE_MAX 200
 
 - (void)panGestureHandler
@@ -536,6 +573,10 @@
 
     [self updateFocusExposureIndicators];
     
+    if (self.panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        NSString* logmsg = [NSString stringWithFormat:@"Focus=%3.2f, Exposure=%3.2f",self.currentFocusPosition,self.currentExposureDuration];
+        CSLog(logmsg, @"USER");
+    }
     
 }
 
@@ -556,7 +597,6 @@
 
 - (IBAction)longPressedToCapture:(id)sender {
     if (self.longPressGestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        NSLog(@"OMG LONG PRESS");
         [self.longPressGestureRecognizer setEnabled:NO];
         [self didPressCapture:sender];
     }
@@ -571,7 +611,6 @@
 
 -(void) updateFixationImageView{
     
-    NSLog(@"Self.selectedLight, %ld",self.selectedLight);
     switch(self.selectedLight){
             
         case FIXATION_LIGHT_CENTER:

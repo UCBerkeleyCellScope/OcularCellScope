@@ -78,6 +78,9 @@
     //self.collectionView.frame = self.view.window.frame;
     ((UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout).itemSize = self.collectionView.frame.size;
     
+    CSLog(@"Image selection view presented", @"USER");
+    
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -108,7 +111,6 @@
     
     
     cell.eyeImage = [self.images objectAtIndex:[indexPath row]];
-    NSLog(@"Index path %ld", (long)[indexPath row]);
     
     //cell.eyeImageView.transform = CGAffineTransformMakeRotation(-M_PI_2); //this works but seems to make gesture recognizers not work
     
@@ -162,6 +164,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView == deleteAllAlert && buttonIndex == 1){
+        CSLog(@"Delete all confirmed", @"USER");
         
         for (SelectableEyeImage* img in self.images)
         {
@@ -183,6 +186,8 @@
  */
 -(IBAction)didPressSave:(id)sender{
     __block int savePhotosCounter = 0;
+    
+    CSLog(@"Save button pressed", @"USER");
     
     //[self.navigationController setNavigationBarHidden:YES];
     
@@ -211,19 +216,48 @@
                 coreDataObject.uuid = [Random randomStringWithLength:5];
                 coreDataObject.fixationLight = [[NSNumber alloc] initWithInt: ei.fixationLight]; //[[NSNumber alloc ]initWithInteger: [[[CellScopeContext sharedContext]bleManager]selectedLight]];
             
-                NSLog(@"fixationLight %@", coreDataObject.fixationLight);
+                coreDataObject.appVersion = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
+                
+                NSUserDefaults* prefs = [NSUserDefaults standardUserDefaults];
+                coreDataObject.illumination = [NSString stringWithFormat:@"PR=%ld PW=%ld FR=%ld FW=%ld",
+                                               [prefs integerForKey:@"redFocusValue"],
+                                               [prefs integerForKey:@"whiteFocusValue"],
+                                               [prefs integerForKey:@"redFlashValue"],
+                                               [prefs integerForKey:@"whiteFlashValue"]];
+                coreDataObject.focus = [NSString stringWithFormat:@"%ld",[prefs integerForKey:@"focusPosition"]];
+                coreDataObject.exposure = [NSString stringWithFormat:@"P=%ld F=%ld",
+                                                [prefs integerForKey:@"previewExposureDuration"],
+                                                [prefs integerForKey:@"previewExposureDuration"]/[prefs integerForKey:@"previewFlashRatio"]];
+                coreDataObject.iso = [NSString stringWithFormat:@"P=%ld F=%ld",
+                                           [prefs integerForKey:@"previewISO"],
+                                           [prefs integerForKey:@"captureISO"]];
+                coreDataObject.flashDuration = [NSString stringWithFormat:@"%ld",
+                                                [prefs integerForKey:@"flashDurationMultiplier"]*[prefs integerForKey:@"previewExposureDuration"]/[prefs integerForKey:@"previewFlashRatio"]];
+                coreDataObject.flashDelay = [NSString stringWithFormat:@"%ld",[prefs integerForKey:@"flashDelay"]];
+                coreDataObject.whiteBalance = [NSString stringWithFormat:@"P=%1.2f/%1.2f/%1.2f F=%1.2f/%1.2f/%1.2f",
+                                               [prefs floatForKey:@"previewRedGain"],
+                                               [prefs floatForKey:@"previewGreenGain"],
+                                               [prefs floatForKey:@"previewBlueGain"],
+                                               [prefs floatForKey:@"captureRedGain"],
+                                               [prefs floatForKey:@"captureGreenGain"],
+                                               [prefs floatForKey:@"captureBlueGain"]];
+                
+                
                 coreDataObject.exam = [[CellScopeContext sharedContext]currentExam];
             
 
                 //TODO: add metadata.
                 savePhotosCounter++;
                 
+                NSString* logmsg = [NSString stringWithFormat:@"Saving image with UUID %@",coreDataObject.uuid];
+                CSLog(logmsg,@"DATA");
+                
                 [library writeImageToSavedPhotosAlbum:ei.CGImage orientation:ALAssetOrientationRight completionBlock:^(NSURL *assetURL, NSError *error){
                     if (error) {
-                        NSLog(@"Error writing image to photo album");
+                        CSLog(@"Error writing image to photo album",@"DATA");
                     }
                     else {
-                        NSLog(@"Added image to asset library");
+                        CSLog(@"Added image to asset library",@"DATA");
                         coreDataObject.filePath = [assetURL absoluteString];
                         [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
                     }
@@ -241,6 +275,7 @@
     if(reviewMode){
         for( SelectableEyeImage* ei in images){
             if(ei.isSelected){
+                CSLog(@"Deleting single image",@"DATA");
                 [[[CellScopeContext sharedContext] managedObjectContext] deleteObject: ei.coreDataImage];
                 [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
             }

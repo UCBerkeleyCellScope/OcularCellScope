@@ -3,6 +3,28 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[ExamInfoTableViewController viewWillDisappear:]:ExamInfoTableViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.birthDayTextField.text">
+            </PersistentString>
+            <PersistentString
+               value = "e.birthDate">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__76-[ParseUploadManager uploadImageDataToParse:fromEyeImage:completionHandler:]_block_invoke:ParseUploadManager.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "ei">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[FixationViewController viewWillAppear:]:FixationViewController.m">
+      </ContextState>
+      <ContextState
          contextName = "-[SettingsViewController viewWillDisappear:]:SettingsViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -11,13 +33,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[ExamInfoTableViewController viewWillDisappear:]:ExamInfoTableViewController.m">
+         contextName = "__53-[ParseUploadManager uploadLogWithCompletionHandler:]_block_invoke:ParseUploadManager.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.birthDayTextField.text">
-            </PersistentString>
-            <PersistentString
-               value = "e.birthDate">
+               value = "logEntries">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

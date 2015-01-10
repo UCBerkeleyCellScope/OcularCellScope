@@ -41,15 +41,16 @@
 @property BOOL debugMode;
 @property (strong, nonatomic) BLE *ble;
 @property (weak, nonatomic) id <BLEConnectionDelegate> BLECdelegate;
-
+@property NSTimer* batteryQueryTimer;
 
 -(void)beginBLEScan;
 -(void)disconnect;
 
--(void)setIlluminationWhite:(int)whiteIntensity Red:(int)redIntensity;
--(void)setIlluminationWithCallbackWhite:(int)whiteIntensity Red:(int)redIntensity;
--(void)setFlashIntensityWhite:(int)whiteIntensity Red:(int)redIntensity;
--(void)doFlashWithDuration:(int)flashDuration;
+-(void)setIlluminationWhite:(UInt8)whiteIntensity Red:(UInt8)redIntensity;
+-(void)setIlluminationWithCallbackWhite:(UInt8)whiteIntensity Red:(UInt8)redIntensity;
+-(void)setFlashIntensityWhite:(UInt8)whiteIntensity Red:(UInt8)redIntensity;
+-(void)setFlashTimingDelay:(UInt16)flashDelay Duration:(UInt16)flashDuration;
+-(void)doFlash;
 -(void)setFixationLight:(int)fixationLight forEye:(int)eye withIntensity:(int)intensity;
 -(void)setDisplayCoordinatesToX:(int)x Y:(int)y;
 -(void)doSelfTest;

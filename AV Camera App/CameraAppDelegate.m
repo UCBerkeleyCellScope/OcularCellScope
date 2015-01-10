@@ -8,6 +8,7 @@
 
 #import "CameraAppDelegate.h"
 #import <Parse/Parse.h>
+#import "PopupMessage.h"
 
 @import AVFoundation;
 
@@ -19,8 +20,25 @@
 @synthesize prefs = _prefs;
 @synthesize debugMode;
 
+void onUncaughtException(NSException* exception)
+{
+    [[[CellScopeContext sharedContext] loggingManager] CSLog:[exception description] inCategory:@"CRASH"];
+    [[[CellScopeContext sharedContext] loggingManager] CSLog:[[NSThread callStackSymbols] description] inCategory:@"CRASH"];
+    [[[[CellScopeContext sharedContext] loggingManager] logMOC] save:nil];
+    
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    NSSetUncaughtExceptionHandler(&onUncaughtException);
+    
+    //kind of kludgy to set the PSC this way...
+    [[[CellScopeContext sharedContext] loggingManager] setPersistentStoreCoordinator:[self persistentStoreCoordinator]];
+    
+    NSString* logstr = [NSString stringWithFormat:@"App started (version %@)",[NSBundle mainBundle].infoDictionary[@"CFBundleVersion"]];
+    
+    CSLog(logstr,@"SYSTEM");
 
     NSString* defaultPrefsFile = [[NSBundle mainBundle] pathForResource:@"default-configuration" ofType:@"plist"];
     NSDictionary* defaultPreferences = [NSDictionary dictionaryWithContentsOfFile:defaultPrefsFile];
@@ -48,10 +66,15 @@
         user.password = @"password";
         user.email = @"PotterLuv@example.com";
         
+        NSString* logmsg = [NSString stringWithFormat:@"Attempting Parse login with username: %@ ",user.username];
+        CSLog(logmsg, @"UPLOAD");
+        
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (error) {
                 // Assume the error is because the user already existed.
                 [PFUser logInWithUsername:@"Hermione" password:@"password"];
+                NSString* logmsg = [NSString stringWithFormat:@"Parse login failed with error: %@",error.description];
+                CSLog(logmsg, @"UPLOAD");
             }
         }];
     }
@@ -61,6 +84,9 @@
     [[[CellScopeContext sharedContext] bleManager] beginBLEScan];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fixationDisplayChange:) name:@"FixationDisplayChangeNotification" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(voltageNotification:) name:@"CellScopeVoltageNotification" object:nil];
+    
     
     return YES;
 }
@@ -83,43 +109,33 @@
         alertString = @"Display Attached (OS)";
     }
     
-    //todo: move this to a generic UI class
-    UIWindow* window = self.window;
+    CSLog(alertString, @"HARDWARE");
     
-    UITextView* alertPopup = [[UITextView alloc] init];
-    CGRect frame;
-    frame.size.height = 40;
-    frame.size.width = 280;
-    alertPopup.frame = frame;
-    alertPopup.center = window.center;
-    alertPopup.text = alertString;
-    [alertPopup setTextAlignment:NSTextAlignmentCenter];
-    
-    [alertPopup setTextColor:[UIColor whiteColor]];
-    [alertPopup setFont:[UIFont boldSystemFontOfSize:20]];
-    alertPopup.backgroundColor = [UIColor grayColor];
-    alertPopup.layer.cornerRadius = 20;
-    alertPopup.clipsToBounds = YES;
-    alertPopup.layer.borderWidth = 2.0f;
-    alertPopup.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    alertPopup.alpha = 0.9f;
-    alertPopup.hidden = NO;
-    [window addSubview:alertPopup];
-    [window bringSubviewToFront:alertPopup];
-    
-    // Then fades it away after 2 seconds (the cross-fade animation will take 0.5s)
-    [UIView animateWithDuration:0.5 delay:2.0 options:0 animations:^{
-        // Animate the alpha value of your imageView from 1.0 to 0.0 here
-        alertPopup.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-        // Once the animation is completed and the alpha has gone to 0.0, hide the view for good
-        alertPopup.hidden = YES;
-        [alertPopup removeFromSuperview];
-    }];
-    
+    [PopupMessage showPopup:alertString];
     
 
 }
+
+- (void)voltageNotification:(NSNotification *)notification
+{
+    NSDictionary *ui = [notification userInfo];
+    float newVoltage = ((NSNumber*)ui[@"voltage"]).floatValue;
+    
+    static BOOL lowBatteryWarning = NO;
+    
+    if (lowBatteryWarning==NO && (newVoltage<[[NSUserDefaults standardUserDefaults] floatForKey:@"batteryWarningThreshold"])) {
+        lowBatteryWarning = YES;
+        
+        CSLog(@"Low battery warning", @"HARDWARE");
+        [PopupMessage showPopup:@"CellScope Low Battery"];
+    }
+    else if (lowBatteryWarning==YES && (newVoltage<[[NSUserDefaults standardUserDefaults] floatForKey:@"batteryOKThreshold"]) ){
+        lowBatteryWarning = NO;
+        CSLog(@"Battery state OK", @"HARDWARE");
+    }
+    
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -217,7 +233,13 @@
     
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+    
+    NSDictionary *options = @{
+                              NSMigratePersistentStoresAutomaticallyOption : @YES,
+                              NSInferMappingModelAutomaticallyOption : @YES
+                              };
+    
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
         /*
          Replace this implementation with code to handle the error appropriately.
          

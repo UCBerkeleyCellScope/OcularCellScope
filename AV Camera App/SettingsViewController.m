@@ -26,6 +26,11 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     
     _bleManager = [[CellScopeContext sharedContext]bleManager];
     
+    //register for keyboard notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
 }
 
 -(void) viewWillAppear:(BOOL)animated{
@@ -59,10 +64,15 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     self.flashWBGreenTextField.text = [NSString stringWithFormat:@"%1.2f",[prefs floatForKey:@"captureGreenGain"]];
     self.flashWBBlueTextField.text = [NSString stringWithFormat:@"%1.2f",[prefs floatForKey:@"captureBlueGain"]];
     self.flashDelay.text = [ NSString stringWithFormat:@"%ld",[prefs integerForKey: @"flashDelay"]];
-    self.flashDuration.text =  [ NSString stringWithFormat:@"%ld",[prefs integerForKey: @"flashDuration"]];
+    self.flashDurationMultiplier.text =  [ NSString stringWithFormat:@"%1.2f",[prefs floatForKey:@"flashDurationMultiplier"]];
     self.captureInterval.text = [NSString stringWithFormat:@"%3.2f",[prefs floatForKey:@"captureInterval"]];
     
     self.multiShot.selectedSegmentIndex = [prefs integerForKey:@"numberOfImages"]-1;
+    
+    self.cellscopeIDTextField.text = [prefs stringForKey:@"cellscopeID"];
+    
+    CSLog(@"Settings view presented", @"USER");
+    
 }
 
 -(void) viewWillDisappear:(BOOL)animated {
@@ -71,7 +81,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     if (self.focalPositionTextField.text.floatValue<0.0)    self.focalPositionTextField.text = @"0.0";
     if (self.focalPositionTextField.text.floatValue>1.0)    self.focalPositionTextField.text = @"1.0";
     
-    if (self.previewExposureTextField.text.intValue<1)      self.previewExposureTextField.text = @"1";
+    if (self.previewExposureTextField.text.intValue<25)      self.previewExposureTextField.text = @"25";
     if (self.previewExposureTextField.text.intValue>200)    self.previewExposureTextField.text = @"200";
     if (self.previewFlashRatioTextField.text.floatValue<1.0)  self.previewFlashRatioTextField.text = @"1.0";
     if (self.previewFlashRatioTextField.text.floatValue>10.0) self.previewFlashRatioTextField.text = @"10.0";
@@ -95,10 +105,10 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     if (self.flashWBBlueTextField.text.floatValue>4.0)           self.flashWBBlueTextField.text = @"4.0";
     
     if (self.flashDelay.text.intValue<0)           self.flashDelay.text = @"0";
-    if (self.flashDelay.text.intValue>800)           self.flashDelay.text = @"800";
+    if (self.flashDelay.text.intValue>1023)           self.flashDelay.text = @"1023";
 
-    if (self.flashDuration.text.floatValue<1)           self.flashDuration.text = @"1";
-    if (self.flashDuration.text.floatValue>255)           self.flashDuration.text = @"255";
+    if (self.flashDurationMultiplier.text.floatValue<1)           self.flashDurationMultiplier.text = @"1.0";
+    if (self.flashDurationMultiplier.text.floatValue>5)           self.flashDurationMultiplier.text = @"5.0";
     
     if (self.captureInterval.text.floatValue<0.2)           self.captureInterval.text = @"0.2";
     if (self.captureInterval.text.floatValue>10.0)           self.captureInterval.text = @"10.0";
@@ -122,11 +132,31 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     [prefs setFloat:   self.flashWBGreenTextField.text.floatValue  forKey:@"captureGreenGain"];
     [prefs setFloat:   self.flashWBBlueTextField.text.floatValue  forKey:@"captureBlueGain"];
     [prefs setInteger: self.flashDelay.text.intValue  forKey:@"flashDelay"];
-    [prefs setInteger: self.flashDuration.text.intValue  forKey:@"flashDuration"];
+    [prefs setFloat:   self.flashDurationMultiplier.text.floatValue  forKey:@"flashDurationMultiplier"];
     [prefs setFloat:   self.captureInterval.text.floatValue  forKey:@"captureInterval"];
     
     [prefs setInteger: self.multiShot.selectedSegmentIndex+1 forKey:@"numberOfImages"];
+    
+    [prefs setObject: self.cellscopeIDTextField.text forKey:@"cellscopeID"];
+    
 }
+
+- (void)keyboardWasShown:(NSNotification *)sender {
+    CGSize kbSize = [[[sender userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    NSTimeInterval duration = [[[sender userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    CGFloat height = UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation]) ? kbSize.height : kbSize.width;
+    
+    [UIView animateWithDuration:duration animations:^{
+        UIEdgeInsets edgeInsets = [[self tableView] contentInset];
+        edgeInsets.bottom = height;
+        [[self tableView] setContentInset:edgeInsets];
+        edgeInsets = [[self tableView] scrollIndicatorInsets];
+        edgeInsets.bottom = height;
+        [[self tableView] setScrollIndicatorInsets:edgeInsets];
+    }];
+}
+
 
 /*
 - (IBAction)toggleDidChange:(id)sender {

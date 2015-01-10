@@ -35,6 +35,8 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *phoneCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *dobCell;
 @property (weak, nonatomic) IBOutlet UIImageView *uploadStatusIcon;
+@property (weak, nonatomic) IBOutlet UITextField *researchStudyTextField;
+@property (weak, nonatomic) IBOutlet UITextView *notesTextArea;
 
 @property (nonatomic) UIGestureRecognizer* tapRecognizer;
 

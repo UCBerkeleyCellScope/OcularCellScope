@@ -8,6 +8,7 @@
 
 #import "ExamInfoTableViewController.h"
 #import <Parse/Parse.h>
+#import "TabViewController.h"
 
 #define SYSTEM_VERSION_LESS_THAN(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
@@ -83,6 +84,9 @@
     self.lastnameField.text = self.e.lastName;
     self.patientIDTextField.text = self.e.patientID;
     self.phoneNumberField.text = self.e.phoneNumber;
+    self.notesTextArea.text = self.e.notes;
+    self.researchStudyTextField.text = self.e.studyName;
+    
     
     self.uploadStatusIcon.layer.cornerRadius = self.uploadStatusIcon.frame.size.width / 2;
     self.uploadStatusIcon.clipsToBounds = YES;
@@ -94,6 +98,17 @@
     else
         self.uploadStatusIcon.backgroundColor = [UIColor clearColor];
 
+    //may not be the best place for this (in TVC instead?)
+    TabViewController* tvc = (TabViewController*)self.tabBarController;
+    if (self.e.eyeImages.count>0) {
+        tvc.uploadButton.enabled = YES;
+        tvc.uploadButton.title = @"Upload";
+    }
+    else {
+        tvc.uploadButton.enabled = NO;
+        tvc.uploadButton.title = @"";
+    }
+    
     if(self.e.birthDate != nil){
         NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self.e.birthDate];
         NSLog(@"Day: %d", (int)[components day]);
@@ -116,19 +131,23 @@
         
         self.e.patientIndex = [NSNumber numberWithInt: value];
         //self.patientIDField.text = [self.e.patientID stringValue];
-        self.patientIDLabel.text = [self.e.patientIndex stringValue];
+        self.patientIDLabel.text = [self.e.patientIndex stringValue]; //TODO: confusing nomenclature: IDLabel/IDField
+        self.researchStudyTextField.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"defaultStudy"];
+        
+        CSLog(@"New exam entry created", @"USER");
     }
     else{
         //self.patientIDField.text = [self.e.patientID stringValue];
         self.patientIDLabel.text = [self.e.patientIndex stringValue];
         
     }
+    
+    CSLog(@"Exam info view presented", @"USER");
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    NSLog(@"Saving Exam Data");
-
 
 /*
     if([firstnameField.text isEqualToString: @""]){
@@ -155,7 +174,8 @@
     self.e.lastName = lastnameField.text;
     self.e.patientID = patientIDTextField.text;
     self.e.phoneNumber = phoneNumberField.text;
-    
+    self.e.studyName = self.researchStudyTextField.text;
+    self.e.notes = self.notesTextArea.text;
     
     NSString * birthDateString = [NSString stringWithFormat:@"%@-%@-%@",self.birthDayTextField.text,self.birthMonthTextField.text,self.birthYearTextField.text];
     
@@ -173,6 +193,7 @@
     NSLog(@"BD NSDate %@",bd);
     self.e.birthDate = bd;
     
+    [[NSUserDefaults standardUserDefaults] setObject:self.researchStudyTextField.text forKey:@"defaultStudy"];
 
     // Commit to core data
     NSError *error;

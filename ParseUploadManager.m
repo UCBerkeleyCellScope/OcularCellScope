@@ -8,7 +8,7 @@
 
 
 #import "ParseUploadManager.h"
-
+#import "PopupMessage.h"
 
 @implementation ParseUploadManager
 
@@ -19,29 +19,59 @@ BOOL _queueIsProcessing = NO;
 {
     self = [super init];
     if(self){
+        
+        
+        self.reachability = [Reachability reachabilityForInternetConnection];
+        [self.reachability startNotifier];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNetworkChange:) name:kReachabilityChangedNotification object:nil];
+        
         self.imagesToUpload = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
+- (void) handleNetworkChange:(NSNotification *)notice
+{
+    NetworkStatus remoteHostStatus = [self.reachability currentReachabilityStatus];
+    if(remoteHostStatus == NotReachable) {CSLog(@"No Connection",@"SYSTEM");}
+    else if (remoteHostStatus == ReachableViaWiFi) {CSLog(@"WiFi Connected",@"SYSTEM");}
+    else if (remoteHostStatus == ReachableViaWWAN) {CSLog(@"Mobile Data Connected",@"SYSTEM");}
+    
+}
+
 - (void) addExamToUploadQueue:(Exam*)exam
 {
 
+    
+    if (self.reachability.currentReachabilityStatus==NotReachable) {
+        [PopupMessage showPopup:@"Not Connected"];
+        return;
+    }
+    
     if (exam.uploaded.intValue!=0) {
         //TODO: handle this exam differently (it's already been uploaded/partially uploaded)
         //load the parseExam from Parse
+        
+        //for now, this just resets the uploaded flags on the exam and its images. eventually, we
+        //want to have it associate these new exam updates + potentially new images with an existing record
+        exam.uploaded = 0;
+        for (EyeImage* ei in exam.eyeImages)
+            ei.uploaded = 0;
     }
     
 
     //this gets all the EyeImage objects for this exam from CD which have not been uploaded yet
-    NSArray* eyeImagesToAdd = [CoreDataController getEyeImagesToUploadForExam:exam];
+    NSArray* eyeImagesToAdd = [CoreDataController getEyeImagesForExam:exam];
     
     if (eyeImagesToAdd.count>0)
         exam.uploaded = @1; //upload "pending"
     else
-        exam.uploaded = @2; //nothing to upload (note: this won't update the exam info in Parse)
+        return;
     
-    NSLog(@"adding exam: %@ to upload queue with %d images",exam.patientIndex,eyeImagesToAdd.count);
+    NSString* logmsg = [NSString stringWithFormat:@"Exam %d added to upload queue with %d images.",(int)exam.patientIndex,(int)eyeImagesToAdd.count];
+    CSLog(logmsg, @"UPLOAD");
+    
     
     [self.imagesToUpload addObjectsFromArray:eyeImagesToAdd];
     
@@ -51,6 +81,9 @@ BOOL _queueIsProcessing = NO;
         [self processUploadQueue];
 
 }
+
+//upload timeout in seconds
+#define UPLOAD_TIMEOUT 30
 
 - (void) processUploadQueue
 {
@@ -62,7 +95,6 @@ BOOL _queueIsProcessing = NO;
         while (self.imagesToUpload.count>0) {
             EyeImage* nextImage = self.imagesToUpload[0];
             self.currentExam = nextImage.exam;
-            NSLog(@"uploading image: %@",nextImage.uuid);
             
             //calculate progress and fire notification
             self.currentExamProgress = (float)[self.currentExam numberOfImagesUploaded]/(float)self.currentExam.eyeImages.count;
@@ -75,10 +107,25 @@ BOOL _queueIsProcessing = NO;
             //trigger the upload. when it's done, it will set uploaded to 2 if success or 0 if fail
             [self uploadImage:nextImage];
             
-            //wait for upload to complete
-            while (nextImage.uploaded.intValue==1)
-                [NSThread sleepForTimeInterval:0.1];
+            double startTimestamp = [[NSDate date] timeIntervalSince1970];
             
+            //wait for upload to complete (need a timeout)
+            while (nextImage.uploaded.intValue==1) {
+                [NSThread sleepForTimeInterval:0.1];
+                
+                //timeout. if image never uploads, stop the queue
+                if (([[NSDate date] timeIntervalSince1970] - startTimestamp)>UPLOAD_TIMEOUT) {
+                    CSLog(@"Network timeout", @"UPLOAD");
+                    [PopupMessage showPopup:@"Network Timeout"];
+                    [self.imagesToUpload removeAllObjects];
+                    self.currentExam = nil;
+                    self.currentParseExam = nil;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
+                    });
+                    return;
+                }
+            }
             //dequeue this image
             [self.imagesToUpload removeObject:nextImage];
             
@@ -104,6 +151,8 @@ BOOL _queueIsProcessing = NO;
         _totalNumberOfImagesToUpload = 0; //reset this
         _queueIsProcessing = NO;
         
+        [self uploadLogWithCompletionHandler:nil];
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"UploadProgressChangeNotification" object:nil];
         
     });
@@ -113,6 +162,9 @@ BOOL _queueIsProcessing = NO;
 
 - (void)uploadImage:(EyeImage *)eyeImage
 {
+    NSString* logmsg = [NSString stringWithFormat:@"Attempting Parse upload for photo with UUID: %@ ",eyeImage.uuid];
+    CSLog(logmsg, @"UPLOAD");
+    
     NSURL *aURL = [NSURL URLWithString: eyeImage.filePath];
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     [library assetForURL:aURL
@@ -125,19 +177,22 @@ BOOL _queueIsProcessing = NO;
          NSError *error;
          [rep getBytes:imageData.mutableBytes fromOffset:0 length:size error:&error];
          
+         
          [self uploadImageDataToParse:imageData
+                         fromEyeImage:eyeImage
                     completionHandler:^(BOOL success, NSError* err) {
-                        NSLog(@"image upload complete");
-                        if (success)
+                        if (success) {
                             eyeImage.uploaded = @2; //mark as uploaded
-                        else
+                            CSLog(@"Image upload succeeded", @"UPLOAD");
+                        }
+                        else {
                             eyeImage.uploaded = @0; //mark as not uploaded
-                        
+                            NSString* logmsg2 = [NSString stringWithFormat:@"Image upload failed with error: %@",err.description];
+                            CSLog(logmsg2, @"UPLOAD");
+                        }
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
                         });
-                        
-                        NSLog(@"%@",err.description); //print error
                     }];
          
          //completion block should check for error, if error, set upload to 0, else 2, and save CD
@@ -145,23 +200,65 @@ BOOL _queueIsProcessing = NO;
      }
             failureBlock:^(NSError *error)
      {
-         NSLog(@"failure loading video/image from AssetLibrary");
+         CSLog(@"Failure loading image from asset library", @"UPLOAD");
      }
      ];
 }
 
 
-- (void)uploadImageDataToParse:(NSData *)imageData completionHandler:(void(^)(BOOL,NSError*))completionBlock//add completion block
+- (void)uploadImageDataToParse:(NSData *)imageData fromEyeImage:(EyeImage*)ei completionHandler:(void(^)(BOOL,NSError*))completionBlock//add completion block
 {
-    PFFile *imageFile = [PFFile fileWithName:[NSString stringWithFormat:@"Image-%d.jpg",arc4random()] data:imageData];
+    
+    PFFile *imageFile = [PFFile fileWithName:[NSString stringWithFormat:@"Image-%@-%d-%@-%d-%@.jpg",
+                                                [[NSUserDefaults standardUserDefaults] stringForKey:@"cellscopeID"],
+                                                ei.exam.patientIndex.intValue,
+                                                ei.eye,
+                                                ei.fixationLight.intValue,
+                                                ei.uuid]
+                                        data:imageData];
     
     // Save PFFile
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
+            
             // Create a PFObject around a PFFile and associate it with the current user
             PFObject *eyeImage = [PFObject objectWithClassName:@"EyeImage"];
             [eyeImage setObject:imageFile forKey:@"Image"];
-            eyeImage[@"Eye"] = @"OD";
+            
+            NSString* position;
+            
+            switch (ei.fixationLight.intValue) {
+                case 1:
+                    position = @"Central";
+                    break;
+                case 2:
+                    position = @"Superior";
+                    break;
+                case 3:
+                    position = @"Inferior";
+                    break;
+                case 4:
+                    position = [ei.eye isEqualToString:@"OD"]?@"Temporal":@"Nasal";
+                    break;
+                case 5:
+                    position = [ei.eye isEqualToString:@"OD"]?@"Nasal":@"Temporal";
+                    break;
+                default:
+                    position = @"None";
+                    break;
+            }
+            
+            eyeImage[@"Eye"] = ei.eye;
+            eyeImage[@"Position"] = position;
+            eyeImage[@"appVersion"] = ei.appVersion;
+            eyeImage[@"illumination"] = ei.illumination;
+            eyeImage[@"focus"] = ei.focus;
+            eyeImage[@"exposure"] = ei.exposure;
+            eyeImage[@"iso"] = ei.iso;
+            eyeImage[@"whiteBalance"] = ei.whiteBalance;
+            eyeImage[@"flashDuration"] = ei.flashDuration;
+            eyeImage[@"flashDelay"] = ei.flashDelay;
+            
             
             // Set the access control list to current user for security purposes
             //eyeImage.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
@@ -191,7 +288,15 @@ BOOL _queueIsProcessing = NO;
                          parseExam[@"lastName"] = self.currentExam.lastName;
                          parseExam[@"patientID"] = self.currentExam.patientID;
                          parseExam[@"phoneNumber"] = self.currentExam.phoneNumber;
-                         //...
+                         if (self.currentExam.birthDate) {
+                            parseExam[@"patientDOB"] = self.currentExam.birthDate;
+                         }
+                         parseExam[@"cellscope"] = [[NSUserDefaults standardUserDefaults] stringForKey:@"cellscopeID"];
+                         parseExam[@"user"] = @"nouser";
+                         parseExam[@"study"] = self.currentExam.studyName;
+                         parseExam[@"examDate"] = self.currentExam.date;
+                         parseExam[@"notes"] = self.currentExam.notes;
+                         
                          
                          self.currentParseExam = parseExam;
                      }
@@ -224,6 +329,50 @@ BOOL _queueIsProcessing = NO;
     } progressBlock:^(int percentDone) {} //file upload progress (not using this now)
     ];
     
+    
+}
+
+
+//uploads any recent log entries to a new text file
+- (void) uploadLogWithCompletionHandler:(void(^)(NSError*))completionBlock
+{
+    CSLog(@"Uploading log entries", @"UPLOAD");
+    
+    
+    NSPredicate* pred = [NSPredicate predicateWithFormat:@"synced = nil"];
+    NSArray* logEntries = [CoreDataController searchObjectsForEntity:@"Logs" withPredicate:pred andSortKey:@"date" andSortAscending:YES andContext:[[CellScopeContext sharedContext] managedObjectContext]];
+    
+    
+    NSLog(@"LOG ENTRY COUNT %d",(int)logEntries.count);
+    
+    if (logEntries.count>0)
+    {
+        NSMutableArray* parseLogEntries = [[NSMutableArray alloc] init];
+        NSString* cellscopeID = [[NSUserDefaults standardUserDefaults] stringForKey:@"cellscopeID"];
+        for (Logs* logEntry in logEntries) {
+            PFObject* parseLogEntry = [PFObject objectWithClassName:@"Logs"];
+            parseLogEntry[@"entryDate"] = logEntry.date;
+            parseLogEntry[@"category"] = logEntry.category;
+            parseLogEntry[@"entry"] = logEntry.entry;
+            parseLogEntry[@"cellscope"] = cellscopeID;
+            [parseLogEntries addObject:parseLogEntry];
+        }
+
+        NSError* err;
+        [PFObject saveAll:parseLogEntries error:&err];
+        if (!err) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                for (Logs* logEntry in logEntries) {
+                        logEntry.synced = @YES;
+                        [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
+
+                };
+            });
+        }
+
+
+        
+    }
     
 }
 

@@ -18,6 +18,7 @@
 #import "ParseUploadManager.h"
 #import <CoreText/CoreText.h>
 #import <Parse/Parse.h>
+#import "LoggingManager.h"
 
 @class BLEManager;
 @class CellScopeHTTPClient;
@@ -26,6 +27,8 @@
 @interface CellScopeContext : NSObject
 
 @property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
+
+
 @property (nonatomic) int selectedEye;
 //@property (nonatomic, strong) BLE* ble;
 @property (nonatomic, retain) Exam* currentExam;
@@ -35,6 +38,9 @@
 @property (nonatomic) CellScopeHTTPClient* client;
 
 @property (nonatomic) ParseUploadManager *uploadManager;
+
+@property (nonatomic) LoggingManager *loggingManager;
+
 
 + (id)sharedContext;
 

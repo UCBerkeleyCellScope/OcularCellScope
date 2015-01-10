@@ -48,10 +48,11 @@
 
 
 @property (weak, nonatomic) IBOutlet UITextField *captureInterval;
-@property (weak, nonatomic) IBOutlet UITextField *flashDuration;
+@property (weak, nonatomic) IBOutlet UITextField *flashDurationMultiplier;
 @property (weak, nonatomic) IBOutlet UITextField *flashDelay;
 
 @property(strong, nonatomic) BLEManager *bleManager;
+@property (weak, nonatomic) IBOutlet UITextField *cellscopeIDTextField;
 
 
 - (IBAction)toggleDidChange:(id)sender;

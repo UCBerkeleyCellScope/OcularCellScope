@@ -12,6 +12,7 @@
 
 @implementation CoreDataController
 
+
 #pragma mark - Retrieve objects
 
 +(UIImage*)getUIImageFromCameraRoll:(NSString*)filePath{

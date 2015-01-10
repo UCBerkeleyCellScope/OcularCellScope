@@ -2,7 +2,7 @@
 
 #include <ble_mini.h>
 
-#define FIRMWARE_VERSION "1.0"
+#define FIRMWARE_VERSION "1.2"
 
 //comment this out to use discrete LEDs (internal fixation)
 #define USE_OLED_DISPLAY
@@ -38,11 +38,14 @@
 #define WHITE_LIGHT_PWM 13
 #define BATTERY A11
 
-#define BATTERY_GREEN_TO_RED_THRESHOLD 3.2
-#define BATTERY_RED_TO_GREEN_THRESHOLD 3.4
+#define BATTERY_GREEN_TO_RED_THRESHOLD 3.3
+#define BATTERY_RED_TO_GREEN_THRESHOLD 3.5
 
 
 #define IDLE_POWEROFF 300000 //5 minutes before auto shutDown
+#define BTLE_KEEPALIVE_TIMEOUT 5000 //5 seconds before bluetooth LED turns off due to lack of communication from phone
+#define LOW_PRIORITY_COMMAND_INTERVAL 100 //"low priority" commands get executed every 1s
+
 
 #ifdef USE_OLED_DISPLAY
   #include <SoftwareSerial.h>
@@ -53,9 +56,14 @@
 #endif
 
 unsigned long lastBTLETimestamp;
+unsigned long lastKeepaliveTimestamp;
+unsigned long lastLowPriorityIterationTimestamp;
+
 boolean bleConnected = false;
 byte flashWhiteIntensity = 0;
 byte flashRedIntensity = 0;
+unsigned int flashDelay = 0;
+unsigned int flashDuration = 0;
 byte currentWhiteIntensity = 0;
 byte currentRedIntensity = 0;
 byte currentFixationLight = 0;
@@ -90,7 +98,7 @@ void setup()
   digitalWrite(KILL, LOW);
   digitalWrite(BLE_RESET, LOW);
   digitalWrite(BLUE_LED, HIGH);
-  digitalWrite(GREEN_LED, HIGH);
+  digitalWrite(GREEN_LED, LOW);
   digitalWrite(RED_LED, HIGH);
 
   #ifdef USE_OLED_DISPLAY
@@ -116,6 +124,8 @@ void setup()
   analogWrite(WHITE_LIGHT_PWM, 0);
 
   lastBTLETimestamp = millis();
+  lastKeepaliveTimestamp = millis();
+  lastLowPriorityIterationTimestamp = millis();
 }
 
 void splashScreen()
@@ -213,6 +223,11 @@ void selfTest()
 
 //TODO: currently no way to detect a broken connection...could do keepalive packets
 void checkBTLEState() {
+  
+ //this is a hack, not working well
+ if ((millis() - lastKeepaliveTimestamp) > BTLE_KEEPALIVE_TIMEOUT)
+   bleConnected = false;
+   
  if (bleConnected)
     digitalWrite(BLUE_LED, LOW);
  else
@@ -290,7 +305,7 @@ void setOLEDCoordinates(byte x, byte y)
   displayXCoordinate = x;
   displayYCoordinate = y;
   currentFixationLight = 99;
-  refreshDisplay();
+  //refreshDisplay();
 #endif
 }
 
@@ -313,7 +328,7 @@ void setLights(byte whiteIntensity, byte redIntensity)
   currentRedIntensity = redIntensity;
 }
 
-void doFlash(byte duration)
+void doFlash()
 {
   byte originalWhiteIntensity = currentWhiteIntensity;
   byte originalRedIntensity = currentRedIntensity;
@@ -322,8 +337,9 @@ void doFlash(byte duration)
     setFixation(0,0); //turn off fixation light
   #endif
   
+  delay(flashDelay); //wait for app to trigger camera
   setLights(flashWhiteIntensity, flashRedIntensity); //turn on flash
-  delay(duration); //wait flash delay
+  delay(flashDuration); //flash is on...wait for exposure to finish
   setLights(originalWhiteIntensity, originalRedIntensity); //switch back to focus light
   
   #ifndef USE_OLED_DISPLAY
@@ -335,7 +351,7 @@ void checkBatteryState() {
   static boolean batteryOK = true;  
   float batteryVoltage = analogRead(BATTERY) * 5.0 / 1024;
 
-  Serial.print("batt = "); Serial.println(batteryVoltage);
+  //Serial.print("batt = "); Serial.println(batteryVoltage);
   
   if (batteryOK) 
     batteryOK = !(batteryVoltage<BATTERY_GREEN_TO_RED_THRESHOLD);  
@@ -358,27 +374,48 @@ void refreshDisplay() {
   else
     Display.gfx_CircleFilled(displayXCoordinate,displayYCoordinate,OLED_SPOT_RADIUS,OLED_SPOT_COLOR);
    
-   delay(50);  
+   //delay(50);  
 #endif  
 }
 
-void checkForNewData() {
-  //if buffer does not have a multiple of 3 bytes, flush it b/c something went wrong
-  if ((BLEMini_available()%3)!=0)  
-    while (BLEMini_available())
-      BLEMini_read(); //flush...
-  
-  while (BLEMini_available()) 
-  {    
-    bleConnected = true;
+void flushBLE() {
+  while (BLEMini_available())
+    BLEMini_read(); //flush...  
+}
 
-    lastBTLETimestamp = millis(); 
+void checkForNewData() {
+
+  while (BLEMini_available()) {
+    
+    //handle partial packets
+    if ((BLEMini_available()%3)!=0) {
+      //this could mean the data is still being transmitted, or it could mean there's been a problem during transmission
+      //if data is currently being transmitted, it should be finished after some delay
+      delay(5);
+    
+      if ((BLEMini_available()%3)!=0) { //nope, still an issue with the data in the buffer, so flush
+        flushBLE();
+        return;
+      }
+    }
+  
     
     // read out command and data
     byte cmd = BLEMini_read();
     byte param1 = BLEMini_read();
     byte param2 = BLEMini_read();    
 
+    //params for battery voltage calculation
+    int voltage; byte upperByte; byte lowerByte;
+    
+    //connection indicator/keepalive
+    bleConnected = true;
+    lastKeepaliveTimestamp = millis();
+    
+    //if the command is NOT "check battery" (which gets called periodically), reset the timestamp
+    if (cmd!=0xFC)
+      lastBTLETimestamp = millis(); 
+      
     switch (cmd) {
       case 0x01: //set lights, param1=white, param2=red
         setLights(param1,param2);   
@@ -390,8 +427,14 @@ void checkForNewData() {
         flashWhiteIntensity = param1;
         flashRedIntensity = param2;      
         break;
+      case 0x07: //set flash delay
+        flashDelay = ((unsigned int)param1 << 8) | param2;
+        break;
+      case 0x08: //set flash duration
+        flashDuration = ((unsigned int)param1 << 8) | param2;  
+        break;    
       case 0x04: //do flash, param1=duration
-        doFlash(param1);       
+        doFlash();       
         break;
       case 0x05: //right fixation
         setFixation(param1,param2);      
@@ -399,50 +442,62 @@ void checkForNewData() {
       case 0x06: //set arbitrary OLED coordinates
         setOLEDCoordinates(param1,param2);      
         break;
-
-    case 0x0B: //white light with callback (why not roll this in above?)
-      if (param1 == 0x01){
-        digitalWrite(WHITE_LIGHT_ENABLE, HIGH);
-        analogWrite(WHITE_LIGHT_PWM, param2);
-        BLEMini_write(0xFF);
-        BLEMini_write(0xFF);
-        BLEMini_write(0xFF);
-      }
-      else if(param1 == 0x00){
-        digitalWrite(WHITE_LIGHT_ENABLE,LOW);
-        analogWrite(WHITE_LIGHT_PWM,0);
-      }
-      break;
-    case 0xFD: //check display connection
-      checkIfDisplayAttached(false);
-      break;
-    case 0xFE: //reset - when does this get used?
-      digitalWrite(KILL, LOW);
-      digitalWrite(BLE_RESET, LOW);
-      digitalWrite(BLUE_LED, HIGH);
-      digitalWrite(GREEN_LED, HIGH);
-      digitalWrite(RED_LED, HIGH);
-      digitalWrite(RED_LIGHT_ENABLE, LOW);
-      digitalWrite(WHITE_LIGHT_ENABLE, LOW);
-          
-      analogWrite(RED_LIGHT_PWM, 0);
-      analogWrite(WHITE_LIGHT_PWM, 0);
-      
-      #ifdef USE_OLED_DISPLAY
-        Display.gfx_Cls();
-      #else
-        digitalWrite(FIXATION_LIGHT_UP, LOW);
-        digitalWrite(FIXATION_LIGHT_DOWN, LOW);
-        digitalWrite(FIXATION_LIGHT_LEFT, LOW);
-        digitalWrite(FIXATION_LIGHT_RIGHT, LOW);
-        digitalWrite(FIXATION_LIGHT_CENTER, LOW); 
-      #endif    
-      break;
-    case 0xFF:
-      selfTest();
-      break;      
-    } 
-  }  
+      case 0x0B: //white light with callback (why not roll this in above?)
+        if (param1 == 0x01){
+          digitalWrite(WHITE_LIGHT_ENABLE, HIGH);
+          analogWrite(WHITE_LIGHT_PWM, param2);
+          BLEMini_write(0xFF);
+          BLEMini_write(0xFF);
+          BLEMini_write(0xFF);
+        }
+        else if(param1 == 0x00){
+          digitalWrite(WHITE_LIGHT_ENABLE,LOW);
+          analogWrite(WHITE_LIGHT_PWM,0);
+        }
+        break;
+      case 0xFC: //return battery voltage (functions as de-facto keepalive signal for bluetooth LED)
+        voltage = analogRead(BATTERY);
+        upperByte = (voltage & 0xFF00) >> 8;
+        lowerByte = (voltage & 0x00FF);
+        BLEMini_write(0xFC);
+        BLEMini_write(upperByte);
+        BLEMini_write(lowerByte);      
+        break;
+      case 0xFD: //check display connection
+        checkIfDisplayAttached(false);
+        break;
+      case 0xFE: //reset - when does this get used?
+        digitalWrite(KILL, LOW);
+        digitalWrite(BLE_RESET, LOW);
+        digitalWrite(BLUE_LED, HIGH);
+        digitalWrite(GREEN_LED, HIGH);
+        digitalWrite(RED_LED, HIGH);
+        digitalWrite(RED_LIGHT_ENABLE, LOW);
+        digitalWrite(WHITE_LIGHT_ENABLE, LOW);
+            
+        analogWrite(RED_LIGHT_PWM, 0);
+        analogWrite(WHITE_LIGHT_PWM, 0);
+        
+        #ifdef USE_OLED_DISPLAY
+          Display.gfx_Cls();
+        #else
+          digitalWrite(FIXATION_LIGHT_UP, LOW);
+          digitalWrite(FIXATION_LIGHT_DOWN, LOW);
+          digitalWrite(FIXATION_LIGHT_LEFT, LOW);
+          digitalWrite(FIXATION_LIGHT_RIGHT, LOW);
+          digitalWrite(FIXATION_LIGHT_CENTER, LOW); 
+        #endif    
+        break;
+      case 0xFF:
+        selfTest();
+        break;   
+      default: //invalid opcode, possibly a frame shift error, so flush the buffer
+        flushBLE();
+    }   
+    
+    delay(50); //before processing next command
+  }     
+   
 }
 
 #define NONE 0
@@ -450,6 +505,7 @@ void checkForNewData() {
 #define RIGHT 2
 void checkIfDisplayAttached(boolean sendResultOnlyOnChange)
 {
+  
   static unsigned char display_attached = -1;
   unsigned char display_attached_new;
   
@@ -479,7 +535,7 @@ void checkIfDisplayAttached(boolean sendResultOnlyOnChange)
 
 void loop()
 {
-  delay(50); 
+  //delay(50); 
   
   //changing the way we update the display
   /*
@@ -492,14 +548,16 @@ void loop()
   
   */
   
-
   checkForNewData();   
-  checkBTLEState();
-  checkBatteryState();
-  checkIfInactive();
-  checkIfDisplayAttached(true); 
   
-  //it's important to continue refreshing the display because (annoyingly) it will start scrolling if we dont
-  refreshDisplay();
+  if ((millis() - lastLowPriorityIterationTimestamp) > LOW_PRIORITY_COMMAND_INTERVAL) {
+    checkBTLEState();
+    checkBatteryState();
+    checkIfInactive();
+    checkIfDisplayAttached(true); 
+    refreshDisplay(); //it's important to continue refreshing the display because (annoyingly) it will start scrolling if we dont
+    
+    lastLowPriorityIterationTimestamp = millis();
+  }
     
 }
