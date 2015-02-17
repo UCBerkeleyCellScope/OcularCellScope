@@ -9,6 +9,7 @@
 
 #import "ParseUploadManager.h"
 #import "PopupMessage.h"
+#import "EyeImage+Methods.h"
 
 @implementation ParseUploadManager
 
@@ -178,7 +179,6 @@ BOOL _queueIsProcessing = NO;
          NSError *error;
          [rep getBytes:imageData.mutableBytes fromOffset:0 length:size error:&error];
          
-         
          [self uploadImageDataToParse:imageData
                          fromEyeImage:eyeImage
                     completionHandler:^(BOOL success, NSError* err) {
@@ -226,31 +226,31 @@ BOOL _queueIsProcessing = NO;
             PFObject *eyeImage = [PFObject objectWithClassName:@"EyeImage"];
             [eyeImage setObject:imageFile forKey:@"Image"];
             
-            NSString* position;
-            
-            switch (ei.fixationLight.intValue) {
-                case 1:
-                    position = @"Central";
-                    break;
-                case 2:
-                    position = @"Superior";
-                    break;
-                case 3:
-                    position = @"Inferior";
-                    break;
-                case 4:
-                    position = [ei.eye isEqualToString:@"OD"]?@"Temporal":@"Nasal";
-                    break;
-                case 5:
-                    position = [ei.eye isEqualToString:@"OD"]?@"Nasal":@"Temporal";
-                    break;
-                default:
-                    position = @"None";
-                    break;
-            }
+//            NSString* position;
+//            
+//            switch (ei.fixationLight.intValue) {
+//                case 1:
+//                    position = @"Central";
+//                    break;
+//                case 2:
+//                    position = @"Superior";
+//                    break;
+//                case 3:
+//                    position = @"Inferior";
+//                    break;
+//                case 4:
+//                    position = [ei.eye isEqualToString:@"OD"]?@"Temporal":@"Nasal";
+//                    break;
+//                case 5:
+//                    position = [ei.eye isEqualToString:@"OD"]?@"Nasal":@"Temporal";
+//                    break;
+//                default:
+//                    position = @"None";
+//                    break;
+//            }
             
             eyeImage[@"Eye"] = ei.eye;
-            eyeImage[@"Position"] = position;
+            eyeImage[@"Position"] = ei.position;
             eyeImage[@"appVersion"] = ei.appVersion;
             eyeImage[@"illumination"] = ei.illumination;
             eyeImage[@"focus"] = ei.focus;
