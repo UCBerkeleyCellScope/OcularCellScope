@@ -244,7 +244,10 @@
                 
                 
                 coreDataObject.exam = [[CellScopeContext sharedContext]currentExam];
-            
+                
+                if ([coreDataObject.exam.uploaded  isEqual: @2]) {
+                    coreDataObject.exam.uploaded = @1;
+                }
 
                 //TODO: add metadata.
                 savePhotosCounter++;

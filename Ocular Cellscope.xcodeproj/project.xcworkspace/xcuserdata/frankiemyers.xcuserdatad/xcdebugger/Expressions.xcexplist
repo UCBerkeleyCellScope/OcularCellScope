@@ -3,6 +3,9 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[FixationViewController viewWillAppear:]:FixationViewController.m">
+      </ContextState>
+      <ContextState
          contextName = "-[ExamInfoTableViewController viewWillDisappear:]:ExamInfoTableViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -22,9 +25,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[FixationViewController viewWillAppear:]:FixationViewController.m">
-      </ContextState>
-      <ContextState
          contextName = "-[SettingsViewController viewWillDisappear:]:SettingsViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -37,6 +37,14 @@
          <PersistentStrings>
             <PersistentString
                value = "logEntries">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__76-[ParseUploadManager uploadImageDataToParse:fromEyeImage:completionHandler:]_block_invoke_3:ParseUploadManager.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.currentExam.uuid">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -1230,7 +1230,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5e7a6c0f-0582-4f90-9925-28152a08ff5b";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "~/Documents/google-api-objectivec-client-read-only/Source/**";
 				WRAPPER_EXTENSION = app;
@@ -1258,7 +1258,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5e7a6c0f-0582-4f90-9925-28152a08ff5b";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "~/Documents/google-api-objectivec-client-read-only/Source/**";
 				WRAPPER_EXTENSION = app;

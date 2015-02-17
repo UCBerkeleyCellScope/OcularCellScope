@@ -1,6 +1,7 @@
 
 
 #include <ble_mini.h>
+#include <Servo.h>
 
 #define FIRMWARE_VERSION "1.2"
 
@@ -28,10 +29,10 @@
 
 #define KILL 7
 #define TRIGGER 8
-#define BLE_RESET A2
+#define BLE_RESET 2
 #define BLUE_LED A3
-#define RED_LED A4
 #define GREEN_LED A5
+#define RED_LED A4
 #define RED_LIGHT_ENABLE A1
 #define RED_LIGHT_PWM 11
 #define WHITE_LIGHT_ENABLE A0
@@ -75,6 +76,8 @@ void setLights(byte whiteIntensity, byte redIntensity);
 void setFixation(byte fixationLight, byte intensity);
 void refreshDisplay();
 void setBatteryIndicator(boolean batteryOK);
+
+Servo servo;
 
 void setup()
 {
@@ -126,6 +129,8 @@ void setup()
   lastBTLETimestamp = millis();
   lastKeepaliveTimestamp = millis();
   lastLowPriorityIterationTimestamp = millis();
+  
+  servo.attach(3);
 }
 
 void splashScreen()
@@ -548,6 +553,13 @@ void loop()
   
   */
   
+  ///////////
+  for  (int i=0;i<180;i+=10) {
+    servo.write(i);
+    delay(500);
+  }
+  
+  //////////
   checkForNewData();   
   
   if ((millis() - lastLowPriorityIterationTimestamp) > LOW_PRIORITY_COMMAND_INTERVAL) {

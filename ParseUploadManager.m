@@ -49,20 +49,21 @@ BOOL _queueIsProcessing = NO;
         return;
     }
     
-    if (exam.uploaded.intValue!=0) {
+    
+    //if (exam.uploaded.intValue!=0) {
         //TODO: handle this exam differently (it's already been uploaded/partially uploaded)
         //load the parseExam from Parse
         
         //for now, this just resets the uploaded flags on the exam and its images. eventually, we
         //want to have it associate these new exam updates + potentially new images with an existing record
-        exam.uploaded = 0;
-        for (EyeImage* ei in exam.eyeImages)
-            ei.uploaded = 0;
-    }
+        //exam.uploaded = 0;
+        //for (EyeImage* ei in exam.eyeImages)
+        //    ei.uploaded = 0;
+    //}
     
 
-    //this gets all the EyeImage objects for this exam from CD which have not been uploaded yet
-    NSArray* eyeImagesToAdd = [CoreDataController getEyeImagesForExam:exam];
+    //this gets all the EyeImage objects for this exam
+    NSArray* eyeImagesToAdd = [CoreDataController getEyeImagesToUploadForExam:exam];
     
     if (eyeImagesToAdd.count>0)
         exam.uploaded = @1; //upload "pending"
@@ -269,21 +270,30 @@ BOOL _queueIsProcessing = NO;
                      //TODO: pull the parse patient from the exam of this eyeImage
                      if (self.currentParseExam==nil) { //create one (or...search Parse DB to see if this record exists already)
                          
-                         /*
+                         PFObject* parseExam;
+                         
                          if(self.currentExam.uuid)
                          {
                              PFQuery *query = [PFQuery queryWithClassName:@"Patient"];
-                             [query getObjectInBackgroundWithId:self.currentExam.uuid block:^(PFObject *patient, NSError *error) {
+    
+                             NSError* err;
+                             parseExam = [query getObjectWithId:self.currentExam.uuid error:&err];
+                             
+                             if (err || parseExam==nil) { //error or empty object (assume it was deleted on server)
+                                 self.currentExam.uuid = nil;
+                                 self.currentExam.uploaded = @1;
+                                 for (EyeImage* ei in self.currentExam.eyeImages) //reset all image upload flags
+                                     ei.uploaded = @0;
                                  
-                                 //TODO: wait for this query to return and get the parse object
-                             }];
+                                 parseExam = [PFObject objectWithClassName:@"Patient"];
+                             }
                          }
-                         else...
-                        */
+                         else
+                         {
+                             parseExam = [PFObject objectWithClassName:@"Patient"];
+                         }
                          
-                         //new parse exam
-                         PFObject* parseExam = [PFObject objectWithClassName:@"Patient"];
-                         
+                         parseExam[@"examID"] = self.currentExam.patientIndex;
                          parseExam[@"firstName"] = self.currentExam.firstName;
                          parseExam[@"lastName"] = self.currentExam.lastName;
                          parseExam[@"patientID"] = self.currentExam.patientID;
@@ -300,15 +310,33 @@ BOOL _queueIsProcessing = NO;
                          
                          self.currentParseExam = parseExam;
                      }
+                     
                      PFRelation *relation = [self.currentParseExam relationForKey:@"EyeImages"];
                      [relation addObject: eyeImage];
                      
 
-                     [self.currentParseExam saveInBackground]; //why is this not working w/ callback??
+                     //[self.currentParseExam saveInBackground]; //why is this not working w/ callback??
                      //need to get the UUID from this callback and save it to the eyeImage object, so that next time we generate this object we can refer to the correct one
                      //THEN call completionBlock
                      
-                     completionBlock(succeeded,nil);
+                     //completionBlock(succeeded,nil);
+                     
+                     
+                     [self.currentParseExam saveInBackgroundWithBlock:^(BOOL succeeded, NSError* error) {
+                         
+                         if (!error) {
+                             self.currentExam.uuid = self.currentParseExam.objectId;
+                             NSLog(@"uploaded with UUID %@",self.currentExam.uuid);
+                             completionBlock(succeeded,nil);
+                             
+                         }
+                         else
+                             completionBlock(NO,error);
+                         
+                     }];
+                     
+                     
+
                      
                      /*
                       :^(BOOL succeeded, NSError *error)
