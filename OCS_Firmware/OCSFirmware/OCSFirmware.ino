@@ -17,8 +17,9 @@
 #define OLED_SPOT_DOWN 128-OLED_SPOT_RADIUS,128-OLED_SPOT_RADIUS
 #define OLED_SPOT_LEFT 0+OLED_SPOT_RADIUS,128-OLED_SPOT_RADIUS
 #define OLED_SPOT_RIGHT 128-OLED_SPOT_RADIUS,0+OLED_SPOT_RADIUS
-#define OLED_LEFT_DETECT 5
-#define OLED_RIGHT_DETECT 6
+#define OLED_LEFT_DETECT 8
+#define OLED_RIGHT_DETECT 5
+#define OLED_POWER_EN 4 
 
 #define FIXATION_LIGHT_CENTER 5
 #define FIXATION_LIGHT_LEFT 6 
@@ -91,7 +92,8 @@ void setup()
   pinMode(BLE_RESET, OUTPUT); 
   pinMode(BATTERY, INPUT);
   pinMode(TRIGGER, INPUT);
-
+  pinMode(OLED_POWER_EN, OUTPUT);
+  
   BLEMini_begin(57600);
 
   //initial state of outputs
@@ -100,7 +102,8 @@ void setup()
   digitalWrite(BLUE_LED, HIGH);
   digitalWrite(GREEN_LED, LOW);
   digitalWrite(RED_LED, HIGH);
-
+  digitalWrite(OLED_POWER_EN, LOW);
+  
   #ifdef USE_OLED_DISPLAY
     DisplaySerial.begin(9600); 
     pinMode(OLED_LEFT_DETECT, INPUT_PULLUP);

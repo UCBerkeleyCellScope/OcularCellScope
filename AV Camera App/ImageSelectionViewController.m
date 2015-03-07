@@ -224,7 +224,7 @@
                                                [prefs integerForKey:@"whiteFocusValue"],
                                                [prefs integerForKey:@"redFlashValue"],
                                                [prefs integerForKey:@"whiteFlashValue"]];
-                coreDataObject.focus = [NSString stringWithFormat:@"%ld",[prefs integerForKey:@"focusPosition"]];
+                coreDataObject.focus = [NSString stringWithFormat:@"%3.2f",[prefs floatForKey:@"focusPosition"]];
                 coreDataObject.exposure = [NSString stringWithFormat:@"P=%ld F=%ld",
                                                 [prefs integerForKey:@"previewExposureDuration"],
                                                 [prefs integerForKey:@"previewExposureDuration"]/[prefs integerForKey:@"previewFlashRatio"]];

@@ -12,6 +12,8 @@
 	<dict>
 		<key>2E5537096CBA3DEE0C584520DD86C4D787CCB125</key>
 		<string>github.com:UCBerkeleyCellScope/OcularCellScope.git</string>
+		<key>96F8D7A4D9F595CACBF662C1CC606E806D6568C5</key>
+		<string>https://github.com/fbmyers/XCCMobileReader.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Ocular Cellscope.xcodeproj</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>2E5537096CBA3DEE0C584520DD86C4D787CCB125</key>
 		<string>../..</string>
+		<key>96F8D7A4D9F595CACBF662C1CC606E806D6568C5</key>
+		<string>../../../XCC/XCCMobileReader</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>github.com:UCBerkeleyCellScope/OcularCellScope.git</string>
@@ -35,6 +39,14 @@
 			<string>2E5537096CBA3DEE0C584520DD86C4D787CCB125</string>
 			<key>IDESourceControlWCCName</key>
 			<string>OcularCellScope</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>96F8D7A4D9F595CACBF662C1CC606E806D6568C5</string>
+			<key>IDESourceControlWCCName</key>
+			<string>XCCMobileReader</string>
 		</dict>
 	</array>
 </dict>

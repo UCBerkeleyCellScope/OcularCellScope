@@ -43,6 +43,6 @@
     <elements>
         <element name="Exam" positionX="0" positionY="0" width="128" height="240"/>
         <element name="EyeImage" positionX="306" positionY="141" width="128" height="300"/>
-        <element name="Logs" positionX="313" positionY="-81" width="128" height="103"/>
+        <element name="Logs" positionX="225" positionY="-49" width="128" height="103"/>
     </elements>
 </model>

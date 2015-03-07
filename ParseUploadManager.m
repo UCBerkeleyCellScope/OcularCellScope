@@ -118,11 +118,11 @@ BOOL _queueIsProcessing = NO;
                 //timeout. if image never uploads, stop the queue
                 if (([[NSDate date] timeIntervalSince1970] - startTimestamp)>UPLOAD_TIMEOUT) {
                     CSLog(@"Network timeout", @"UPLOAD");
-                    [PopupMessage showPopup:@"Network Timeout"];
                     [self.imagesToUpload removeAllObjects];
                     self.currentExam = nil;
                     self.currentParseExam = nil;
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        [PopupMessage showPopup:@"Network Timeout"];
                         [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
                     });
                     return;

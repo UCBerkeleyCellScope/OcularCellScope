@@ -1,5 +1,6 @@
 
 #include <ble_mini.h>
+#include <Servo.h>
 
 //power
 #define BATTERY A11 //battery voltage = A11/1024*5.0V
@@ -25,6 +26,7 @@
 #define P3_PIN3 2 //DIO/SDA
 #define P3_PIN4 3 //DIO/PWM/SCL
 #define PERIPHERAL_5V_EN 4  //switches 5V power on/off to peripherals
+#define SERVO_PIN 5
 
 //settings
 #define BATTERY_GREEN_TO_RED_THRESHOLD 3.3
@@ -42,6 +44,8 @@ boolean bleConnected = false;
 void setBatteryIndicator(boolean batteryOK);
 void setPeripheralPower(boolean enabled);
 void setLights(byte led1, byte led2);
+
+Servo servo;
 
 void setup()
 { 
@@ -75,6 +79,8 @@ void setup()
   lastKeepaliveTimestamp = millis();
   lastLowPriorityIterationTimestamp = millis();
   
+  servo.attach(SERVO_PIN);
+    
   selfTest();
 }
 
@@ -98,11 +104,14 @@ void selfTest()
     }
     setLights(0,0);    
     
-    //TEST PERIPHERAL POWER
+    //TEST PERIPHERAL POWER AND SERVO CONNECTED TO P2
     setPeripheralPower(true);
-    delay(1000);
+    for  (int i=0;i<180;i+=10) {
+      servo.write(i);
+      delay(200);
+    }
     setPeripheralPower(false);
-    
+        
     //TEST INDICATORS
     setBatteryIndicator(false);
     delay(1000);
@@ -111,6 +120,11 @@ void selfTest()
     digitalWrite(BLUE_IND,LOW);
     delay(1000);
     digitalWrite(BLUE_IND,HIGH);
+    delay(1000);
+    
+    //TEST KILL
+    digitalWrite(KILL,HIGH);
+    
 }
 
 /*
@@ -135,9 +149,9 @@ void checkBTLEState() {
  */
 void setPeripheralPower(boolean enabled) {
   if (enabled)
-      digitalWrite(PERIPHERAL_5V_EN,HIGH);
+      digitalWrite(PERIPHERAL_5V_EN,LOW);
   else
-      digitalWrite(PERIPHERAL_5V_EN,LOW);  
+      digitalWrite(PERIPHERAL_5V_EN,HIGH);  
 }
 
 /*
