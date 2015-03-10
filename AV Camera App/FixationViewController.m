@@ -17,6 +17,8 @@
 #import "TabViewController.h"
 #import "UIColor+Custom.h"
 
+#import "RetinalStitcher.h"
+
 @interface FixationViewController ()
 
 @property(strong, nonatomic) UISegmentedControl *segControl;

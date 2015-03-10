@@ -92,6 +92,7 @@
 		7DB118D81A0F418A00F7AFEB /* EyeImage+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043BC9519498EED00C39A48 /* EyeImage+Methods.m */; };
 		7DD0A96819E902800064A413 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD0A96719E902800064A413 /* Social.framework */; };
 		7DD0A96A19E902850064A413 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD0A96919E902850064A413 /* Accounts.framework */; };
+		A51FE5DC1AAD735100DCBAA9 /* ocs.plist in Resources */ = {isa = PBXBuildFile; fileRef = A51FE5DB1AAD735100DCBAA9 /* ocs.plist */; };
 		A52751CC199A742C00B68FDA /* settings_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A52751CB199A742C00B68FDA /* settings_icon@2x.png */; };
 		A570184E1A3B94CE00B9BE25 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = A570184D1A3B94CE00B9BE25 /* Reachability.m */; };
 		A57018521A3F928C00B9BE25 /* Logs.m in Sources */ = {isa = PBXBuildFile; fileRef = A57018511A3F928C00B9BE25 /* Logs.m */; };
@@ -313,6 +314,7 @@
 		7DD0A96519E9024C0064A413 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		7DD0A96719E902800064A413 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		7DD0A96919E902850064A413 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		A51FE5DB1AAD735100DCBAA9 /* ocs.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ocs.plist; sourceTree = "<group>"; };
 		A52751CB199A742C00B68FDA /* settings_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_icon@2x.png"; sourceTree = "<group>"; };
 		A570184A1A3A4D2F00B9BE25 /* CameraModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CameraModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		A570184C1A3B94CE00B9BE25 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -550,6 +552,7 @@
 		6D2D5DAA18318D9E00A58A96 = {
 			isa = PBXGroup;
 			children = (
+				A51FE5DB1AAD735100DCBAA9 /* ocs.plist */,
 				6DD89D211842666C00F3C7FC /* Core Data */,
 				6D2D5DBC18318D9F00A58A96 /* AV Camera App */,
 				6D2D5DDB18318DA000A58A96 /* AV Camera AppTests */,
@@ -898,7 +901,7 @@
 				ORGANIZATIONNAME = "UC Berkeley Fletcher Lab";
 				TargetAttributes = {
 					6D2D5DB218318D9F00A58A96 = {
-						DevelopmentTeam = NPZGJ9L3C2;
+						DevelopmentTeam = 76ANGZ5BJZ;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -980,6 +983,7 @@
 				F38224B418F7BB3F00D861FE /* retina_icon_bottom.png in Resources */,
 				6D2D5DCF18318D9F00A58A96 /* Images.xcassets in Resources */,
 				A5C8E186197634B90072D99C /* od_bottom.png in Resources */,
+				A51FE5DC1AAD735100DCBAA9 /* ocs.plist in Resources */,
 				F3A6034D18FE6A5F006BFFEC /* settings_icon.png in Resources */,
 				F3FCC96319369BA10093A1EB /* notes_icon@2x.png in Resources */,
 				6043BC871947CF5600C39A48 /* drOz.jpg in Resources */,
