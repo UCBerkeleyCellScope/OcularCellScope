@@ -5,6 +5,8 @@
 //  Created by Chris Echanique on 4/17/14.
 //  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
+//  This includes all of our camera functionality. AVCaptureSession and Device objects, functions for taking
+//  pictures, and controlling focus/exposure/whitebalance.
 
 #import <Foundation/Foundation.h>
 @import AVFoundation;

@@ -5,6 +5,7 @@
 //  Created by PJ Loury on 6/12/14.
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
+//  Basic functions for working with EyeImage Core Data objects
 
 #import "Exam.h"
 #import "EyeImage+Methods.h"
@@ -19,6 +20,7 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
     return rs;
 }
 
+//The filename that is stored in Parse
 -(NSString*)fileName{
     
     //self.exam.firstName

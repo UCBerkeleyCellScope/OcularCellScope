@@ -14,7 +14,7 @@
 
 @interface ExamInfoTableViewController ()
 
-@property Exam* e;
+@property Exam* e; //the exam currently being viewed
 
 @end
 
@@ -148,27 +148,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-
-/*
-    if([firstnameField.text isEqualToString: @""]){
-        self.e.firstName = @"N/A";
-    }
-    else
-        self.e.firstName = firstnameField.text;
-    
-    if([lastnameField.text isEqualToString: @""]){
-        self.e.lastName = @"N/A";
-    }
-    else
-        self.e.lastName = lastnameField.text;
-    
-    if([patientIDTextField.text isEqualToString: @""]){
-        self.e.patientID = @"N/A";
-    }
-    else
-        self.e.patientID = patientIDTextField.text;
-*/
-    
+ 
     
     self.e.firstName = firstnameField.text;
     self.e.lastName = lastnameField.text;
@@ -213,7 +193,7 @@
 }
 
 //This method allows the user to add a profile picture of the patient by
-//clicking on the OCS icon
+//clicking on the OCS icon. We aren't using this.
 - (IBAction)didPressProfilePicture:(id)sender {
     
     [profilePicButton setHighlighted: YES];
@@ -244,6 +224,7 @@
     
 }
 
+//not using...
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     /* Do what you need to do then */
@@ -253,7 +234,7 @@
     //profilePicturePopover = nil;
 }
 
-
+//not using...
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     

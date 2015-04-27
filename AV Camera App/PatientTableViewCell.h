@@ -5,6 +5,7 @@
 //  Created by PJ Loury on 4/7/14.
 //  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
+//  Represents a cell in the PatientTableViewController.
 
 #import <UIKit/UIKit.h>
 

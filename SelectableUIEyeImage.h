@@ -5,6 +5,8 @@
 //  Created by Chris Echanique on 3/14/14.
 //  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
+//  Honestly not sure what this is and how it's different from SelectableEyeImage. But would be best to not store
+//  the image data in memory for all images, but only load one at a time. So this should be rewritten. - FBM
 
 #import <UIKit/UIKit.h>
 @class EyeImage, SelectableUIEyeImage;

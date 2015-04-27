@@ -10,7 +10,6 @@
 #import "PatientTableViewCell.h"
 #import "CoreDataController.h"
 #import "DiagnosisViewController.h"
-#import "CellScopeHTTPClient.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "Exam+Methods.h"
 #import "Random.h"
@@ -19,13 +18,12 @@
 @interface PatientsTableViewController (){
 
 }
-@property CellScopeHTTPClient *client;
 
 @end
 
 @implementation PatientsTableViewController
 
-@synthesize currentExam, patientsArray,client;
+@synthesize currentExam, patientsArray;
 @synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize managedObjectContext;
 
@@ -33,7 +31,6 @@
 {
     
     [super viewDidLoad];
-    client = [[CellScopeContext sharedContext] client];
     
     managedObjectContext = [[CellScopeContext sharedContext]managedObjectContext];
     
@@ -55,6 +52,7 @@
     
 }
 
+//loads data from core data and populates the table
 - (void)updateTable
 {
     NSError *error;
@@ -67,6 +65,7 @@
     [self.tableView reloadData];
 }
 
+//basic UI setup
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -89,6 +88,7 @@
     self.navigationController.navigationBar.hidden = NO;
 }
 
+//during Parse upload, these notifications are periodically fired off. This updates the table (which includes progress indicators in each cell).
 - (void) uploadProgressNotificationReceived
 {
     NSLog(@"upload progress: %f, exam progress: %f",[[[CellScopeContext sharedContext] uploadManager] overallProgress],[[[CellScopeContext sharedContext] uploadManager] currentExamProgress]);
@@ -98,6 +98,7 @@
     
 }
 
+//fetches records from core data
 - (NSFetchedResultsController *)fetchedResultsController {
     
     if (_fetchedResultsController != nil) {
@@ -144,39 +145,6 @@
 
 #pragma mark - Table view data source
 
-/*
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    //From A-Z example
-    //return [content count];
-    
-    return [[self.fetchedResultsController sections] count];
-    
-    //return 1;
-
-}
-
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    //return [content valueForKey:@"headerTitle"];
-
-    return [self.fetchedResultsController sectionIndexTitles];
-
-}
-
-- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-    
-    //return [indices indexOfObject:title];
-    return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index];
-}
-
-- (NSString *)tableView:(UITableView *)aTableView titleForHeaderInSection:(NSInteger)section {
-	//return [[content objectAtIndex:section] objectForKey:@"headerTitle"];
-    if (section < [[self.fetchedResultsController sectionIndexTitles] count])
-        return [[self.fetchedResultsController sectionIndexTitles]objectAtIndex:section];
-    else
-        return @"?";
-}
-*/
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -184,6 +152,7 @@
     return [sectionInfo numberOfObjects];
 }
 
+//populates a tableviewcell for a given record index
 - (void)configureCell:(PatientTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 
     Exam *exam = (Exam *)[self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -270,11 +239,7 @@
 
 //SELECT EXAM CELL
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    //THIS WAS THE OLD WAY
-    //[[CellScopeContext sharedContext] setCurrentExam: (Exam *)[patientsArray objectAtIndex:indexPath.row]];
-    
-    //This is the New Way
+
     
     Exam *e = (Exam *)[_fetchedResultsController objectAtIndexPath:indexPath];
     [[CellScopeContext sharedContext] setCurrentExam: e];
@@ -285,13 +250,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-//    DiagnosisViewController *dvc = [[DiagnosisViewController alloc]init];
-//    UITabBarController *tbc = [segue destinationViewController];
-//    CellScopeHTTPClient *c = [CellScopeHTTPClient sharedCellScopeHTTPClient];
-//    c.delegate = dvc;
-//    
-//    
-//    dvc = (DiagnosisViewController*)[[tbc customizableViewControllers] objectAtIndex:1];
+
 }
  
 // Edit/DELETE Cell in the table view
@@ -301,22 +260,10 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
 
-        //The Old Way
-        //Exam* currentCell = [patientsArray objectAtIndex:indexPath.row];
-        //The New Way
         Exam* currentCell = [_fetchedResultsController objectAtIndexPath:indexPath];
         
         [[[CellScopeContext sharedContext] managedObjectContext] deleteObject:currentCell];
         
-        //remove from the in-memory array
-        //OLD WAY
-        //[self.patientsArray removeObjectAtIndex:indexPath.row];
-        //The New Way
-        // NOT NEEDED???
-        //[[_fetchedResultsController objectAtIndexPath:indexPath] removeObjectAtIndex:indexPath.row];
-        
-        //[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-     
         // Commit
         [[[CellScopeContext sharedContext] managedObjectContext] save:nil];
     }
@@ -324,66 +271,10 @@
 
 - (IBAction)didPressUpload:(id)sender {
     
-    /*
-    //Exam* grabbedFirstExam = [patientsArray objectAtIndex:0];
-    Exam* grabbedFirstExam = [_fetchedResultsController objectAtIndexPath:0];
-    
-    [[CellScopeContext sharedContext] setCurrentExam:grabbedFirstExam ];
-    
-    NSArray *images = [CoreDataController getEyeImagesForExam:grabbedFirstExam];
-    
-    //NSMutableArray *imagesToUpload = [NSMutableArray arrayWithArray:images];
-    
-    //[client uploadEyeImagesPJ:images];
-    [client uploadEyeImagesFromArray:images];
-    */
-    
-    NSArray* array = self.fetchedResultsController.fetchedObjects;
-    Exam* first = [array firstObject];
-    NSArray* filesToUpload = [CoreDataController getEyeImagesForExam:first];
-    if([filesToUpload count ]>0){
-        client.imagesToUpload = [NSMutableArray arrayWithArray:filesToUpload];
-        [client batch];
-    }
+
 }
 
-/*
--(void)uploadAllImages{
-    
-    S3manager* s3manager = [[CellScopeContext sharedContext]s3manager];
-    for(Exam* exam in self.fetchedResultsController.fetchedObjects){
-        NSString* bucketName = [s3manager createBucketForExam: exam];
-        NSArray* eyeImages = [CoreDataController getEyeImagesForExam:exam];
-        
-        for(EyeImage *eyeImage in eyeImages){
-            NSURL *aURL = [NSURL URLWithString: eyeImage.filePath];
-            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-            [library assetForURL:aURL resultBlock:^(ALAsset *asset)
-             {
-                 ALAssetRepresentation* rep = [asset defaultRepresentation];
-                 NSUInteger size = (NSUInteger)rep.size;
-                 NSMutableData *imageData = [NSMutableData dataWithLength:size];
-                 NSError *error;
-                 [rep getBytes:imageData.mutableBytes fromOffset:0 length:size error:&error];
-                 
-                 NSString* imageName = [[eyeImage.eye stringByAppendingString: [eyeImage.fixationLight stringValue]]lowercaseString];
-                 
-                 [s3manager processGrandCentralDispatchUpload:imageData forExamBucket:bucketName andImageName:imageName];//imageName;
-                 
-             } failureBlock:^(NSError *error) {
-                 // handle error
-                 NSLog(@"There was an error in fetching form the Camera Roll");
-             }];
-        }
-    }
-}
-*/
-
-
--(void)cellScopeHTTPClient:(CellScopeHTTPClient *)client didUploadEyeImage:(id)eyeImage{
-    
-}
-
+//adds a new exam and opens this in the ExamInfoTableViewController
 - (IBAction)didPressAddExam:(id)sender {
     
     sender = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -402,18 +293,10 @@
     newExam.studyName = @"None";
     newExam.uploaded = [NSNumber numberWithBool:NO];
     
-    //[self.patientsArray addObject:newExam];
-    
-    //[self.fetchedResultsController addObject:newExam];
-    
-    //NSLog(@"Before Adding Exam, %lu patients in our database", (unsigned long)[self.patientsArray count]);
-
     
     [self performSegueWithIdentifier: @"ExamInfoSegue" sender: self];
 }
 
-
-//ADDED FOR FETCHEDRESULTSCONTROLLER
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.

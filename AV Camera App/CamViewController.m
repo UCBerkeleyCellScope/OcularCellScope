@@ -23,7 +23,6 @@
 @synthesize beepBeepSound;
 @synthesize camFocus;
 
-//@synthesize bleManager = _bleManager;
 @synthesize captureManager  = _captureManager;
 @synthesize currentImageCount = _currentImageCount;
 @synthesize repeatingTimer = _repeatingTimer;
@@ -47,55 +46,32 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     
-    /*
-     self.bleManager = [[CellScopeContext sharedContext] bleManager];
-     
-     if(self.fullscreeningMode)
-     self.selectedLight = CENTER_LIGHT;
-     else
-     self.selectedLight = self.bleManager.selectedLight;
-     */
-    
     self.captureManager = [[AVCaptureManager alloc] init];
     self.captureManager.delegate = self;
     self.currentImageCount = 0;
     
-    // Added gesture recognizer for taps to focus
+    // Added gesture recognizer for tap to focus. We removed this because we determined that
+    // manual focus was better.
     /*
      tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didReceiveTapToFocus:)];
      [self.view addGestureRecognizer:tapGestureRecognizer];
      */
     
-    /*
-     longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedToCapture:)];
-     [self.view addGestureRecognizer:longPressGestureRecognizer];
-     */
-    
     self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureHandler)];
     [self.view addGestureRecognizer:self.panGestureRecognizer];
     
-    /// WHY IS THIS HERE>>>??? IN ORDER TO
-    //GET TURN OFF/TURN ON TO WORK
-    //[[self.bleManager whiteFlashLight]toggleLight];
-    
+    //initialize the array that will contain the images
     self.imageArray = [[NSMutableArray alloc] init];
     
-    [[CellScopeContext sharedContext] setCamViewLoaded:YES];
-    
+    [[CellScopeContext sharedContext] setCamViewLoaded:YES]; //purpose??
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     [self.captureManager setupCameraWithPreview:self.view];
-    
-    NSLog(@"Self.selectedLight, %ld",self.selectedLight);
     [self updateFixationImageView];
-    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
-    /*
-    [self.captureManager setExposureLock:NO];
-    [self.captureManager unlockFocus];
-    [self.captureManager unlockWhiteBalance];
-    */
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES]; //make sure the display doesn't go dark
     
+    //set camera parameters
     [self.captureManager setRedGain:[[NSUserDefaults standardUserDefaults] floatForKey:@"previewRedGain"]
                           greenGain:[[NSUserDefaults standardUserDefaults] floatForKey:@"previewGreenGain"]
                            blueGain:[[NSUserDefaults standardUserDefaults] floatForKey:@"previewBlueGain"]];
@@ -120,15 +96,11 @@
         self.capturedImageView.transform = CGAffineTransformMakeRotation(0);
     }
      */
-    
-    
-    //int fixationLightValue = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"fixationLightValue"];
-    
+
     self.counterLabel.hidden = YES;
     [self.bleDisabledLabel setHidden:YES];
     [self.navigationItem setHidesBackButton:NO animated:YES];
     
-    //TODO: handle connection
     
     //turn on focus light and fixation light
     int whiteIntensity = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"whiteFocusValue"];
@@ -150,12 +122,13 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
+    
     //take down camera
     [self.captureManager takeDownCamera];
     
-    
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 
+    //turn off lights/fixation
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         [[[CellScopeContext sharedContext] bleManager] setIlluminationWhite:0 Red:0];
         [[[CellScopeContext sharedContext] bleManager] setFixationLight:FIXATION_LIGHT_NONE forEye:1 withIntensity:0];
@@ -170,6 +143,7 @@
 
 }
 
+//i don't think these are necessary anymore...
 -(void) didReceiveConnectionConfirmation{
     NSLog(@"The Connection Delegate was told that a Connection did occur");
     
@@ -191,7 +165,7 @@
     //Tell the Flash to Stay on for a certain amount of time
 }
 
-
+//not implemented now, but something we've discussed
 -(IBAction)didPressPause:(id)sender{
     [self.repeatingTimer invalidate];
     [self.captureManager setExposureLock:NO];
@@ -200,6 +174,7 @@
 }
 
 
+//we removed this because we wanted to stick with manual focus
 /*
 - (IBAction)tappedToFocus:(UITapGestureRecognizer *)sender {
     [self.captureButton setEnabled:NO];
@@ -210,6 +185,10 @@
 }
 */
 
+//initiates capture sequence. Capture sequence entails:
+// 1) exposure, iso, whitebalance settings for camera are set to "flash" values specified in user settings
+// 2) flash intensity, duration, and delay parameters transmitted to CellScope
+// 3) capture sequence initiated. flash and camera capture are triggered together. cellscope will wait a specified delay between receiving the flash command and turning on the light (to sync it with the camera).
 
 - (IBAction)didPressCapture:(id)sender{
     CSLog(@"Capture button pressed", @"USER");
@@ -231,6 +210,7 @@
     int flashDelay = [[NSUserDefaults standardUserDefaults] integerForKey:@"flashDelay"];
     int flashDuration = (int)round(flashExposureDuration*flashDurationMultiplier);
     
+    //send flash parameters to cellscope
     //why this works better in a BG thread, i don't know...
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         [[[CellScopeContext sharedContext] bleManager] setFlashIntensityWhite:whiteIntensity
@@ -241,15 +221,15 @@
         [NSThread sleepForTimeInterval:0.1];
     });
 
-    
+    //setup camera
     [self.captureManager setRedGain:[[NSUserDefaults standardUserDefaults] floatForKey:@"captureRedGain"]
                           greenGain:[[NSUserDefaults standardUserDefaults] floatForKey:@"captureGreenGain"]
                            blueGain:[[NSUserDefaults standardUserDefaults] floatForKey:@"captureBlueGain"]];
     
-
     [self.captureManager setExposureDuration:flashExposureDuration
                                          ISO:[[NSUserDefaults standardUserDefaults] floatForKey:@"captureISO"]];
     
+    //log this capture sequence
     NSString* logmsg = [NSString stringWithFormat:@"Capture sequence has begin with Focus=%3.2f, PrevExp=%3.2f, White=%d, Red=%d, FlashExp=%d, FlashDur=%d, FlashDelay=%3.2d, ISO=%3.2f, WB=%3.2f/%3.2f/%3.2f, Interval=%3.2f",
                         self.currentFocusPosition,
                         self.currentExposureDuration,
@@ -274,6 +254,7 @@
     
 }
 
+//no longer used, this was before iOS8 gave us direct control of exposure.
 /*
 -(void) setExposureUsingLight {
 
@@ -301,24 +282,21 @@
 }
     */
 
+// initiates the capture of a single photo.
 -(void)captureTimerFired{
     self.currentImageCount++;
     int totalNumberOfImages = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfImages"];
     
     if(self.currentImageCount <= totalNumberOfImages){
         [self updateCounterLabelText];
-        // Timed flash or ping back
-        
-        //BOOL timedFlash = [[NSUserDefaults standardUserDefaults] boolForKey:@"timedFlash"];
 
         //send flash signal
         dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        
+        //flash the light on cellscope
         [[[CellScopeContext sharedContext] bleManager] doFlash];
         
-        //wait for ble command to be sent
-        //[NSThread sleepForTimeInterval: [[NSUserDefaults standardUserDefaults] floatForKey:@"flashDelay"]/1000];
-        
-        
+        //take a picture
         [self.captureManager takePicture];
         });
         
@@ -357,6 +335,7 @@
     else
         eyeString = @"OS";
     
+    //looks like mirroring is no longer used. can remove this.
     if(mirroredView){
         
         /*
@@ -441,6 +420,7 @@
     }
 }
 
+//no longer being used
 - (void) displayNextFixationView{
     
     //NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:2.0  target:self selector:@selector(beginImageCapture) userInfo:nil repeats:NO];
@@ -491,6 +471,7 @@
         self.counterLabel.text = [NSString stringWithFormat:@"%d",self.currentImageCount];
 }
 
+//no longer used
 - (IBAction)didReceiveTapToFocus:(id)sender {
     // Focuses camera if not currently capturing images
     
@@ -533,6 +514,7 @@
 
 }
 
+//some hard-coded parameters that control the swipe gesture user experience
 #define FOCUS_INCREMENT .01
 #define EXPOSURE_INCREMENT 1
 #define FOCUS_MIN 0.0
@@ -540,6 +522,7 @@
 #define EXPOSURE_MIN 25
 #define EXPOSURE_MAX 200
 
+//this adjusts either focus or exposure, depending on direction
 - (void)panGestureHandler
 {
     
@@ -580,6 +563,7 @@
     
 }
 
+//updates the sliders on the screen to reflect the current exposure/focus settings
 - (void)updateFocusExposureIndicators
 {
     CGFloat pos;
@@ -595,6 +579,7 @@
     
 }
 
+//might want to re-enable to make it easier to initiate capture.
 - (IBAction)longPressedToCapture:(id)sender {
     if (self.longPressGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         [self.longPressGestureRecognizer setEnabled:NO];
@@ -602,12 +587,14 @@
     }
 }
 
+//used during tap to focus. not currently being used.
 -(void) playSound: (NSString*)name{
     NSString* path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:name];
     NSURL *soundURL = [NSURL fileURLWithPath:path];
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundURL, &beepBeepSound);
     AudioServicesPlaySystemSound(self.beepBeepSound);
 }
+
 
 -(void) updateFixationImageView{
     

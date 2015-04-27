@@ -16,8 +16,9 @@
 #import "CellScopeContext.h"
 #import "TabViewController.h"
 #import "UIColor+Custom.h"
+#import "UIImage+Resize.h"
 
-#import "RetinalStitcher.h"
+#import "RetinalStitcherInterface.h"
 
 @interface FixationViewController ()
 
@@ -242,19 +243,30 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     
     if( [sender isSelected] == NO){
-
-        [self performSegueWithIdentifier:@"CamViewSegue" sender:(id)sender];
+        if ([sender tag]==0)
+            [self didPressStitch:nil];
+        else
+            [self performSegueWithIdentifier:@"CamViewSegue" sender:(id)sender];
     }
     
     else if([sender isSelected] == YES ){
         //there are pictures!
         //[self performSegueWithIdentifier:@"ImageReviewSegue" sender:(id)sender];
         
-        self.fixationAlert = [[UIAlertView alloc] initWithTitle:@"Would you like to review existing images or add new ones?"
-                                                        message:@""
-                                                       delegate:self
-                                              cancelButtonTitle:@"Review"
-                                              otherButtonTitles:@"Add",nil];
+        if ([sender tag]==0) {
+            self.fixationAlert = [[UIAlertView alloc] initWithTitle:@"Would you like to stitch again or review previously stitched image?"
+                                                            message:@""
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Review"
+                                                  otherButtonTitles:@"Stitch",nil];
+        }
+        else {
+            self.fixationAlert = [[UIAlertView alloc] initWithTitle:@"Would you like to review existing images or add new ones?"
+                                                            message:@""
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Review"
+                                                  otherButtonTitles:@"Add",nil];
+        }
         [self.fixationAlert show];
     }
     
@@ -264,7 +276,11 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     if (alertView == self.fixationAlert){
         if(buttonIndex == 1){
             //Index 1 Selected
-            [self performSegueWithIdentifier:@"CamViewSegue" sender:self];
+            if ([[self.fixationAlert buttonTitleAtIndex:1] isEqualToString:@"Stitch"]) {
+                [self didPressStitch:nil];
+            }
+            else
+                [self performSegueWithIdentifier:@"CamViewSegue" sender:self];
         }
         else{
             //Index 0 Selected
@@ -517,4 +533,176 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     self.selectedLight = sender.tag;
     [self performSegueWithIdentifier:@"FullScreeningSegue" sender:(id)sender];
 }
+
+
+//this is a quick and dirty way to implement stitching. it just queries core data, gets the earliest
+//image taken for each fixation light, loads it as a UIImage, and then passes it on to the C++ stitching
+//algorithm
+- (IBAction)didPressStitch:(id)sender {
+    
+    NSString* eyeString;
+    if ([[CellScopeContext sharedContext] selectedEye] == 1)
+        eyeString = @"OD";
+    else
+        eyeString = @"OS";
+
+    NSString* logmsg = [NSString stringWithFormat:@"Generating stitched image for exam %@ and eye %@",[[[CellScopeContext sharedContext]currentExam] patientID],eyeString];
+    CSLog(logmsg, @"USER");
+    
+    
+    NSPredicate *predicate;
+    NSArray* coreDataResults;
+    __block UIImage* centerImage;
+    __block UIImage* leftImage;
+    __block UIImage* rightImage;
+    __block UIImage* topImage;
+    __block UIImage* bottomImage;
+    
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    
+    //center image
+    predicate = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == 1", [[CellScopeContext sharedContext]currentExam], eyeString];
+    coreDataResults = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: predicate
+                                                    andSortKey: @"date" andSortAscending: YES
+                                                    andContext: [[CellScopeContext sharedContext] managedObjectContext]];
+    if (coreDataResults.count>0) {
+        EyeImage* ei = [coreDataResults objectAtIndex:0]; //get the earliest image taken (later we'll let the user choose)
+        [library assetForURL:[NSURL URLWithString: ei.filePath] resultBlock:^(ALAsset *asset)
+         {
+             NSLog(@"fetching center");
+             CGImageRef iref = [[asset defaultRepresentation] fullResolutionImage];
+             centerImage = [UIImage imageWithCGImage:iref];
+         }
+         failureBlock:^(NSError *error)
+         {
+             
+             CSLog(@"failure loading video/image from AssetLibrary",@"ERROR");
+         }];
+    }
+    
+    //top image
+    predicate = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == 2", [[CellScopeContext sharedContext]currentExam], eyeString];
+    coreDataResults = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: predicate
+                                                      andSortKey: @"date" andSortAscending: YES
+                                                      andContext: [[CellScopeContext sharedContext] managedObjectContext]];
+    if (coreDataResults.count>0) {
+        EyeImage* ei = [coreDataResults objectAtIndex:0]; //get the earliest image taken (later we'll let the user choose)
+        [library assetForURL:[NSURL URLWithString: ei.filePath] resultBlock:^(ALAsset *asset)
+         {
+             NSLog(@"fetching top");
+             CGImageRef iref = [[asset defaultRepresentation] fullResolutionImage];
+             topImage = [UIImage imageWithCGImage:iref];
+         }
+                failureBlock:^(NSError *error)
+         {
+             
+             CSLog(@"failure loading video/image from AssetLibrary",@"ERROR");
+         }];
+    }
+    
+    //bottom image
+    predicate = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == 3", [[CellScopeContext sharedContext]currentExam], eyeString];
+    coreDataResults = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: predicate
+                                                      andSortKey: @"date" andSortAscending: YES
+                                                      andContext: [[CellScopeContext sharedContext] managedObjectContext]];
+    if (coreDataResults.count>0) {
+        EyeImage* ei = [coreDataResults objectAtIndex:0]; //get the earliest image taken (later we'll let the user choose)
+        [library assetForURL:[NSURL URLWithString: ei.filePath] resultBlock:^(ALAsset *asset)
+         {
+             NSLog(@"fetching bottom");
+             CGImageRef iref = [[asset defaultRepresentation] fullResolutionImage];
+             bottomImage = [UIImage imageWithCGImage:iref];
+         }
+                failureBlock:^(NSError *error)
+         {
+             
+             CSLog(@"failure loading video/image from AssetLibrary",@"ERROR");
+         }];
+    }
+    
+    //left image
+    predicate = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == 4", [[CellScopeContext sharedContext]currentExam], eyeString];
+    coreDataResults = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: predicate
+                                                      andSortKey: @"date" andSortAscending: YES
+                                                      andContext: [[CellScopeContext sharedContext] managedObjectContext]];
+    if (coreDataResults.count>0) {
+        EyeImage* ei = [coreDataResults objectAtIndex:0]; //get the earliest image taken (later we'll let the user choose)
+        [library assetForURL:[NSURL URLWithString: ei.filePath] resultBlock:^(ALAsset *asset)
+         {
+             NSLog(@"fetching left");
+             CGImageRef iref = [[asset defaultRepresentation] fullResolutionImage];
+             leftImage = [UIImage imageWithCGImage:iref];
+         }
+                failureBlock:^(NSError *error)
+         {
+             
+             CSLog(@"failure loading video/image from AssetLibrary",@"ERROR");
+         }];
+    }
+    
+    
+    //right image
+    predicate = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == 5", [[CellScopeContext sharedContext]currentExam], eyeString];
+    coreDataResults = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: predicate
+                                                      andSortKey: @"date" andSortAscending: YES
+                                                      andContext: [[CellScopeContext sharedContext] managedObjectContext]];
+    if (coreDataResults.count>0) {
+        EyeImage* ei = [coreDataResults objectAtIndex:0]; //get the earliest image taken (later we'll let the user choose)
+        [library assetForURL:[NSURL URLWithString: ei.filePath] resultBlock:^(ALAsset *asset)
+         {
+             NSLog(@"fetching right");
+             CGImageRef iref = [[asset defaultRepresentation] fullResolutionImage];
+             rightImage = [UIImage imageWithCGImage:iref];
+         }
+                failureBlock:^(NSError *error)
+         {
+             
+             CSLog(@"failure loading video/image from AssetLibrary",@"ERROR");
+         }];
+    }
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),^{
+        //give it some time to return all these images from AL (kludge!)
+        [NSThread sleepForTimeInterval:5.0];
+        
+        //run stitching algorithm and return resulting image
+        RetinalStitcherInterface* rsi = [[RetinalStitcherInterface alloc] init];
+        rsi.centerImage = centerImage;
+        rsi.topImage = topImage;
+        rsi.bottomImage = bottomImage;
+        rsi.leftImage = leftImage;
+        rsi.rightImage = rightImage;
+        
+        UIImage* stitchedResult = [rsi stitch];
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            //turn this stitched image into a SelectableEyeImage object with fixationlight = 0
+            SelectableEyeImage* sei = [[SelectableEyeImage alloc] initWithUIImage:stitchedResult
+                                                                             date:[NSDate date]
+                                                                              eye:eyeString
+                                                                    fixationLight:0
+                                                                        thumbnail:[stitchedResult resizedImageWithScaleFactor:[[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"]]];
+            
+            NSLog(@"stitched width = %d, height = %d",sei.size.width,sei.size.height);
+            
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            ImageSelectionViewController *isvc = [storyboard instantiateViewControllerWithIdentifier:@"ImageSelectionViewController"];
+            
+            isvc.images = [NSArray arrayWithObjects:sei,nil];
+            isvc.reviewMode = NO;
+            [self.navigationController pushViewController:isvc animated:YES];
+            
+            
+            NSLog(@"stitching complete");
+        });
+        
+    });
+    
+ 
+    
+}
+
 @end

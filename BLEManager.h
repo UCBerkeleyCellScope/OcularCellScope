@@ -5,6 +5,7 @@
 //  Created by PJ Loury on 4/22/14.
 //  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
+//  Contains functions for connecting to the cellscope hardware and controlling illumination, fixation, etc.
 
 #import <Foundation/Foundation.h>
 #import "CellScopeContext.h"
@@ -25,19 +26,8 @@
 
 @interface BLEManager : BLE<BLEDelegate>
 
-/*@property (strong, nonatomic) Light *redFocusLight;
-@property (strong, nonatomic) Light *whiteFlashLight;
-
-@property (strong, nonatomic) Light *whiteFocusLight;
-@property (strong, nonatomic) Light *redFlashLight;
-
-@property (strong, nonatomic) Light *remoteLight;
-@property (strong, nonatomic) NSArray *fixationLights;
-*/
-
 @property(nonatomic, strong) NSUserDefaults *prefs;
 @property (assign, nonatomic) BOOL isConnected;
-//@property (nonatomic) NSInteger selectedLight;
 @property BOOL debugMode;
 @property (strong, nonatomic) BLE *ble;
 @property (weak, nonatomic) id <BLEConnectionDelegate> BLECdelegate;
@@ -46,6 +36,7 @@
 -(void)beginBLEScan;
 -(void)disconnect;
 
+//functions for controlling illumination/fixation
 -(void)setIlluminationWhite:(UInt8)whiteIntensity Red:(UInt8)redIntensity;
 -(void)setIlluminationWithCallbackWhite:(UInt8)whiteIntensity Red:(UInt8)redIntensity;
 -(void)setFlashIntensityWhite:(UInt8)whiteIntensity Red:(UInt8)redIntensity;

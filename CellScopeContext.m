@@ -16,7 +16,7 @@ static NSString * const CellScopeURLString = @"http://warm-dawn-6399.herokuapp.c
 
 @implementation CellScopeContext
 
-@synthesize currentExam, connected, bleManager, camViewLoaded, client;
+@synthesize currentExam, connected, bleManager, camViewLoaded;
 
 + (id)sharedContext {
     static CellScopeContext *newContext = nil;
@@ -40,7 +40,7 @@ static NSString * const CellScopeURLString = @"http://warm-dawn-6399.herokuapp.c
         connected = NO;
         camViewLoaded = NO;
         bleManager = [[BLEManager alloc]init];
-        client = [[CellScopeHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:CellScopeURLString]];
+        //client = [[CellScopeHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:CellScopeURLString]];
         self.uploadManager = [[ParseUploadManager alloc] init];
         self.loggingManager = [[LoggingManager alloc] init];
         

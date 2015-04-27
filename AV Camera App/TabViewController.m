@@ -24,7 +24,6 @@
 @implementation TabViewController
 
 @synthesize uploadButton;
-@synthesize uploadBanner;
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize backFromReview;
 
@@ -54,11 +53,11 @@
     forState:UIControlStateNormal];
     
     CGRect frame = CGRectMake(0.0,380.0,320.0,50.0);
-    uploadBanner = [[UploadBannerView alloc]initWithFrame:frame];
+    /*uploadBanner = [[UploadBannerView alloc]initWithFrame:frame];
     [uploadBanner setHidden:YES];
     [self.view addSubview:uploadBanner];
     [CellScopeHTTPClient sharedCellScopeHTTPClient].uploadBannerView = uploadBanner;
-    
+    */
     
     //[self.navigationController.navigationItem.backBarButtonItem setAction:@selector(didPressBack:)];
     

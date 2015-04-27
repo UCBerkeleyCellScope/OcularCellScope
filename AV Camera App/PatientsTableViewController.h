@@ -5,12 +5,12 @@
 //  Created by NAYA LOUMOU on 12/1/13.
 //  Copyright (c) 2013 UC Berkeley Ocular CellScope. All rights reserved.
 //
+//  This view controller displays a listing of all the exams currently on the phone.
 
 #import <UIKit/UIKit.h>
 #import "CellScopeContext.h"
-#import "CellScopeHTTPClient.h"
 
-@interface PatientsTableViewController : UIViewController<CellScopeHTTPClientDelegate,  NSFetchedResultsControllerDelegate, UITableViewDelegate>
+@interface PatientsTableViewController : UIViewController<NSFetchedResultsControllerDelegate, UITableViewDelegate>
 
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;

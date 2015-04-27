@@ -5,6 +5,7 @@
 //  Created by PJ Loury on 4/28/14.
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
+//  This view controller displays the info for a single exam.
 
 #import <UIKit/UIKit.h>
 
@@ -19,8 +20,10 @@
     UINavigationControllerDelegate,UIGestureRecognizerDelegate
 >
 {
-        UIPopoverController *profilePicturePopover;
+        UIPopoverController *profilePicturePopover; //popover messages are displayed for when the fixation display attached, etc.
 }
+
+//exam fields
 @property (weak, nonatomic) IBOutlet UITextField *firstnameField;
 @property (weak, nonatomic) IBOutlet UITextField *lastnameField;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberField;

@@ -11,9 +11,9 @@
 
 @implementation Logs
 
-@dynamic date;
-@dynamic entry;
-@dynamic synced;
-@dynamic category;
+@dynamic date;  //log date
+@dynamic entry; //string containing the log message
+@dynamic synced;  //indicates whether or not this entry has been uploaded to parse
+@dynamic category; //string category name for this message
 
 @end

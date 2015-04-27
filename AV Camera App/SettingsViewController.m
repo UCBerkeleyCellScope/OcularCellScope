@@ -33,6 +33,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     
 }
 
+//loads settings and displays in the UI
 -(void) viewWillAppear:(BOOL)animated{
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -75,6 +76,7 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     
 }
 
+//saves settings from UI values
 -(void) viewWillDisappear:(BOOL)animated {
 
     //validation
@@ -157,27 +159,6 @@ double redFlashStart,redFlashEnd,whiteFocusStart,whiteFocusEnd;
     }];
 }
 
-
-/*
-- (IBAction)toggleDidChange:(id)sender {
-
-    if(debugToggle.on == YES){
-        debugMode = YES;
-        [_prefs setValue: @YES forKey:@"debugMode" ];
-        
-        [_bleManager setDebugMode:YES];
-        //[_bleManager turnOffAllLights];
-        [_bleManager disconnect];
-    }
-    else if(debugToggle.on == NO){
-        debugMode = NO;
-        [_prefs setValue: @NO forKey:@"debugMode" ];
-        [_bleManager beginBLEScan];
-    }
-    NSLog(@"ToggleChange to %d",debugToggle.on);
-
-}
-*/
 
 - (IBAction)whiteFlashSliderDidChange:(id)sender {
     self.whiteFlashLabel.text = [NSString stringWithFormat: @"%d", (int)self.whiteFlashSlider.value];

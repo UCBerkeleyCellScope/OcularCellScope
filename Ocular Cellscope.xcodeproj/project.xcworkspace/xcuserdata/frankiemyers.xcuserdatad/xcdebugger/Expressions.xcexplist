@@ -3,16 +3,10 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[FixationViewController viewWillAppear:]:FixationViewController.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[ExamInfoTableViewController viewWillDisappear:]:ExamInfoTableViewController.m">
+         contextName = "__53-[ParseUploadManager uploadLogWithCompletionHandler:]_block_invoke:ParseUploadManager.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.birthDayTextField.text">
-            </PersistentString>
-            <PersistentString
-               value = "e.birthDate">
+               value = "logEntries">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -33,10 +27,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "__53-[ParseUploadManager uploadLogWithCompletionHandler:]_block_invoke:ParseUploadManager.m">
+         contextName = "__41-[FixationViewController didPressStitch:]_block_invoke_2371:FixationViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "__41-[FixationViewController didPressStitch:]_block_invoke_2380:FixationViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "logEntries">
+               value = "topImage">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -47,6 +44,20 @@
                value = "self.currentExam.uuid">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ExamInfoTableViewController viewWillDisappear:]:ExamInfoTableViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.birthDayTextField.text">
+            </PersistentString>
+            <PersistentString
+               value = "e.birthDate">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[FixationViewController viewWillAppear:]:FixationViewController.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

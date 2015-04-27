@@ -5,6 +5,7 @@
 //  Created by PJ Loury on 5/2/14.
 //  Copyright (c) 2014 UC Berkeley Ocular CellScope. All rights reserved.
 //
+//  Basic functions for the Exam object
 
 #import "Exam+Methods.h"
 #import "CellScopeContext.h"

@@ -10,7 +10,7 @@
 
 @interface DiagnosisViewController ()
 //@property (strong, nonatomic) NSDictionary* diagnosis;
-@property CellScopeHTTPClient *client;
+//@property CellScopeHTTPClient *client;
 
 @end
 
@@ -20,7 +20,7 @@
     prognosisTextView;
 
 //@synthesize diagnosis;
-@synthesize client;
+//@synthesize client;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,8 +34,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    client = [CellScopeHTTPClient sharedCellScopeHTTPClient];
-    client.delegate = self;
+    //client = [CellScopeHTTPClient sharedCellScopeHTTPClient];
+    //client.delegate = self;
     
     CALayer *specialistLayer = diagnosisngSpecialistImageView.layer;
     [specialistLayer setCornerRadius:8];
@@ -49,7 +49,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
-    [client updateDiagnosisForExam: [[CellScopeContext sharedContext]currentExam]];
+    //[client updateDiagnosisForExam: [[CellScopeContext sharedContext]currentExam]];
     
     patientID = [[[CellScopeContext sharedContext] currentExam] patientID];
     
@@ -102,7 +102,7 @@
     
     
 }
-
+/*
 -(void)cellScopeHTTPClient:(CellScopeHTTPClient *)client didUpdateDiagnosis:(id)diagnosis{
     NSLog(@"RETRIEVED DIAGNOSIS");
     [diagnosisTitle setText: diagnosis[@"diagnosisTitle"]];
@@ -116,6 +116,7 @@
                                               cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alertView show];
 }
+*/
 
 - (void)didReceiveMemoryWarning
 {

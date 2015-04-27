@@ -5,6 +5,8 @@
 //  Created by Chris Echanique on 5/1/14.
 //  Copyright (c) 2014 NAYA LOUMOU. All rights reserved.
 //
+//  Used by the ImageSelectionViewController, which is a collectionview that allows users to
+//  browse images by swiping left to right. EyePhotoCell represents a single cell in that collectionview.
 
 #import <UIKit/UIKit.h>
 @class SelectableEyeImage;
