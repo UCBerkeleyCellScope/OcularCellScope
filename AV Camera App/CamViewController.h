@@ -32,6 +32,8 @@
 @property (nonatomic) float currentFocusPosition;
 @property (nonatomic) float currentExposureDuration;
 
+@property (nonatomic) BOOL automaticallyCycleThroughFixationLights; //when true, this will cycle through 5 fixation lights
+
 //UI elements
 @property (strong, nonatomic) IBOutlet UILabel *counterLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bleDisabledLabel;

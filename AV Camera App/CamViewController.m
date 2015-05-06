@@ -292,7 +292,18 @@
 
         //send flash signal
         dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        
+            
+
+            
+            if (self.automaticallyCycleThroughFixationLights) {
+                
+                self.selectedLight++;
+                
+                [[[CellScopeContext sharedContext] bleManager] setFixationLight:(int)self.selectedLight forEye:[[CellScopeContext sharedContext] selectedEye] withIntensity:255];
+                [NSThread sleepForTimeInterval:0.5]; //give user some time to move their eye
+            }
+
+            
         //flash the light on cellscope
         [[[CellScopeContext sharedContext] bleManager] doFlash];
         
@@ -397,15 +408,28 @@
     NSLog(@"Saved Image %lu!",(unsigned long)[self.imageArray count]);
     
     // Once all images are captured, segue to the Image Selection View
-    int totalNumberOfImages = [[[NSUserDefaults standardUserDefaults] objectForKey:@"numberOfImages"] intValue];
-    if(self.currentImageCount >= totalNumberOfImages){
-        if(!self.fullscreeningMode){
-            NSLog(@"About to segue to ImageSelectionSegue");
-            [self performSegueWithIdentifier:@"ImageSelectionSegue" sender:self];
+    if (self.automaticallyCycleThroughFixationLights) { //take 5 images (fixation lights 1-5)
+        if (self.currentImageCount==5) {
+            if(!self.fullscreeningMode){
+                NSLog(@"About to segue to ImageSelectionSegue");
+                [self performSegueWithIdentifier:@"ImageSelectionSegue" sender:self];
+            }
+            else
+                [self didFinishCaptureRound];
         }
-        else
-            [self didFinishCaptureRound];
     }
+    else { //take however many images are specified in the user settings
+        int totalNumberOfImages = [[[NSUserDefaults standardUserDefaults] objectForKey:@"numberOfImages"] intValue];
+        if(self.currentImageCount >= totalNumberOfImages){
+            if(!self.fullscreeningMode){
+                NSLog(@"About to segue to ImageSelectionSegue");
+                [self performSegueWithIdentifier:@"ImageSelectionSegue" sender:self];
+            }
+            else
+                [self didFinishCaptureRound];
+        }
+    }
+
 }
 
 

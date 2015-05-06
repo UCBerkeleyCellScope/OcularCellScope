@@ -409,6 +409,15 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         
         CamViewController* cvc = (CamViewController*)[segue destinationViewController];
         //[[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
+        
+        //"99" is the tag given to the auto scan button. When this is pressed, it will
+        //tell the CamViewController to start at fixation #1 (central), and automatically take one
+        //image from each quadrant.
+        if (self.selectedLight==99) {
+            cvc.selectedLight = 1; //this will start the acquisition on the central light
+            cvc.automaticallyCycleThroughFixationLights = YES;
+        }
+        
         cvc.fullscreeningMode = NO;
         cvc.selectedLight = self.selectedLight;
         
