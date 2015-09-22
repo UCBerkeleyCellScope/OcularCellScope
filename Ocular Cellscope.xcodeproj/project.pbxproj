@@ -61,7 +61,6 @@
 		60FC3EDF1955904A00025AD0 /* UIFont+OCSFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FC3EDE1955904A00025AD0 /* UIFont+OCSFont.m */; };
 		60FC3EE219560C8F00025AD0 /* EyeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FC3EE119560C8F00025AD0 /* EyeImage.m */; };
 		60FC3EE519560C9000025AD0 /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FC3EE419560C9000025AD0 /* Exam.m */; };
-		60FC3EE7195624FD00025AD0 /* eye_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 60FC3EE6195624FD00025AD0 /* eye_icon@2x.png */; };
 		60FC3EE9195627E600025AD0 /* eye_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 60FC3EE8195627E600025AD0 /* eye_icon@2x.png */; };
 		6D2D5DB718318D9F00A58A96 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2D5DB618318D9F00A58A96 /* Foundation.framework */; };
 		6D2D5DB918318D9F00A58A96 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2D5DB818318D9F00A58A96 /* CoreGraphics.framework */; };
@@ -85,7 +84,6 @@
 		7D84716C19E8FCC0005BDCFF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D84716B19E8FCC0005BDCFF /* libz.dylib */; };
 		7D84716E19E8FCCD005BDCFF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D84716D19E8FCCD005BDCFF /* QuartzCore.framework */; };
 		7DB118D71A0F418600F7AFEB /* Exam+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F03E1719137F09008D729B /* Exam+Methods.m */; };
-		7DB118D81A0F418A00F7AFEB /* EyeImage+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = 6043BC9519498EED00C39A48 /* EyeImage+Methods.m */; };
 		7DD0A96819E902800064A413 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD0A96719E902800064A413 /* Social.framework */; };
 		7DD0A96A19E902850064A413 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD0A96919E902850064A413 /* Accounts.framework */; };
 		A52751CC199A742C00B68FDA /* settings_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A52751CB199A742C00B68FDA /* settings_icon@2x.png */; };
@@ -890,7 +888,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = Camera;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "UC Berkeley Fletcher Lab";
 				TargetAttributes = {
 					6D2D5DB218318D9F00A58A96 = {
@@ -942,7 +940,6 @@
 				F3FCC96819369BA10093A1EB /* top.png in Resources */,
 				F3FCC95E19369BA10093A1EB /* Default@2x.png in Resources */,
 				A5C8E189197634B90072D99C /* od_right.png in Resources */,
-				60FC3EE7195624FD00025AD0 /* eye_icon@2x.png in Resources */,
 				A5C8E188197634B90072D99C /* od_left.png in Resources */,
 				F325701218CAA87200FEA80E /* x_button.png in Resources */,
 				60B42329190AFFC7005A9ABD /* redDot.png in Resources */,
@@ -1040,7 +1037,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7DB118D81A0F418A00F7AFEB /* EyeImage+Methods.m in Sources */,
 				7DB118D71A0F418600F7AFEB /* Exam+Methods.m in Sources */,
 				A57018521A3F928C00B9BE25 /* Logs.m in Sources */,
 				6043C8EE192B12F9007DFAFB /* CameraFocusSquare.m in Sources */,
@@ -1158,6 +1154,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ocular  Cell Scope (D5TKXMUM96)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1222,14 +1219,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(PROJECT_DIR)",
-					/Users/frankiemyers/Dropbox/FBM,
-					iOS,
-					Dev/XCC/XCCMobileReader,
-					/Users/frankiemyers/Downloads,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AV Camera App/AV Camera App-Prefix.pch";
@@ -1239,6 +1233,7 @@
 					"-ObjC",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = edu.fletchlab.ocs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1254,14 +1249,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(PROJECT_DIR)",
-					/Users/frankiemyers/Dropbox/FBM,
-					iOS,
-					Dev/XCC/XCCMobileReader,
-					/Users/frankiemyers/Downloads,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AV Camera App/AV Camera App-Prefix.pch";
@@ -1271,6 +1263,7 @@
 					"-ObjC",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = edu.fletchlab.ocs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1296,6 +1289,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "AV Camera AppTests/AV Camera AppTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.naya.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = xctest;
@@ -1315,6 +1309,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AV Camera App/AV Camera App-Prefix.pch";
 				INFOPLIST_FILE = "AV Camera AppTests/AV Camera AppTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.naya.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = xctest;
