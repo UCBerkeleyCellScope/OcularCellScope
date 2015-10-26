@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "2E5537096CBA3DEE0C584520DD86C4D787CCB125",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "2E5537096CBA3DEE0C584520DD86C4D787CCB125" : 0,
+    "96F8D7A4D9F595CACBF662C1CC606E806D6568C5" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "0A771B28-BDAE-4CEE-8D0F-3B1D63F71CBB",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "2E5537096CBA3DEE0C584520DD86C4D787CCB125" : "OcularCellScope",
+    "96F8D7A4D9F595CACBF662C1CC606E806D6568C5" : "XCC\/XCCMobileReader"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Ocular Cellscope",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Ocular Cellscope.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:UCBerkeleyCellScope\/OcularCellScope.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2E5537096CBA3DEE0C584520DD86C4D787CCB125"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/fbmyers\/XCCMobileReader.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "96F8D7A4D9F595CACBF662C1CC606E806D6568C5"
+    }
+  ]
+}
