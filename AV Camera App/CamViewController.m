@@ -35,7 +35,6 @@
 @synthesize counterLabel = _counterLabel;
 @synthesize bleDisabledLabel = _bleDisabledLabel;
 @synthesize mirroredView;
-@synthesize fullscreeningMode = _fullscreeningMode;
 @synthesize nextFixationAlert = _nextFixationAlert;
 @synthesize fixationImageView = _fixationImageView;
 
@@ -285,30 +284,44 @@
 // initiates the capture of a single photo.
 -(void)captureTimerFired{
     self.currentImageCount++;
-    int totalNumberOfImages = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfImages"];
+    
+    int totalNumberOfImages;
+    
+    if (self.automaticallyCycleThroughFixationLights)
+        totalNumberOfImages = 5;
+    else
+        totalNumberOfImages = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfImages"];
     
     if(self.currentImageCount <= totalNumberOfImages){
         [self updateCounterLabelText];
 
         //send flash signal
         dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            
 
             
+            //flash the light on cellscope
+            [[[CellScopeContext sharedContext] bleManager] doFlash];
+            
+            //take a picture
+            [self.captureManager takePicture];
+            
+            //move the fixation light in preparation for next flash
             if (self.automaticallyCycleThroughFixationLights) {
                 
                 self.selectedLight++;
                 
+                //send it twice since interface is somewhat finicky
+                [[[CellScopeContext sharedContext] bleManager] setFixationLight:FIXATION_LIGHT_NONE forEye:[[CellScopeContext sharedContext] selectedEye] withIntensity:0];
+                [NSThread sleepForTimeInterval:0.2];
+                [[[CellScopeContext sharedContext] bleManager] setFixationLight:FIXATION_LIGHT_NONE forEye:[[CellScopeContext sharedContext] selectedEye] withIntensity:0];
+                [NSThread sleepForTimeInterval:0.2];
                 [[[CellScopeContext sharedContext] bleManager] setFixationLight:(int)self.selectedLight forEye:[[CellScopeContext sharedContext] selectedEye] withIntensity:255];
+                [NSThread sleepForTimeInterval:0.2];
+                [[[CellScopeContext sharedContext] bleManager] setFixationLight:(int)self.selectedLight forEye:[[CellScopeContext sharedContext] selectedEye] withIntensity:255];
+                 
                 [NSThread sleepForTimeInterval:0.5]; //give user some time to move their eye
             }
-
             
-        //flash the light on cellscope
-        [[[CellScopeContext sharedContext] bleManager] doFlash];
-        
-        //take a picture
-        [self.captureManager takePicture];
         });
         
         int interval = [[NSUserDefaults standardUserDefaults] integerForKey:@"captureInterval"];
@@ -346,62 +359,29 @@
     else
         eyeString = @"OS";
     
-    //looks like mirroring is no longer used. can remove this.
-    if(mirroredView){
-        
-        /*
-        UIImage *sourceImage = [UIImage imageWithData:data];
-        UIImage *flippedImage = [UIImage imageWithCGImage: sourceImage.CGImage
-                                                    scale: sourceImage.scale
-                                              orientation: UIImageOrientationLeftMirrored];
-        
-        
-        
-        float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
-        UIImage *thumbnail = [flippedImage resizedImageWithScaleFactor:scaleFactor];
-        
-        image = [[SelectableEyeImage alloc] initWithUIImage: flippedImage
-                                                       date: [NSDate date]
-                                                        eye: [[CellScopeContext sharedContext] selectedEye]
-                                              fixationLight: (int) self.selectedLight
-                                                  thumbnail: thumbnail];
-        
-         */
-        
-        image = [[SelectableEyeImage alloc] initWithData:data
-                                                    date: [NSDate date]
-                                                     eye: eyeString
-                                           fixationLight: (int) self.selectedLight];
-        
-        float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
-        image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
+    // this is such a bad hack. but since the automatic cycling is happening on a different thread, self.selectedLight will have already moved on to the next light by the time this image gets saved. So let's do our own internal counting here if we are doing automatic cycling. if we are NOT doing automatic cycling, then this number won't change.
+    static int fixationLightNumber = 0;
+    if (self.automaticallyCycleThroughFixationLights) {
+        fixationLightNumber++;
+        if (fixationLightNumber>5) {
+            fixationLightNumber = 1;
+        }
     }
+    else
+        fixationLightNumber = self.selectedLight;
     
-    else{
-        image = [[SelectableEyeImage alloc] initWithData:data
-                                                    date: [NSDate date]
-                                                     eye: eyeString
-                                           fixationLight: (int) self.selectedLight];
-        
-        float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
-        image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
-    }
+    image = [[SelectableEyeImage alloc] initWithData:data
+                                                date: [NSDate date]
+                                                 eye: eyeString
+                                       fixationLight: fixationLightNumber];
     
+    float scaleFactor = [[NSUserDefaults standardUserDefaults] floatForKey:@"ImageScaleFactor"];
+    image.thumbnail = [image resizedImageWithScaleFactor:scaleFactor];
     
-/*
-    NSLog(@"Date: %@",image.date.description);
-
-    
-    NSString* path = image.date.description;
-    
-    [data writeToFile:[@"BaseDirectory/" stringByAppendingPathComponent:path]
-           atomically:YES];
-    
-    NSLog(@"Save fixation light %ld", self.selectedLight);
- */
-    
+    //present this captured imaged on the screen
     self.capturedImageView.image = image;
     self.capturedImageView.transform = CGAffineTransformMakeRotation(M_PI);
+    
     // Add the capture image to the image array
     [self.imageArray addObject:image];
     
@@ -409,63 +389,15 @@
     
     // Once all images are captured, segue to the Image Selection View
     if (self.automaticallyCycleThroughFixationLights) { //take 5 images (fixation lights 1-5)
-        if (self.currentImageCount==5) {
-            if(!self.fullscreeningMode){
-                NSLog(@"About to segue to ImageSelectionSegue");
-                [self performSegueWithIdentifier:@"ImageSelectionSegue" sender:self];
-            }
-            else
-                [self didFinishCaptureRound];
-        }
+        if (self.currentImageCount==5)
+            [self performSegueWithIdentifier:@"ImageSelectionSegue" sender:self];
     }
     else { //take however many images are specified in the user settings
         int totalNumberOfImages = [[[NSUserDefaults standardUserDefaults] objectForKey:@"numberOfImages"] intValue];
-        if(self.currentImageCount >= totalNumberOfImages){
-            if(!self.fullscreeningMode){
-                NSLog(@"About to segue to ImageSelectionSegue");
-                [self performSegueWithIdentifier:@"ImageSelectionSegue" sender:self];
-            }
-            else
-                [self didFinishCaptureRound];
-        }
-    }
-
-}
-
-
-- (void) didFinishCaptureRound{
-    if([self proceedToNextLight]){
-        [self resetView];
-        [self displayNextFixationView];
-    }
-    else{
-        NSLog(@"About to segue to ImageSelectionSegue");
-        [self performSegueWithIdentifier:@"ImageSelectionSegue" sender:self];
-    }
-}
-
-//no longer being used
-- (void) displayNextFixationView{
-    
-    //NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:2.0  target:self selector:@selector(beginImageCapture) userInfo:nil repeats:NO];
-    self.nextFixationAlert = [[UIAlertView alloc] initWithTitle:@"Proceed to next fixation light?"
-                                                   message:@""
-                                                  delegate:self
-                                         cancelButtonTitle:@"No"
-                                         otherButtonTitles:@"Yes",nil];
-    [self.nextFixationAlert show];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView == self.nextFixationAlert){
-        if(buttonIndex == 1){
-            [self captureTimerFired];
-        }
-        else{
-            NSLog(@"About to segue to ImageSelectionSegue");
+        if(self.currentImageCount >= totalNumberOfImages)
             [self performSegueWithIdentifier:@"ImageSelectionSegue" sender:self];
-        }
     }
+
 }
 
 - (void) resetView{
@@ -477,15 +409,6 @@
     self.repeatingTimer = nil;
 }
 
-- (BOOL) proceedToNextLight{
-    self.selectedLight++;
-    
-    if(self.selectedLight > 4){
-        return NO;
-    }
-    
-    return YES;
-}
 
 -(void)updateCounterLabelText{
     self.counterLabel.hidden = NO;

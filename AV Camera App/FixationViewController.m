@@ -52,7 +52,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 {
     [super viewDidLoad];
     
-    fixationButtons = [NSMutableArray arrayWithObjects: noFixationButton, centerFixationButton, topFixationButton,
+    fixationButtons = [NSMutableArray arrayWithObjects: self.stitchButton, centerFixationButton, topFixationButton,
                                        bottomFixationButton, leftFixationButton, rightFixationButton, nil];
     
     
@@ -83,6 +83,11 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     [super viewWillAppear:(BOOL) animated];
     
     self.tabBarController.title = nil;
+    
+    self.stitchButton.layer.cornerRadius = 15;
+    self.stitchButton.clipsToBounds = YES;
+    self.autoButton.layer.cornerRadius = 15;
+    self.autoButton.clipsToBounds = YES;
     
     //[_bleManager turnOffAllLights];
     
@@ -180,9 +185,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
             
             NSPredicate *p = [NSPredicate predicateWithFormat: @"exam == %@ AND eye == %@ AND fixationLight == %d", [[CellScopeContext sharedContext]currentExam],
                               eyeString, i];
-            if( i==0)
-                NSLog(@"%d",[[CellScopeContext sharedContext] selectedEye]);
-            
+
             
             NSArray *temp = [CoreDataController searchObjectsForEntity:@"EyeImage" withPredicate: p
                                                             andSortKey: @"date" andSortAscending: YES
@@ -190,38 +193,38 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
             
             self.eyeImages = [NSMutableArray arrayWithArray:temp];
         
-            NSLog(@"Images for Fixation %d : %d", i, (int)[eyeImages count]);
-            
-
             
             if([eyeImages count] != 0){
                 currentEyeImage = eyeImages[0];
                 
-                UIImage* thumbImage = [UIImage imageWithData: currentEyeImage.thumbnail];
-                [fixationButtons[i] setImage: thumbImage forState:UIControlStateSelected];
-                [fixationButtons[i] setImage: thumbImage forState:UIControlStateNormal];
+                if (i>0) { //don't do this for the stitched image button
+                    UIImage* thumbImage = [UIImage imageWithData: currentEyeImage.thumbnail];
+                    [fixationButtons[i] setImage: thumbImage forState:UIControlStateSelected];
+                    [fixationButtons[i] setImage: thumbImage forState:UIControlStateNormal];
+                    [(UIButton*)fixationButtons[i] setTransform: CGAffineTransformMakeRotation(M_PI)]; //added to rotate thumbnails
+                }
                 
-                [fixationButtons[i] setSelected: YES];
-                
-                [(UIButton*)fixationButtons[i] setTransform: CGAffineTransformMakeRotation(M_PI)]; //added to rotate thumbnails
-
+                [fixationButtons[i] setSelected: YES]; //this will tell the button press handler that this has photos
 
             }
             else{
-                UIImage* thumbImage;
-                if([[CellScopeContext sharedContext]selectedEye]  == OD_EYE ||
-                   [[CellScopeContext sharedContext]selectedEye]  == 0 ){
-                    thumbImage = [UIImage imageNamed: [oDImageFileNames objectAtIndex:i]];
+                if (i>0) {
+                    UIImage* thumbImage;
+                    if([[CellScopeContext sharedContext]selectedEye]  == OD_EYE ||
+                       [[CellScopeContext sharedContext]selectedEye]  == 0 ){
+                        thumbImage = [UIImage imageNamed: [oDImageFileNames objectAtIndex:i]];
+                    }
+                    else if([[CellScopeContext sharedContext]selectedEye]  == OS_EYE){
+                        thumbImage = [UIImage imageNamed: [oSImageFileNames objectAtIndex:i]];
+                    }
+                    else{
+                        NSLog(@"ERROR SHOULD NEVER HAPPEN");
+                        NSLog(@"%d",[[CellScopeContext sharedContext]selectedEye]);
+                    }
+                    [fixationButtons[i] setImage: thumbImage forState:UIControlStateSelected];
+                    [fixationButtons[i] setImage: thumbImage forState: UIControlStateNormal];
                 }
-                else if([[CellScopeContext sharedContext]selectedEye]  == OS_EYE){
-                    thumbImage = [UIImage imageNamed: [oSImageFileNames objectAtIndex:i]];
-                }
-                else{
-                    NSLog(@"ERROR SHOULD NEVER HAPPEN");
-                    NSLog(@"%d",[[CellScopeContext sharedContext]selectedEye]);
-                }
-                [fixationButtons[i] setImage: thumbImage forState:UIControlStateSelected];
-                [fixationButtons[i] setImage: thumbImage forState: UIControlStateNormal];
+                
                 [fixationButtons[i] setSelected: NO];
                 
             }
@@ -244,7 +247,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
     
     if( [sender isSelected] == NO){
         if ([sender tag]==0)
-            [self didPressStitch:nil];
+            [self stitch];
         else
             [self performSegueWithIdentifier:@"CamViewSegue" sender:(id)sender];
     }
@@ -277,7 +280,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         if(buttonIndex == 1){
             //Index 1 Selected
             if ([[self.fixationAlert buttonTitleAtIndex:1] isEqualToString:@"Stitch"]) {
-                [self didPressStitch:nil];
+                [self stitch];
             }
             else
                 [self performSegueWithIdentifier:@"CamViewSegue" sender:self];
@@ -417,20 +420,10 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
             cvc.selectedLight = 1; //this will start the acquisition on the central light
             cvc.automaticallyCycleThroughFixationLights = YES;
         }
-        
-        cvc.fullscreeningMode = NO;
-        cvc.selectedLight = self.selectedLight;
+        else
+            cvc.selectedLight = self.selectedLight;
         
     }
-    if ([[segue identifier] isEqualToString:@"FullScreeningSegue"]) //TODO: when is this used?
-    {
-        
-        CamViewController* cvc = (CamViewController*)[segue destinationViewController];
-        //[[[CellScopeContext sharedContext]bleManager]setBLECdelegate:cvc];
-        cvc.fullscreeningMode = YES;
-        cvc.selectedLight = self.selectedLight;
-    }
-    
     else if ([[segue identifier] isEqualToString:@"ImageReviewSegue"])
     {
         ImageSelectionViewController * isvc = (ImageSelectionViewController*)[segue destinationViewController];
@@ -529,6 +522,7 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
 
 
 -(void) setupFixationButtons{
+    
     for(UIButton *button in self.fixationButtons){
         button.layer.cornerRadius = button.frame.size.width / 2;
         button.clipsToBounds = YES;
@@ -536,18 +530,26 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
         button.layer.borderColor = [UIColor pinkColor].CGColor;
         button.imageView.contentMode = UIViewContentModeScaleAspectFill;
     }
+    
+    //make the auto button look like the others too...
+    self.autoButton.layer.cornerRadius = self.autoButton.frame.size.width / 2;
+    self.autoButton.clipsToBounds = YES;
+    self.autoButton.layer.borderWidth = 2.0f;
+    self.autoButton.layer.borderColor = [UIColor pinkColor].CGColor;
+    self.autoButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    
 }
 
 - (IBAction)didPressBeginExam:(UIButton*)sender {
     self.selectedLight = sender.tag;
-    [self performSegueWithIdentifier:@"FullScreeningSegue" sender:(id)sender];
+    [self performSegueWithIdentifier:@"CamViewSegue" sender:(id)sender];
 }
 
 
 //this is a quick and dirty way to implement stitching. it just queries core data, gets the earliest
 //image taken for each fixation light, loads it as a UIImage, and then passes it on to the C++ stitching
 //algorithm
-- (IBAction)didPressStitch:(id)sender {
+- (void)stitch {
     
     NSString* eyeString;
     if ([[CellScopeContext sharedContext] selectedEye] == 1)
@@ -670,7 +672,19 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
          }];
     }
     
+    //display an activity indicator
+    UIView *grayScreen = [[UIView alloc] initWithFrame:self.view.window.frame];
+    grayScreen.backgroundColor = [UIColor blackColor];
+    grayScreen.alpha = 0.3;
+    UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activity.center = self.view.window.center;
+    [activity startAnimating];
+    [self.view.window addSubview:grayScreen];
+    [self.view.window addSubview:activity];
+
+    //do the stitching
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),^{
+        
         //give it some time to return all these images from AL (kludge!)
         [NSThread sleepForTimeInterval:5.0];
         
@@ -696,6 +710,10 @@ bottomFixationButton, leftFixationButton, rightFixationButton, noFixationButton;
             
             NSLog(@"stitched width = %d, height = %d",sei.size.width,sei.size.height);
             
+            //remove activity indicator
+            [activity stopAnimating];
+            [grayScreen removeFromSuperview];
+            [activity removeFromSuperview];
             
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
             ImageSelectionViewController *isvc = [storyboard instantiateViewControllerWithIdentifier:@"ImageSelectionViewController"];

@@ -27,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *topFixationButton;
 @property (weak, nonatomic) IBOutlet UIButton *noFixationButton;
 @property NSMutableArray *fixationButtons;
+@property (weak, nonatomic) IBOutlet UIButton *autoButton;
+@property (weak, nonatomic) IBOutlet UIButton *stitchButton;
 
 
 @property (nonatomic) int selectedEye;
@@ -46,6 +48,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *rightLabel;
 
 - (IBAction)didPressBeginExam:(id)sender;
+
+- (void)stitch;
 
 
 @end

@@ -279,16 +279,6 @@
                                     <action selector="didPressFixation:" destination="AGJ-xP-Dbn" eventType="touchUpInside" id="XqL-hA-HYS"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9nU-jg-0UU" userLabel="NoFixationButton">
-                                <rect key="frame" x="33" y="274" width="55" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="od_center.png">
-                                    <color key="titleShadowColor" red="1" green="0.33725490196078434" blue="0.45882352941176469" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="didPressFixation:" destination="AGJ-xP-Dbn" eventType="touchUpInside" id="3HS-bn-qbr"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dfr-G7-7Q1" userLabel="CenterFixationButton">
                                 <rect key="frame" x="114" y="142" width="90" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -329,16 +319,6 @@
                                     <action selector="didPressFixation:" destination="AGJ-xP-Dbn" eventType="touchUpInside" id="m14-95-xfi"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4Jw-YJ-8KG">
-                                <rect key="frame" x="230" y="254" width="60" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="gray_cam.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="didPressBeginExam:" destination="AGJ-xP-Dbn" eventType="touchUpInside" id="arW-UC-WO4"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nasal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jGQ-qH-VNm">
                                 <rect key="frame" x="217" y="123" width="87" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -374,23 +354,28 @@
                                 <color key="textColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stitch" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0AB-vL-re2">
-                                <rect key="frame" x="23" y="290" width="74" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                <color key="textColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" tag="99" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="coS-1d-XvQ">
-                                <rect key="frame" x="230" y="280" width="60" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" tag="99" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="coS-1d-XvQ">
+                                <rect key="frame" x="214" y="280" width="90" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" red="0.70980392156862748" green="0.83966752819548873" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <state key="normal" title="Auto">
-                                    <color key="titleColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="didPressBeginExam:" destination="AGJ-xP-Dbn" eventType="touchUpInside" id="myW-D4-3dK"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Dp3-bD-yWC">
+                                <rect key="frame" x="16" y="280" width="89" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" red="0.70980392156862748" green="0.87450980392156863" blue="0.84705882352941175" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <state key="normal" title="Stitch">
+                                    <color key="titleColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressFixation:" destination="AGJ-xP-Dbn" eventType="touchUpInside" id="MHx-6U-xWD"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -401,20 +386,19 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="LeftFixationButton" destination="vZa-OD-Ki1" id="ynw-xt-Pii"/>
+                        <outlet property="autoButton" destination="coS-1d-XvQ" id="guv-RK-CTZ"/>
                         <outlet property="beginButton" destination="coS-1d-XvQ" id="eHg-3Y-hXL"/>
                         <outlet property="bottomFixationButton" destination="seY-6X-HHY" id="YmG-Hx-rA6"/>
                         <outlet property="centerFixationButton" destination="dfr-G7-7Q1" id="Ecb-bx-joL"/>
                         <outlet property="fixView" destination="oYI-yh-K84" id="ksh-da-RuD"/>
                         <outlet property="leftFixationButton" destination="vZa-OD-Ki1" id="wnI-Of-Hzj"/>
                         <outlet property="leftLabel" destination="24L-vy-boJ" id="dQD-sr-XYC"/>
-                        <outlet property="noFixationButton" destination="9nU-jg-0UU" id="DvD-t4-Qvq"/>
                         <outlet property="rightFixationButton" destination="jSg-zQ-raL" id="EmT-Hm-mFN"/>
                         <outlet property="rightLabel" destination="jGQ-qH-VNm" id="CS1-lK-rCD"/>
+                        <outlet property="stitchButton" destination="Dp3-bD-yWC" id="VrF-p9-sJX"/>
                         <outlet property="topFixationButton" destination="9MV-1t-Ecr" id="C0q-wD-KTR"/>
                         <segue destination="2qF-pw-3PT" kind="push" identifier="ImageReviewSegue" id="yZ8-bd-Ndx"/>
                         <segue destination="24z-Pm-1Fb" kind="push" identifier="CamViewSegue" id="Ozc-KZ-QYQ"/>
-                        <segue destination="24z-Pm-1Fb" kind="push" identifier="FullScreeningSegue" id="f5C-PG-GoX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wtL-FP-NHW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1418,7 +1402,6 @@
         <image name="drOz.jpg" width="291" height="292"/>
         <image name="eye_icon.png" width="30" height="30"/>
         <image name="fixation_icon_red.png" width="208" height="207"/>
-        <image name="gray_cam.png" width="60" height="60"/>
         <image name="ocs_icon_transp60.png" width="60" height="60"/>
         <image name="od_bottom.png" width="416" height="416"/>
         <image name="od_center.png" width="416" height="416"/>
@@ -1436,7 +1419,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="f5C-PG-GoX"/>
         <segue reference="yZ8-bd-Ndx"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>

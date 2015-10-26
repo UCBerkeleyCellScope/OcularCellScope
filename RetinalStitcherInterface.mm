@@ -11,6 +11,10 @@
 #import "RetinalStitcherInterface.h"
 #import "UIImage+Resize.h"
 
+#import <opencv2/highgui/ios.h> //FBM
+
+@implementation RetinalStitcherInterface //FBM
+
 // C++ stitcher class below (importing this caused linker errors, so I just copied pasted :P)
 //--------------------------------------
 
@@ -28,10 +32,6 @@
 #include <opencv2/nonfree/nonfree.hpp>
 #include <opencv2/legacy/legacy.hpp>
 #include <opencv2/stitching/detail/motion_estimators.hpp>
-
-#import <opencv2/highgui/ios.h> //FBM
-
-@implementation RetinalStitcherInterface //FBM
 
 
 using namespace std;
@@ -583,6 +583,7 @@ Mat match(const Mat &centerImage, Mat &stitchedImage, const Mat &mask) {
     
     return R;
 }
+
 
 //-----------------------------------------------
 
